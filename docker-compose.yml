@@ -1,0 +1,8 @@
+version: '3'
+
+services:
+  ui:
+    container_name: signfluent-web
+    build: SignfluentWeb/.
+    ports:
+      - "4200:80"  
