@@ -1,1 +1,1 @@
-docker-compose --project-name signfluent up -d
+docker-compose --project-name signfluent up -d --build
