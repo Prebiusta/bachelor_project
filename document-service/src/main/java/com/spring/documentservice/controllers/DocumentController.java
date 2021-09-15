@@ -18,6 +18,6 @@ public class DocumentController {
 
     @GetMapping("/getDocument")
     public DocumentReturnModel getDocument(@RequestParam(value = "id") UUID id) {
-        return documentService.getDocumentContent(id);
+        return documentService.getDocumentById(id);
     }
 }

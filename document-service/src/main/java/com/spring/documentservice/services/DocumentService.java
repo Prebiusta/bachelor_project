@@ -13,18 +13,21 @@ import java.util.UUID;
 public class DocumentService {
 
     private final DocumentRepository repository;
+    private final DocumentMapper mapper;
 
-    public DocumentService(DocumentRepository repository) {
+    public DocumentService(DocumentRepository repository, DocumentMapper mapper) {
         this.repository = repository;
+        this.mapper = mapper;
+        demo();
     }
 
-    public DocumentReturnModel getDocumentContent(UUID id) {
+    public DocumentReturnModel getDocumentById(UUID id) {
         // poc purposes code
-        demo();
-
         Document document = repository.getDocumentByContent("content of document");
+        // should be:
+        // Document document = repository.getDocumentById(id);
 
-        return DocumentMapper.INSTANCE.sourceToDestination(document);
+        return mapper.sourceToDestination(document);
 
     }
     private void demo()
