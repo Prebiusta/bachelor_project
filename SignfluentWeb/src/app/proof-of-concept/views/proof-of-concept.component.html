@@ -1,5 +1,5 @@
 <input [(ngModel)]="taskId" placeholder="task uuid...">
 <input [(ngModel)]="documentId" placeholder="document uuid...">
 <button (click)="uploadDocumentIdentifier()">send</button>
-<button (click)="fetchDocument()">fetch</button>
+<button mat-button (click)="fetchDocument()">fetch</button>
 <p>{{document}}</p>

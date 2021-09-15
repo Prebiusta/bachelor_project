@@ -6,17 +6,21 @@ import { FormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ProofOfConceptComponent } from './proof-of-concept/components/proof-of-concept.component';
+import { SignfluentLayoutModule } from './layout/sf-layout.module';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
     AppComponent,
-    ProofOfConceptComponent
+    ProofOfConceptComponent,
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     AppRoutingModule,
-    FormsModule
+    FormsModule,
+    BrowserAnimationsModule,
+    SignfluentLayoutModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
