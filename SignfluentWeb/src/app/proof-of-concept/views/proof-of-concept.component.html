@@ -1,4 +1,5 @@
-<p>{{pocResponse}}</p>
-<button (click)="onSendDocumentId()">send</button>
+<input [(ngModel)]="taskId" placeholder="task uuid...">
+<input [(ngModel)]="documentId" placeholder="document uuid...">
+<button (click)="uploadDocumentIdentifier()">send</button>
 <button (click)="fetchDocument()">fetch</button>
 <p>{{document}}</p>

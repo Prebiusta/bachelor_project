@@ -7,26 +7,22 @@ import { ProofOfConceptService } from '../services/proof-of-concept.service';
 })
 export class ProofOfConceptComponent implements OnInit {
 
-  public pocResponse: string = 'something';
-  public documentId: string = "8a4ead3a-1609-11ec-9621-0242ac130002";
+  public taskId: string = '';
+  public documentId: string = '';
   public document: any = '';
 
   constructor(private proofOfConceptService: ProofOfConceptService) { }
 
   ngOnInit(): void {
-    this.getPocResponse();
+
   }
 
-  public getPocResponse(): void {
-    this.proofOfConceptService.getPocResponse().subscribe(value => this.pocResponse = value);
-  }
-
-  public onSendDocumentId(): void {
-    this.proofOfConceptService.sendDocumentId(this.documentId);
+  public uploadDocumentIdentifier(): void {
+    this.proofOfConceptService.uploadDocumentIdentifier(this.taskId, this.documentId);
   }
 
   public fetchDocument(): void {
-    this.proofOfConceptService.fetchDocument().subscribe(document => this.document = document);
+    this.proofOfConceptService.fetchDocument(this.taskId).subscribe(document => this.document = document);
   }
 
 }
