@@ -4,9 +4,10 @@ plugins {
     id 'java'
 }
 
-group = 'com.spring'
-version = '0.0.1-SNAPSHOT'
-sourceCompatibility = '11'
+group = 'dk.signproof'
+version = '1.0.0-SNAPSHOT'
+description = 'document-service'
+java.sourceCompatibility = JavaVersion.VERSION_11
 
 configurations {
     compileOnly {

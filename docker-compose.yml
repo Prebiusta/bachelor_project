@@ -3,6 +3,28 @@ version: '3'
 services:
   ui:
     container_name: signfluent-web
-    build: SignfluentWeb/.
+    build: signfluent-web/.
     ports:
-      - "4200:80"  
+      - "4200:80"
+    networks:
+      - bpr
+      
+  document_service:
+    container_name: document-service
+    build: document-service/.
+    ports:
+      - "8080:8080"
+    networks:
+      - bpr
+      
+  bpm_service:
+    container_name: bpm-service
+    build: bpm-service/.
+    ports:
+      - "8181:8181"
+    networks:
+      - bpr
+      
+networks:
+  bpr:
+    driver: bridge
