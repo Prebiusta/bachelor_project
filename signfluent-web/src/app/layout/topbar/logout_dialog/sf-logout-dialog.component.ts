@@ -6,6 +6,7 @@ import {MatButtonModule} from '@angular/material/button';
 @Component({
     selector: 'sf-logout-dialog',
     templateUrl: './sf-logout-dialog.component.html',
+    styleUrls: ['./sf-logout-dialog.component.scss']
 })
 
 export class SfLogoutDialogComponent {

@@ -1,10 +1,9 @@
 .topbar {
     justify-content: space-between;
-    align-items: center;
-    padding: 10px, 5px;
     height: 5vh;
     font-size: smaller;
-    position: relative;
+    position: fixed;
+    top: 0;
     z-index: 2;
 }
 
@@ -23,7 +22,6 @@
 
 .right-menu li {
     display: inline-block;
-    padding: 0px 1px;
 }
 
 .right-menu li mat-icon {
@@ -31,9 +29,21 @@
     transform: scale(0.7);
     vertical-align: middle;
     margin-bottom: 2.7px;
-    cursor: pointer;
 }
 
-.left-menu-item {
-    cursor: pointer;
+.left-menu-item mat-icon {
+    transform: scale(0.8);
+    margin-bottom: 2.5px;
+}
+
+.dropdown-menu-item {
+    display: flex;
+    align-items: center;
+}
+
+.dropdown-menu-item mat-icon {
+    transform: scale(0.8);
+    padding-left: 5px;
+    margin-right: 0px;
+    margin-bottom: 3px;
 }
