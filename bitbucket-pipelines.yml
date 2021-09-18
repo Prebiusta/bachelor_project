@@ -8,6 +8,8 @@ pipelines:
       - step:
           name: Build and deploy Signfluent Web image to GKE
           image: google/cloud-sdk:latest
+          caches:
+            - docker
           services:
             - docker
           script:
@@ -20,6 +22,8 @@ pipelines:
       - step:
           name: Build and deploy Signfluent Document Serivce image to GKE
           image: google/cloud-sdk:latest
+          caches:
+            - docker
           services:
             - docker
           script:
