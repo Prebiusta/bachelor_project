@@ -12,8 +12,8 @@ pipelines:
             - docker
           script:
             - docker build -t europe-west4-docker.pkg.dev/bachelor-2021-324814/bpr-images/signfluent-web:V0.$BITBUCKET_BUILD_NUMBER ./signfluent-web
-            - echo $GKE_APPKEY > key.json
-            - gcloud auth activate-service-account $GKE_SERVICEACCOUNT --key-file=key.json
+            - echo $GKE_SERVICE_KEY > key.json
+            - gcloud auth activate-service-account $GKE_SERVICE_ACCOUNT --key-file=key.json
             - docker login -u _json_key --password-stdin https://europe-west4-docker.pkg.dev < key.json
             - docker push europe-west4-docker.pkg.dev/bachelor-2021-324814/bpr-images/signfluent-web:V0.$BITBUCKET_BUILD_NUMBER
 definitions:
