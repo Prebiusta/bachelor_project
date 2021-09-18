@@ -16,6 +16,10 @@ repositories {
     }
 }
 
+jar {
+    enabled = false
+}
+
 dependencies {
     implementation 'org.camunda.bpm.springboot:camunda-bpm-spring-boot-starter-rest:7.15.0'
     implementation 'org.camunda.bpm.springboot:camunda-bpm-spring-boot-starter-webapp:7.15.0'
