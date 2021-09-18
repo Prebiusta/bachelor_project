@@ -11,11 +11,11 @@ pipelines:
           services:
             - docker
           script:
-            - docker build -t europe-west4-docker.pkg.dev/bachelor-2021-324814/bpr-images/signfluent-web:V0.$BITBUCKET_BUILD_NUMBER ./signfluent-web
+            - docker build -t $GKE_ARTIFACT_REGISTRY/signfluent-web:V0.$BITBUCKET_BUILD_NUMBER ./signfluent-web
             - echo $GKE_SERVICE_KEY > key.json
             - gcloud auth activate-service-account $GKE_SERVICE_ACCOUNT --key-file=key.json
             - docker login -u _json_key --password-stdin https://europe-west4-docker.pkg.dev < key.json
-            - docker push europe-west4-docker.pkg.dev/bachelor-2021-324814/bpr-images/signfluent-web:V0.$BITBUCKET_BUILD_NUMBER
+            - docker push $GKE_ARTIFACT_REGISTRY/signfluent-web:V0.$BITBUCKET_BUILD_NUMBER
     Build-and-deploy-document-service:
       - step:
           name: Build and deploy Signfluent Document Serivce image to GKE
@@ -23,11 +23,11 @@ pipelines:
           services:
             - docker
           script:
-            - docker build -t europe-west4-docker.pkg.dev/bachelor-2021-324814/bpr-images/signfluent-document-service:V0.$BITBUCKET_BUILD_NUMBER ./document-service
+            - docker build -t $GKE_ARTIFACT_REGISTRY/signfluent-document-service:V0.$BITBUCKET_BUILD_NUMBER ./document-service
             - echo $GKE_SERVICE_KEY > key.json
             - gcloud auth activate-service-account $GKE_SERVICE_ACCOUNT --key-file=key.json
             - docker login -u _json_key --password-stdin https://europe-west4-docker.pkg.dev < key.json
-            - docker push europe-west4-docker.pkg.dev/bachelor-2021-324814/bpr-images/signfluent-document-service:V0.$BITBUCKET_BUILD_NUMBER
+            - docker push $GKE_ARTIFACT_REGISTRY/signfluent-document-service:V0.$BITBUCKET_BUILD_NUMBER
 definitions:
   services:
     docker:
