@@ -6,7 +6,7 @@ spec:
   selector:
     app: bpm-service
   ports:
-    - port: 80
+    - port: 8181
       targetPort: 8181
       name: http
       protocol: TCP

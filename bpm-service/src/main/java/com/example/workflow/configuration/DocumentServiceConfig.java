@@ -7,10 +7,10 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class DocumentServiceConfig {
-    @Value("${bpm.service.svc.service.host}")
+    @Value("${document.service.svc.service.host}")
     private String url;
 
-    @Value("${bpm.service.svc.service.port}")
+    @Value("${document.service.svc.service.port}")
     private String port;
 
     @Bean
