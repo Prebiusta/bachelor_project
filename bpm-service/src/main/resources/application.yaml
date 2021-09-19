@@ -6,3 +6,10 @@ camunda.bpm.admin-user:
 
 server:
   port: 8181
+
+bpm:
+  service:
+    svc:
+      service:
+        host: localhost
+        port: 8181
