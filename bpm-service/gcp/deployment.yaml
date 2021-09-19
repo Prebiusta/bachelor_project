@@ -5,7 +5,7 @@ metadata:
   labels:
     app: bpm-service
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: bpm-service
@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: bpm-service
-          image: europe-west4-docker.pkg.dev/bachelor-2021-324814/bpr-images/signfluent-bpm-service:V0.11
+          image: europe-west4-docker.pkg.dev/bachelor-2021-324814/bpr-images/signfluent-bpm-service:V0.12
           ports:
             - containerPort: 8181
       imagePullSecrets:

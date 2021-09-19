@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: document-service
-          image: europe-west4-docker.pkg.dev/bachelor-2021-324814/bpr-images/signfluent-document-service:V0.8
+          image: europe-west4-docker.pkg.dev/bachelor-2021-324814/bpr-images/signfluent-document-service:V0.13
           ports:
             - containerPort: 8080
       imagePullSecrets:
