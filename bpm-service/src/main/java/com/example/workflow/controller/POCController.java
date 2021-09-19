@@ -2,6 +2,7 @@ package com.example.workflow.controller;
 
 import org.camunda.bpm.engine.RuntimeService;
 import org.camunda.bpm.engine.TaskService;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -19,9 +20,10 @@ public class POCController {
         this.taskService = taskService;
     }
 
-    @PostMapping("/start")
-    public void startProcess() {
+    @GetMapping("/start")
+    public String startProcess() {
         runtimeService.startProcessInstanceByKey("process");
+        return "Process Instance created and started";
     }
 
     @PostMapping("/upload/{taskID}/{docID}")
