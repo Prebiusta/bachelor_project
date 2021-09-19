@@ -16,6 +16,7 @@ pipelines:
             - gcloud auth activate-service-account $GKE_SERVICE_ACCOUNT --key-file=key.json
             - docker login -u _json_key --password-stdin https://europe-west4-docker.pkg.dev < key.json
             - docker push $GKE_ARTIFACT_REGISTRY/signfluent-web:V0.$BITBUCKET_BUILD_NUMBER
+
     Build-and-deploy-document-service:
       - step:
           name: Build and deploy Signfluent Document Serivce image to GKE
@@ -28,6 +29,20 @@ pipelines:
             - gcloud auth activate-service-account $GKE_SERVICE_ACCOUNT --key-file=key.json
             - docker login -u _json_key --password-stdin https://europe-west4-docker.pkg.dev < key.json
             - docker push $GKE_ARTIFACT_REGISTRY/signfluent-document-service:V0.$BITBUCKET_BUILD_NUMBER
+
+    Build-and-deploy-bpm-service:
+      - step:
+          name: Build and deploy Signfluent BPM Serivce image to GKE
+          image: google/cloud-sdk:latest
+          services:
+            - docker
+          script:
+            - docker build -t $GKE_ARTIFACT_REGISTRY/signfluent-bpm-service:V0.$BITBUCKET_BUILD_NUMBER ./bpm-service
+            - echo $GKE_SERVICE_KEY > key.json
+            - gcloud auth activate-service-account $GKE_SERVICE_ACCOUNT --key-file=key.json
+            - docker login -u _json_key --password-stdin https://europe-west4-docker.pkg.dev < key.json
+            - docker push $GKE_ARTIFACT_REGISTRY/signfluent-bpm-service:V0.$BITBUCKET_BUILD_NUMBER
+
 definitions:
   services:
     docker:
