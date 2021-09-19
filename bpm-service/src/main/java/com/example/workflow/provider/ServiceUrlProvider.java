@@ -5,7 +5,6 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
 @Service
-@Profile("!docker")
 public class ServiceUrlProvider {
     private final DocumentServiceConfigValues documentServiceConfigValues;
 
