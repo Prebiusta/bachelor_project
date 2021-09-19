@@ -16,8 +16,8 @@ spec:
     spec:
       containers:
         - name: bpm-service
-          image: europe-west4-docker.pkg.dev/bachelor-2021-324814/bpr-images/signfluent-bpm-service:V0.8
+          image: europe-west4-docker.pkg.dev/bachelor-2021-324814/bpr-images/signfluent-bpm-service:V0.9
           ports:
-            - containerPort: 8080
+            - containerPort: 8181
       imagePullSecrets:
         - name: gcp-sa-key
