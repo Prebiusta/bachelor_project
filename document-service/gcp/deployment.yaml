@@ -1,12 +1,14 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: document-service
+  name: document-service-deployment
+  labels:
+    app: document-service
 spec:
-  selector:
-    matchLabel:
-      app: document-service
   replicas: 2
+  selector:
+    matchLabels:
+      app: document-service
   template:
     metadata:
       labels:
@@ -14,6 +16,11 @@ spec:
     specs:
       containers:
         - name: document-service
-          image: document-service
+          image: europe-west4-docker.pkg.dev/bachelor-2021-324814/bpr-images/signfluent-document-service:V0.6
           ports:
             - containerPort: 8080
+          env:
+            - name: MY_URL
+              value: "My secret url"
+            - name: MY_PORT
+              value: "1234"
