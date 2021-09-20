@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: web-interface-deployment
+  labels:
+    app: web-interface
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: web-interface
+  template:
+    metadata:
+      labels:
+        app: web-interface
+    spec:
+      containers:
+        - name: web-interface
+          image: europe-west4-docker.pkg.dev/bachelor-2021-324814/bpr-images/signfluent-web:V0.7
+          ports:
+            - containerPort: 4200
+      imagePullSecrets:
+        - name: gcp-sa-key
