@@ -16,8 +16,9 @@ spec:
     spec:
       containers:
         - name: web-interface
-          image: europe-west4-docker.pkg.dev/bachelor-2021-324814/bpr-images/signfluent-web:V0.7
+          image: europe-west4-docker.pkg.dev/bachelor-2021-324814/bpr-images/signfluent-web:V0.14
+
           ports:
-            - containerPort: 4200
+            - containerPort: 80
       imagePullSecrets:
         - name: gcp-sa-key

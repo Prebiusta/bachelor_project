@@ -6,6 +6,5 @@ spec:
   selector:
     app: web-interface
   ports:
-    - port: 4200
-      targetPort: 4200
+    - port: 80
   type: LoadBalancer
