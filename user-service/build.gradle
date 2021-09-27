@@ -6,7 +6,7 @@ plugins {
 
 group = 'dk.signfluent'
 version = '1.0.0-SNAPSHOT'
-description = 'document-service'
+description = 'user-service'
 java.sourceCompatibility = JavaVersion.VERSION_11
 
 configurations {

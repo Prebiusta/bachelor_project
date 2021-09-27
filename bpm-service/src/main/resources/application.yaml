@@ -5,11 +5,11 @@ camunda.bpm.admin-user:
   password: proof
 
 server:
-  port: 8181
+  port: 8000
 
 document:
   service:
     svc:
       service:
         host: localhost
-        port: 8080
+        port: 8001
