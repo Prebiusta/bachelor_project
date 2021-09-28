@@ -1,5 +1,6 @@
 version: '3'
 
+# Comment out the service which does not need to be started
 services:
   ui:
     container_name: signfluent-web
@@ -13,15 +14,39 @@ services:
     container_name: document-service
     build: document-service/.
     ports:
-      - "8080:8080"
+      - "8001:8001"
     networks:
       - bpr
-      
+
   bpm_service:
     container_name: bpm-service
     build: bpm-service/.
     ports:
-      - "8181:8181"
+      - "8000:8000"
+    networks:
+      - bpr
+
+  notification_service:
+    container_name: notification-service
+    build: notification-service/.
+    ports:
+      - "8002:8002"
+    networks:
+      - bpr
+
+  user_service:
+    container_name: user-service
+    build: user-service/.
+    ports:
+      - "8003:8003"
+    networks:
+      - bpr
+
+  validation_service:
+    container_name: validation-service
+    build: validation-service/.
+    ports:
+      - "8004:8004"
     networks:
       - bpr
       
