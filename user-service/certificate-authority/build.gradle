@@ -1,34 +1,19 @@
 plugins {
-    id 'org.springframework.boot' version '2.5.4'
-    id 'io.spring.dependency-management' version '1.0.11.RELEASE'
     id 'java'
 }
 
-group = 'dk.signfluent'
-version = '1.0.0-SNAPSHOT'
-description = 'user-service'
+group 'dk.signfluent'
+version '1.0.0-SNAPSHOT'
 java.sourceCompatibility = JavaVersion.VERSION_11
-
-configurations {
-    compileOnly {
-        extendsFrom annotationProcessor
-    }
-}
-
-jar {
-    enabled = false
-}
 
 repositories {
     mavenCentral()
 }
 
 dependencies {
-    compileOnly project(':certificate-authority')
     implementation 'org.springframework.boot:spring-boot-starter-web:2.5.4'
     implementation 'io.springfox:springfox-swagger-ui:3.0.0'
     implementation 'io.springfox:springfox-swagger2:3.0.0'
-
     implementation group: 'org.bouncycastle', name: 'bcprov-jdk15on', version: '1.69'
     implementation group: 'org.bouncycastle', name: 'bcpkix-jdk15on', version: '1.69'
 
