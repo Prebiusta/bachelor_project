@@ -1,4 +1,4 @@
-rootProject.name = 'validation-service'
+rootProject.name = 'certificate-authority'
 include 'validation'
 include 'certificate-management'
 include 'util'

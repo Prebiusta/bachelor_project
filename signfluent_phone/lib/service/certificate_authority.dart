@@ -14,7 +14,7 @@ class CertificateAuthorityService {
     String? baseURL = await _apiProvider.getBasePath();
 
     final response = await http.post(
-      Uri.parse('$baseURL/api/certificateManagement/issue'),
+      Uri.parse('http://10.0.2.2:8004/api/certificates/issue'),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
       },

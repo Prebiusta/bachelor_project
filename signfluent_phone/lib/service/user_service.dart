@@ -14,7 +14,7 @@ class UserService {
   Future<void> registerDevice(String userId, String deviceId) async {
     String? baseURL = await _apiProvider.getBasePath();
     await http.post(
-      Uri.parse('$baseURL/api/deviceManagement/registerDevice'),
+      Uri.parse('http://10.0.2.2:8003/api/deviceManagement/registerDevice'),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
       },
@@ -28,7 +28,7 @@ class UserService {
     String? baseURL = await _apiProvider.getBasePath();
 
     final response = await http.post(
-      Uri.parse('$baseURL/api/userManagement/authenticate'),
+      Uri.parse('http://10.0.2.2:8003/api/userManagement/authenticate'),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
       },
