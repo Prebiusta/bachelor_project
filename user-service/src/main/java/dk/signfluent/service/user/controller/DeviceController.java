@@ -1,6 +1,5 @@
 package dk.signfluent.service.user.controller;
 
-import dk.signfluent.service.ca.model.IssueX509CertificateRequest;
 import dk.signfluent.service.user.model.request.RegisterDeviceRequest;
 import dk.signfluent.service.user.model.request.UpdateFCMTokenRequest;
 import dk.signfluent.service.user.model.response.RegisterDeviceResponse;

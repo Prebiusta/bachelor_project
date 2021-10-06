@@ -19,7 +19,7 @@ class SignatureService {
     
     String? baseURL = await _apiProvider.getBasePath();
     await http.post(
-      Uri.parse('$baseURL/api/deviceManagement/registerDevice'),
+      Uri.parse('http://10.0.2.2:8003/api/deviceManagement/registerDevice'),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
       },
