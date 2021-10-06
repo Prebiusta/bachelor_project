@@ -1,6 +1,6 @@
 package dk.signfluent.certificateauthority.certificatemanagement.services;
 
-import dk.signfluent.certificateauthority.certificatemanagement.network.IssueX509CertificateRequest;
+import dk.signfluent.certificateauthority.certificatemanagement.model.UserDetails;
 import org.springframework.stereotype.Service;
 
 import org.bouncycastle.asn1.ASN1Sequence;
@@ -21,7 +21,6 @@ import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
 import java.security.spec.InvalidKeySpecException;
 import java.security.spec.RSAPublicKeySpec;
-import java.util.Base64;
 import java.util.Date;
 
 @Service
@@ -32,9 +31,9 @@ public class CertificateService {
         this.certificateDetailsService = certificateDetailsService;
     }
 
-    public X509Certificate issueX509Certificate(IssueX509CertificateRequest issueX509CertificateRequest) {
+    public X509Certificate issueX509Certificate(UserDetails userDetails) {
         try {
-            X509v3CertificateBuilder builder = getX509v3CertificateBuilder(issueX509CertificateRequest);
+            X509v3CertificateBuilder builder = getX509v3CertificateBuilder(userDetails);
             return signCertificateByCA(builder);
         } catch (Exception e) {
             e.printStackTrace();
@@ -42,14 +41,14 @@ public class CertificateService {
         }
     }
 
-    private X509v3CertificateBuilder getX509v3CertificateBuilder(IssueX509CertificateRequest issueX509CertificateRequest) throws NoSuchAlgorithmException, InvalidKeySpecException, CertificateException, KeyStoreException, IOException {
+    private X509v3CertificateBuilder getX509v3CertificateBuilder(UserDetails userDetails) throws NoSuchAlgorithmException, InvalidKeySpecException, CertificateException, KeyStoreException, IOException {
         return new X509v3CertificateBuilder(
                 generateIssuerName(),
                 generateSerialNumber(),
                 generateIssueDate(),
                 generateExpiryDate(),
-                getSubjectName(issueX509CertificateRequest),
-                extractSubjectPublicKeyInfo(issueX509CertificateRequest)
+                getSubjectName(userDetails),
+                extractSubjectPublicKeyInfo(userDetails)
         );
     }
 
@@ -61,8 +60,8 @@ public class CertificateService {
         return BigInteger.valueOf(System.currentTimeMillis());
     }
 
-    private X500Name getSubjectName(IssueX509CertificateRequest issueX509CertificateRequest) {
-        return new X500Name("dn=" + issueX509CertificateRequest.getUserId());
+    private X500Name getSubjectName(UserDetails userDetails) {
+        return new X500Name("dn=" + userDetails.getUserId());
     }
 
     private Date generateIssueDate() {
@@ -73,26 +72,18 @@ public class CertificateService {
         return new Date(System.currentTimeMillis() + 2L * 365 * 24 * 60 * 60 * 1000);
     }
 
-    private SubjectPublicKeyInfo extractSubjectPublicKeyInfo(IssueX509CertificateRequest issueX509CertificateRequest) throws NoSuchAlgorithmException, InvalidKeySpecException {
+    private SubjectPublicKeyInfo extractSubjectPublicKeyInfo(UserDetails userDetails) throws NoSuchAlgorithmException, InvalidKeySpecException {
         return SubjectPublicKeyInfo.getInstance(SubjectPublicKeyInfo.getInstance(
-                ASN1Sequence.getInstance(extractRSAPublicKey(issueX509CertificateRequest).getEncoded())
+                ASN1Sequence.getInstance(extractRSAPublicKey(userDetails).getEncoded())
         ));
     }
 
-    private PublicKey extractRSAPublicKey(IssueX509CertificateRequest issueX509CertificateRequest) throws InvalidKeySpecException, NoSuchAlgorithmException {
+    private PublicKey extractRSAPublicKey(UserDetails userDetails) throws InvalidKeySpecException, NoSuchAlgorithmException {
         KeyFactory fact = KeyFactory.getInstance("RSA");
-        ASN1Sequence seq = ASN1Sequence.getInstance(Base64.getDecoder().decode(getBase64PublicKey(issueX509CertificateRequest)));
+        ASN1Sequence seq = ASN1Sequence.getInstance(userDetails.getPublicKeyPem());
         org.bouncycastle.asn1.pkcs.RSAPublicKey key = org.bouncycastle.asn1.pkcs.RSAPublicKey.getInstance(seq);
         RSAPublicKeySpec pubSpec = new RSAPublicKeySpec(key.getModulus(), key.getPublicExponent());
         return fact.generatePublic(pubSpec);
-    }
-
-    private String getBase64PublicKey(IssueX509CertificateRequest issueX509CertificateRequest) {
-        return issueX509CertificateRequest.getPublicKeyPem()
-                .replaceAll("\\n", "")
-                .replaceAll("\\r", "")
-                .replace("-----BEGIN RSA PUBLIC KEY-----", "")
-                .replace("-----END RSA PUBLIC KEY-----", "");
     }
 
     private X509Certificate signCertificateByCA(X509v3CertificateBuilder builder) throws OperatorCreationException, CertificateException, NoSuchAlgorithmException, InvalidKeyException, NoSuchProviderException, SignatureException, UnrecoverableKeyException, KeyStoreException, IOException {

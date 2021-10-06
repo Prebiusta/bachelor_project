@@ -1,8 +1,9 @@
 package dk.signfluent.certificateauthority.certificatemanagement.controller;
 
+import dk.signfluent.certificateauthority.certificatemanagement.mappers.IssueRequestMapper;
+import dk.signfluent.certificateauthority.certificatemanagement.model.UserDetails;
 import dk.signfluent.certificateauthority.certificatemanagement.network.IssueX509CertificateRequest;
 import dk.signfluent.certificateauthority.certificatemanagement.services.CertificateService;
-import dk.signfluent.certificateauthority.util.Base64Handler;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,15 +16,16 @@ import java.security.cert.CertificateEncodingException;
 public class CertificateController {
 
     private final CertificateService certificateService;
-    private final Base64Handler base64Handler;
+    private final IssueRequestMapper mapper;
 
-    public CertificateController(CertificateService certificateService, Base64Handler base64Handler) {
+    public CertificateController(CertificateService certificateService, IssueRequestMapper mapper) {
         this.certificateService = certificateService;
-        this.base64Handler = base64Handler;
+        this.mapper = mapper;
     }
 
     @PostMapping("/issue")
     public String issueX509Certificate(@RequestBody IssueX509CertificateRequest request) throws CertificateEncodingException {
-        return base64Handler.encodeX509(certificateService.issueX509Certificate(request));
+        UserDetails userDetails = mapper.mapRequestToUserDetails(request);
+        return mapper.X509ToBase64(certificateService.issueX509Certificate(userDetails));
     }
 }
