@@ -1,2 +1,5 @@
 rootProject.name = 'validation-service'
+include 'validation'
+include 'certificate-management'
+include 'util'
 
