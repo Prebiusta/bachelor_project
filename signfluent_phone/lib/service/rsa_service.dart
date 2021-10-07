@@ -57,6 +57,7 @@ class RSAService {
   }
 
   Future<String> sign(String content, String currentUserId) async {
-    return RsaKeyHelper().sign(content, await getPrivateKeyForUser(currentUserId));
+    var privKey = await getPrivateKeyForUser(currentUserId);
+    return RsaKeyHelper().sign(content, privKey);
   }
 }

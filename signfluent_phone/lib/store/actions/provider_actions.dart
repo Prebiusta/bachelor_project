@@ -37,6 +37,8 @@ ThunkAction verifyExistingURL() {
         }, onError: (_) {
           store.dispatch(SetProviderLoading(false));
         });
+      } else {
+        store.dispatch(SetProviderLoading(false));
       }
     });
   };

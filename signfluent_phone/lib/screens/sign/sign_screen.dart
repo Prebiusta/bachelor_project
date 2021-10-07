@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:signfluent_phone/screens/background.dart';
 import 'package:signfluent_phone/screens/sign/components/body.dart';
 
 class SignScreen extends StatefulWidget {
@@ -14,7 +15,11 @@ class _SetupScreenState extends State<SignScreen> {
     Size size = MediaQuery.of(context).size;
 
     return const Scaffold(
-      body: Body(),
+      body: Background(
+        child: SingleChildScrollView(
+            child: Body()
+        ),
+      ),
       resizeToAvoidBottomInset: false,
     );
   }
