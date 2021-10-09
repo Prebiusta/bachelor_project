@@ -8,18 +8,24 @@ import dk.signfluent.certificateauthority.validation.network.SignatureValidation
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Mappings;
+import org.mapstruct.Named;
 
 @Mapper(componentModel = "spring")
 public abstract class SignatureRequestMapper extends Base64Mapper {
 
     @Mappings({
-            @Mapping(source = "base64X509Certificate", target = "x509Certificate", qualifiedByName = "base64ToX509"),
-            @Mapping(source = "base64SignedHash", target = "signedHash", qualifiedByName = "base64ToBytes"),
+            @Mapping(source = "x509Certificate", target = "x509Certificate", qualifiedByName = "base64ToX509"),
+            @Mapping(source = "signedContent", target = "signedContent", qualifiedByName = "base64ToBytes"),
     })
     public abstract SignfluentSignature mapSignatureDTO(SignfluentSignatureDTO signfluentSignatureDTO);
 
     @Mappings({
-            @Mapping(source = "hash", target = "hash", qualifiedByName = "base64ToBytes"),
+            @Mapping(source = "content", target = "content", qualifiedByName = "stringToByte"),
     })
     public abstract SignatureValidation mapSignatureRequest(SignatureValidationRequest signatureValidation);
+
+    @Named("stringToByte")
+    public byte[] stringToByte(String data) {
+        return data.getBytes();
+    }
 }

@@ -9,6 +9,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class SignfluentSignatureDTO {
-    private String base64X509Certificate;
-    private String base64SignedHash;
+    private String x509Certificate;
+    private String signedContent;
 }

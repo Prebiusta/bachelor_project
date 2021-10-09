@@ -18,14 +18,14 @@ public class ValidationService {
     public boolean validateSignature(SignatureValidation validation) {
         try {
             X509Certificate certificate = validation.getSignature().getX509Certificate();
-            byte[] signedHash = validation.getSignature().getSignedHash();
-            byte[] hash = validation.getHash();
+            byte[] signedContent = validation.getSignature().getSignedContent();
+            byte[] content = validation.getContent();
 
             Signature signatureProcess = this.signatureService.instantiateProcess();
             signatureProcess.initVerify(certificate.getPublicKey());
-            signatureProcess.update(hash);
+            signatureProcess.update(content);
 
-            return signatureProcess.verify(signedHash);
+            return signatureProcess.verify(signedContent);
         }
         catch (Exception e) {
             e.printStackTrace();
