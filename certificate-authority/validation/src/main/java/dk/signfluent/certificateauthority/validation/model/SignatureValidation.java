@@ -9,5 +9,5 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class SignatureValidation {
     public SignfluentSignature signature;
-    public byte[] hash;
+    public byte[] content;
 }

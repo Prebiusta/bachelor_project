@@ -10,6 +10,6 @@ import java.security.cert.X509Certificate;
 @NoArgsConstructor
 @Data
 public class SignfluentSignature {
-    private X509Certificate X509Certificate;
-    private byte[] signedHash;
+    private X509Certificate x509Certificate;
+    private byte[] signedContent;
 }

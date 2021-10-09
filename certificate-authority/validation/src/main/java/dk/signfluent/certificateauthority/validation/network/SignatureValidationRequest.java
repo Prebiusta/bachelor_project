@@ -6,5 +6,5 @@ import lombok.Data;
 @Data
 public class SignatureValidationRequest {
     private SignfluentSignatureDTO signature;
-    private String hash;
+    private String content;
 }
