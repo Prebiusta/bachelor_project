@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "210284548015",
+    "project_id": "bachelor-2021-324814",
+    "storage_bucket": "bachelor-2021-324814.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:210284548015:android:18c7bef47619493106a95a",
+        "android_client_info": {
+          "package_name": "dk.signfluent.signfluent_phone"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "210284548015-50lkqs47i1is3bgt22aesf128fg585p7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDRyYHI4TB1_xndBzeijoGVSk2iFDKKCWA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "210284548015-50lkqs47i1is3bgt22aesf128fg585p7.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
