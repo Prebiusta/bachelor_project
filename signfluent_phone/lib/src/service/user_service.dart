@@ -4,12 +4,24 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:signfluent_phone/src/model/authentication_response.dart';
 import 'package:signfluent_phone/src/service/api_provider.dart';
+import 'package:signfluent_phone/src/service/device_data_service.dart';
 import 'package:signfluent_phone/src/service_location.dart';
 
 class UserService {
   final ApiProvider _apiProvider = getIt<ApiProvider>();
+  final DeviceDataService _deviceDataService = getIt<DeviceDataService>();
 
-  Future<void> updateFCMToken() async {}
+  Future<void> updateFCMToken(String userId, String token) async {
+    String? baseURL = await _apiProvider.getBasePath();
+    await http.post(
+      Uri.parse('http://10.0.2.2:8003/api/deviceManagement/updateFCMToken'),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body:
+      jsonEncode(<String, String>{'userId': userId, 'fcmToken': token, 'deviceId': await _deviceDataService.getDeviceUniqueId()}),
+    );
+  }
 
   Future<void> registerDevice(String userId, String deviceId) async {
     String? baseURL = await _apiProvider.getBasePath();

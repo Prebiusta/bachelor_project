@@ -25,7 +25,7 @@ class LoginViewModel {
       loginError: store.state.userState.loginError,
       authenticateResponse: store.state.userState.authenticationResponse,
       login: (String email, String password) {
-        store.dispatch(loginUser(email, password));
+        store.dispatch(loginUser(email, password, store.state.userState.token!));
       },
     );
   }

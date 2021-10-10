@@ -34,7 +34,7 @@ public class DeviceService {
 
     public UpdateFCMTokenResponse updateFCMToken(UpdateFCMTokenRequest updateFCMTokenRequest) {
         DeviceEntity deviceEntity = getDeviceForUserIdAndUser(updateFCMTokenRequest);
-        deviceEntity.setFCMToken(updateFCMTokenRequest.getFCMToken());
+        deviceEntity.setFCMToken(updateFCMTokenRequest.getFcmToken());
         DeviceEntity updatedEntity = deviceCRUDProvider.update(deviceEntity);
         return new UpdateFCMTokenResponse(updatedEntity);
     }

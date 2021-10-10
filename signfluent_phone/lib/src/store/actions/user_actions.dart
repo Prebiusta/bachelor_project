@@ -4,6 +4,8 @@ import 'package:redux_thunk/redux_thunk.dart';
 import 'package:signfluent_phone/src/model/authentication_response.dart';
 import 'package:signfluent_phone/src/routes/routes.dart';
 import 'package:signfluent_phone/src/service/user_service.dart';
+import 'package:signfluent_phone/src/store/state/app_sate.dart';
+import 'package:signfluent_phone/src/store/state/user_state.dart';
 
 import '../../service_location.dart';
 
@@ -19,17 +21,35 @@ class LoginFailedAction {}
 
 class StartUserLoadingAction {}
 
-ThunkAction loginUser(String email, String password) {
+class SetFCMTokenAction {
+  String? token;
+
+  SetFCMTokenAction(this.token);
+}
+
+ThunkAction loginUser(String email, String password, String token) {
   return (Store store) async {
     Future(() async {
       store.dispatch(StartUserLoadingAction());
       _userService.authenticate(email, password).then(
-          (AuthenticateResponse authenticationResponse) {
-        store.dispatch(LoginSuccessAction(authenticationResponse));
-        store.dispatch(NavigateToAction.replace(setupBasePath));
-      }, onError: (error) {
+              (AuthenticateResponse authenticationResponse) {
+            store.dispatch(LoginSuccessAction(authenticationResponse));
+            store.dispatch(updateFCMToken(authenticationResponse, token));
+            store.dispatch(NavigateToAction.replace(setupBasePath));
+          }, onError: (error) {
         store.dispatch(LoginFailedAction());
       });
     });
   };
 }
+
+ThunkAction updateFCMToken(AuthenticateResponse authenticateResponse, String token) {
+  return (Store store) async {
+    Future(() async {
+      store.dispatch(StartUserLoadingAction());
+      _userService.updateFCMToken(
+          authenticateResponse.user.id, token);
+    });
+  };
+}
+
