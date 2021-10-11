@@ -1,9 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:signfluent_phone/src/service_location.dart';
 import 'package:signfluent_phone/src/signfluent_app.dart';
-
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -43,7 +41,8 @@ class _AppState extends State<App> {
         }
 
         // Otherwise, show something whilst waiting for initialization to complete
-        return const Text("Loading", textDirection: TextDirection.ltr);
+        return const Center(
+            child: Text("Loading...", textDirection: TextDirection.ltr));
       },
     );
   }
