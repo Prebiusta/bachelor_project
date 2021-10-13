@@ -34,7 +34,6 @@ ThunkAction loginUser(String email, String password, String token) {
       _userService.authenticate(email, password).then(
               (AuthenticateResponse authenticationResponse) {
             store.dispatch(LoginSuccessAction(authenticationResponse));
-            store.dispatch(updateFCMToken(authenticationResponse, token));
             store.dispatch(NavigateToAction.replace(setupBasePath));
           }, onError: (error) {
         store.dispatch(LoginFailedAction());
@@ -43,12 +42,12 @@ ThunkAction loginUser(String email, String password, String token) {
   };
 }
 
-ThunkAction updateFCMToken(AuthenticateResponse authenticateResponse, String token) {
+ThunkAction updateFCMToken(String userId, String token) {
   return (Store store) async {
     Future(() async {
       store.dispatch(StartUserLoadingAction());
       _userService.updateFCMToken(
-          authenticateResponse.user.id, token);
+          userId, token);
     });
   };
 }

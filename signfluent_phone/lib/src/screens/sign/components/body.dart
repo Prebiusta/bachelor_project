@@ -18,6 +18,7 @@ class _BodyState extends State<Body> {
     Size size = MediaQuery.of(context).size;
 
     return StoreConnector<AppState, SignViewModel>(
+      onInitialBuild: (viewModel) => viewModel.setFCMToken(),
       converter: (store) => SignViewModel.fromStore(store),
       builder: (_, viewModel) => (viewModel.signatureRequest == null)
           ? SignatureHome(viewModel: viewModel, size: size)

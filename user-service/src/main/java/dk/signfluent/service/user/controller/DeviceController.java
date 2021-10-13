@@ -10,8 +10,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import static org.springframework.util.MimeTypeUtils.APPLICATION_JSON_VALUE;
-
 @RestController
 @RequestMapping("/api/deviceManagement")
 public class DeviceController {
@@ -21,12 +19,12 @@ public class DeviceController {
         this.deviceService = deviceService;
     }
 
-    @PostMapping(path = "/registerDevice", consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
+    @PostMapping("/registerDevice")
     public RegisterDeviceResponse registerDevice(@RequestBody RegisterDeviceRequest registerDeviceRequest) throws RuntimeException {
         return deviceService.registerDevice(registerDeviceRequest);
     }
 
-    @PostMapping(path = "/updateFCMToken", consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
+    @PostMapping("/updateFCMToken")
     public UpdateFCMTokenResponse updateFCMToken(@RequestBody UpdateFCMTokenRequest updateFCMTokenRequest) throws RuntimeException {
         return deviceService.updateFCMToken(updateFCMTokenRequest);
     }
