@@ -5,6 +5,7 @@ import dk.signfluent.service.user.model.request.UpdateFCMTokenRequest;
 import dk.signfluent.service.user.model.response.RegisterDeviceResponse;
 import dk.signfluent.service.user.model.response.UpdateFCMTokenResponse;
 import dk.signfluent.service.user.service.DeviceService;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,11 +21,13 @@ public class DeviceController {
     }
 
     @PostMapping("/registerDevice")
+    @ApiOperation(value = "Register Device", nickname = "registerDevice")
     public RegisterDeviceResponse registerDevice(@RequestBody RegisterDeviceRequest registerDeviceRequest) throws RuntimeException {
         return deviceService.registerDevice(registerDeviceRequest);
     }
 
     @PostMapping("/updateFCMToken")
+    @ApiOperation(value = "Update FCM Token", nickname = "updateFCMToken")
     public UpdateFCMTokenResponse updateFCMToken(@RequestBody UpdateFCMTokenRequest updateFCMTokenRequest) throws RuntimeException {
         return deviceService.updateFCMToken(updateFCMTokenRequest);
     }

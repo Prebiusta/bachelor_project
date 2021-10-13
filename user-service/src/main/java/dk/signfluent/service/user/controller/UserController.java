@@ -6,6 +6,7 @@ import dk.signfluent.service.user.model.request.AuthenticationRequest;
 import dk.signfluent.service.user.model.request.UserBasedRequest;
 import dk.signfluent.service.user.model.response.AuthenticationResponse;
 import dk.signfluent.service.user.service.UserService;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -22,21 +23,25 @@ public class UserController {
     }
 
     @PostMapping("/authenticate")
+    @ApiOperation(value = "Authenticate User", nickname = "authenticate")
     public AuthenticationResponse authenticate(@RequestBody AuthenticationRequest authenticationRequest) {
         return userService.authenticate(authenticationRequest);
     }
 
     @PostMapping("/getAvailableApprovers")
+    @ApiOperation(value = "Get Available Approvers", nickname = "getAvailableApprovers")
     public List<User> getAvailableApprovers() {
         return userService.getAvailableApproves();
     }
 
     @PostMapping("/getDevicesForUser")
+    @ApiOperation(value = "Get Devices For User", nickname = "getDevicesForUser")
     public List<Device> getDevicesForUser(@RequestBody UserBasedRequest userBasedRequest) {
         return userService.getDevicesForUser(userBasedRequest.getUserId());
     }
 
     @PostMapping("/getFCMTokensForUser")
+    @ApiOperation(value = "Update FCM Token", nickname = "getFCMTokensForUser")
     public List<String> getFCMTokensForUser(@RequestBody UserBasedRequest userBasedRequest) {
         return userService.getFCMTokens(userBasedRequest.getUserId());
     }
