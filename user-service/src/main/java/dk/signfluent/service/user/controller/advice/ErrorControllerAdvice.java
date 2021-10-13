@@ -12,6 +12,6 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 public class ErrorControllerAdvice extends ResponseEntityExceptionHandler {
     @ExceptionHandler(RuntimeException.class)
     protected ResponseEntity<BaseResponse> handleConflict(RuntimeException ex, WebRequest request) {
-        return new ResponseEntity<>(BaseResponse.createFailed(ex.getMessage()), HttpStatus.CONFLICT);
+        return new ResponseEntity<>(BaseResponse.createFailed(ex.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
     }
 }
