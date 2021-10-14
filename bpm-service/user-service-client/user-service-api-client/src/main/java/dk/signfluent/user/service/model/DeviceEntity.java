@@ -15,43 +15,40 @@ package dk.signfluent.user.service.model;
 
 import java.util.Objects;
 import java.util.Arrays;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonTypeName;
-import com.fasterxml.jackson.annotation.JsonValue;
+import com.google.gson.TypeAdapter;
+import com.google.gson.annotations.JsonAdapter;
+import com.google.gson.annotations.SerializedName;
+import com.google.gson.stream.JsonReader;
+import com.google.gson.stream.JsonWriter;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import java.io.IOException;
 import java.time.OffsetDateTime;
 import java.util.UUID;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 /**
  * DeviceEntity
  */
-@JsonPropertyOrder({
-  DeviceEntity.JSON_PROPERTY_CREATE_DATE,
-  DeviceEntity.JSON_PROPERTY_DEVICE_IDENTIFIER,
-  DeviceEntity.JSON_PROPERTY_FCMTOKEN,
-  DeviceEntity.JSON_PROPERTY_ID,
-  DeviceEntity.JSON_PROPERTY_MODIFY_DATE
-})
-@JsonTypeName("DeviceEntity")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2021-10-14T14:41:50.888430+02:00[Europe/Copenhagen]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2021-10-14T15:04:07.856806300+02:00[Europe/Paris]")
 public class DeviceEntity {
-  public static final String JSON_PROPERTY_CREATE_DATE = "createDate";
+  public static final String SERIALIZED_NAME_CREATE_DATE = "createDate";
+  @SerializedName(SERIALIZED_NAME_CREATE_DATE)
   private OffsetDateTime createDate;
 
-  public static final String JSON_PROPERTY_DEVICE_IDENTIFIER = "deviceIdentifier";
+  public static final String SERIALIZED_NAME_DEVICE_IDENTIFIER = "deviceIdentifier";
+  @SerializedName(SERIALIZED_NAME_DEVICE_IDENTIFIER)
   private String deviceIdentifier;
 
-  public static final String JSON_PROPERTY_FCMTOKEN = "fcmtoken";
+  public static final String SERIALIZED_NAME_FCMTOKEN = "fcmtoken";
+  @SerializedName(SERIALIZED_NAME_FCMTOKEN)
   private String fcmtoken;
 
-  public static final String JSON_PROPERTY_ID = "id";
+  public static final String SERIALIZED_NAME_ID = "id";
+  @SerializedName(SERIALIZED_NAME_ID)
   private UUID id;
 
-  public static final String JSON_PROPERTY_MODIFY_DATE = "modifyDate";
+  public static final String SERIALIZED_NAME_MODIFY_DATE = "modifyDate";
+  @SerializedName(SERIALIZED_NAME_MODIFY_DATE)
   private OffsetDateTime modifyDate;
 
 
@@ -67,16 +64,12 @@ public class DeviceEntity {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
-  @JsonProperty(JSON_PROPERTY_CREATE_DATE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public OffsetDateTime getCreateDate() {
     return createDate;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_CREATE_DATE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setCreateDate(OffsetDateTime createDate) {
     this.createDate = createDate;
   }
@@ -94,16 +87,12 @@ public class DeviceEntity {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
-  @JsonProperty(JSON_PROPERTY_DEVICE_IDENTIFIER)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getDeviceIdentifier() {
     return deviceIdentifier;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_DEVICE_IDENTIFIER)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setDeviceIdentifier(String deviceIdentifier) {
     this.deviceIdentifier = deviceIdentifier;
   }
@@ -121,16 +110,12 @@ public class DeviceEntity {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
-  @JsonProperty(JSON_PROPERTY_FCMTOKEN)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getFcmtoken() {
     return fcmtoken;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_FCMTOKEN)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setFcmtoken(String fcmtoken) {
     this.fcmtoken = fcmtoken;
   }
@@ -148,16 +133,12 @@ public class DeviceEntity {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
-  @JsonProperty(JSON_PROPERTY_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public UUID getId() {
     return id;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setId(UUID id) {
     this.id = id;
   }
@@ -175,16 +156,12 @@ public class DeviceEntity {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
-  @JsonProperty(JSON_PROPERTY_MODIFY_DATE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public OffsetDateTime getModifyDate() {
     return modifyDate;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_MODIFY_DATE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setModifyDate(OffsetDateTime modifyDate) {
     this.modifyDate = modifyDate;
   }

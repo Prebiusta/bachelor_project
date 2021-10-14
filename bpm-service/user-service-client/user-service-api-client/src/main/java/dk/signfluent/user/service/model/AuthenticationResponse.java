@@ -15,34 +15,31 @@ package dk.signfluent.user.service.model;
 
 import java.util.Objects;
 import java.util.Arrays;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonTypeName;
-import com.fasterxml.jackson.annotation.JsonValue;
+import com.google.gson.TypeAdapter;
+import com.google.gson.annotations.JsonAdapter;
+import com.google.gson.annotations.SerializedName;
+import com.google.gson.stream.JsonReader;
+import com.google.gson.stream.JsonWriter;
 import dk.signfluent.user.service.model.User;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import java.io.IOException;
 
 /**
  * AuthenticationResponse
  */
-@JsonPropertyOrder({
-  AuthenticationResponse.JSON_PROPERTY_MESSAGE,
-  AuthenticationResponse.JSON_PROPERTY_SUCCESSFUL,
-  AuthenticationResponse.JSON_PROPERTY_USER
-})
-@JsonTypeName("AuthenticationResponse")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2021-10-14T14:41:50.888430+02:00[Europe/Copenhagen]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2021-10-14T15:04:07.856806300+02:00[Europe/Paris]")
 public class AuthenticationResponse {
-  public static final String JSON_PROPERTY_MESSAGE = "message";
+  public static final String SERIALIZED_NAME_MESSAGE = "message";
+  @SerializedName(SERIALIZED_NAME_MESSAGE)
   private String message;
 
-  public static final String JSON_PROPERTY_SUCCESSFUL = "successful";
+  public static final String SERIALIZED_NAME_SUCCESSFUL = "successful";
+  @SerializedName(SERIALIZED_NAME_SUCCESSFUL)
   private Boolean successful;
 
-  public static final String JSON_PROPERTY_USER = "user";
+  public static final String SERIALIZED_NAME_USER = "user";
+  @SerializedName(SERIALIZED_NAME_USER)
   private User user;
 
 
@@ -58,16 +55,12 @@ public class AuthenticationResponse {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
-  @JsonProperty(JSON_PROPERTY_MESSAGE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getMessage() {
     return message;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_MESSAGE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setMessage(String message) {
     this.message = message;
   }
@@ -85,16 +78,12 @@ public class AuthenticationResponse {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
-  @JsonProperty(JSON_PROPERTY_SUCCESSFUL)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Boolean getSuccessful() {
     return successful;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_SUCCESSFUL)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setSuccessful(Boolean successful) {
     this.successful = successful;
   }
@@ -112,16 +101,12 @@ public class AuthenticationResponse {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
-  @JsonProperty(JSON_PROPERTY_USER)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public User getUser() {
     return user;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_USER)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setUser(User user) {
     this.user = user;
   }

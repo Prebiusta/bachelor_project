@@ -16,16 +16,16 @@ public class UserServiceIntegrationConfig {
 
     @Bean
     public UserControllerApi userControllerApi() {
-        return new UserControllerApi(getApiClient());
+        return new UserControllerApi(apiClient());
     }
 
     @Bean
     public DeviceControllerApi deviceControllerApi() {
-        return new DeviceControllerApi(getApiClient());
+        return new DeviceControllerApi(apiClient());
     }
 
     @Bean
-    public ApiClient getApiClient() {
+    public ApiClient apiClient() {
         ApiClient apiClient = new ApiClient();
         apiClient.setBasePath(userServiceApiClientConfig.getBasePath());
         return apiClient;

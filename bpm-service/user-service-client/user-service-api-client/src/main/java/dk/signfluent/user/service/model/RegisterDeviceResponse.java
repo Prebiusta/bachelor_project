@@ -15,34 +15,31 @@ package dk.signfluent.user.service.model;
 
 import java.util.Objects;
 import java.util.Arrays;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonTypeName;
-import com.fasterxml.jackson.annotation.JsonValue;
+import com.google.gson.TypeAdapter;
+import com.google.gson.annotations.JsonAdapter;
+import com.google.gson.annotations.SerializedName;
+import com.google.gson.stream.JsonReader;
+import com.google.gson.stream.JsonWriter;
 import dk.signfluent.user.service.model.DeviceEntity;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import java.io.IOException;
 
 /**
  * RegisterDeviceResponse
  */
-@JsonPropertyOrder({
-  RegisterDeviceResponse.JSON_PROPERTY_DEVICE_ENTITY,
-  RegisterDeviceResponse.JSON_PROPERTY_MESSAGE,
-  RegisterDeviceResponse.JSON_PROPERTY_SUCCESSFUL
-})
-@JsonTypeName("RegisterDeviceResponse")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2021-10-14T14:41:50.888430+02:00[Europe/Copenhagen]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2021-10-14T15:04:07.856806300+02:00[Europe/Paris]")
 public class RegisterDeviceResponse {
-  public static final String JSON_PROPERTY_DEVICE_ENTITY = "deviceEntity";
+  public static final String SERIALIZED_NAME_DEVICE_ENTITY = "deviceEntity";
+  @SerializedName(SERIALIZED_NAME_DEVICE_ENTITY)
   private DeviceEntity deviceEntity;
 
-  public static final String JSON_PROPERTY_MESSAGE = "message";
+  public static final String SERIALIZED_NAME_MESSAGE = "message";
+  @SerializedName(SERIALIZED_NAME_MESSAGE)
   private String message;
 
-  public static final String JSON_PROPERTY_SUCCESSFUL = "successful";
+  public static final String SERIALIZED_NAME_SUCCESSFUL = "successful";
+  @SerializedName(SERIALIZED_NAME_SUCCESSFUL)
   private Boolean successful;
 
 
@@ -58,16 +55,12 @@ public class RegisterDeviceResponse {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
-  @JsonProperty(JSON_PROPERTY_DEVICE_ENTITY)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public DeviceEntity getDeviceEntity() {
     return deviceEntity;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_DEVICE_ENTITY)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setDeviceEntity(DeviceEntity deviceEntity) {
     this.deviceEntity = deviceEntity;
   }
@@ -85,16 +78,12 @@ public class RegisterDeviceResponse {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
-  @JsonProperty(JSON_PROPERTY_MESSAGE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getMessage() {
     return message;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_MESSAGE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setMessage(String message) {
     this.message = message;
   }
@@ -112,16 +101,12 @@ public class RegisterDeviceResponse {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
-  @JsonProperty(JSON_PROPERTY_SUCCESSFUL)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Boolean getSuccessful() {
     return successful;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_SUCCESSFUL)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setSuccessful(Boolean successful) {
     this.successful = successful;
   }

@@ -3,6 +3,7 @@ package dk.signfluent.service.user.api.provider.impl;
 import dk.signfluent.service.user.api.provider.UserServiceApiProvider;
 import dk.signfluent.service.user.api.service.RequestService;
 import dk.signfluent.user.service.api.UserControllerApi;
+import dk.signfluent.user.service.invoker.ApiException;
 import dk.signfluent.user.service.model.Device;
 import dk.signfluent.user.service.model.User;
 import org.springframework.stereotype.Service;
@@ -20,17 +21,17 @@ public class UserServiceApiProviderImpl implements UserServiceApiProvider {
     }
 
     @Override
-    public List<User> getAvailableApprovers() {
+    public List<User> getAvailableApprovers() throws ApiException {
         return userControllerApi.getAvailableApprovers();
     }
 
     @Override
-    public List<Device> getDevicesForUser(String userId) {
+    public List<Device> getDevicesForUser(String userId) throws ApiException {
         return userControllerApi.getDevicesForUser(requestService.generateUserBasedRequest(userId));
     }
 
     @Override
-    public List<String> getFCMTokensForUser(String userId) {
+    public List<String> getFCMTokensForUser(String userId) throws ApiException {
         return userControllerApi.getFCMTokensForUser(requestService.generateUserBasedRequest(userId));
     }
 }

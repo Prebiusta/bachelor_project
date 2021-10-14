@@ -13,7 +13,7 @@
 
 package dk.signfluent.user.service.invoker;
 
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2021-10-14T14:30:43.818173+02:00[Europe/Copenhagen]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2021-10-14T15:04:07.856806300+02:00[Europe/Paris]")
 public class Configuration {
     private static ApiClient defaultApiClient = new ApiClient();
 
