@@ -1,0 +1,383 @@
+openapi: 3.0.1
+info:
+  description: DESCRIPTION
+  license:
+    name: LICENSE
+    url: http://url-to-license.com
+  termsOfService: http://terms-of-services.url
+  title: TITLE
+  version: VERSION
+servers:
+- url: //localhost:8003/
+tags:
+- description: Device Controller
+  name: device-controller
+- description: User Controller
+  name: user-controller
+paths:
+  /api/deviceManagement/registerDevice:
+    post:
+      operationId: registerDevice
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RegisterDeviceRequest'
+        description: registerDeviceRequest
+        required: true
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/RegisterDeviceResponse'
+          description: OK
+        "201":
+          content: {}
+          description: Created
+        "401":
+          content: {}
+          description: Unauthorized
+        "403":
+          content: {}
+          description: Forbidden
+        "404":
+          content: {}
+          description: Not Found
+      summary: Register Device
+      tags:
+      - device-controller
+      x-codegen-request-body-name: registerDeviceRequest
+      x-contentType: application/json
+      x-accepts: '*/*'
+  /api/deviceManagement/updateFCMToken:
+    post:
+      operationId: updateFCMToken
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateFCMTokenRequest'
+        description: updateFCMTokenRequest
+        required: true
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/UpdateFCMTokenResponse'
+          description: OK
+        "201":
+          content: {}
+          description: Created
+        "401":
+          content: {}
+          description: Unauthorized
+        "403":
+          content: {}
+          description: Forbidden
+        "404":
+          content: {}
+          description: Not Found
+      summary: Update FCM Token
+      tags:
+      - device-controller
+      x-codegen-request-body-name: updateFCMTokenRequest
+      x-contentType: application/json
+      x-accepts: '*/*'
+  /api/userManagement/authenticate:
+    post:
+      operationId: authenticate
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AuthenticationRequest'
+        description: authenticationRequest
+        required: true
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/AuthenticationResponse'
+          description: OK
+        "201":
+          content: {}
+          description: Created
+        "401":
+          content: {}
+          description: Unauthorized
+        "403":
+          content: {}
+          description: Forbidden
+        "404":
+          content: {}
+          description: Not Found
+      summary: Authenticate User
+      tags:
+      - user-controller
+      x-codegen-request-body-name: authenticationRequest
+      x-contentType: application/json
+      x-accepts: '*/*'
+  /api/userManagement/getAvailableApprovers:
+    post:
+      operationId: getAvailableApprovers
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                items:
+                  $ref: '#/components/schemas/User'
+                type: array
+          description: OK
+        "201":
+          content: {}
+          description: Created
+        "401":
+          content: {}
+          description: Unauthorized
+        "403":
+          content: {}
+          description: Forbidden
+        "404":
+          content: {}
+          description: Not Found
+      summary: Get Available Approvers
+      tags:
+      - user-controller
+      x-accepts: '*/*'
+  /api/userManagement/getDevicesForUser:
+    post:
+      operationId: getDevicesForUser
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserBasedRequest'
+        description: userBasedRequest
+        required: true
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                items:
+                  $ref: '#/components/schemas/Device'
+                type: array
+          description: OK
+        "201":
+          content: {}
+          description: Created
+        "401":
+          content: {}
+          description: Unauthorized
+        "403":
+          content: {}
+          description: Forbidden
+        "404":
+          content: {}
+          description: Not Found
+      summary: Get Devices For User
+      tags:
+      - user-controller
+      x-codegen-request-body-name: userBasedRequest
+      x-contentType: application/json
+      x-accepts: '*/*'
+  /api/userManagement/getFCMTokensForUser:
+    post:
+      operationId: getFCMTokensForUser
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserBasedRequest'
+        description: userBasedRequest
+        required: true
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                items:
+                  type: string
+                type: array
+          description: OK
+        "201":
+          content: {}
+          description: Created
+        "401":
+          content: {}
+          description: Unauthorized
+        "403":
+          content: {}
+          description: Forbidden
+        "404":
+          content: {}
+          description: Not Found
+      summary: Update FCM Token
+      tags:
+      - user-controller
+      x-codegen-request-body-name: userBasedRequest
+      x-contentType: application/json
+      x-accepts: '*/*'
+components:
+  schemas:
+    AuthenticationRequest:
+      example:
+        password: password
+        email: email
+      properties:
+        email:
+          type: string
+        password:
+          type: string
+      title: AuthenticationRequest
+      type: object
+    AuthenticationResponse:
+      example:
+        message: message
+        user:
+          name: name
+          id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          email: email
+        successful: true
+      properties:
+        message:
+          type: string
+        successful:
+          type: boolean
+        user:
+          $ref: '#/components/schemas/User'
+      title: AuthenticationResponse
+      type: object
+    Device:
+      example:
+        deviceIdentifier: deviceIdentifier
+        id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        fcmtoken: fcmtoken
+      properties:
+        deviceIdentifier:
+          type: string
+        fcmtoken:
+          type: string
+        id:
+          format: uuid
+          type: string
+      title: Device
+      type: object
+    DeviceEntity:
+      example:
+        deviceIdentifier: deviceIdentifier
+        modifyDate: 2000-01-23T04:56:07.000+00:00
+        id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        fcmtoken: fcmtoken
+        createDate: 2000-01-23T04:56:07.000+00:00
+      properties:
+        createDate:
+          format: date-time
+          type: string
+        deviceIdentifier:
+          type: string
+        fcmtoken:
+          type: string
+        id:
+          format: uuid
+          type: string
+        modifyDate:
+          format: date-time
+          type: string
+      title: DeviceEntity
+      type: object
+    RegisterDeviceRequest:
+      example:
+        deviceId: deviceId
+        userId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+      properties:
+        deviceId:
+          type: string
+        userId:
+          format: uuid
+          type: string
+      title: RegisterDeviceRequest
+      type: object
+    RegisterDeviceResponse:
+      example:
+        message: message
+        deviceEntity:
+          deviceIdentifier: deviceIdentifier
+          modifyDate: 2000-01-23T04:56:07.000+00:00
+          id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          fcmtoken: fcmtoken
+          createDate: 2000-01-23T04:56:07.000+00:00
+        successful: true
+      properties:
+        deviceEntity:
+          $ref: '#/components/schemas/DeviceEntity'
+        message:
+          type: string
+        successful:
+          type: boolean
+      title: RegisterDeviceResponse
+      type: object
+    UpdateFCMTokenRequest:
+      example:
+        deviceId: deviceId
+        fcmToken: fcmToken
+        userId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+      properties:
+        deviceId:
+          type: string
+        fcmToken:
+          type: string
+        userId:
+          format: uuid
+          type: string
+      title: UpdateFCMTokenRequest
+      type: object
+    UpdateFCMTokenResponse:
+      example:
+        message: message
+        deviceEntity:
+          deviceIdentifier: deviceIdentifier
+          modifyDate: 2000-01-23T04:56:07.000+00:00
+          id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          fcmtoken: fcmtoken
+          createDate: 2000-01-23T04:56:07.000+00:00
+        successful: true
+      properties:
+        deviceEntity:
+          $ref: '#/components/schemas/DeviceEntity'
+        message:
+          type: string
+        successful:
+          type: boolean
+      title: UpdateFCMTokenResponse
+      type: object
+    User:
+      example:
+        name: name
+        id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        email: email
+      properties:
+        email:
+          type: string
+        id:
+          format: uuid
+          type: string
+        name:
+          type: string
+      title: User
+      type: object
+    UserBasedRequest:
+      example:
+        userId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+      properties:
+        userId:
+          format: uuid
+          type: string
+      title: UserBasedRequest
+      type: object
+x-original-swagger-version: "2.0"
+

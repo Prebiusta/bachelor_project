@@ -60,5 +60,6 @@ public class DocumentService {
         String documentId =  processTaskUtils.getDocumentId(taskId);
         // resolve documentId for taskId
         // call document service with documentId to retrieve data
+        return null;
     }
 }

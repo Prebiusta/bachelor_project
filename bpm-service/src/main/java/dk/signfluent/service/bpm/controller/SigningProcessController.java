@@ -1,7 +1,12 @@
 package dk.signfluent.service.bpm.controller;
 
-import dk.signfluent.service.bpm.model.*;
+import dk.signfluent.service.bpm.model.Document;
+import dk.signfluent.service.bpm.model.InspectDocumentRequest;
+import dk.signfluent.service.bpm.model.TaskIdRequest;
+import dk.signfluent.service.bpm.model.UploadDocumentRequest;
 import dk.signfluent.service.bpm.service.DocumentService;
+import dk.signfluent.service.bpm.service.UserService;
+import dk.signfluent.user.service.model.User;
 import org.camunda.bpm.engine.TaskService;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -14,11 +19,13 @@ import java.util.List;
 @RequestMapping("/api/signingProcess")
 public class SigningProcessController {
     private final DocumentService documentService;
+    private final UserService userService;
     private final TaskService taskService;
 
 
-    public SigningProcessController(DocumentService documentService, TaskService taskService) {
+    public SigningProcessController(DocumentService documentService, UserService userService, TaskService taskService) {
         this.documentService = documentService;
+        this.userService = userService;
         this.taskService = taskService;
     }
 

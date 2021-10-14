@@ -1,22 +1,20 @@
 package dk.signfluent.service.bpm.service;
 
-import dk.signfluent.service.bpm.model.User;
-import dk.signfluent.user.service.client.provider.UserApiProvider;
+import dk.signfluent.service.user.api.provider.UserServiceApiProvider;
+import dk.signfluent.user.service.model.User;
 import org.jvnet.hk2.annotations.Service;
 
-import java.util.Collections;
 import java.util.List;
 
 @Service
 public class UserService {
-    private final UserApiProvider userApiProvider;
+    private final UserServiceApiProvider userServiceApiProvider;
 
-    public UserService(UserApiProvider userApiProvider) {
-        this.userApiProvider = userApiProvider;
+    public UserService(UserServiceApiProvider userServiceApiProvider) {
+        this.userServiceApiProvider = userServiceApiProvider;
     }
 
-    private List<User> getActiveApprovers() {
-        // contact document-service to upload document
-        return Collections.emptyList();
+    public List<User> getActiveApprovers() {
+        return userServiceApiProvider.getAvailableApprovers();
     }
 }
