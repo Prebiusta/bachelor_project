@@ -3,3 +3,5 @@
  */
 
 rootProject.name = 'bpm-service'
+include 'user-service-client'
+

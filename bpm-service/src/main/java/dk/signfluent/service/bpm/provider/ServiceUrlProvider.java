@@ -14,4 +14,5 @@ public class ServiceUrlProvider {
     public String getDocumentServiceUrl() {
         return String.format("http://%s:%s", documentServiceConfigValues.getUrl(), documentServiceConfigValues.getPort());
     }
+
 }

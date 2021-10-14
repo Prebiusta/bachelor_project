@@ -1,0 +1,32 @@
+plugins {
+    id "org.openapi.generator" version "5.1.1"
+    id 'java'
+}
+
+group 'dk.signfluent'
+version '1.0.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
+}
+
+openApiGenerate {
+    generatorName = "java"
+    inputSpec = "$rootDir/src/main/resources/user-service.json".toString()
+    outputDir = "$rootDir/src/main/java/dk/signfluent/user/service/client/generated/user-service".toString()
+    apiPackage = "dk.signfluent.user.service.api"
+    invokerPackage = "dk.signfluent.user.service.invoker"
+    modelPackage = "dk.signfluent.user.service.model"
+    configOptions = [
+            dateLibrary: "java8"
+    ]
+}
+
+test {
+    useJUnitPlatform()
+}
