@@ -21,17 +21,32 @@ public class UserServiceApiProviderImpl implements UserServiceApiProvider {
     }
 
     @Override
-    public List<User> getAvailableApprovers() throws ApiException {
-        return userControllerApi.getAvailableApprovers();
+    public List<User> getAvailableApprovers() {
+        try {
+            return userControllerApi.getAvailableApprovers();
+        } catch (ApiException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
     @Override
-    public List<Device> getDevicesForUser(String userId) throws ApiException {
-        return userControllerApi.getDevicesForUser(requestService.generateUserBasedRequest(userId));
+    public List<Device> getDevicesForUser(String userId) {
+        try {
+            return userControllerApi.getDevicesForUser(requestService.generateUserBasedRequest(userId));
+        } catch (ApiException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
     @Override
-    public List<String> getFCMTokensForUser(String userId) throws ApiException {
-        return userControllerApi.getFCMTokensForUser(requestService.generateUserBasedRequest(userId));
+    public List<String> getFCMTokensForUser(String userId) {
+        try {
+            return userControllerApi.getFCMTokensForUser(requestService.generateUserBasedRequest(userId));
+        } catch (ApiException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 }

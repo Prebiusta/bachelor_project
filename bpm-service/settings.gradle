@@ -1,3 +1,6 @@
 rootProject.name = 'bpm-service'
-include 'user-service-client'
+include ":api-clients:user-service-client"
+include ":api-clients:document-service-client"
+include ":api-clients:notification-service-client"
+include ":api-clients:certificate-authority-client"
 

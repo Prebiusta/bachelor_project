@@ -24,7 +24,13 @@ jar {
 }
 
 dependencies {
-    compileOnly project(':user-service-client')
+    implementation project(":api-clients:user-service-client")
+    implementation project(":api-clients:document-service-client")
+    implementation project(":api-clients:notification-service-client")
+    implementation project(":api-clients:certificate-authority-client")
+
+    implementation 'com.squareup.okhttp3:okhttp:4.9.2'
+    implementation 'com.squareup.okhttp3:logging-interceptor:4.9.2'
 
     implementation 'org.camunda.bpm.springboot:camunda-bpm-spring-boot-starter-rest:7.15.0'
     implementation 'org.camunda.bpm.springboot:camunda-bpm-spring-boot-starter-webapp:7.15.0'
@@ -41,7 +47,7 @@ dependencies {
 
 }
 
-group = 'dk.signproof'
+group = 'dk.signfluent'
 version = '1.0.0-SNAPSHOT'
 description = 'bpm-service'
 java.sourceCompatibility = JavaVersion.VERSION_11

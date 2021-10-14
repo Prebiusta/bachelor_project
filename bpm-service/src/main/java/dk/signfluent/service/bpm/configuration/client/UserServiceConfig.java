@@ -1,4 +1,4 @@
-package dk.signfluent.service.bpm.configuration;
+package dk.signfluent.service.bpm.configuration.client;
 
 import dk.signfluent.service.user.api.config.UserServiceApiClientConfig;
 import org.springframework.beans.factory.annotation.Value;

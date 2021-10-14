@@ -4,6 +4,7 @@ import dk.signfluent.service.bpm.model.Document;
 import dk.signfluent.service.bpm.model.InspectDocumentRequest;
 import dk.signfluent.service.bpm.model.UploadDocumentRequest;
 import dk.signfluent.service.bpm.utility.ProcessTaskUtils;
+import dk.signfluent.service.document.api.provider.DocumentServiceApiProvider;
 import org.camunda.bpm.engine.RuntimeService;
 import org.camunda.bpm.engine.TaskService;
 import org.springframework.stereotype.Service;
@@ -19,11 +20,13 @@ public class DocumentService {
     private final RuntimeService runtimeService;
     private final TaskService taskService;
     private final ProcessTaskUtils processTaskUtils;
+    private final DocumentServiceApiProvider documentServiceApiProvider;
 
-    public DocumentService(RuntimeService runtimeService, TaskService taskService, ProcessTaskUtils processTaskUtils) {
+    public DocumentService(RuntimeService runtimeService, TaskService taskService, ProcessTaskUtils processTaskUtils, DocumentServiceApiProvider documentServiceApiProvider) {
         this.runtimeService = runtimeService;
         this.taskService = taskService;
         this.processTaskUtils = processTaskUtils;
+        this.documentServiceApiProvider = documentServiceApiProvider;
     }
 
     public void inspectDocument(InspectDocumentRequest inspectDocumentRequest) {
@@ -35,7 +38,7 @@ public class DocumentService {
     }
 
     public void uploadDocument(UploadDocumentRequest uploadDocumentRequest) {
-        String uploadedDocumentId = uploadToDocumentService(uploadDocumentRequest);
+        String uploadedDocumentId = documentServiceApiProvider.uploadDocument(uploadDocumentRequest.getDocument(), uploadDocumentRequest.getUserId());
         runtimeService.startProcessInstanceByKey(SIGNING_PROCESS, uploadedDocumentId, getVariablesForUploadDocument(uploadedDocumentId));
     }
 
@@ -50,14 +53,8 @@ public class DocumentService {
         return Collections.singletonMap(DOCUMENT_ID, uploadedDocumentId);
     }
 
-    // TODO: Extract to a communication module in gradle/service
-    private String uploadToDocumentService(UploadDocumentRequest uploadDocumentRequest) {
-        // contact document-service to upload document
-        return UUID.randomUUID().toString();
-    }
-
     public Document getDocumentDetails(String taskId) {
-        String documentId =  processTaskUtils.getDocumentId(taskId);
+        String documentId = processTaskUtils.getDocumentId(taskId);
         // resolve documentId for taskId
         // call document service with documentId to retrieve data
         return null;
