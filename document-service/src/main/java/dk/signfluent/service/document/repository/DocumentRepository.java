@@ -1,13 +1,15 @@
 package dk.signfluent.service.document.repository;
 
-import dk.signfluent.service.document.entity.DocumentEntity;
-import org.springframework.data.repository.CrudRepository;
+import dk.signfluent.service.document.entity.Document;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.UUID;
 
 @Repository
-public interface DocumentRepository extends CrudRepository<DocumentEntity, UUID> {
-    DocumentEntity getDocumentById(UUID id);
-    DocumentEntity getDocumentByContent(String content);
+public interface DocumentRepository extends JpaRepository<Document, UUID> {
+    List<Document> getDocumentsByIdIn(List<UUID> ids);
+
+    Document getDocumentById(UUID id);
 }
