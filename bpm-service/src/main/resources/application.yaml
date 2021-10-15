@@ -13,3 +13,10 @@ document:
       service:
         host: localhost
         port: 8001
+
+user:
+  service:
+    svc:
+      service:
+        host: localhost
+        port: 8003

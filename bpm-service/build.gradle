@@ -9,12 +9,14 @@ plugins {
     id 'maven-publish'
 }
 
-repositories {
-    mavenLocal()
-    maven {
-        url = uri('https://repo.maven.apache.org/maven2/')
+allprojects {
+    repositories {
+        mavenLocal()
+        maven {
+            url = uri('https://repo.maven.apache.org/maven2/')
+        }
+        mavenCentral()
     }
-    mavenCentral()
 }
 
 jar {
@@ -22,6 +24,14 @@ jar {
 }
 
 dependencies {
+    implementation project(":api-clients:user-service-client")
+    implementation project(":api-clients:document-service-client")
+    implementation project(":api-clients:notification-service-client")
+    implementation project(":api-clients:certificate-authority-client")
+
+    implementation 'com.squareup.okhttp3:okhttp:4.9.2'
+    implementation 'com.squareup.okhttp3:logging-interceptor:4.9.2'
+
     implementation 'org.camunda.bpm.springboot:camunda-bpm-spring-boot-starter-rest:7.15.0'
     implementation 'org.camunda.bpm.springboot:camunda-bpm-spring-boot-starter-webapp:7.15.0'
     implementation 'org.camunda.bpm:camunda-engine-plugin-spin:7.15.0'
@@ -32,12 +42,12 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-jdbc:2.4.3'
     implementation 'io.springfox:springfox-swagger-ui:3.0.0'
     implementation 'io.springfox:springfox-swagger2:3.0.0'
-
     compileOnly 'org.projectlombok:lombok:1.18.20'
     annotationProcessor 'org.projectlombok:lombok:1.18.20'
+
 }
 
-group = 'dk.signproof'
+group = 'dk.signfluent'
 version = '1.0.0-SNAPSHOT'
 description = 'bpm-service'
 java.sourceCompatibility = JavaVersion.VERSION_11

@@ -1,11 +1,15 @@
 package dk.signfluent.service.bpm.controller;
 
+import dk.signfluent.service.bpm.model.Document;
 import org.camunda.bpm.engine.RuntimeService;
 import org.camunda.bpm.engine.TaskService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import static dk.signfluent.service.bpm.utility.ProcessVariables.DOCUMENT_ID;
+import static dk.signfluent.service.bpm.utility.Processes.SIGNING_PROCESS;
 
 @RestController
 @RequestMapping("/api/poc")
@@ -16,6 +20,15 @@ public class POCController {
     public POCController(RuntimeService runtimeService, TaskService taskService) {
         this.runtimeService = runtimeService;
         this.taskService = taskService;
+    }
+
+    @GetMapping("/uploadDocument")
+    public String uploadDocument(@RequestBody Document document) {
+        String documentId = "Some id after sending document to doc service";
+        Map<String, Object> variables = new HashMap<>();
+        variables.put(DOCUMENT_ID, documentId);
+        runtimeService.startProcessInstanceByKey(SIGNING_PROCESS, documentId, variables);
+        return "Process Instance created and started";
     }
 
     @GetMapping("/start")
