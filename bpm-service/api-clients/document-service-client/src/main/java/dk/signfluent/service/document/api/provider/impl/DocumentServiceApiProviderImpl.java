@@ -3,25 +3,42 @@ package dk.signfluent.service.document.api.provider.impl;
 import dk.signfluent.document.service.api.DocumentControllerApi;
 import dk.signfluent.document.service.invoker.ApiException;
 import dk.signfluent.document.service.model.AssignApprovers;
+import dk.signfluent.document.service.model.DocumentContent;
+import dk.signfluent.document.service.model.DocumentRow;
 import dk.signfluent.document.service.model.ReceivedDocument;
 import dk.signfluent.service.document.api.provider.DocumentServiceApiProvider;
+import dk.signfluent.service.document.api.service.RequestService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 public class DocumentServiceApiProviderImpl implements DocumentServiceApiProvider {
     private final DocumentControllerApi documentControllerApi;
+    private final RequestService requestService;
 
-    public DocumentServiceApiProviderImpl(DocumentControllerApi documentControllerApi) {
+    public DocumentServiceApiProviderImpl(DocumentControllerApi documentControllerApi, RequestService requestService) {
         this.documentControllerApi = documentControllerApi;
+        this.requestService = requestService;
     }
 
     @Override
-    public List<ReceivedDocument> getReceivedDocuments() {
+    public DocumentContent getDocumentDetails(String documentId) {
         try {
-            return documentControllerApi.getReceivedDocuments();
+            return documentControllerApi.getDocumentContent(UUID.fromString(documentId));
+        } catch (ApiException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    @Override
+    public List<DocumentRow> getDocumentList(List<String> documentIds) {
+        try {
+            List<UUID> docIds = documentIds.stream().map(UUID::fromString).collect(Collectors.toList());
+            return documentControllerApi.getDocumentList(docIds);
         } catch (ApiException e) {
             e.printStackTrace();
             return null;
@@ -49,9 +66,9 @@ public class DocumentServiceApiProviderImpl implements DocumentServiceApiProvide
     }
 
     @Override
-    public String uploadDocument(String base64Content, String userId) {
+    public String uploadDocument(String userId, String description, String base64Content) {
         try {
-            return documentControllerApi.uploadDocument(base64Content, UUID.fromString(userId)).toString();
+            return documentControllerApi.uploadDocument(requestService.generateUploadDocumentRequest(userId, description, base64Content)).toString();
         } catch (ApiException e) {
             e.printStackTrace();
             return null;

@@ -9,7 +9,10 @@ import org.camunda.bpm.engine.RuntimeService;
 import org.camunda.bpm.engine.TaskService;
 import org.springframework.stereotype.Service;
 
-import java.util.*;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import static dk.signfluent.service.bpm.utility.ProcessVariables.*;
 import static dk.signfluent.service.bpm.utility.Processes.SIGNING_PROCESS;
@@ -38,7 +41,7 @@ public class DocumentService {
     }
 
     public void uploadDocument(UploadDocumentRequest uploadDocumentRequest) {
-        String uploadedDocumentId = documentServiceApiProvider.uploadDocument(uploadDocumentRequest.getDocument(), uploadDocumentRequest.getUserId());
+        String uploadedDocumentId = documentServiceApiProvider.uploadDocument(uploadDocumentRequest.getUserId(), uploadDocumentRequest.getDescription(), uploadDocumentRequest.getDocument());
         runtimeService.startProcessInstanceByKey(SIGNING_PROCESS, uploadedDocumentId, getVariablesForUploadDocument(uploadedDocumentId));
     }
 
