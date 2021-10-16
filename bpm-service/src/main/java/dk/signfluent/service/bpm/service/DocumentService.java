@@ -1,18 +1,24 @@
 package dk.signfluent.service.bpm.service;
 
+import dk.signfluent.document.service.invoker.ApiException;
+import dk.signfluent.document.service.model.DocumentRow;
 import dk.signfluent.service.bpm.model.Document;
 import dk.signfluent.service.bpm.model.InspectDocumentRequest;
 import dk.signfluent.service.bpm.model.UploadDocumentRequest;
+import dk.signfluent.service.bpm.utility.ProcessFormKey;
 import dk.signfluent.service.bpm.utility.ProcessTaskUtils;
 import dk.signfluent.service.document.api.provider.DocumentServiceApiProvider;
 import org.camunda.bpm.engine.RuntimeService;
 import org.camunda.bpm.engine.TaskService;
+import org.camunda.bpm.engine.task.Task;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Service;
 
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import static dk.signfluent.service.bpm.utility.ProcessVariables.*;
 import static dk.signfluent.service.bpm.utility.Processes.SIGNING_PROCESS;
@@ -33,27 +39,33 @@ public class DocumentService {
     }
 
     public void inspectDocument(InspectDocumentRequest inspectDocumentRequest) {
-//        Map<String, Object> variables = Collections.singletonMap(IS_DOCUMENT_VALID, inspectDocumentRequest.getIsValid());
-        Map<String, Object> variables = new HashMap<String, Object>();
+        Map<String, Object> variables = new HashMap<>();
         variables.put(IS_DOCUMENT_VALID, inspectDocumentRequest.getIsValid());
         variables.put(APPROVERS, inspectDocumentRequest.getApprovers());
         taskService.complete(inspectDocumentRequest.getTaskId(), variables);
     }
 
     public void uploadDocument(UploadDocumentRequest uploadDocumentRequest) {
-        String uploadedDocumentId = documentServiceApiProvider.uploadDocument(uploadDocumentRequest.getUserId(), uploadDocumentRequest.getDescription(), uploadDocumentRequest.getDocument());
-        runtimeService.startProcessInstanceByKey(SIGNING_PROCESS, uploadedDocumentId, getVariablesForUploadDocument(uploadedDocumentId));
+        try {
+            String uploadedDocumentId = documentServiceApiProvider.uploadDocument(uploadDocumentRequest.getUserId(), uploadDocumentRequest.getDescription(), uploadDocumentRequest.getDocument());
+            runtimeService.startProcessInstanceByKey(SIGNING_PROCESS, uploadedDocumentId, Collections.singletonMap(DOCUMENT_ID, uploadedDocumentId));
+        } catch (ApiException e) {
+            throw new RuntimeException(e);
+        }
     }
 
-    //TODO:@David Return list of documents
-    public List<Document> getDocumentsForInspection() {
-        //Call document service endpoint and return it
-        return Collections.emptyList();
-    }
-
-    private Map<String, Object> getVariablesForUploadDocument(String uploadedDocumentId) {
-        //one value map
-        return Collections.singletonMap(DOCUMENT_ID, uploadedDocumentId);
+    public List<DocumentRow> getDocumentsForInspection() {
+        List<String> availableInspectionDocumentIds = processTaskUtils.getForFormKey(ProcessFormKey.ASSIGN_APPROVERS)
+                .stream()
+                .map(Task::getId)
+                .map(taskService::getVariables)
+                .map(variables -> (String) variables.get(DOCUMENT_ID))
+                .collect(Collectors.toList());
+        try {
+            return documentServiceApiProvider.getDocumentList(availableInspectionDocumentIds);
+        } catch (ApiException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public Document getDocumentDetails(String taskId) {

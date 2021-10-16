@@ -1,5 +1,6 @@
 package dk.signfluent.service.bpm.controller;
 
+import dk.signfluent.document.service.model.DocumentRow;
 import dk.signfluent.service.bpm.model.Document;
 import dk.signfluent.service.bpm.model.InspectDocumentRequest;
 import dk.signfluent.service.bpm.model.TaskIdRequest;
@@ -20,13 +21,11 @@ import java.util.List;
 public class SigningProcessController {
     private final DocumentService documentService;
     private final UserService userService;
-    private final TaskService taskService;
 
 
-    public SigningProcessController(DocumentService documentService, UserService userService, TaskService taskService) {
+    public SigningProcessController(DocumentService documentService, UserService userService) {
         this.documentService = documentService;
         this.userService = userService;
-        this.taskService = taskService;
     }
 
     @PostMapping(value = "/uploadDocument")
@@ -46,7 +45,7 @@ public class SigningProcessController {
     }
 
     @PostMapping("/getDocumentsForInspection")
-    public List<Document> getDocumentsForInspection(){
+    public List<DocumentRow> getDocumentsForInspection(){
         return documentService.getDocumentsForInspection();
     }
 
@@ -55,7 +54,6 @@ public class SigningProcessController {
         return documentService.getDocumentDetails(taskIdRequest.getTaskId());
     }
 
-    // TODO: Get approvers
     @PostMapping("/getActiveApprovers")
     public List<User> getActiveApprovers(){
         return userService.getActiveApprovers();
