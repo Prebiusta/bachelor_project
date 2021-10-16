@@ -1,10 +1,8 @@
 package dk.signfluent.service.bpm.controller;
 
 import dk.signfluent.document.service.model.DocumentRow;
-import dk.signfluent.service.bpm.model.Document;
-import dk.signfluent.service.bpm.model.InspectDocumentRequest;
-import dk.signfluent.service.bpm.model.TaskIdRequest;
-import dk.signfluent.service.bpm.model.UploadDocumentRequest;
+import dk.signfluent.service.bpm.model.*;
+import dk.signfluent.service.bpm.model.response.DocumentResponse;
 import dk.signfluent.service.bpm.service.DocumentService;
 import dk.signfluent.service.bpm.service.UserService;
 import dk.signfluent.user.service.model.User;
@@ -45,12 +43,12 @@ public class SigningProcessController {
     }
 
     @PostMapping("/getDocumentsForInspection")
-    public List<DocumentRow> getDocumentsForInspection(){
+    public List<DocumentResponse> getDocumentsForInspection(){
         return documentService.getDocumentsForInspection();
     }
 
     @PostMapping("/getDocumentDetails")
-    public Document getDocumentDetails(TaskIdRequest taskIdRequest){
+    public DocumentWithContent getDocumentDetails(@RequestBody TaskIdRequest taskIdRequest){
         return documentService.getDocumentDetails(taskIdRequest.getTaskId());
     }
 

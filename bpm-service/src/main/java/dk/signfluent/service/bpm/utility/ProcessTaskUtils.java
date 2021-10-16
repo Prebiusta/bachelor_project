@@ -1,5 +1,6 @@
 package dk.signfluent.service.bpm.utility;
 
+import dk.signfluent.service.bpm.model.TaskDocumentModel;
 import org.camunda.bpm.engine.TaskService;
 import org.camunda.bpm.engine.task.Task;
 import org.springframework.stereotype.Component;
@@ -29,10 +30,26 @@ public class ProcessTaskUtils {
         return convertTaskStreamToDocumentIds(taskStream);
     }
 
-    public List<String> getDocumentIdsForFormKey(ProcessFormKey processFormKey) {
-        Stream<Task> taskStream = getTaskQueryStream()
-                .filter(task -> task.getFormKey().equalsIgnoreCase(processFormKey.getFormKey()));
-        return convertTaskStreamToDocumentIds(taskStream);
+    public List<String> getTaskIdsForFormKeyAndUser(ProcessFormKey processFormKey, String userId) {
+        return getTaskQueryStream()
+                .filter(task -> task.getFormKey().equalsIgnoreCase(processFormKey.getFormKey()))
+                .filter(task -> task.getAssignee().equalsIgnoreCase(userId))
+                .map(Task::getId)
+                .collect(Collectors.toList());
+    }
+
+    public List<TaskDocumentModel> getTaskToDocumentIdMapForFormKey(ProcessFormKey processFormKey) {
+        return getTaskQueryStream()
+                .filter(task -> task.getFormKey().equalsIgnoreCase(processFormKey.getFormKey()))
+                .map(task -> new TaskDocumentModel(task.getId(), (String)taskService.getVariables(task.getId()).get(DOCUMENT_ID)))
+                .collect(Collectors.toList());
+    }
+
+    public List<String> getTaskIdsForFormKey(ProcessFormKey processFormKey) {
+        return getTaskQueryStream()
+                .filter(task -> task.getFormKey().equalsIgnoreCase(processFormKey.getFormKey()))
+                .map(Task::getId)
+                .collect(Collectors.toList());
     }
 
     private List<String> convertTaskStreamToDocumentIds(Stream<Task> taskStream) {
