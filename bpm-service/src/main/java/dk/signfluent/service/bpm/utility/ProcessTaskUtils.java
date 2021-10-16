@@ -18,26 +18,28 @@ public class ProcessTaskUtils {
         this.taskService = taskService;
     }
 
-    public String getDocumentId(String taskId){
+    public String getDocumentId(String taskId) {
         return (String) taskService.getVariables(taskId).get(DOCUMENT_ID);
     }
 
-    public List<Task> getForUserAndFormKey(ProcessFormKey processFormKey, String userId) {
-        return getTaskQueryStream()
+    public List<String> getDocumentIdsForFormKeyAndUser(ProcessFormKey processFormKey, String userId) {
+        Stream<Task> taskStream = getTaskQueryStream()
                 .filter(task -> task.getFormKey().equalsIgnoreCase(processFormKey.getFormKey()))
-                .filter(task -> task.getAssignee().equalsIgnoreCase(userId))
-                .collect(Collectors.toList());
+                .filter(task -> task.getAssignee().equalsIgnoreCase(userId));
+        return convertTaskStreamToDocumentIds(taskStream);
     }
 
-    public List<Task> getForUser(String userId) {
-        return getTaskQueryStream()
-                .filter(task -> task.getAssignee().equalsIgnoreCase(userId))
-                .collect(Collectors.toList());
+    public List<String> getDocumentIdsForFormKey(ProcessFormKey processFormKey) {
+        Stream<Task> taskStream = getTaskQueryStream()
+                .filter(task -> task.getFormKey().equalsIgnoreCase(processFormKey.getFormKey()));
+        return convertTaskStreamToDocumentIds(taskStream);
     }
 
-    public List<Task> getForFormKey(ProcessFormKey processFormKey) {
-        return getTaskQueryStream()
-                .filter(task -> task.getFormKey().equalsIgnoreCase(processFormKey.getFormKey()))
+    private List<String> convertTaskStreamToDocumentIds(Stream<Task> taskStream) {
+        return taskStream
+                .map(Task::getId)
+                .map(taskService::getVariables)
+                .map(variables -> (String) variables.get(DOCUMENT_ID))
                 .collect(Collectors.toList());
     }
 

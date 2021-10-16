@@ -11,7 +11,6 @@ import dk.signfluent.service.document.api.provider.DocumentServiceApiProvider;
 import org.camunda.bpm.engine.RuntimeService;
 import org.camunda.bpm.engine.TaskService;
 import org.camunda.bpm.engine.task.Task;
-import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Service;
 
 import java.util.Collections;
@@ -55,12 +54,7 @@ public class DocumentService {
     }
 
     public List<DocumentRow> getDocumentsForInspection() {
-        List<String> availableInspectionDocumentIds = processTaskUtils.getForFormKey(ProcessFormKey.ASSIGN_APPROVERS)
-                .stream()
-                .map(Task::getId)
-                .map(taskService::getVariables)
-                .map(variables -> (String) variables.get(DOCUMENT_ID))
-                .collect(Collectors.toList());
+        List<String> availableInspectionDocumentIds = processTaskUtils.getDocumentIdsForFormKey(ProcessFormKey.ASSIGN_APPROVERS);
         try {
             return documentServiceApiProvider.getDocumentList(availableInspectionDocumentIds);
         } catch (ApiException e) {
