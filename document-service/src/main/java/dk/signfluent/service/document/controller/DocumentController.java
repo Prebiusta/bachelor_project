@@ -23,7 +23,7 @@ public class DocumentController {
         return documentService.uploadDocument(document);
     }
 
-    @GetMapping("/getDocumentList")
+    @PostMapping("/getDocumentList")
     @ApiOperation(value = "Get Document list with base data", nickname = "getDocumentList")
     public List<DocumentRow> getDocumentList(@RequestBody List<UUID> documentIds) throws Exception {
         return documentService.getDocumentList(documentIds);
