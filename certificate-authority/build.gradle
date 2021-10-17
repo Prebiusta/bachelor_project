@@ -1,0 +1,40 @@
+plugins {
+    id 'org.springframework.boot' version '2.5.4'
+    id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+    id 'java'
+}
+
+group = 'dk.signfluent'
+version = '1.0.0-SNAPSHOT'
+description = 'certificate-authority'
+java.sourceCompatibility = JavaVersion.VERSION_11
+
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+}
+
+jar {
+    enabled = false
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compileOnly project(':validation')
+    compileOnly project(':certificate-management')
+    compileOnly project(':util')
+
+    implementation 'org.bouncycastle:bcprov-jdk15on:1.69'
+    implementation 'org.bouncycastle:bcpkix-jdk15on:1.69'
+
+    implementation 'org.springframework.boot:spring-boot-starter-web:2.5.5'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test:2.5.5'
+}
+
+test {
+    useJUnitPlatform()
+}
