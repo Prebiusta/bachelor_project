@@ -46,6 +46,8 @@ dependencies:
   flutter_redux_navigation: ^0.7.0
   redux_thunk: ^0.4.0
   device_info_plus: ^2.2.0
+  firebase_core: ^1.7.0
+  firebase_messaging: ^10.0.8
 
 dev_dependencies:
   flutter_test:

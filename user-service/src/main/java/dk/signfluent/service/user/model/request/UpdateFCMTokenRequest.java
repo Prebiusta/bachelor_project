@@ -6,5 +6,5 @@ import lombok.EqualsAndHashCode;
 @Data
 @EqualsAndHashCode(callSuper = true)
 public class UpdateFCMTokenRequest extends DeviceBasedRequest{
-    private String FCMToken;
+    private String fcmToken;
 }

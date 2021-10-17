@@ -1,0 +1,5 @@
+rootProject.name = 'certificate-authority'
+include 'validation'
+include 'certificate-management'
+include 'util'
+
