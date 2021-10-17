@@ -5,8 +5,9 @@ import dk.signfluent.service.bpm.model.*;
 import dk.signfluent.service.bpm.model.response.DocumentResponse;
 import dk.signfluent.service.bpm.service.DocumentService;
 import dk.signfluent.service.bpm.service.UserService;
+import dk.signfluent.service.bpm.utility.FormKey;
+import dk.signfluent.service.bpm.utility.ProcessFormKey;
 import dk.signfluent.user.service.model.User;
-import org.camunda.bpm.engine.TaskService;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -37,23 +38,27 @@ public class SigningProcessController {
 //    }
 
     @PostMapping("/inspectDocument")
-    public String inspectDocument(@RequestBody InspectDocumentRequest inspectDocumentRequest){
+    @FormKey(ProcessFormKey.INSPECT_DOCUMENT)
+    public String inspectDocument(@RequestBody InspectDocumentRequest inspectDocumentRequest) {
         documentService.inspectDocument(inspectDocumentRequest);
         return "Done";
     }
 
     @PostMapping("/getDocumentsForInspection")
-    public List<DocumentResponse> getDocumentsForInspection(){
+    @FormKey(ProcessFormKey.INSPECT_DOCUMENT)
+    public List<DocumentResponse> getDocumentsForInspection() {
         return documentService.getDocumentsForInspection();
     }
 
     @PostMapping("/getDocumentDetails")
-    public DocumentWithContent getDocumentDetails(@RequestBody TaskIdRequest taskIdRequest){
+    @FormKey(ProcessFormKey.INSPECT_DOCUMENT)
+    public DocumentWithContent getDocumentDetails(TaskIdRequest taskIdRequest) {
         return documentService.getDocumentDetails(taskIdRequest.getTaskId());
     }
 
     @PostMapping("/getActiveApprovers")
-    public List<User> getActiveApprovers(){
+    @FormKey(ProcessFormKey.INSPECT_DOCUMENT)
+    public List<User> getActiveApprovers() {
         return userService.getActiveApprovers();
     }
 }

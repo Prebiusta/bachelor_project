@@ -17,7 +17,6 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 import static dk.signfluent.service.bpm.utility.ProcessVariables.*;
 import static dk.signfluent.service.bpm.utility.Processes.SIGNING_PROCESS;
@@ -42,7 +41,10 @@ public class DocumentService {
     public void inspectDocument(InspectDocumentRequest inspectDocumentRequest) {
         Map<String, Object> variables = new HashMap<>();
         variables.put(IS_DOCUMENT_VALID, inspectDocumentRequest.getIsValid());
-        variables.put(APPROVERS, inspectDocumentRequest.getApprovers());
+        if (inspectDocumentRequest.getIsValid()) {
+            variables.put(APPROVERS, inspectDocumentRequest.getApprovers());
+            variables.put(DELEGATOR_ID, inspectDocumentRequest.getDelegatorId());
+        }
         taskService.complete(inspectDocumentRequest.getTaskId(), variables);
     }
 
