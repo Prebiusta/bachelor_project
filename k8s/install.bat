@@ -1,3 +1,4 @@
+@echo off
 docker-compose --project-name signfluent build
 
 set KUBECTL=kubectl apply -f
