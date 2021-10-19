@@ -2,11 +2,11 @@ package dk.signfluent.service.bpm.model;
 
 import lombok.Data;
 
-import java.util.Map;
+import java.util.List;
 
 @Data
-public class InspectDocumentRequest {
+public class InspectDocumentRequest extends TaskIdRequest {
     private Boolean isValid;
-    private String taskId;
-    private Map<Integer,Object> approvers;
+    private String delegatorId;
+    private List<Object> approvers;
 }

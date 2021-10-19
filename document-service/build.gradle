@@ -1,5 +1,5 @@
 plugins {
-    id 'org.springframework.boot' version '2.5.4'
+    id 'org.springframework.boot' version '2.5.5'
     id 'io.spring.dependency-management' version '1.0.11.RELEASE'
     id 'java'
 }
@@ -24,16 +24,25 @@ repositories {
 }
 
 dependencies {
+    // Spring Boot
     implementation 'org.springframework.boot:spring-boot-starter-web:2.5.5'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test:2.5.5'
+
+    // JPA
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa:2.5.5'
+
+    // Swagger
     implementation 'io.springfox:springfox-swagger-ui:3.0.0'
     implementation 'io.springfox:springfox-swagger2:3.0.0'
-    implementation 'org.jetbrains:annotations:22.0.0'
+
+    // Lombok
     compileOnly 'org.projectlombok:lombok:1.18.22'
     annotationProcessor 'org.projectlombok:lombok:1.18.22'
-    testImplementation 'org.springframework.boot:spring-boot-starter-test:2.5.5'
-    implementation 'org.springframework.boot:spring-boot-starter-data-jpa:2.5.5'
+
+    // H2 DB
     runtimeOnly 'com.h2database:h2:1.4.200'
-    testImplementation 'org.springframework.boot:spring-boot-starter-test:2.5.5'
+
+    // Mapstruct
     implementation 'org.mapstruct:mapstruct:1.4.2.Final'
     annotationProcessor 'org.mapstruct:mapstruct-processor:1.4.2.Final'
 }

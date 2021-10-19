@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 import java.util.UUID;
 
 @Service
-public class RequestService {
+public class DocumentRequestService {
     public UploadDocument generateUploadDocumentRequest(String uploaderId, String description, String content) {
         UploadDocument uploadDocument = new UploadDocument();
         uploadDocument.setUploaderId(UUID.fromString(uploaderId));

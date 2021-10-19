@@ -1,5 +1,6 @@
 package dk.signfluent.service.bpm.model;
 
+import dk.signfluent.document.service.model.ApprovalOrderModel;
 import lombok.Data;
 
 import java.util.List;
@@ -9,6 +10,6 @@ public class AssignApproversDocumentRequest {
     private String taskId;
     private Boolean approve;
     private String delegatorId;
-    private List<User> approvers;
+    private List<ApprovalOrderModel> approvers;
 
 }

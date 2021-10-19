@@ -1,8 +1,12 @@
 package dk.signfluent.service.bpm.service;
 
-import dk.signfluent.service.bpm.model.Document;
-import dk.signfluent.service.bpm.model.InspectDocumentRequest;
-import dk.signfluent.service.bpm.model.UploadDocumentRequest;
+import dk.signfluent.document.service.invoker.ApiException;
+import dk.signfluent.document.service.model.DocumentContent;
+import dk.signfluent.document.service.model.DocumentRow;
+import dk.signfluent.service.bpm.mapper.DocumentMapper;
+import dk.signfluent.service.bpm.model.*;
+import dk.signfluent.service.bpm.model.response.DocumentResponse;
+import dk.signfluent.service.bpm.utility.ProcessFormKey;
 import dk.signfluent.service.bpm.utility.ProcessTaskUtils;
 import dk.signfluent.service.document.api.provider.DocumentServiceApiProvider;
 import org.camunda.bpm.engine.RuntimeService;
@@ -24,42 +28,74 @@ public class DocumentService {
     private final TaskService taskService;
     private final ProcessTaskUtils processTaskUtils;
     private final DocumentServiceApiProvider documentServiceApiProvider;
+    private final DocumentMapper documentMapper;
 
-    public DocumentService(RuntimeService runtimeService, TaskService taskService, ProcessTaskUtils processTaskUtils, DocumentServiceApiProvider documentServiceApiProvider) {
+    public DocumentService(RuntimeService runtimeService, TaskService taskService, ProcessTaskUtils processTaskUtils, DocumentServiceApiProvider documentServiceApiProvider, DocumentMapper documentMapper) {
         this.runtimeService = runtimeService;
         this.taskService = taskService;
         this.processTaskUtils = processTaskUtils;
         this.documentServiceApiProvider = documentServiceApiProvider;
+        this.documentMapper = documentMapper;
     }
 
     public void inspectDocument(InspectDocumentRequest inspectDocumentRequest) {
-//        Map<String, Object> variables = Collections.singletonMap(IS_DOCUMENT_VALID, inspectDocumentRequest.getIsValid());
-        Map<String, Object> variables = new HashMap<String, Object>();
+        Map<String, Object> variables = new HashMap<>();
         variables.put(IS_DOCUMENT_VALID, inspectDocumentRequest.getIsValid());
-        variables.put(APPROVERS, inspectDocumentRequest.getApprovers());
+        if (inspectDocumentRequest.getIsValid()) {
+            variables.put(APPROVERS, inspectDocumentRequest.getApprovers());
+            variables.put(DELEGATOR_ID, inspectDocumentRequest.getDelegatorId());
+        }
         taskService.complete(inspectDocumentRequest.getTaskId(), variables);
     }
 
     public void uploadDocument(UploadDocumentRequest uploadDocumentRequest) {
-        String uploadedDocumentId = documentServiceApiProvider.uploadDocument(uploadDocumentRequest.getUserId(), uploadDocumentRequest.getDescription(), uploadDocumentRequest.getDocument());
-        runtimeService.startProcessInstanceByKey(SIGNING_PROCESS, uploadedDocumentId, getVariablesForUploadDocument(uploadedDocumentId));
+        try {
+            String uploadedDocumentId = documentServiceApiProvider.uploadDocument(uploadDocumentRequest.getUserId(), uploadDocumentRequest.getDescription(), uploadDocumentRequest.getDocument());
+            runtimeService.startProcessInstanceByKey(SIGNING_PROCESS, uploadedDocumentId, Collections.singletonMap(DOCUMENT_ID, uploadedDocumentId));
+        } catch (ApiException e) {
+            throw new RuntimeException(e);
+        }
     }
 
-    //TODO:@David Return list of documents
-    public List<Document> getDocumentsForInspection() {
-        //Call document service endpoint and return it
-        return Collections.emptyList();
+    public List<DocumentResponse> getDocumentsForInspection() {
+        List<TaskDocumentModel> taskToDocumentIdMapForFormKey = processTaskUtils.getTaskToDocumentIdMapForFormKey(ProcessFormKey.ASSIGN_APPROVERS);
+        try {
+            List<DocumentRow> documentList = documentServiceApiProvider.getDocumentList(taskToDocumentIdMapForFormKey.stream().map(TaskDocumentModel::getDocumentId).collect(Collectors.toList()));
+            return assignTaskToDocument(documentList, taskToDocumentIdMapForFormKey);
+        } catch (ApiException e) {
+            throw new RuntimeException(e);
+        }
     }
 
-    private Map<String, Object> getVariablesForUploadDocument(String uploadedDocumentId) {
-        //one value map
-        return Collections.singletonMap(DOCUMENT_ID, uploadedDocumentId);
-    }
-
-    public Document getDocumentDetails(String taskId) {
+    public DocumentWithContent getDocumentDetails(String taskId) {
         String documentId = processTaskUtils.getDocumentId(taskId);
-        // resolve documentId for taskId
-        // call document service with documentId to retrieve data
-        return null;
+        try {
+            DocumentContent documentDetails = documentServiceApiProvider.getDocumentDetails(documentId);
+            return documentMapper.mapDocumentWithContent(documentDetails);
+        } catch (ApiException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private List<DocumentResponse> assignTaskToDocument(List<DocumentRow> documentList, List<TaskDocumentModel> taskIdsForDocuments) {
+        return taskIdsForDocuments.stream()
+                .map(taskDocumentModel -> {
+                    DocumentResponse documentResponse = new DocumentResponse();
+                    documentResponse.setTaskId(taskDocumentModel.getTaskId());
+                    documentResponse.setDocument(findDocumentRow(documentList, taskDocumentModel.getDocumentId()));
+                    return documentResponse;
+                })
+                .collect(Collectors.toList());
+    }
+
+    private Document findDocumentRow(List<DocumentRow> documentRows, String documentId) {
+        DocumentRow documentRow = documentRows.stream()
+                .filter(doc -> {
+                    assert doc.getDocumentId() != null;
+                    return doc.getDocumentId().toString().equalsIgnoreCase(documentId);
+                })
+                .findFirst()
+                .orElseThrow(() -> new RuntimeException("DocumentID not Found"));
+        return documentMapper.mapDocumentRowToDocument(documentRow);
     }
 }

@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 import java.util.UUID;
 
 @Service
-public class RequestService {
+public class UserRequestService {
     public UserBasedRequest generateUserBasedRequest(String userId) {
         UserBasedRequest userBasedRequest = new UserBasedRequest();
         userBasedRequest.setUserId(UUID.fromString(userId));

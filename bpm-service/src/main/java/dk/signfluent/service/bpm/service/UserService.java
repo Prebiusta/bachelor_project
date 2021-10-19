@@ -1,6 +1,7 @@
 package dk.signfluent.service.bpm.service;
 
 import dk.signfluent.service.user.api.provider.UserServiceApiProvider;
+import dk.signfluent.user.service.invoker.ApiException;
 import dk.signfluent.user.service.model.User;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +17,10 @@ public class UserService {
     }
 
     public List<User> getActiveApprovers() {
-        return userServiceApiProvider.getAvailableApprovers();
+        try {
+            return userServiceApiProvider.getAvailableApprovers();
+        } catch (ApiException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

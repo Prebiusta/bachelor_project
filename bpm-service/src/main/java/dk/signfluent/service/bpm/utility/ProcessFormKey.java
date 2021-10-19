@@ -4,9 +4,7 @@ import lombok.Getter;
 
 @Getter
 public enum ProcessFormKey {
-    ASSIGN_APPROVERS("assign_approvers"),
-    SIGN("sign"),
-    ;
+    INSPECT_DOCUMENT("inspectDocument");
 
     private final String formKey;
 
