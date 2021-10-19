@@ -13,7 +13,7 @@ import javax.persistence.ManyToOne;
 @AllArgsConstructor
 @NoArgsConstructor
 public class DeviceEntity extends EntityBase {
-    private String deviceId;
+    private String deviceIdentifier;
     private String FCMToken;
 
     @ManyToOne

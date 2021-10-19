@@ -5,5 +5,5 @@ import lombok.EqualsAndHashCode;
 
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class RegisterDeviceRequest extends DeviceBasedRequest{
+public class RegisterDeviceRequest extends DeviceBasedRequest {
 }
