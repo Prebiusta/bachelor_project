@@ -1,0 +1,36 @@
+table {
+    width: 100%;
+  }
+  
+  .mat-form-field {
+    font-size: 12px;
+    width: 25%;
+  }
+
+  .sf-status-blue {
+    color: #5B0CDE
+  }
+
+  .sf-status-red {
+    color: #D95347
+  }
+
+  .sf-status-yellow {
+    color: #F0AD4E
+  }
+
+  .sf-status-green {
+    color: #5CB85c
+  }
+
+  td.mat-column-action {
+    width: 10px;
+  }
+
+  td.mat-column-date {
+    width: 10%;
+  }
+
+  td.mat-column-uploadedBy {
+    width: 15%;
+  }
