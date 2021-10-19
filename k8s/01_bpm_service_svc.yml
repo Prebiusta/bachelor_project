@@ -6,8 +6,8 @@ spec:
   selector:
     app: bpm-service
   ports:
-    - port: 8181
-      targetPort: 8181
+    - port: 8000
+      targetPort: 8000
       name: http
       protocol: TCP
   type: LoadBalancer

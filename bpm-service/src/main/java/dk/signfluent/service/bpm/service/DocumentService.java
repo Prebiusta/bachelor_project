@@ -17,6 +17,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import static dk.signfluent.service.bpm.utility.ProcessVariables.*;
 import static dk.signfluent.service.bpm.utility.Processes.SIGNING_PROCESS;
@@ -58,7 +59,7 @@ public class DocumentService {
     }
 
     public List<DocumentResponse> getDocumentsForInspection() {
-        List<TaskDocumentModel> taskToDocumentIdMapForFormKey = processTaskUtils.getTaskToDocumentIdMapForFormKey(ProcessFormKey.ASSIGN_APPROVERS);
+        List<TaskDocumentModel> taskToDocumentIdMapForFormKey = processTaskUtils.getTaskToDocumentIdMapForFormKey(ProcessFormKey.INSPECT_DOCUMENT);
         try {
             List<DocumentRow> documentList = documentServiceApiProvider.getDocumentList(taskToDocumentIdMapForFormKey.stream().map(TaskDocumentModel::getDocumentId).collect(Collectors.toList()));
             return assignTaskToDocument(documentList, taskToDocumentIdMapForFormKey);

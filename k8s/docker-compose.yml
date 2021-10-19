@@ -1,0 +1,31 @@
+version: '3'
+
+# Comment out the service which does not need to be started
+services:
+  ui:
+    container_name: signfluent-web
+    build: ../signfluent-web
+
+  document_service:
+    container_name: document-service
+    build: ../document-service
+
+  bpm_service:
+    container_name: bpm-service
+    build: ../bpm-service
+
+  notification_service:
+    container_name: notification-service
+    build: ../notification-service
+
+  user_service:
+    container_name: user-service
+    build: ../user-service
+
+  certificate_authority:
+    container_name: certificate-authority
+    build: ../certificate-authority
+
+networks:
+  bpr:
+    driver: bridge

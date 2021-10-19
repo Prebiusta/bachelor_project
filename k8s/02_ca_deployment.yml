@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ca-deployment
+  labels:
+    app: ca
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: ca
+  template:
+    metadata:
+      labels:
+        app: ca
+    spec:
+      containers:
+        - name: ca
+          imagePullPolicy: Never
+          image: signfluent_certificate_authority:latest
+      imagePullSecrets:
+        - name: gcp-sa-key

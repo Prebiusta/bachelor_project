@@ -6,6 +6,6 @@ spec:
   selector:
     app: document-service
   ports:
-    - port: 8080
-      targetPort: 8080
+    - port: 8001
+      targetPort: 8001
   type: LoadBalancer

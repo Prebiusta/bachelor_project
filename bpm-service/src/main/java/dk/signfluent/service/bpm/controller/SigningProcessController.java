@@ -61,4 +61,10 @@ public class SigningProcessController {
     public List<User> getActiveApprovers() {
         return userService.getActiveApprovers();
     }
+
+    @PostMapping("/test")
+    @FormKey(ProcessFormKey.INSPECT_DOCUMENT)
+    public List<User> test() {
+        return userService.getActiveApprovers();
+    }
 }
