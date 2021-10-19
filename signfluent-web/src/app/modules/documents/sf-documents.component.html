@@ -1,0 +1,25 @@
+<mat-tab-group mat-align-tabs="center">
+    <mat-tab label="OWN DOCUMENTS">
+        <ng-template matTabContent>
+            <sf-documents-list [type]="'OWN'"></sf-documents-list>
+        </ng-template>
+    </mat-tab>
+    <mat-tab label="FOR APPROVAL">
+        <ng-template matTabContent>
+            <sf-documents-list [type]="'APPROVAL'"></sf-documents-list>
+        </ng-template>
+    </mat-tab>
+    <mat-tab label="FOR DELEGATION">
+        <ng-template matTabContent>
+            <sf-documents-list [type]="'DELEGATE'"></sf-documents-list>
+        </ng-template>
+    </mat-tab>
+    <mat-tab label="ALL DOCUMENTS">
+        <ng-template matTabContent>
+            <sf-documents-list [type]="'ALL'"></sf-documents-list>
+        </ng-template>
+    </mat-tab>
+    <mat-tab label="UPLOAD">
+        <ng-template matTabContent></ng-template>
+    </mat-tab>
+</mat-tab-group>

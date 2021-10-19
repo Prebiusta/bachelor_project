@@ -1,6 +1,5 @@
 import { Component } from "@angular/core";
 import { MatDialogRef } from "@angular/material/dialog";
-import {MatButtonModule} from '@angular/material/button';
 
 
 @Component({
@@ -11,9 +10,9 @@ import {MatButtonModule} from '@angular/material/button';
 
 export class SfLogoutDialogComponent {
     
-    constructor(public dialogRef: MatDialogRef<SfLogoutDialogComponent>){}
+    constructor(public dialogRef: MatDialogRef<SfLogoutDialogComponent>) { }
 
     public close(): void {
         this.dialogRef.close();
     }
- }
+}

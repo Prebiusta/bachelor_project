@@ -1,5 +1,6 @@
 import { NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
+import { RouterModule } from "@angular/router";
 
 // Material imports
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -10,14 +11,15 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatMenuModule } from '@angular/material/menu';
 
 // Signfluent components
-import { SfTopbarComponent } from "../layout/topbar/sf-topbar.component";
-import { SfLogoutDialogComponent } from "./topbar/logout_dialog/sf-logout-dialog.component";
+import { SfTopbarComponent } from "../core/topbar/sf-topbar.component"
+import { SfLogoutDialogComponent } from "../core/logout_dialog/sf-logout-dialog.component"
 import { SfFooterComponent } from "./footer/sf-footer.component";
 
 
+
 @NgModule({
-    declarations:[SfTopbarComponent, SfLogoutDialogComponent, SfFooterComponent],
-    imports:[CommonModule, MatToolbarModule, MatGridListModule, MatIconModule, MatDialogModule, MatButtonModule, MatMenuModule],
-    exports:[SfTopbarComponent, SfFooterComponent]
+    declarations: [SfTopbarComponent, SfLogoutDialogComponent, SfFooterComponent],
+    imports: [CommonModule, RouterModule, MatToolbarModule, MatGridListModule, MatIconModule, MatDialogModule, MatButtonModule, MatMenuModule],
+    exports: [SfTopbarComponent, SfFooterComponent]
 })
-export class SignfluentLayoutModule {}
+export class SignfluentCoreModule { }
