@@ -18,5 +18,7 @@ spec:
         - name: bpm-service
           imagePullPolicy: Never
           image: signfluent_bpm_service:latest
+          ports:
+            - containerPort: 8000
       imagePullSecrets:
         - name: gcp-sa-key

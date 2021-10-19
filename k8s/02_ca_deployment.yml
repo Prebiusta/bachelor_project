@@ -18,5 +18,7 @@ spec:
         - name: ca
           imagePullPolicy: Never
           image: signfluent_certificate_authority:latest
+          ports:
+            - containerPort: 8004
       imagePullSecrets:
         - name: gcp-sa-key

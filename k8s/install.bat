@@ -15,5 +15,4 @@ set KUBECTL=kubectl apply -f
 %KUBECTL% 02_notification_service_deployment.yml
 %KUBECTL% 02_user_service_deployment.yml
 
-# Forcing images to be reloaded
 kubectl delete --all pods

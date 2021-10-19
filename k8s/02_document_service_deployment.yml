@@ -18,5 +18,7 @@ spec:
         - name: document-service
           imagePullPolicy: Never
           image: signfluent_document_service:latest
+          ports:
+            - containerPort: 8001
       imagePullSecrets:
         - name: gcp-sa-key

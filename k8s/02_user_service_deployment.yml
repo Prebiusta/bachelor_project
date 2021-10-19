@@ -18,5 +18,7 @@ spec:
         - name: user-service
           imagePullPolicy: Never
           image: signfluent_user_service:latest
+          ports:
+            - containerPort: 8003
       imagePullSecrets:
         - name: gcp-sa-key
