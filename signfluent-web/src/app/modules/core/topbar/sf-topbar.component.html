@@ -1,0 +1,35 @@
+<mat-toolbar color='primary' class="mat-elevation-z8">
+    <div class="row justify-content-between my-4 w-100 mx-0 align-items-center">
+        <div>
+            <button mat-button [matMenuTriggerFor]="menu">
+                Documents
+                <mat-icon aria-hidden="false" aria-label="route">
+                    keyboard_arrow_down
+                </mat-icon>
+            </button>
+            <mat-menu #menu="matMenu">
+                <button [routerLink]="['documents']" mat-menu-item>
+                    <div class="row mx-0 align-items-center">
+                        <mat-icon aria-hidden="false" aria-label="documents">description</mat-icon>
+                        <span>Documents</span>
+                    </div>
+                </button>
+                <button mat-menu-item>
+                    <div class="row mx-0 align-items-center">
+                        <mat-icon aria-hidden="false" aria-label="documents">manage_accounts</mat-icon>
+                        <span>Process management</span>
+                    </div>
+                </button>
+            </mat-menu>
+        </div>
+        <img class="logo" src="../../../../assets/logo.png">
+        <div class="row justify-content-end mx-0">
+            <button mat-button>Username</button>
+            <button mat-button (click)="openLogoutDialog()">
+                <mat-icon aria-hidden="false" aria-label="logout">
+                    logout
+                </mat-icon>
+            </button>
+        </div>
+    </div>
+</mat-toolbar>

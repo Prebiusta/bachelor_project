@@ -1,6 +1,6 @@
 import { Component } from "@angular/core";
 import { MatDialog } from "@angular/material/dialog";
-import { SfLogoutDialogComponent } from "./logout_dialog/sf-logout-dialog.component";
+import { SfLogoutDialogComponent } from "../logout_dialog/sf-logout-dialog.component";
 
 
 @Component({
