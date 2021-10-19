@@ -5,14 +5,14 @@ import { FormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { ProofOfConceptComponent } from './proof-of-concept/components/proof-of-concept.component';
-import { SignfluentLayoutModule } from './layout/sf-layout.module';
+import { SignfluentCoreModule } from './modules/core/sf-core.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { SignfluentDocumentsModule } from './modules/documents/sf-documents.module';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
     AppComponent,
-    ProofOfConceptComponent,
   ],
   imports: [
     BrowserModule,
@@ -20,7 +20,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     AppRoutingModule,
     FormsModule,
     BrowserAnimationsModule,
-    SignfluentLayoutModule,
+    SignfluentCoreModule,
+    SignfluentDocumentsModule,
+    NgbModule
   ],
   providers: [],
   bootstrap: [AppComponent]
