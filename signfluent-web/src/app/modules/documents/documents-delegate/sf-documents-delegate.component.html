@@ -1,0 +1,67 @@
+<h1>Delegate document</h1>
+<mat-stepper linear #stepper>
+    <mat-step [stepControl]="validForm" [editable]="false" errorMessage="Document validation is required">
+        <ng-template matStepLabel>Inspect document</ng-template>
+        <div class="col">
+            <sf-document-details></sf-document-details>
+            <section [formGroup]="validForm">
+                <mat-checkbox formControlName="valid" class="mt-5" required>Is document valid?</mat-checkbox>
+                <div class="mt-5">
+                    <button mat-raised-button color="warn" (click)="openRejectDialog()">Reject</button>
+                    <button mat-raised-button matStepperNext class="ml-2" [disabled]="!validForm.valid">Next</button>
+                </div>
+            </section>
+        </div>
+    </mat-step>
+    <mat-step>
+        <ng-template matStepLabel (click)="resetOrderForm()">Assign approvers</ng-template>
+        <div class="col">
+            <div class="row justify-content-center">
+                <div cdkDropListGroup>
+                    <div class="drag-container">
+                        <h2>Approvers</h2>
+
+                        <div cdkDropList [cdkDropListData]="approvers" class="drag-list"
+                            style="height:400px; overflow-y:scroll" (cdkDropListDropped)="drop($event)">
+                            <div class="draggable-item" *ngFor="let approver of approvers" cdkDrag>{{approver}}</div>
+                        </div>
+                    </div>
+
+                    <div class="drag-container">
+                        <h2>Assigned</h2>
+
+                        <div cdkDropList [cdkDropListData]="assigned" class="drag-list"
+                            style="height:400px; overflow-y:scroll" (cdkDropListDropped)="drop($event)">
+                            <div class="draggable-item" *ngFor="let assigne of assigned" cdkDrag>{{assigne}}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row justify-content-center">
+                <div class="mt-5">
+                    <button mat-raised-button color="warn" (click)="openRejectDialog()">Reject</button>
+                    <button mat-raised-button matStepperNext class="ml-2"
+                        [disabled]="assigned.length == 0">Next</button>
+                </div>
+            </div>
+        </div>
+    </mat-step>
+    <mat-step>
+        <ng-template matStepLabel>Summary</ng-template>
+        <div class="col">
+            <div class="mt-5">
+                <p>The document will be delegated to the following approvers:</p>
+                <ol>
+                    <li *ngFor="let assigne of assigned">{{assigne}}</li>
+                </ol>
+            </div>
+            <section [formGroup]="validOrderForm">
+                <mat-checkbox formControlName="validOrder" class="mt-5" required>Is order right?</mat-checkbox>
+                <div class="mt-5">
+                    <button mat-raised-button color="warn" (click)="openRejectDialog()">Reject</button>
+                    <button mat-raised-button class="ml-2" [disabled]="!validOrderForm.valid">Delegate</button>
+                </div>
+            </section>
+        </div>
+    </mat-step>
+</mat-stepper>
