@@ -5,7 +5,7 @@ metadata:
   labels:
     app: ca
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: ca
@@ -20,5 +20,9 @@ spec:
           image: signfluent/certificate-authority:latest
           ports:
             - containerPort: 8004
+          resources:
+            limits:
+              memory: "256Mi"
+              cpu: "500m"
       imagePullSecrets:
         - name: gcp-sa-key

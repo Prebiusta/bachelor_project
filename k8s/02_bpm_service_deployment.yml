@@ -20,5 +20,9 @@ spec:
           image: signfluent/bpm-service:latest
           ports:
             - containerPort: 8000
+          resources:
+            limits:
+              memory: "1024Mi"
+              cpu: "500m"
       imagePullSecrets:
         - name: gcp-sa-key

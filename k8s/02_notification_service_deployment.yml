@@ -5,7 +5,7 @@ metadata:
   labels:
     app: notification-service
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: notification-service
@@ -20,5 +20,9 @@ spec:
           image: signfluent/notification-service:latest
           ports:
             - containerPort: 8003
+          resources:
+            limits:
+              memory: "256Mi"
+              cpu: "500m"
       imagePullSecrets:
         - name: gcp-sa-key

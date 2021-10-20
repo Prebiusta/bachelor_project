@@ -5,7 +5,7 @@ metadata:
   labels:
     app: document-service
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: document-service
@@ -20,5 +20,9 @@ spec:
           image: signfluent/document-service:latest
           ports:
             - containerPort: 8001
+          resources:
+            limits:
+              memory: "256Mi"
+              cpu: "500m"
       imagePullSecrets:
         - name: gcp-sa-key
