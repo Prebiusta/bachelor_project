@@ -1,5 +1,5 @@
 import { Component } from "@angular/core";
-import { SfDocument } from "../model/sf-document";
+import { SfDocument } from "../../model/sf-document";
 
 
 

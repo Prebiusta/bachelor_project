@@ -1,0 +1,28 @@
+<div class="upload-container">
+    <div class="col my-5">
+        <div class="row m-0 justify-content-center">
+            <input type="file" class="file-input" (change)="onFileSelected($event)" #fileUpload>
+
+            <div class="file-upload">
+
+                {{fileName || "No file uploaded yet."}}
+
+                <button mat-mini-fab color="primary" class="upload-btn" (click)="fileUpload.click()">
+                    <mat-icon>attach_file</mat-icon>
+                </button>
+            </div>
+        </div>
+
+        <div class="row mt-5 mx-5 justify-content-center">
+            <mat-form-field appearance="outline">
+                <mat-label>Description</mat-label>
+                <textarea matInput></textarea>
+                <mat-hint>Brief description of document</mat-hint>
+            </mat-form-field>
+        </div>
+
+        <div class="row mt-5 mx-5 justify-content-center">
+            <button mat-raised-button color="primary">Upload</button>
+        </div>
+    </div>
+</div>
