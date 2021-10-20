@@ -4,6 +4,7 @@ import dk.signfluent.service.document.entity.Document;
 import dk.signfluent.service.document.model.DocumentContent;
 import dk.signfluent.service.document.model.DocumentRow;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 
 import java.util.List;
 
@@ -11,6 +12,8 @@ import java.util.List;
 public interface DocumentMapper {
     List<DocumentRow> documentToDocumentRow(List<Document> source);
 
+    @Mapping(source = "uploader.uploaderId", target = "uploaderId")
+    @Mapping(source = "uploader.uploadDate", target = "uploadDate")
     DocumentContent documentToDocumentContent(Document source);
 
     default DocumentRow map(Document source) {

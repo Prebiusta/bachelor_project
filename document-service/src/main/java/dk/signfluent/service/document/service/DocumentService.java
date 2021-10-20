@@ -79,7 +79,7 @@ public class DocumentService {
         {
             throw new Exception("Document already delegated");
         }
-        if (document.getApprovalOrder() != null)
+        if (document.getApprovalOrder().size() > 0)
         {
             throw new Exception("Document already delegated");
         }
