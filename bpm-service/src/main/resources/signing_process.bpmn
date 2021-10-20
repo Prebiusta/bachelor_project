@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:modeler="http://camunda.org/schema/modeler/1.0" id="Definitions_0b8919o" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="4.9.0" modeler:executionPlatform="Camunda Platform" modeler:executionPlatformVersion="7.15.0">
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:modeler="http://camunda.org/schema/modeler/1.0" id="Definitions_0b8919o" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="4.10.0" modeler:executionPlatform="Camunda Platform" modeler:executionPlatformVersion="7.15.0">
   <bpmn:process id="signingProcess" isExecutable="true">
     <bpmn:startEvent id="start_event" name="upload document" camunda:formKey="upload_document">
       <bpmn:outgoing>Flow_1jv8n72</bpmn:outgoing>
@@ -114,7 +114,7 @@
     <bpmn:sequenceFlow id="Flow_08bdwv2" sourceRef="Event_0zbd1yl" targetRef="Activity_0wrls7u" />
     <bpmn:sequenceFlow id="Flow_1affiwm" sourceRef="Gateway_0vnxonf" targetRef="Activity_1tc9o9z" />
     <bpmn:sequenceFlow id="Flow_1u9kna9" sourceRef="Activity_1tc9o9z" targetRef="Activity_1kduifk" />
-    <bpmn:serviceTask id="Activity_1tc9o9z" name="append approvers to document" camunda:delegateExpression="${assignApprovers}">
+    <bpmn:serviceTask id="Activity_1tc9o9z" name="append approvers to document" camunda:delegateExpression="${assignApproversDelegate}">
       <bpmn:incoming>Flow_1affiwm</bpmn:incoming>
       <bpmn:outgoing>Flow_1u9kna9</bpmn:outgoing>
     </bpmn:serviceTask>
@@ -123,6 +123,10 @@
   <bpmn:error id="Error_1amx7qa" name="document_rejected" errorCode="-2" />
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
     <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="signingProcess">
+      <bpmndi:BPMNEdge id="Flow_1u9kna9_di" bpmnElement="Flow_1u9kna9">
+        <di:waypoint x="640" y="437" />
+        <di:waypoint x="740" y="437" />
+      </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_1affiwm_di" bpmnElement="Flow_1affiwm">
         <di:waypoint x="495" y="437" />
         <di:waypoint x="540" y="437" />
@@ -163,33 +167,26 @@
         <di:waypoint x="2180" y="170" />
         <di:waypoint x="2212" y="170" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_1u9kna9_di" bpmnElement="Flow_1u9kna9">
-        <di:waypoint x="640" y="437" />
-        <di:waypoint x="740" y="437" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNShape id="Event_0yx4gjg_di" bpmnElement="Event_0yx4gjg">
-        <dc:Bounds x="2212" y="152" width="36" height="36" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_0o0tpbr_di" bpmnElement="Activity_0wrls7u">
-        <dc:Bounds x="2080" y="130" width="100" height="80" />
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="start_event">
         <dc:Bounds x="182" y="419" width="36" height="36" />
         <bpmndi:BPMNLabel>
           <dc:Bounds x="158" y="395" width="85" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_0yx4gjg_di" bpmnElement="Event_0yx4gjg">
+        <dc:Bounds x="2212" y="152" width="36" height="36" />
+      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_0dhfbz9_di" bpmnElement="Activity_1xqvoo6">
         <dc:Bounds x="280" y="397" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0o0tpbr_di" bpmnElement="Activity_0wrls7u">
+        <dc:Bounds x="2080" y="130" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Gateway_0vnxonf_di" bpmnElement="Gateway_0vnxonf" isMarkerVisible="true">
         <dc:Bounds x="445" y="412" width="50" height="50" />
         <bpmndi:BPMNLabel>
           <dc:Bounds x="402" y="396" width="55" height="27" />
         </bpmndi:BPMNLabel>
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_191z92w_di" bpmnElement="Activity_1tc9o9z">
-        <dc:Bounds x="540" y="397" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_1kduifk_di" bpmnElement="Activity_1kduifk" isExpanded="true">
         <dc:Bounds x="740" y="270" width="1200" height="334" />
@@ -296,6 +293,9 @@
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Event_05feioy_di" bpmnElement="Event_0ajvg1s">
         <dc:Bounds x="1422" y="496" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_191z92w_di" bpmnElement="Activity_1tc9o9z">
+        <dc:Bounds x="540" y="397" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Event_0zbd1yl_di" bpmnElement="Event_0zbd1yl">
         <dc:Bounds x="1222" y="252" width="36" height="36" />
