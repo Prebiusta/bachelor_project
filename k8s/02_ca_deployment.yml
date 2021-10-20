@@ -17,7 +17,7 @@ spec:
       containers:
         - name: ca
           imagePullPolicy: Never
-          image: signfluent_certificate_authority:latest
+          image: signfluent/certificate-authority:latest
           ports:
             - containerPort: 8004
       imagePullSecrets:

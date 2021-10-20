@@ -17,7 +17,7 @@ spec:
       containers:
         - name: notification-service
           imagePullPolicy: Never
-          image: signfluent_notification_service:latest
+          image: signfluent/notification-service:latest
           ports:
             - containerPort: 8003
       imagePullSecrets:

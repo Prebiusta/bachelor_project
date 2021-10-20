@@ -17,7 +17,7 @@ spec:
       containers:
         - name: bpm-service
           imagePullPolicy: Never
-          image: signfluent_bpm_service:latest
+          image: signfluent/bpm-service:latest
           ports:
             - containerPort: 8000
       imagePullSecrets:

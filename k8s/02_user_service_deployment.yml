@@ -17,7 +17,7 @@ spec:
       containers:
         - name: user-service
           imagePullPolicy: Never
-          image: signfluent_user_service:latest
+          image: signfluent/user-service:latest
           ports:
             - containerPort: 8003
       imagePullSecrets:

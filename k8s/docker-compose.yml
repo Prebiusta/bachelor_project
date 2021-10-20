@@ -5,26 +5,32 @@ services:
   ui:
     container_name: signfluent-web
     build: ../signfluent-web
+    image: signfluent/ui:latest
 
   document_service:
     container_name: document-service
     build: ../document-service
+    image: signfluent/document-service:latest
 
   bpm_service:
     container_name: bpm-service
     build: ../bpm-service
+    image: signfluent/bpm-service:latest
 
   notification_service:
     container_name: notification-service
     build: ../notification-service
+    image: signfluent/notification-service:latest
 
   user_service:
     container_name: user-service
     build: ../user-service
+    image: signfluent/user-service:latest
 
   certificate_authority:
     container_name: certificate-authority
     build: ../certificate-authority
+    image: signfluent/certificate-authority:latest
 
 networks:
   bpr:
