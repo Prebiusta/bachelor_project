@@ -2,7 +2,7 @@ import { AfterViewInit, Component, Input, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { SfDocument } from '../model/sf-document';
+import { SfDocument } from '../../model/sf-document';
 
 const DOCUMENT_DATA: SfDocument[] = [
     { description: 'Am so good so I need Money', status: 'Received', uploadedBy: 'Gicu', date: new Date() },
