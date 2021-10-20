@@ -1,0 +1,1057 @@
+{
+	"info": {
+		"_postman_id": "36b9545a-2408-440b-8580-ad3e9bf66568",
+		"name": "BPR",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "User Service",
+			"item": [
+				{
+					"name": "Device Management",
+					"item": [
+						{
+							"name": "Register Device",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"if (pm.response.code === 200) {",
+											"    const {deviceEntity} = pm.response.json();",
+											"",
+											"    pm.environment.set(\"registeredDevice\", deviceEntity.id);",
+											"}",
+											"",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"userId\": \"{{currentUserId}}\",\n    \"deviceId\": \"deviceId123\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{userServiceURL}}/api/deviceManagement/registerDevice",
+									"host": [
+										"{{userServiceURL}}"
+									],
+									"path": [
+										"api",
+										"deviceManagement",
+										"registerDevice"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update FCM Token",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"userId\": \"{{currentUserId}}\",\n    \"fcmToken\": \"FCMToken\",\n    \"deviceId\": \"deviceId123\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{userServiceURL}}/api/deviceManagement/updateFCMToken",
+									"host": [
+										"{{userServiceURL}}"
+									],
+									"path": [
+										"api",
+										"deviceManagement",
+										"updateFCMToken"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "User Management",
+					"item": [
+						{
+							"name": "Authenticate",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const {user} = pm.response.json();",
+											"",
+											"pm.environment.set(\"currentUserId\", user.id);",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"email\": \"user@signfluent.com\",\n    \"password\": \"123456\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{userServiceURL}}/api/userManagement/authenticate",
+									"host": [
+										"{{userServiceURL}}"
+									],
+									"path": [
+										"api",
+										"userManagement",
+										"authenticate"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Available Approvers",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{userServiceURL}}/api/userManagement/getAvailableApprovers",
+									"host": [
+										"{{userServiceURL}}"
+									],
+									"path": [
+										"api",
+										"userManagement",
+										"getAvailableApprovers"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Get Available Approvers",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{userServiceURL}}/api/userManagement/getAvailableApprovers",
+											"host": [
+												"{{userServiceURL}}"
+											],
+											"path": [
+												"api",
+												"userManagement",
+												"getAvailableApprovers"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Vary",
+											"value": "Origin"
+										},
+										{
+											"key": "Vary",
+											"value": "Access-Control-Request-Method"
+										},
+										{
+											"key": "Vary",
+											"value": "Access-Control-Request-Headers"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Transfer-Encoding",
+											"value": "chunked"
+										},
+										{
+											"key": "Date",
+											"value": "Mon, 11 Oct 2021 17:14:48 GMT"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=60"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										}
+									],
+									"cookie": [],
+									"body": "[\n    {\n        \"id\": \"5c10b7d4-3c42-4c16-b1a0-0131951177ea\",\n        \"name\": \"User Temp #0\",\n        \"email\": \"User Temp #0@signfluent.com\"\n    },\n    {\n        \"id\": \"f4c318ba-d051-4eac-be62-180744a3d83c\",\n        \"name\": \"User Temp #1\",\n        \"email\": \"User Temp #1@signfluent.com\"\n    },\n    {\n        \"id\": \"93b6efd6-c4b4-4224-b264-2974cc51c5d6\",\n        \"name\": \"User Temp #2\",\n        \"email\": \"User Temp #2@signfluent.com\"\n    },\n    {\n        \"id\": \"c991b926-36fe-4d25-adcc-89927549580e\",\n        \"name\": \"User Temp #3\",\n        \"email\": \"User Temp #3@signfluent.com\"\n    },\n    {\n        \"id\": \"74c8742d-0a9f-4fd7-b881-66ec2f1eeeca\",\n        \"name\": \"User Temp #4\",\n        \"email\": \"User Temp #4@signfluent.com\"\n    },\n    {\n        \"id\": \"be4961a7-e56c-4119-b065-a7e63079ad5c\",\n        \"name\": \"User Temp #5\",\n        \"email\": \"User Temp #5@signfluent.com\"\n    },\n    {\n        \"id\": \"e9fca47e-1bc3-471b-981e-940a62231f53\",\n        \"name\": \"User Temp #6\",\n        \"email\": \"User Temp #6@signfluent.com\"\n    },\n    {\n        \"id\": \"f4350e9d-bb54-4857-a73f-21bf17c39ad0\",\n        \"name\": \"User Temp #7\",\n        \"email\": \"User Temp #7@signfluent.com\"\n    },\n    {\n        \"id\": \"109dafdd-83f3-420c-a060-df3ed0c65db8\",\n        \"name\": \"User Temp #8\",\n        \"email\": \"User Temp #8@signfluent.com\"\n    },\n    {\n        \"id\": \"1a4b489d-bba1-4860-a1ff-adfd0ddf03de\",\n        \"name\": \"User Temp #9\",\n        \"email\": \"User Temp #9@signfluent.com\"\n    }\n]"
+								}
+							]
+						},
+						{
+							"name": "Get Devices For User",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"userId\": \"{{currentUserId}}\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{userServiceURL}}/api/userManagement/getDevicesForUser",
+									"host": [
+										"{{userServiceURL}}"
+									],
+									"path": [
+										"api",
+										"userManagement",
+										"getDevicesForUser"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Get Devices For User",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"userId\": \"b680baa0-8904-40f9-b8d1-71dcf47a667e\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{userServiceURL}}/api/userManagement/getDevicesForUser",
+											"host": [
+												"{{userServiceURL}}"
+											],
+											"path": [
+												"api",
+												"userManagement",
+												"getDevicesForUser"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Vary",
+											"value": "Origin"
+										},
+										{
+											"key": "Vary",
+											"value": "Access-Control-Request-Method"
+										},
+										{
+											"key": "Vary",
+											"value": "Access-Control-Request-Headers"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Transfer-Encoding",
+											"value": "chunked"
+										},
+										{
+											"key": "Date",
+											"value": "Wed, 13 Oct 2021 11:50:08 GMT"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=60"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										}
+									],
+									"cookie": [],
+									"body": "[\n    {\n        \"id\": \"fc5adf2e-bdf5-4373-8db7-035e165dccbe\",\n        \"deviceIdentifier\": \"d86ad93f7c7b9a0c\",\n        \"fcmtoken\": \"c_g5-uepRXCWljbL3yvVQs:APA91bHVUhuZYvdQ5RxLPHTmfrEOrBKEaFJgxv4_DOGHQ6GZKHXymgpI2ZKPn8gIV264_qUNLjBFiPrusN6OcKYX-KSN9DDGPYyt944sAMDnVaSWxU6f1OasntVDHxqWUDWWdN5StEWT\"\n    }\n]"
+								}
+							]
+						},
+						{
+							"name": "Get FCM Tokens for User",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"userId\": \"{{currentUserId}}\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{userServiceURL}}/api/userManagement/getFCMTokensForUser",
+									"host": [
+										"{{userServiceURL}}"
+									],
+									"path": [
+										"api",
+										"userManagement",
+										"getFCMTokensForUser"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Get FCM Tokens for User",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"userId\": \"b680baa0-8904-40f9-b8d1-71dcf47a667e\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{userServiceURL}}/api/userManagement/getFCMTokensForUser",
+											"host": [
+												"{{userServiceURL}}"
+											],
+											"path": [
+												"api",
+												"userManagement",
+												"getFCMTokensForUser"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Vary",
+											"value": "Origin"
+										},
+										{
+											"key": "Vary",
+											"value": "Access-Control-Request-Method"
+										},
+										{
+											"key": "Vary",
+											"value": "Access-Control-Request-Headers"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Transfer-Encoding",
+											"value": "chunked"
+										},
+										{
+											"key": "Date",
+											"value": "Wed, 13 Oct 2021 11:51:58 GMT"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=60"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										}
+									],
+									"cookie": [],
+									"body": "[\n    \"c_g5-uepRXCWljbL3yvVQs:APA91bHVUhuZYvdQ5RxLPHTmfrEOrBKEaFJgxv4_DOGHQ6GZKHXymgpI2ZKPn8gIV264_qUNLjBFiPrusN6OcKYX-KSN9DDGPYyt944sAMDnVaSWxU6f1OasntVDHxqWUDWWdN5StEWT\"\n]"
+								}
+							]
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Notification Service",
+			"item": [
+				{
+					"name": "Send Notification",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"messageText\": \"Hello there\",\n    \"tokens\": [\n        \"c_g5-uepRXCWljbL3yvVQs:APA91bHVUhuZYvdQ5RxLPHTmfrEOrBKEaFJgxv4_DOGHQ6GZKHXymgpI2ZKPn8gIV264_qUNLjBFiPrusN6OcKYX-KSN9DDGPYyt944sAMDnVaSWxU6f1OasntVDHxqWUDWWdN5StEWT\",\n    ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{notificationServiceURL}}/api/notification/send",
+							"host": [
+								"{{notificationServiceURL}}"
+							],
+							"path": [
+								"api",
+								"notification",
+								"send"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Document Service",
+			"item": [
+				{
+					"name": "Upload Document",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const uploadedDocumentId = pm.response.json();",
+									"",
+									"pm.environment.set(\"uploadedDocumentId\", uploadedDocumentId);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"uploaderId\": \"4da64240-b567-44fc-98c7-5d1f91cb9982\",\n    \"description\": \"Test Doc\",\n    \"encodedContent\": \"ZG9jdW1lbnQ=\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{documentServiceURL}}/api/uploadDocument",
+							"host": [
+								"{{documentServiceURL}}"
+							],
+							"path": [
+								"api",
+								"uploadDocument"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Assign Approvers",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"documentId\": \"{{uploadedDocumentId}}\",\n    \"delegatorId\": \"cba00e70-29e2-4dc3-a0ae-6d9c983358ed\",\n    \"approvers\": [\n        {\n            \"approverId\": \"d0b0dd1c-91d0-4911-a94e-dbedf1ebd905\",\n            \"order\": 1\n        },\n        {\n            \"approverId\": \"548b60cc-6f8c-4631-a1e5-297017f58548\",\n            \"order\": 2\n        }\n    ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{documentServiceURL}}/api/assignApprovers",
+							"host": [
+								"{{documentServiceURL}}"
+							],
+							"path": [
+								"api",
+								"assignApprovers"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Assign Approvers",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"documentId\": {{uploadedDocumentId}},\n    \"delegatorId\": \"cba00e70-29e2-4dc3-a0ae-6d9c983358ed\",\n    \"approvers\": [\n        {\n            \"approverId\": \"d0b0dd1c-91d0-4911-a94e-dbedf1ebd905\",\n            \"order\": 1\n        },\n        {\n            \"approverId\": \"548b60cc-6f8c-4631-a1e5-297017f58548\",\n            \"order\": 2\n        }\n    ]\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{documentServiceURL}}/assignApprovers",
+									"host": [
+										"{{documentServiceURL}}"
+									],
+									"path": [
+										"assignApprovers"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Method"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Headers"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 13 Oct 2021 10:31:29 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "\"a60da165-dcb9-45dc-9e7b-f4be01a50e9c\""
+						}
+					]
+				},
+				{
+					"name": "Reject Document",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{documentServiceURL}}/api/rejectDocument?documentId={{uploadedDocumentId}}&rejectorId={{currentUserId}}",
+							"host": [
+								"{{documentServiceURL}}"
+							],
+							"path": [
+								"api",
+								"rejectDocument"
+							],
+							"query": [
+								{
+									"key": "documentId",
+									"value": "{{uploadedDocumentId}}"
+								},
+								{
+									"key": "rejectorId",
+									"value": "{{currentUserId}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Document List",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "[\"{{uploadedDocumentId}}\"]",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{documentServiceURL}}/api/getDocumentList",
+							"host": [
+								"{{documentServiceURL}}"
+							],
+							"path": [
+								"api",
+								"getDocumentList"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Document Content",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{documentServiceURL}}/api/getDocumentContent?documentId={{uploadedDocumentId}}",
+							"host": [
+								"{{documentServiceURL}}"
+							],
+							"path": [
+								"api",
+								"getDocumentContent"
+							],
+							"query": [
+								{
+									"key": "documentId",
+									"value": "{{uploadedDocumentId}}"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "BPM Service",
+			"item": [
+				{
+					"name": "Signing Process",
+					"item": [
+						{
+							"name": "Upload Document",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"userId\": \"4da64240-b567-44fc-98c7-5d1f91cb9982\",\n    \"document\": \"ZG9jdW1lbnQ=\",\n    \"description\": \"This is some dummy description\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{bpmServiceURL}}/api/signingProcess/uploadDocument",
+									"host": [
+										"{{bpmServiceURL}}"
+									],
+									"path": [
+										"api",
+										"signingProcess",
+										"uploadDocument"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Approvers",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"taskId\": \"cba00e70-29e2-4dc3-a0ae-6d9c983358ed\"\n}\n\n\n    // \"response\": {\n    //     \"approvers\": [\n    //         {\n    //             \"userId\": \"123\",\n    //             \"email\": \"asd@asd.asd\",\n    //             \"name\": \"asdasd\"\n    //         },\n    //         {\n    //             \"userId\": \"123\",\n    //             \"email\": \"asd@asd.asd\",\n    //             \"name\": \"asdasd\"\n    //         },\n    //         {\n    //             \"userId\": \"123\",\n    //             \"email\": \"asd@asd.asd\",\n    //             \"name\": \"asdasd\"\n    //         }\n    //     ]\n    // }",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{bpmServiceURL}}/api/signingProcess/getActiveApprovers",
+									"host": [
+										"{{bpmServiceURL}}"
+									],
+									"path": [
+										"api",
+										"signingProcess",
+										"getActiveApprovers"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Documents For Inspection",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "// {\n//     \"response\": {\n//         \"documentsForDelegation\": [\n//             {\n//                 \"taskId\": \"cba00e70-29e2-4dc3-a0ae-6d9c983358ed\",\n//                 \"document\": {\n//                     \"description\": \"I am document\",\n//                     \"status\": \"RECEIVED\",\n//                     \"uploadedBy\": \"cba00e70-29e2-4dc3-a0ae-6d9c983358ed\",\n//                     \"uploadedDate\": \"asdasda\"\n//                 }\n//             },\n//              {\n//                 \"taskId\": \"cba00e70-29e2-4dc3-a0ae-6d9c983358ed\",\n//                 \"document\": {\n//                     \"description\": \"I am document 2\",\n//                     \"status\": \"RECEIVED\",\n//                     \"uploadedBy\": \"cba00e70-29e2-4dc3-a0ae-6d9c983358ed\",\n//                     \"uploadedDate\": \"asdasda\"\n//                 }\n//             }\n//         ]\n//     }\n// }",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{bpmServiceURL}}/api/signingProcess/getDocumentsForInspection",
+									"host": [
+										"{{bpmServiceURL}}"
+									],
+									"path": [
+										"api",
+										"signingProcess",
+										"getDocumentsForInspection"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Document Content",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"taskId\": \"491f56a4-3183-11ec-9a9b-d22282faef24\"\n}\n\n\n// \"response\": {\n//         \"document\": {\n//             \"documentId\": \"cba00e70-29e2-4dc3-a0ae-6d9c983358ed\",\n//             \"description\": \"I am document\",\n//             \"status\": \"RECEIVED\",\n//             \"uploadedBy\": \"cba00e70-29e2-4dc3-a0ae-6d9c983358ed\",\n//             \"uploadedDate\": \"asdasda\",\n//             \"content\": \"ASdASDasdASdfjkASLDnaSLNDaSLKd==\"\n//         }\n//     }",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{bpmServiceURL}}/api/signingProcess/getDocumentDetails",
+									"host": [
+										"{{bpmServiceURL}}"
+									],
+									"path": [
+										"api",
+										"signingProcess",
+										"getDocumentDetails"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Inspect Document",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"taskId\": \"917678ab-3183-11ec-86e6-d22282faef24\",\n    \"isValid\": true,\n    \"delegatorId\": \"cba00e70-29e2-4dc3-a0ae-6d9c983358ed\",\n    \"approvers\": [\n        {\n            \"approverId\": \"d0b0dd1c-91d0-4911-a94e-dbedf1ebd905\",\n            \"order\": 1\n        },\n        {\n            \"approverId\": \"548b60cc-6f8c-4631-a1e5-297017f58548\",\n            \"order\": 2\n        },\n        {\n            \"approverId\": \"548b60cc-6f8c-4631-a1e5-297017f58548\",\n            \"order\": 3\n        },\n        {\n            \"approverId\": \"548b60cc-6f8c-4631-a1e5-297017f58548\",\n            \"order\": 4\n        }\n    ]\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{bpmServiceURL}}/api/signingProcess/inspectDocument",
+									"host": [
+										"{{bpmServiceURL}}"
+									],
+									"path": [
+										"api",
+										"signingProcess",
+										"inspectDocument"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Documents For Approval",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"userId\": \"cba00e70-29e2-4dc3-a0ae-6d9c983358ed\"\n}\n\n\n// {\n//     \"response\": {\n//         \"documentsForDelegation\": [\n//             {\n//                 \"taskId\": \"cba00e70-29e2-4dc3-a0ae-6d9c983358ed\",\n//                 \"document\": {\n//                     \"description\": \"I am document\",\n//                     \"status\": \"RECEIVED\",\n//                     \"uploadedBy\": \"cba00e70-29e2-4dc3-a0ae-6d9c983358ed\",\n//                     \"uploadedDate\": \"asdasda\"\n//                 }\n//             },\n//              {\n//                 \"taskId\": \"cba00e70-29e2-4dc3-a0ae-6d9c983358ed\",\n//                 \"document\": {\n//                     \"description\": \"I am document 2\",\n//                     \"status\": \"RECEIVED\",\n//                     \"uploadedBy\": \"cba00e70-29e2-4dc3-a0ae-6d9c983358ed\",\n//                     \"uploadedDate\": \"asdasda\"\n//                 }\n//             }\n//         ]\n//     }\n// }",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{bpmServiceURL}}/api/signingProcess/getDocumentsForApproval",
+									"host": [
+										"{{bpmServiceURL}}"
+									],
+									"path": [
+										"api",
+										"signingProcess",
+										"getDocumentsForApproval"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Approve Document",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"taskId\": \"cba00e70-29e2-4dc3-a0ae-6d9c983358ed\",\n    \"approve\": true // false\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{bpmServiceURL}}/api/signingProcess/approveDocument",
+									"host": [
+										"{{bpmServiceURL}}"
+									],
+									"path": [
+										"api",
+										"signingProcess",
+										"approveDocument"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Signature Request",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"userId\": \"cba00e70-29e2-4dc3-a0ae-6d9c983358ed\"\n}\n\n\n// \"response\": {\n//         \"signatureRequest\": {\n//             \"contentToSign\": \"asdadasdas\",\n//             \"taskId\": \"cba00e70-29e2-4dc3-a0ae-6d9c983358ed\"\n//         }\n//     }",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{bpmServiceURL}}/api/signingProcess/getSignatureRequest",
+									"host": [
+										"{{bpmServiceURL}}"
+									],
+									"path": [
+										"api",
+										"signingProcess",
+										"getSignatureRequest"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Sign Document",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"taskId\": \"cba00e70-29e2-4dc3-a0ae-6d9c983358ed\",\n    \"signedContent\": \"asdasdasdsadsadas\",\n    \"x509Pem\": \"asdasdasd\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{bpmServiceURL}}/api/signingProcess/signDocument",
+									"host": [
+										"{{bpmServiceURL}}"
+									],
+									"path": [
+										"api",
+										"signingProcess",
+										"signDocument"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Certificate Authority",
+			"item": [
+				{
+					"name": "Validate Signature",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"content\": \"signMe\",\n    \"signature\": {\n        \"x509Certificate\": \"MIIDQzCCAiugAwIBAgIGAXx4hRtVMA0GCSqGSIb3DQEBCwUAMIGVMSIwIAYJKoZIhvcNAQkBFhNpbmZvQHNpZ25mbHVlbnQuY29tMRMwEQYDVQQDDApTaWduZmx1ZW50MREwDwYDVQQLDAhTb2Z0d2FyZTETMBEGA1UECgwKU2lnbmZsdWVudDEQMA4GA1UEBwwHSG9yc2VuczETMBEGA1UECAwKTWlkanlsbGFuZDELMAkGA1UEBhMCREswHhcNMjExMDEyMDcxOTIxWhcNMjMxMDEzMDcxOTIxWjAvMS0wKwYDVQQuEyRlOGMxMDhhYi0yMmY0LTQ0OTUtOTg3OS03M2NiMzkxNTBhOGMwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQCSZAUe3kDZUL4P+wF8WjuYXdzT+hJgr1NCEDf45jhf9EqW7IfGLecNz/w+afuTt4oRmWt5nuxnUHlmHHa3Ks4OEe6RHNbpXjjTcKQyvEyJS4jf1j3M7TSkdv10tjxQf4gdcNuP1GlU2XDvt1PdLNEymrTniWlOv3Mrj1eCM5/pRl8y79LJNnrwC7tY3M/jjUgXZLUa141WA3CGiQCVp+KyIEmzCLtn+H43hygNZSPLnTnWkXO527Be4zcgRkGI83D8MjJ5sL9zFdYe8TEdVXJRIwheuUEejExlsE0/hCREJaxrGRemsDuS7UH2tocD+u1Bb9Oml2YU0pmEGdEsIkrVAgMBAAEwDQYJKoZIhvcNAQELBQADggEBAAu8X58A5HWhahAxGy+4yTTXnosR9VXn1SFq0BYV0J6bBp6IT3MWI1q8vHiUahJV5KL2n+tUzljuZrwck1uBpvdMtN6c2vMA7HsO0FSObmZuUQU7d0kCRZqpYiQWyrH9cFNBlPUZmwwFHWbWPgRBRMJHtN002vCcNKErkdUGUOAhkeQhAOZjrW6zWd7SNC8xPhZMtoYzxKxqrKITFSO8Nj3bUR2yeP1hElOtjsfnKDFFhiOYZbinngKEp2Zz+J0AKh97LYnkk5MrXk+lPIsLpEuz9sZIfRPpg1Ii9mGxPdi9etz95jlnIZmM5XzW5EHYQicv0GZNcR9GKmtEl0EgJSI=\",\n        \"signedContent\": \"WiaZoVylNdrbCJC8x45N/O817iwzCYjZVI0gQEj/t7nMiaGcQ4mHxHDpkQyS/vS1Fs0EWN0tN3Mr8B8/yM6CzCZkMH1cv7KF77vKCl56o4dwWaN7h6K/lvn9ubHZUUlLjA6vbyz7JetwgIOU3MlwlRGGqdO00WmA+p67MuEPuXfJ9Ls842Dxwc21ira4etcKSinNLIzVfDrCTbLcNhVwKfuz4d9F1hN0j4DD311VmCkRo2fUftNV1Eqg8Vrrmfi+HhN7bAUKXwWPCTXQ5IELB1a1uLjQwe6vI1JCT9o970uXdP/rC/SolOa3Y0Omhf7WtXuWjH8xzGqdPZeOL41ECA==\"\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{certificateAuthorityURL}}/api/validation/signature",
+							"host": [
+								"{{certificateAuthorityURL}}"
+							],
+							"path": [
+								"api",
+								"validation",
+								"signature"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Validate Signature",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"content\": \"signMe\",\n    \"signature\": {\n        \"x509Certificate\": \"MIIDQzCCAiugAwIBAgIGAXx4hRtVMA0GCSqGSIb3DQEBCwUAMIGVMSIwIAYJKoZIhvcNAQkBFhNpbmZvQHNpZ25mbHVlbnQuY29tMRMwEQYDVQQDDApTaWduZmx1ZW50MREwDwYDVQQLDAhTb2Z0d2FyZTETMBEGA1UECgwKU2lnbmZsdWVudDEQMA4GA1UEBwwHSG9yc2VuczETMBEGA1UECAwKTWlkanlsbGFuZDELMAkGA1UEBhMCREswHhcNMjExMDEyMDcxOTIxWhcNMjMxMDEzMDcxOTIxWjAvMS0wKwYDVQQuEyRlOGMxMDhhYi0yMmY0LTQ0OTUtOTg3OS03M2NiMzkxNTBhOGMwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQCSZAUe3kDZUL4P+wF8WjuYXdzT+hJgr1NCEDf45jhf9EqW7IfGLecNz/w+afuTt4oRmWt5nuxnUHlmHHa3Ks4OEe6RHNbpXjjTcKQyvEyJS4jf1j3M7TSkdv10tjxQf4gdcNuP1GlU2XDvt1PdLNEymrTniWlOv3Mrj1eCM5/pRl8y79LJNnrwC7tY3M/jjUgXZLUa141WA3CGiQCVp+KyIEmzCLtn+H43hygNZSPLnTnWkXO527Be4zcgRkGI83D8MjJ5sL9zFdYe8TEdVXJRIwheuUEejExlsE0/hCREJaxrGRemsDuS7UH2tocD+u1Bb9Oml2YU0pmEGdEsIkrVAgMBAAEwDQYJKoZIhvcNAQELBQADggEBAAu8X58A5HWhahAxGy+4yTTXnosR9VXn1SFq0BYV0J6bBp6IT3MWI1q8vHiUahJV5KL2n+tUzljuZrwck1uBpvdMtN6c2vMA7HsO0FSObmZuUQU7d0kCRZqpYiQWyrH9cFNBlPUZmwwFHWbWPgRBRMJHtN002vCcNKErkdUGUOAhkeQhAOZjrW6zWd7SNC8xPhZMtoYzxKxqrKITFSO8Nj3bUR2yeP1hElOtjsfnKDFFhiOYZbinngKEp2Zz+J0AKh97LYnkk5MrXk+lPIsLpEuz9sZIfRPpg1Ii9mGxPdi9etz95jlnIZmM5XzW5EHYQicv0GZNcR9GKmtEl0EgJSI=\",\n        \"signedContent\": \"WiaZoVylNdrbCJC8x45N/O817iwzCYjZVI0gQEj/t7nMiaGcQ4mHxHDpkQyS/vS1Fs0EWN0tN3Mr8B8/yM6CzCZkMH1cv7KF77vKCl56o4dwWaN7h6K/lvn9ubHZUUlLjA6vbyz7JetwgIOU3MlwlRGGqdO00WmA+p67MuEPuXfJ9Ls842Dxwc21ira4etcKSinNLIzVfDrCTbLcNhVwKfuz4d9F1hN0j4DD311VmCkRo2fUftNV1Eqg8Vrrmfi+HhN7bAUKXwWPCTXQ5IELB1a1uLjQwe6vI1JCT9o970uXdP/rC/SolOa3Y0Omhf7WtXuWjH8xzGqdPZeOL41ECA==\"\n    }\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{certificateAuthorityURL}}/api/validation/signature",
+									"host": [
+										"{{certificateAuthorityURL}}"
+									],
+									"path": [
+										"api",
+										"validation",
+										"signature"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Method"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Headers"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 13 Oct 2021 08:00:02 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "true"
+						}
+					]
+				}
+			]
+		}
+	]
+}
