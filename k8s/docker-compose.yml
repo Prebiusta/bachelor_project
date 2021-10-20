@@ -31,7 +31,3 @@ services:
     container_name: certificate-authority
     build: ../certificate-authority
     image: signfluent/certificate-authority:latest
-
-networks:
-  bpr:
-    driver: bridge
