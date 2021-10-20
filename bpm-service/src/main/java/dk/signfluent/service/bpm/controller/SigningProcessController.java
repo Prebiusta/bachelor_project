@@ -52,19 +52,13 @@ public class SigningProcessController {
 
     @PostMapping("/getDocumentDetails")
     @FormKey(ProcessFormKey.INSPECT_DOCUMENT)
-    public DocumentWithContent getDocumentDetails(TaskIdRequest taskIdRequest) {
+    public DocumentWithContent getDocumentDetails(@RequestBody TaskIdRequest taskIdRequest) {
         return documentService.getDocumentDetails(taskIdRequest.getTaskId());
     }
 
     @PostMapping("/getActiveApprovers")
     @FormKey(ProcessFormKey.INSPECT_DOCUMENT)
     public List<User> getActiveApprovers() {
-        return userService.getActiveApprovers();
-    }
-
-    @PostMapping("/test")
-    @FormKey(ProcessFormKey.INSPECT_DOCUMENT)
-    public List<User> test() {
         return userService.getActiveApprovers();
     }
 }
