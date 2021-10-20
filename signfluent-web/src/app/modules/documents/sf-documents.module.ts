@@ -18,14 +18,15 @@ import { MatDialogModule } from "@angular/material/dialog";
 import { MatCardModule } from '@angular/material/card';
 
 import { SfDocumentsComponent } from "./sf-documents.component";
-import { SfDocumentsDelegateComponent } from "./documents-delegate/sf-documents-delegate.component";
-import { SfDocumentsListComponent } from "./documents-list/sf-documents-list.component";
-import { SfDocumentDetailsComponent } from "./document-details/sf-document-details.component";
-import { SfDelegateRejectComponent } from "./documents-delegate/dialogs/sf-delegate-reject.component";
-import { SfDocumentsApproveComponent } from "./documents-approve/sf-documents-approve.component";
+import { SfDocumentsDelegateComponent } from "./components/documents-delegate/sf-documents-delegate.component";
+import { SfDocumentsListComponent } from "./components/documents-list/sf-documents-list.component";
+import { SfDocumentDetailsComponent } from "./components/document-details/sf-document-details.component";
+import { SfDelegateRejectComponent } from "./components/documents-delegate/dialogs/sf-delegate-reject.component";
+import { SfDocumentsApproveComponent } from "./components/documents-approve/sf-documents-approve.component";
+import { SfDocumentUploadComponent } from "./components/document-upload/sf-document-upload.component";
 
 @NgModule({
-    declarations: [SfDocumentsComponent, SfDocumentsListComponent, SfDocumentsApproveComponent, SfDocumentsDelegateComponent, SfDocumentDetailsComponent, SfDelegateRejectComponent],
+    declarations: [SfDocumentsComponent, SfDocumentsListComponent, SfDocumentsApproveComponent, SfDocumentsDelegateComponent, SfDocumentDetailsComponent, SfDelegateRejectComponent, SfDocumentUploadComponent],
     imports: [CommonModule, SignfluentDocumentsRoutingModule, ReactiveFormsModule, MatTableModule, MatTabsModule, MatPaginatorModule, MatFormFieldModule, MatInputModule, MatIconModule, MatMenuModule, MatButtonModule, MatStepperModule, MatCheckboxModule, DragDropModule, MatDialogModule, MatCardModule],
     exports: [SfDocumentsComponent]
 })
