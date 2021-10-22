@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: device-service-deployment
+  labels:
+    app: device-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: device-service
+  template:
+    metadata:
+      labels:
+        app: device-service
+    spec:
+      containers:
+        - name: device-service
+          imagePullPolicy: Never
+          image: signfluent/device-service:latest
+          ports:
+            - containerPort: 8005
+      imagePullSecrets:
+        - name: gcp-sa-key

@@ -28,6 +28,7 @@ dependencies {
     implementation project(":api-clients:document-service-client")
     implementation project(":api-clients:notification-service-client")
     implementation project(":api-clients:certificate-authority-client")
+    implementation project(":api-clients:device-service-client")
 
     // Required for child dependencies
     implementation 'com.squareup.okhttp3:okhttp:4.9.2'
@@ -52,7 +53,7 @@ dependencies {
 
     // Lombok
     compileOnly 'org.projectlombok:lombok:1.18.22'
-    annotationProcessor 'org.projectlombok:lombok:1.18.20'
+    annotationProcessor 'org.projectlombok:lombok:1.18.22'
 
     // Mapstruct
     implementation 'org.mapstruct:mapstruct:1.4.2.Final'

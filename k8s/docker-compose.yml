@@ -31,3 +31,8 @@ services:
     container_name: certificate-authority
     build: ../certificate-authority
     image: signfluent/certificate-authority:latest
+
+  device_service:
+    container_name: device-service
+    build: ../device-service
+    image: signfluent/device-service:latest

@@ -19,3 +19,10 @@ user:
       service:
         host: localhost
         port: 8003
+
+device:
+  service:
+    svc:
+      service:
+        host: localhost
+        port: 8003
