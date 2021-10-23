@@ -8,4 +8,3 @@ spec:
   ports:
     - port: 8004
       targetPort: 8004
-  type: LoadBalancer

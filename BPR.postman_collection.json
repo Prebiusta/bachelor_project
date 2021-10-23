@@ -9,103 +9,48 @@
 			"name": "User Service",
 			"item": [
 				{
-					"name": "Device Management",
-					"item": [
+					"name": "Authenticate",
+					"event": [
 						{
-							"name": "Register Device",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"exec": [
-											"if (pm.response.code === 200) {",
-											"    const {deviceEntity} = pm.response.json();",
-											"",
-											"    pm.environment.set(\"registeredDevice\", deviceEntity.id);",
-											"}",
-											"",
-											""
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n    \"userId\": \"{{currentUserId}}\",\n    \"deviceId\": \"deviceId123\"\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{userServiceURL}}/api/deviceManagement/registerDevice",
-									"host": [
-										"{{userServiceURL}}"
-									],
-									"path": [
-										"api",
-										"deviceManagement",
-										"registerDevice"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Update FCM Token",
-							"request": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n    \"userId\": \"{{currentUserId}}\",\n    \"fcmToken\": \"FCMToken\",\n    \"deviceId\": \"deviceId123\"\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{userServiceURL}}/api/deviceManagement/updateFCMToken",
-									"host": [
-										"{{userServiceURL}}"
-									],
-									"path": [
-										"api",
-										"deviceManagement",
-										"updateFCMToken"
-									]
-								}
-							},
-							"response": []
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const {user} = pm.response.json();",
+									"",
+									"pm.environment.set(\"currentUserId\", user.id);",
+									""
+								],
+								"type": "text/javascript"
+							}
 						}
-					]
-				},
-				{
-					"name": "User Management",
-					"item": [
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"user@signfluent.com\",\n    \"password\": \"123456\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{userServiceURL}}/api/authenticate",
+							"host": [
+								"{{userServiceURL}}"
+							],
+							"path": [
+								"api",
+								"authenticate"
+							]
+						}
+					},
+					"response": [
 						{
 							"name": "Authenticate",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"exec": [
-											"const {user} = pm.response.json();",
-											"",
-											"pm.environment.set(\"currentUserId\", user.id);",
-											""
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
+							"originalRequest": {
 								"method": "POST",
 								"header": [],
 								"body": {
@@ -118,108 +63,355 @@
 									}
 								},
 								"url": {
-									"raw": "{{userServiceURL}}/api/userManagement/authenticate",
+									"raw": "{{userServiceURL}}/api/authenticate",
 									"host": [
 										"{{userServiceURL}}"
 									],
 									"path": [
 										"api",
-										"userManagement",
 										"authenticate"
 									]
 								}
 							},
-							"response": []
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Method"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Headers"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 22 Oct 2021 22:30:25 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"Success\",\n    \"successful\": true,\n    \"user\": {\n        \"id\": \"0b80baf8-df1f-4a29-a9fa-dc5f6f512add\",\n        \"name\": \"user\",\n        \"email\": \"user@signfluent.com\"\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Get Available Approvers",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
 						},
+						"url": {
+							"raw": "{{userServiceURL}}/api/getAvailableApprovers",
+							"host": [
+								"{{userServiceURL}}"
+							],
+							"path": [
+								"api",
+								"getAvailableApprovers"
+							]
+						}
+					},
+					"response": [
 						{
 							"name": "Get Available Approvers",
-							"request": {
-								"method": "POST",
+							"originalRequest": {
+								"method": "GET",
 								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
 								"url": {
-									"raw": "{{userServiceURL}}/api/userManagement/getAvailableApprovers",
+									"raw": "{{userServiceURL}}/api/getAvailableApprovers",
 									"host": [
 										"{{userServiceURL}}"
 									],
 									"path": [
 										"api",
-										"userManagement",
 										"getAvailableApprovers"
 									]
 								}
 							},
-							"response": [
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
 								{
-									"name": "Get Available Approvers",
-									"originalRequest": {
-										"method": "GET",
-										"header": [],
-										"url": {
-											"raw": "{{userServiceURL}}/api/userManagement/getAvailableApprovers",
-											"host": [
-												"{{userServiceURL}}"
-											],
-											"path": [
-												"api",
-												"userManagement",
-												"getAvailableApprovers"
-											]
-										}
-									},
-									"status": "OK",
-									"code": 200,
-									"_postman_previewlanguage": "json",
-									"header": [
-										{
-											"key": "Vary",
-											"value": "Origin"
-										},
-										{
-											"key": "Vary",
-											"value": "Access-Control-Request-Method"
-										},
-										{
-											"key": "Vary",
-											"value": "Access-Control-Request-Headers"
-										},
-										{
-											"key": "Content-Type",
-											"value": "application/json"
-										},
-										{
-											"key": "Transfer-Encoding",
-											"value": "chunked"
-										},
-										{
-											"key": "Date",
-											"value": "Mon, 11 Oct 2021 17:14:48 GMT"
-										},
-										{
-											"key": "Keep-Alive",
-											"value": "timeout=60"
-										},
-										{
-											"key": "Connection",
-											"value": "keep-alive"
-										}
-									],
-									"cookie": [],
-									"body": "[\n    {\n        \"id\": \"5c10b7d4-3c42-4c16-b1a0-0131951177ea\",\n        \"name\": \"User Temp #0\",\n        \"email\": \"User Temp #0@signfluent.com\"\n    },\n    {\n        \"id\": \"f4c318ba-d051-4eac-be62-180744a3d83c\",\n        \"name\": \"User Temp #1\",\n        \"email\": \"User Temp #1@signfluent.com\"\n    },\n    {\n        \"id\": \"93b6efd6-c4b4-4224-b264-2974cc51c5d6\",\n        \"name\": \"User Temp #2\",\n        \"email\": \"User Temp #2@signfluent.com\"\n    },\n    {\n        \"id\": \"c991b926-36fe-4d25-adcc-89927549580e\",\n        \"name\": \"User Temp #3\",\n        \"email\": \"User Temp #3@signfluent.com\"\n    },\n    {\n        \"id\": \"74c8742d-0a9f-4fd7-b881-66ec2f1eeeca\",\n        \"name\": \"User Temp #4\",\n        \"email\": \"User Temp #4@signfluent.com\"\n    },\n    {\n        \"id\": \"be4961a7-e56c-4119-b065-a7e63079ad5c\",\n        \"name\": \"User Temp #5\",\n        \"email\": \"User Temp #5@signfluent.com\"\n    },\n    {\n        \"id\": \"e9fca47e-1bc3-471b-981e-940a62231f53\",\n        \"name\": \"User Temp #6\",\n        \"email\": \"User Temp #6@signfluent.com\"\n    },\n    {\n        \"id\": \"f4350e9d-bb54-4857-a73f-21bf17c39ad0\",\n        \"name\": \"User Temp #7\",\n        \"email\": \"User Temp #7@signfluent.com\"\n    },\n    {\n        \"id\": \"109dafdd-83f3-420c-a060-df3ed0c65db8\",\n        \"name\": \"User Temp #8\",\n        \"email\": \"User Temp #8@signfluent.com\"\n    },\n    {\n        \"id\": \"1a4b489d-bba1-4860-a1ff-adfd0ddf03de\",\n        \"name\": \"User Temp #9\",\n        \"email\": \"User Temp #9@signfluent.com\"\n    }\n]"
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Method"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Headers"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 11 Oct 2021 17:14:48 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
 								}
-							]
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"id\": \"5c10b7d4-3c42-4c16-b1a0-0131951177ea\",\n        \"name\": \"User Temp #0\",\n        \"email\": \"User Temp #0@signfluent.com\"\n    },\n    {\n        \"id\": \"f4c318ba-d051-4eac-be62-180744a3d83c\",\n        \"name\": \"User Temp #1\",\n        \"email\": \"User Temp #1@signfluent.com\"\n    },\n    {\n        \"id\": \"93b6efd6-c4b4-4224-b264-2974cc51c5d6\",\n        \"name\": \"User Temp #2\",\n        \"email\": \"User Temp #2@signfluent.com\"\n    },\n    {\n        \"id\": \"c991b926-36fe-4d25-adcc-89927549580e\",\n        \"name\": \"User Temp #3\",\n        \"email\": \"User Temp #3@signfluent.com\"\n    },\n    {\n        \"id\": \"74c8742d-0a9f-4fd7-b881-66ec2f1eeeca\",\n        \"name\": \"User Temp #4\",\n        \"email\": \"User Temp #4@signfluent.com\"\n    },\n    {\n        \"id\": \"be4961a7-e56c-4119-b065-a7e63079ad5c\",\n        \"name\": \"User Temp #5\",\n        \"email\": \"User Temp #5@signfluent.com\"\n    },\n    {\n        \"id\": \"e9fca47e-1bc3-471b-981e-940a62231f53\",\n        \"name\": \"User Temp #6\",\n        \"email\": \"User Temp #6@signfluent.com\"\n    },\n    {\n        \"id\": \"f4350e9d-bb54-4857-a73f-21bf17c39ad0\",\n        \"name\": \"User Temp #7\",\n        \"email\": \"User Temp #7@signfluent.com\"\n    },\n    {\n        \"id\": \"109dafdd-83f3-420c-a060-df3ed0c65db8\",\n        \"name\": \"User Temp #8\",\n        \"email\": \"User Temp #8@signfluent.com\"\n    },\n    {\n        \"id\": \"1a4b489d-bba1-4860-a1ff-adfd0ddf03de\",\n        \"name\": \"User Temp #9\",\n        \"email\": \"User Temp #9@signfluent.com\"\n    }\n]"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Device Service",
+			"item": [
+				{
+					"name": "Register Device",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"if (pm.response.code === 200) {",
+									"    const {deviceEntity} = pm.response.json();",
+									"",
+									"    pm.environment.set(\"registeredDevice\", deviceEntity.id);",
+									"}",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"userId\": \"{{currentUserId}}\",\n    \"deviceHardwareId\": \"deviceId123\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
 						},
+						"url": {
+							"raw": "{{deviceServiceURL}}/api/registerDevice",
+							"host": [
+								"{{deviceServiceURL}}"
+							],
+							"path": [
+								"api",
+								"registerDevice"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Register Device",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"userId\": \"{{currentUserId}}\",\n    \"deviceHardwareId\": \"deviceId1234\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{deviceServiceURL}}/api/registerDevice",
+									"host": [
+										"{{deviceServiceURL}}"
+									],
+									"path": [
+										"api",
+										"registerDevice"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 22 Oct 2021 22:41:04 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"Success\",\n    \"successful\": true,\n    \"deviceEntity\": {\n        \"id\": \"b54db3f6-0a29-4366-a0f9-7fa9983ff3fb\",\n        \"userId\": \"0b80baf8-df1f-4a29-a9fa-dc5f6f512add\",\n        \"deviceHardwareId\": \"deviceId1234\",\n        \"fcmtoken\": null\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Update FCM Token",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"userId\": \"{{currentUserId}}\",\n    \"fcmToken\": \"{{$randomAdjective}}\",\n    \"deviceHardwareId\": \"deviceId123\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{deviceServiceURL}}/api/updateFCMToken",
+							"host": [
+								"{{deviceServiceURL}}"
+							],
+							"path": [
+								"api",
+								"updateFCMToken"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Update FCM Token",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"userId\": \"{{currentUserId}}\",\n    \"fcmToken\": \"{{$randomAdjective}}\",\n    \"deviceHardwareId\": \"deviceId123\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{deviceServiceURL}}/api/updateFCMToken",
+									"host": [
+										"{{deviceServiceURL}}"
+									],
+									"path": [
+										"api",
+										"updateFCMToken"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 22 Oct 2021 22:41:09 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"Success\",\n    \"successful\": true,\n    \"deviceEntity\": {\n        \"id\": \"4158e992-7fde-4b93-acb3-5955c45d9bac\",\n        \"userId\": \"0b80baf8-df1f-4a29-a9fa-dc5f6f512add\",\n        \"deviceHardwareId\": \"deviceId123\",\n        \"fcmtoken\": \"cross-platform\"\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Get Devices For User",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"userId\": \"{{currentUserId}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{deviceServiceURL}}/api/getDevicesForUser",
+							"host": [
+								"{{deviceServiceURL}}"
+							],
+							"path": [
+								"api",
+								"getDevicesForUser"
+							]
+						}
+					},
+					"response": [
 						{
 							"name": "Get Devices For User",
-							"request": {
+							"originalRequest": {
 								"method": "POST",
 								"header": [],
 								"body": {
@@ -232,89 +424,75 @@
 									}
 								},
 								"url": {
-									"raw": "{{userServiceURL}}/api/userManagement/getDevicesForUser",
+									"raw": "{{deviceServiceURL}}/api/getDevicesForUser",
 									"host": [
-										"{{userServiceURL}}"
+										"{{deviceServiceURL}}"
 									],
 									"path": [
 										"api",
-										"userManagement",
 										"getDevicesForUser"
 									]
 								}
 							},
-							"response": [
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
 								{
-									"name": "Get Devices For User",
-									"originalRequest": {
-										"method": "POST",
-										"header": [],
-										"body": {
-											"mode": "raw",
-											"raw": "{\n    \"userId\": \"b680baa0-8904-40f9-b8d1-71dcf47a667e\"\n}",
-											"options": {
-												"raw": {
-													"language": "json"
-												}
-											}
-										},
-										"url": {
-											"raw": "{{userServiceURL}}/api/userManagement/getDevicesForUser",
-											"host": [
-												"{{userServiceURL}}"
-											],
-											"path": [
-												"api",
-												"userManagement",
-												"getDevicesForUser"
-											]
-										}
-									},
-									"status": "OK",
-									"code": 200,
-									"_postman_previewlanguage": "json",
-									"header": [
-										{
-											"key": "Vary",
-											"value": "Origin"
-										},
-										{
-											"key": "Vary",
-											"value": "Access-Control-Request-Method"
-										},
-										{
-											"key": "Vary",
-											"value": "Access-Control-Request-Headers"
-										},
-										{
-											"key": "Content-Type",
-											"value": "application/json"
-										},
-										{
-											"key": "Transfer-Encoding",
-											"value": "chunked"
-										},
-										{
-											"key": "Date",
-											"value": "Wed, 13 Oct 2021 11:50:08 GMT"
-										},
-										{
-											"key": "Keep-Alive",
-											"value": "timeout=60"
-										},
-										{
-											"key": "Connection",
-											"value": "keep-alive"
-										}
-									],
-									"cookie": [],
-									"body": "[\n    {\n        \"id\": \"fc5adf2e-bdf5-4373-8db7-035e165dccbe\",\n        \"deviceIdentifier\": \"d86ad93f7c7b9a0c\",\n        \"fcmtoken\": \"c_g5-uepRXCWljbL3yvVQs:APA91bHVUhuZYvdQ5RxLPHTmfrEOrBKEaFJgxv4_DOGHQ6GZKHXymgpI2ZKPn8gIV264_qUNLjBFiPrusN6OcKYX-KSN9DDGPYyt944sAMDnVaSWxU6f1OasntVDHxqWUDWWdN5StEWT\"\n    }\n]"
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 22 Oct 2021 22:41:14 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
 								}
-							]
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"id\": \"c6cc2fd3-ce65-43bf-87b9-abf85f4b78e5\",\n        \"userId\": \"0b80baf8-df1f-4a29-a9fa-dc5f6f512add\",\n        \"deviceHardwareId\": \"brand B2C supply-chains\",\n        \"fcmtoken\": null\n    },\n    {\n        \"id\": \"858ef97d-8c87-4ce6-b125-61466c4695f8\",\n        \"userId\": \"0b80baf8-df1f-4a29-a9fa-dc5f6f512add\",\n        \"deviceHardwareId\": \"system\",\n        \"fcmtoken\": null\n    },\n    {\n        \"id\": \"6df1f598-a95e-4b8e-99bf-a7c96327e970\",\n        \"userId\": \"0b80baf8-df1f-4a29-a9fa-dc5f6f512add\",\n        \"deviceHardwareId\": \"bus\",\n        \"fcmtoken\": null\n    },\n    {\n        \"id\": \"e4c6ca1f-3153-48bb-8a31-fcf5b5995bcd\",\n        \"userId\": \"0b80baf8-df1f-4a29-a9fa-dc5f6f512add\",\n        \"deviceHardwareId\": \"panel\",\n        \"fcmtoken\": null\n    },\n    {\n        \"id\": \"4158e992-7fde-4b93-acb3-5955c45d9bac\",\n        \"userId\": \"0b80baf8-df1f-4a29-a9fa-dc5f6f512add\",\n        \"deviceHardwareId\": \"deviceId123\",\n        \"fcmtoken\": \"cross-platform\"\n    },\n    {\n        \"id\": \"b54db3f6-0a29-4366-a0f9-7fa9983ff3fb\",\n        \"userId\": \"0b80baf8-df1f-4a29-a9fa-dc5f6f512add\",\n        \"deviceHardwareId\": \"deviceId1234\",\n        \"fcmtoken\": null\n    }\n]"
+						}
+					]
+				},
+				{
+					"name": "Get FCM Tokens for User",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"userId\": \"{{currentUserId}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
 						},
+						"url": {
+							"raw": "{{deviceServiceURL}}/api/getFCMTokensForUser",
+							"host": [
+								"{{deviceServiceURL}}"
+							],
+							"path": [
+								"api",
+								"getFCMTokensForUser"
+							]
+						}
+					},
+					"response": [
 						{
 							"name": "Get FCM Tokens for User",
-							"request": {
+							"originalRequest": {
 								"method": "POST",
 								"header": [],
 								"body": {
@@ -327,85 +505,43 @@
 									}
 								},
 								"url": {
-									"raw": "{{userServiceURL}}/api/userManagement/getFCMTokensForUser",
+									"raw": "{{deviceServiceURL}}/api/getFCMTokensForUser",
 									"host": [
-										"{{userServiceURL}}"
+										"{{deviceServiceURL}}"
 									],
 									"path": [
 										"api",
-										"userManagement",
 										"getFCMTokensForUser"
 									]
 								}
 							},
-							"response": [
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
 								{
-									"name": "Get FCM Tokens for User",
-									"originalRequest": {
-										"method": "POST",
-										"header": [],
-										"body": {
-											"mode": "raw",
-											"raw": "{\n    \"userId\": \"b680baa0-8904-40f9-b8d1-71dcf47a667e\"\n}",
-											"options": {
-												"raw": {
-													"language": "json"
-												}
-											}
-										},
-										"url": {
-											"raw": "{{userServiceURL}}/api/userManagement/getFCMTokensForUser",
-											"host": [
-												"{{userServiceURL}}"
-											],
-											"path": [
-												"api",
-												"userManagement",
-												"getFCMTokensForUser"
-											]
-										}
-									},
-									"status": "OK",
-									"code": 200,
-									"_postman_previewlanguage": "json",
-									"header": [
-										{
-											"key": "Vary",
-											"value": "Origin"
-										},
-										{
-											"key": "Vary",
-											"value": "Access-Control-Request-Method"
-										},
-										{
-											"key": "Vary",
-											"value": "Access-Control-Request-Headers"
-										},
-										{
-											"key": "Content-Type",
-											"value": "application/json"
-										},
-										{
-											"key": "Transfer-Encoding",
-											"value": "chunked"
-										},
-										{
-											"key": "Date",
-											"value": "Wed, 13 Oct 2021 11:51:58 GMT"
-										},
-										{
-											"key": "Keep-Alive",
-											"value": "timeout=60"
-										},
-										{
-											"key": "Connection",
-											"value": "keep-alive"
-										}
-									],
-									"cookie": [],
-									"body": "[\n    \"c_g5-uepRXCWljbL3yvVQs:APA91bHVUhuZYvdQ5RxLPHTmfrEOrBKEaFJgxv4_DOGHQ6GZKHXymgpI2ZKPn8gIV264_qUNLjBFiPrusN6OcKYX-KSN9DDGPYyt944sAMDnVaSWxU6f1OasntVDHxqWUDWWdN5StEWT\"\n]"
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 22 Oct 2021 22:41:22 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
 								}
-							]
+							],
+							"cookie": [],
+							"body": "[\n    \"cross-platform\"\n]"
 						}
 					]
 				}
@@ -788,7 +924,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"taskId\": \"491f56a4-3183-11ec-9a9b-d22282faef24\"\n}\n\n\n// \"response\": {\n//         \"document\": {\n//             \"documentId\": \"cba00e70-29e2-4dc3-a0ae-6d9c983358ed\",\n//             \"description\": \"I am document\",\n//             \"status\": \"RECEIVED\",\n//             \"uploadedBy\": \"cba00e70-29e2-4dc3-a0ae-6d9c983358ed\",\n//             \"uploadedDate\": \"asdasda\",\n//             \"content\": \"ASdASDasdASdfjkASLDnaSLNDaSLKd==\"\n//         }\n//     }",
+									"raw": "{\n    \"taskId\": \"60e5bf12-318a-11ec-9bbe-d22282faef24\"\n}\n\n\n// \"response\": {\n//         \"document\": {\n//             \"documentId\": \"cba00e70-29e2-4dc3-a0ae-6d9c983358ed\",\n//             \"description\": \"I am document\",\n//             \"status\": \"RECEIVED\",\n//             \"uploadedBy\": \"cba00e70-29e2-4dc3-a0ae-6d9c983358ed\",\n//             \"uploadedDate\": \"asdasda\",\n//             \"content\": \"ASdASDasdASdfjkASLDnaSLNDaSLKd==\"\n//         }\n//     }",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -816,7 +952,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"taskId\": \"917678ab-3183-11ec-86e6-d22282faef24\",\n    \"isValid\": true,\n    \"delegatorId\": \"cba00e70-29e2-4dc3-a0ae-6d9c983358ed\",\n    \"approvers\": [\n        {\n            \"approverId\": \"d0b0dd1c-91d0-4911-a94e-dbedf1ebd905\",\n            \"order\": 1\n        },\n        {\n            \"approverId\": \"548b60cc-6f8c-4631-a1e5-297017f58548\",\n            \"order\": 2\n        },\n        {\n            \"approverId\": \"548b60cc-6f8c-4631-a1e5-297017f58548\",\n            \"order\": 3\n        },\n        {\n            \"approverId\": \"548b60cc-6f8c-4631-a1e5-297017f58548\",\n            \"order\": 4\n        }\n    ]\n}",
+									"raw": "{\n    \"taskId\": \"60e5bf12-318a-11ec-9bbe-d22282faef24\",\n    \"isValid\": true,\n    \"delegatorId\": \"cba00e70-29e2-4dc3-a0ae-6d9c983358ed\",\n    \"approvers\": [\n        {\n            \"approverId\": \"d0b0dd1c-91d0-4911-a94e-dbedf1ebd905\",\n            \"order\": 1\n        },\n        {\n            \"approverId\": \"548b60cc-6f8c-4631-a1e5-297017f58548\",\n            \"order\": 2\n        },\n        {\n            \"approverId\": \"548b60cc-6f8c-4631-a1e5-297017f58548\",\n            \"order\": 3\n        },\n        {\n            \"approverId\": \"548b60cc-6f8c-4631-a1e5-297017f58548\",\n            \"order\": 4\n        }\n    ]\n}",
 									"options": {
 										"raw": {
 											"language": "json"

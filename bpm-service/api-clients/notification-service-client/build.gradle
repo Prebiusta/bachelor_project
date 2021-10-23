@@ -61,7 +61,7 @@ openApiGenerate {
     configOptions = [
             dateLibrary: "java8"
     ]
-    library = "resttemplate"
+    library = "okhttp-gson"
     additionalProperties = [java11: true]
 }
 

@@ -1,6 +1,5 @@
 package dk.signfluent.service.user.provider;
 
-import dk.signfluent.service.user.entity.DeviceEntity;
 import dk.signfluent.service.user.entity.UserEntity;
 import dk.signfluent.service.user.repository.UserRepository;
 import org.springframework.stereotype.Service;
@@ -28,10 +27,6 @@ public class UserCRUDProvider {
         return userRepository
                 .getByEmail(email)
                 .orElseThrow(() -> new RuntimeException("User with specified email not found"));
-    }
-
-    public List<DeviceEntity> getAllDevicesForUser(UUID userId) {
-        return userRepository.getById(userId).getDeviceEntities();
     }
 
     public List<UserEntity> getAll() {
