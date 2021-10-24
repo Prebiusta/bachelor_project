@@ -34,7 +34,6 @@ public class DocumentService {
         {
             throw new Exception("Document not found");
         }
-
         return documentMapper.documentToDocumentContent(document);
     }
     public List<DocumentRow> getDocumentList(List<UUID> documentIds) throws Exception {
@@ -129,6 +128,12 @@ public class DocumentService {
             document.setStatus(DocumentStatus.APPROVED);
         }
         return repository.save(document).getId();
+    }
+
+    public boolean validateDocument(String encodedContent) {
+        byte[] content = Base64.decodeBase64(encodedContent);
+
+        return repository.existsDocumentByContentAndStatus(content, DocumentStatus.APPROVED);
     }
 
     private boolean checkLock(DocumentStatus status)

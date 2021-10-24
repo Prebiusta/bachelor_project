@@ -1,6 +1,7 @@
 package dk.signfluent.service.document.repository;
 
 import dk.signfluent.service.document.entity.Document;
+import dk.signfluent.service.document.utils.Enums.DocumentStatus;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -12,4 +13,6 @@ public interface DocumentRepository extends JpaRepository<Document, UUID> {
     List<Document> getDocumentsByIdIn(List<UUID> ids);
 
     Document getDocumentById(UUID id);
+
+    boolean existsDocumentByContentAndStatus(byte[] content, DocumentStatus status);
 }
