@@ -70,6 +70,11 @@ public class KeycloakUserManagementServiceImpl implements KeycloakUserManagement
         userResource.roles().realmLevel().remove(Collections.singletonList(getRoleRepresentation(roleManagementRequest.getRole())));
     }
 
+    @Override
+    public List<RoleRepresentation> getRolesForUser(UserRequest userRequest) {
+        return usersResource.get(userRequest.getUserId()).roles().getAll().getRealmMappings();
+    }
+
     private RoleRepresentation getRoleRepresentation(String role) {
         return realmResource.roles().get(role).toRepresentation();
     }

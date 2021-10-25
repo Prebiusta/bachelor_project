@@ -2,18 +2,16 @@ package dk.signfluent.service.user.controller;
 
 import dk.signfluent.integration.keycloak.model.*;
 import dk.signfluent.integration.keycloak.service.KeycloakUserManagementService;
-import dk.signfluent.service.user.model.AvailableRoleResponse;
+import dk.signfluent.service.user.model.SignfluentRoleResponse;
 import dk.signfluent.service.user.model.response.BaseResponse;
 import dk.signfluent.service.user.provider.RolesProvider;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.annotation.security.PermitAll;
-import javax.annotation.security.RolesAllowed;
+import javax.servlet.ServletRequest;
 import java.util.List;
 
 @RestController
@@ -27,22 +25,14 @@ public class UserController {
         this.rolesProvider = rolesProvider;
     }
 
-    @PostMapping("/getAvailableApprovers")
-    @ApiOperation(value = "Get Available Approvers", nickname = "getAvailableApprovers")
-    public List<User> getAvailableApprovers() {
-        return keycloakUserManagementService.getAllApprovers();
-    }
-
     @PostMapping("/create")
     @ApiOperation(value = "Creates a user", nickname = "createUser")
-    @PreAuthorize("hasAuthority('administrator')")
-    public UserCreateResponse createUser(@RequestBody UserCreateRequest userCreateRequest) {
+    public UserCreateResponse createUser(@RequestBody UserCreateRequest userCreateRequest, ServletRequest servletRequest) {
         return keycloakUserManagementService.createUser(userCreateRequest);
     }
 
     @PostMapping("/assignRole")
     @ApiOperation(value = "Assigns a role to the user", nickname = "assignRole")
-    @PreAuthorize("hasAuthority('administrator')")
     public BaseResponse assignRole(@RequestBody RoleManagementRequest roleManagementRequest) {
         keycloakUserManagementService.assignRole(roleManagementRequest);
         return BaseResponse.createSuccessful();
@@ -50,7 +40,6 @@ public class UserController {
 
     @PostMapping("/revokeRole")
     @ApiOperation(value = "Removes a role from the user", nickname = "revokeRole")
-    @PreAuthorize("hasAuthority('administrator')")
     public BaseResponse revokeRole(@RequestBody RoleManagementRequest roleManagementRequest) {
         keycloakUserManagementService.revokeRole(roleManagementRequest);
         return BaseResponse.createSuccessful();
@@ -58,8 +47,19 @@ public class UserController {
 
     @PostMapping("/getAvailableRoles")
     @ApiOperation(value = "Returns available roles to be assigned", nickname = "getAvailableRoles")
-    @PreAuthorize("hasAuthority('administrator')")
-    public List<AvailableRoleResponse> getAvailableRoles() {
+    public List<SignfluentRoleResponse> getAvailableRoles() {
         return rolesProvider.getAvailableRoles();
+    }
+
+    @PostMapping("/getRolesForUser")
+    @ApiOperation(value = "Returns roles for specified user", nickname = "getRolesForUser")
+    public List<SignfluentRoleResponse> getRolesForUser(@RequestBody UserRequest userRequest) {
+        return rolesProvider.getRolesForUser(userRequest);
+    }
+
+    @PostMapping("/getAvailableApprovers")
+    @ApiOperation(value = "Get Available Approvers", nickname = "getAvailableApprovers")
+    public List<User> getAvailableApprovers() {
+        return keycloakUserManagementService.getAllApprovers();
     }
 }

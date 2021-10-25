@@ -1,3 +1,10 @@
+keycloak:
+  realm: master
+  auth-server-url: http://localhost:8080/auth
+  ssl-required: external
+  resource: user-service
+  use-resource-role-mappings: true
+  public-client: true
 
 camunda.bpm.admin-user:
   id: proof
