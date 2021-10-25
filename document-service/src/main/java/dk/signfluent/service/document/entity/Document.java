@@ -22,8 +22,10 @@ public class Document {
     private UUID id;
     private String description;
     @NotNull
+    @Lob
     private byte[] content;
     @NotNull
+    @Lob
     private byte[] hash;
     @NotNull
     private DocumentStatus status;
