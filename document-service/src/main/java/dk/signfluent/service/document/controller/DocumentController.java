@@ -52,4 +52,10 @@ public class DocumentController {
     public UUID signDocument(@RequestBody SignDocument document ) throws Exception {
         return documentService.signDocument(document);
     }
+
+    @GetMapping("/validateDocument")
+    @ApiOperation(value = "Validate document", nickname = "validateDocument")
+    public boolean validateDocument(@RequestBody String content) {
+        return documentService.validateDocument(content);
+    }
 }

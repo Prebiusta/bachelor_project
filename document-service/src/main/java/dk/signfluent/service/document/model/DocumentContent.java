@@ -10,7 +10,7 @@ import java.util.UUID;
 public class DocumentContent {
     private UUID id;
     private DocumentStatus status;
-    private byte[] content;
+    private String content;
     private String description;
     private UUID uploaderId;
     private Date uploadDate;
