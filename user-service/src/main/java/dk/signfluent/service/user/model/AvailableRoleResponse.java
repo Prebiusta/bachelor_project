@@ -2,11 +2,8 @@ package dk.signfluent.service.user.model;
 
 import lombok.Data;
 
-import java.util.UUID;
-
 @Data
-public class User {
-    private UUID id;
+public class AvailableRoleResponse {
     private String name;
-    private String email;
+    private String key;
 }

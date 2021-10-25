@@ -1,38 +1,25 @@
 plugins {
-    id 'org.springframework.boot' version '2.5.5'
-    id 'io.spring.dependency-management' version '1.0.11.RELEASE'
     id 'java'
 }
 
-group = 'dk.signfluent'
-version = '1.0.0-SNAPSHOT'
-description = 'user-service'
-java.sourceCompatibility = JavaVersion.VERSION_11
-
-configurations {
-    compileOnly {
-        extendsFrom annotationProcessor
-    }
-}
-
-jar {
-    enabled = false
-}
+group 'dk.signfluent'
+version '1.0.0-SNAPSHOT'
 
 repositories {
     mavenCentral()
 }
 
 dependencies {
-    implementation project(":keycloak")
+    // Keycloak
+    implementation 'org.keycloak:keycloak-admin-client:15.0.2'
+    implementation 'org.keycloak:keycloak-authz-client:15.0.2'
+    implementation 'org.keycloak:keycloak-core:15.0.2'
+    implementation 'org.jboss.resteasy:resteasy-client:4.5.1.Final'
+    implementation 'org.jboss.resteasy:resteasy-jackson2-provider:4.5.1.Final'
 
     // Spring Boot
     implementation 'org.springframework.boot:spring-boot-starter-web:2.5.5'
     testImplementation 'org.springframework.boot:spring-boot-starter-test:2.5.5'
-
-    implementation 'org.springframework.boot:spring-boot-starter-security:2.5.5'
-    implementation 'org.keycloak:keycloak-spring-boot-starter:15.0.2'
-    implementation 'org.keycloak:keycloak-spring-security-adapter:15.0.2'
 
     // JPA
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa:2.5.5'

@@ -1,9 +1,9 @@
-package dk.signfluent.service.user.model.request;
+package dk.signfluent.integration.keycloak.model;
 
 import lombok.Data;
 
 @Data
 public class AuthenticationRequest {
-    private String email;
+    private String username;
     private String password;
 }
