@@ -7,8 +7,11 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class KeycloakConfig {
-    @Value("${keycloak.auth-server-url}")
-    private String serverUrl;
+    @Value("${idp-keycloak.service.host}")
+    private String host;
+
+    @Value("${idp-keycloak.service.port}")
+    private String port;
 
     @Value("${keycloak.realm}")
     private String realm;
@@ -30,7 +33,7 @@ public class KeycloakConfig {
         return new KeycloakIntegrationConfiguration() {
             @Override
             public String getServerUrl() {
-                return serverUrl;
+                return String.format("http://%s:%s/auth", host, port);
             }
 
             @Override

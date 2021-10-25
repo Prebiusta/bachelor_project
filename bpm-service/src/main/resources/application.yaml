@@ -6,6 +6,11 @@ keycloak:
   use-resource-role-mappings: true
   public-client: true
 
+idp-keycloak:
+  service:
+    host: localhost
+    port: 8080
+
 camunda.bpm.admin-user:
   id: proof
   password: proof

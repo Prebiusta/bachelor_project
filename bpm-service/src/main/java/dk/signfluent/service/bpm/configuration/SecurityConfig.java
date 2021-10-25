@@ -1,10 +1,11 @@
 package dk.signfluent.service.bpm.configuration;
 
-import org.keycloak.adapters.KeycloakConfigResolver;
-import org.keycloak.adapters.springboot.KeycloakSpringBootConfigResolver;
+import org.keycloak.adapters.KeycloakDeployment;
+import org.keycloak.adapters.KeycloakDeploymentBuilder;
 import org.keycloak.adapters.springsecurity.KeycloakConfiguration;
 import org.keycloak.adapters.springsecurity.KeycloakSecurityComponents;
 import org.keycloak.adapters.springsecurity.config.KeycloakWebSecurityConfigurerAdapter;
+import org.keycloak.representations.adapters.config.AdapterConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -19,10 +20,17 @@ import org.springframework.security.web.authentication.session.SessionAuthentica
 
 @Configuration
 @EnableWebSecurity
-@EnableGlobalMethodSecurity(prePostEnabled = true,jsr250Enabled = true)
+@EnableGlobalMethodSecurity(prePostEnabled = true, jsr250Enabled = true)
 @KeycloakConfiguration
 @ComponentScan(basePackageClasses = KeycloakSecurityComponents.class)
 public class SecurityConfig extends KeycloakWebSecurityConfigurerAdapter {
+    private final KeycloakAuthServerURLProvider keycloakAuthServerURLProvider;
+
+    public SecurityConfig(KeycloakAuthServerURLProvider keycloakAuthServerURLProvider) {
+        this.keycloakAuthServerURLProvider = keycloakAuthServerURLProvider;
+    }
+
+
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) {
         auth.authenticationProvider(keycloakAuthenticationProvider());
@@ -42,7 +50,13 @@ public class SecurityConfig extends KeycloakWebSecurityConfigurerAdapter {
     }
 
     @Bean
-    public org.keycloak.adapters.KeycloakConfigResolver KeycloakConfigResolver() {
-        return new KeycloakSpringBootConfigResolver();
+    public KeycloakDeployment keycloakDeployment(AdapterConfig adapterConfig) {
+        adapterConfig.setAuthServerUrl(keycloakAuthServerURLProvider.getKeycloakAuthServerURL());
+        return KeycloakDeploymentBuilder.build(adapterConfig);
+    }
+
+    @Bean
+    public org.keycloak.adapters.KeycloakConfigResolver keycloakConfigResolver(KeycloakDeployment keycloakDeployment) {
+        return request -> keycloakDeployment;
     }
 }

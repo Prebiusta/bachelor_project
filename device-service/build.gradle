@@ -26,7 +26,6 @@ repositories {
 dependencies {
     // Spring Boot
     implementation 'org.springframework.boot:spring-boot-starter-web:2.5.5'
-    implementation 'junit:junit:4.13.1'
     testImplementation 'org.springframework.boot:spring-boot-starter-test:2.5.5'
 
     // JPA
@@ -50,9 +49,9 @@ dependencies {
     // Tests
     testImplementation 'org.mockito:mockito-core:3.12.4'
     testImplementation 'org.mockito:mockito-junit-jupiter:2.23.0'
-    testImplementation 'junit:junit:4.13'
+    testImplementation 'junit:junit:4.13.2'
 }
 
 test {
-    useJUnit()
+    useJUnitPlatform()
 }
