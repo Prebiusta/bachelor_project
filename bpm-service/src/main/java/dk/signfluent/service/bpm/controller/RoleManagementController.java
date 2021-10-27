@@ -49,11 +49,11 @@ public class RoleManagementController {
     @PostMapping("/getForUser")
     @PreAuthorize(ADMINISTRATOR)
     public List<SignfluentRoleResponse> getForUser(@RequestBody UserRequest userRequest) throws ApiException {
-        return userServiceApiProvider.getForUser(userRequest);
+        return userServiceApiProvider.getRoleForUser(userRequest);
     }
 
     @PostMapping("/getForCurrentUser")
     public List<SignfluentRoleResponse> getForCurrentUser() throws ApiException {
-        return userServiceApiProvider.getForUser(new UserRequest().userId(userProvider.getCurrentUserId()));
+        return userServiceApiProvider.getRoleForUser(new UserRequest().userId(userProvider.getCurrentUserId()));
     }
 }

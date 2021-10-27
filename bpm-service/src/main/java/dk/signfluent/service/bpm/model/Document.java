@@ -1,5 +1,6 @@
 package dk.signfluent.service.bpm.model;
 
+import dk.signfluent.user.service.model.User;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -12,7 +13,7 @@ import java.util.Date;
 @NoArgsConstructor
 public class Document {
    private String description;
-   private String uploadedBy;
+   private User uploadedBy;
    private String status;
    private OffsetDateTime uploadedAt;
 }

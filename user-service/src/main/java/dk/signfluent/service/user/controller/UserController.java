@@ -62,4 +62,10 @@ public class UserController {
     public List<User> getAvailableApprovers() {
         return keycloakUserManagementService.getAllApprovers();
     }
+
+    @PostMapping("/getUsersByIds")
+    @ApiOperation(value = "Get users by ids", nickname = "getUsersByIds")
+    public List<User> getUsersByIds(@RequestBody List<String> userIds) {
+        return keycloakUserManagementService.getUsers(userIds);
+    }
 }

@@ -2,22 +2,22 @@ package dk.signfluent.service.bpm.service;
 
 import dk.signfluent.document.service.invoker.ApiException;
 import dk.signfluent.document.service.model.DocumentContent;
-import dk.signfluent.document.service.model.DocumentRow;
 import dk.signfluent.service.bpm.mapper.DocumentMapper;
 import dk.signfluent.service.bpm.model.*;
 import dk.signfluent.service.bpm.model.response.DocumentResponse;
+import dk.signfluent.service.bpm.provider.TaskDetailsProvider;
+import dk.signfluent.service.bpm.provider.UserProvider;
 import dk.signfluent.service.bpm.utility.ProcessFormKey;
 import dk.signfluent.service.bpm.utility.ProcessTaskUtils;
 import dk.signfluent.service.document.api.provider.DocumentServiceApiProvider;
+import dk.signfluent.service.user.api.provider.UserServiceApiProvider;
+import dk.signfluent.user.service.model.User;
 import org.camunda.bpm.engine.RuntimeService;
 import org.camunda.bpm.engine.TaskService;
 import org.springframework.stereotype.Service;
+import org.springframework.util.Assert;
 
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
+import java.util.*;
 
 import static dk.signfluent.service.bpm.utility.ProcessVariables.*;
 import static dk.signfluent.service.bpm.utility.Processes.SIGNING_PROCESS;
@@ -29,14 +29,20 @@ public class DocumentService {
     private final TaskService taskService;
     private final ProcessTaskUtils processTaskUtils;
     private final DocumentServiceApiProvider documentServiceApiProvider;
+    private final UserServiceApiProvider userServiceApiProvider;
     private final DocumentMapper documentMapper;
+    private final TaskDetailsProvider taskDetailsProvider;
+    private final UserProvider userProvider;
 
-    public DocumentService(RuntimeService runtimeService, TaskService taskService, ProcessTaskUtils processTaskUtils, DocumentServiceApiProvider documentServiceApiProvider, DocumentMapper documentMapper) {
+    public DocumentService(RuntimeService runtimeService, TaskService taskService, ProcessTaskUtils processTaskUtils, DocumentServiceApiProvider documentServiceApiProvider, UserServiceApiProvider userServiceApiProvider, DocumentMapper documentMapper, TaskDetailsProvider taskDetailsProvider, UserProvider userProvider) {
         this.runtimeService = runtimeService;
         this.taskService = taskService;
         this.processTaskUtils = processTaskUtils;
         this.documentServiceApiProvider = documentServiceApiProvider;
+        this.userServiceApiProvider = userServiceApiProvider;
         this.documentMapper = documentMapper;
+        this.taskDetailsProvider = taskDetailsProvider;
+        this.userProvider = userProvider;
     }
 
     public void inspectDocument(InspectDocumentRequest inspectDocumentRequest) {
@@ -51,7 +57,7 @@ public class DocumentService {
 
     public void uploadDocument(UploadDocumentRequest uploadDocumentRequest) {
         try {
-            String uploadedDocumentId = documentServiceApiProvider.uploadDocument(uploadDocumentRequest.getUserId(), uploadDocumentRequest.getDescription(), uploadDocumentRequest.getDocument());
+            String uploadedDocumentId = documentServiceApiProvider.uploadDocument(userProvider.getCurrentUserId(), uploadDocumentRequest.getDescription(), uploadDocumentRequest.getDocument());
             runtimeService.startProcessInstanceByKey(SIGNING_PROCESS, uploadedDocumentId, Collections.singletonMap(DOCUMENT_ID, uploadedDocumentId));
         } catch (ApiException e) {
             throw new RuntimeException(e);
@@ -61,9 +67,8 @@ public class DocumentService {
     public List<DocumentResponse> getDocumentsForInspection() {
         List<TaskDocumentModel> taskToDocumentIdMapForFormKey = processTaskUtils.getTaskToDocumentIdMapForFormKey(ProcessFormKey.INSPECT_DOCUMENT);
         try {
-            List<DocumentRow> documentList = documentServiceApiProvider.getDocumentList(taskToDocumentIdMapForFormKey.stream().map(TaskDocumentModel::getDocumentId).collect(Collectors.toList()));
-            return assignTaskToDocument(documentList, taskToDocumentIdMapForFormKey);
-        } catch (ApiException e) {
+            return taskDetailsProvider.appendDocumentsInformationToTask(taskToDocumentIdMapForFormKey);
+        } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
@@ -72,31 +77,16 @@ public class DocumentService {
         String documentId = processTaskUtils.getDocumentId(taskId);
         try {
             DocumentContent documentDetails = documentServiceApiProvider.getDocumentDetails(documentId);
-            return documentMapper.mapDocumentWithContent(documentDetails);
-        } catch (ApiException e) {
+            Assert.notNull(documentDetails.getUploaderId(), "Uploader ID is not present");
+            DocumentWithContent documentWithContent = documentMapper.mapDocumentWithContent(documentDetails);
+            documentWithContent.setUploadedBy(getUploaderDetails(documentDetails.getUploaderId().toString()));
+            return documentWithContent;
+        } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
 
-    private List<DocumentResponse> assignTaskToDocument(List<DocumentRow> documentList, List<TaskDocumentModel> taskIdsForDocuments) {
-        return taskIdsForDocuments.stream()
-                .map(taskDocumentModel -> {
-                    DocumentResponse documentResponse = new DocumentResponse();
-                    documentResponse.setTaskId(taskDocumentModel.getTaskId());
-                    documentResponse.setDocument(findDocumentRow(documentList, taskDocumentModel.getDocumentId()));
-                    return documentResponse;
-                })
-                .collect(Collectors.toList());
-    }
-
-    private Document findDocumentRow(List<DocumentRow> documentRows, String documentId) {
-        DocumentRow documentRow = documentRows.stream()
-                .filter(doc -> {
-                    assert doc.getDocumentId() != null;
-                    return doc.getDocumentId().toString().equalsIgnoreCase(documentId);
-                })
-                .findFirst()
-                .orElseThrow(() -> new RuntimeException("DocumentID not Found"));
-        return documentMapper.mapDocumentRowToDocument(documentRow);
+    private User getUploaderDetails(String uploaderId) throws Exception {
+        return userServiceApiProvider.getUsersByIds(Collections.singletonList(uploaderId)).get(0);
     }
 }

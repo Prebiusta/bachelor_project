@@ -8,13 +8,15 @@ import java.util.List;
 public interface UserServiceApiProvider {
     List<User> getAvailableApprovers() throws ApiException;
 
+    List<User> getUsersByIds(List<String> ids) throws ApiException;
+
     BaseResponse assignRole(RoleManagementRequest roleManagementRequest) throws ApiException;
 
     BaseResponse revokeRole(RoleManagementRequest roleManagementRequest) throws ApiException;
 
     List<SignfluentRoleResponse> getAvailableRoles() throws ApiException;
 
-    List<SignfluentRoleResponse> getForUser(UserRequest userRequest) throws ApiException;
+    List<SignfluentRoleResponse> getRoleForUser(UserRequest userRequest) throws ApiException;
 
     AuthenticationResponse authenticate(AuthenticationRequest authenticationRequest) throws ApiException;
 

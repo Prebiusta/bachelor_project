@@ -20,6 +20,7 @@ import javax.ws.rs.core.Response;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class KeycloakUserManagementServiceImpl implements KeycloakUserManagementService {
@@ -53,6 +54,16 @@ public class KeycloakUserManagementServiceImpl implements KeycloakUserManagement
     public List<User> getAllApprovers() {
         ArrayList<UserRepresentation> userRepresentations = new ArrayList<>(rolesResource.get("approver").getRoleUserMembers());
         return userMapper.mapUserRepresentationListToUser(userRepresentations);
+    }
+
+    @Override
+    public List<User> getUsers(List<String> userIds) {
+        return usersResource
+                .list()
+                .stream()
+                .filter(userRepresentation -> userIds.contains(userRepresentation.getId()))
+                .map(userMapper::mapUserRepresentationToUser)
+                .collect(Collectors.toList());
     }
 
     @Override

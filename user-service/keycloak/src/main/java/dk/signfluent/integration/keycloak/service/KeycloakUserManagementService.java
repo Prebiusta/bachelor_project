@@ -11,6 +11,8 @@ public interface KeycloakUserManagementService {
 
     List<User> getAllApprovers();
 
+    List<User> getUsers(List<String> userIds);
+
     AuthenticationResponse authenticate(AuthenticationRequest authenticationRequest);
 
     AuthenticationResponse refreshToken(RefreshTokenRequest request);

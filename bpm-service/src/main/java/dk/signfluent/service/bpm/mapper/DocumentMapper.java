@@ -14,14 +14,10 @@ import java.util.UUID;
 
 @Mapper(componentModel = "spring")
 public interface DocumentMapper {
-    @Mapping(source = "uploaderId", target = "uploadedBy", qualifiedByName = "uuidToString")
     @Mapping(source = "uploadDate", target = "uploadedAt")
     Document mapDocumentRowToDocument(DocumentRow documentRow);
 
-    List<Document> mapDocumentRowListToDocumentList(List<DocumentRow> documentRows);
-
     @Mapping(source = "content", target = "content", qualifiedByName = "bytesToString")
-    @Mapping(source = "uploaderId", target = "uploadedBy", qualifiedByName = "uuidToString")
     @Mapping(source = "uploadDate", target = "uploadedAt")
     DocumentWithContent mapDocumentWithContent(DocumentContent documentContent);
 

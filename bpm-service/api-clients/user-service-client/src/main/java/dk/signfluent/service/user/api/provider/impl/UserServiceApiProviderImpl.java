@@ -25,6 +25,11 @@ public class UserServiceApiProviderImpl implements UserServiceApiProvider {
     }
 
     @Override
+    public List<User> getUsersByIds(List<String> ids) throws ApiException {
+        return userControllerApi.getUsersByIds(ids);
+    }
+
+    @Override
     public BaseResponse assignRole(RoleManagementRequest roleManagementRequest) throws ApiException {
         return userControllerApi.assignRole(roleManagementRequest);
     }
@@ -40,7 +45,7 @@ public class UserServiceApiProviderImpl implements UserServiceApiProvider {
     }
 
     @Override
-    public List<SignfluentRoleResponse> getForUser(UserRequest userRequest) throws ApiException {
+    public List<SignfluentRoleResponse> getRoleForUser(UserRequest userRequest) throws ApiException {
         return userControllerApi.getRolesForUser(userRequest);
     }
 
