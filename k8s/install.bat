@@ -6,6 +6,8 @@ kubectl delete --all pods
 
 set KUBECTL=kubectl apply -f
 
+%KUBECTL% 00_keycloak.yml
+
 %KUBECTL% 01_bpm_service_svc.yml
 %KUBECTL% 01_ca_svc.yml
 %KUBECTL% 01_device_service_svc.yml

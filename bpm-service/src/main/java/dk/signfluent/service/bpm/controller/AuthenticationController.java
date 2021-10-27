@@ -30,7 +30,7 @@ public class AuthenticationController {
 
     @PostMapping("/createUser")
     @PreAuthorize(ADMINISTRATOR)
-    public UserCreateResponse authenticate(@RequestBody UserCreateRequest userCreateRequest) throws ApiException {
+    public UserCreateResponse createUser(@RequestBody UserCreateRequest userCreateRequest) throws ApiException {
         return userServiceApiProvider.createUserAccount(userCreateRequest);
     }
 }
