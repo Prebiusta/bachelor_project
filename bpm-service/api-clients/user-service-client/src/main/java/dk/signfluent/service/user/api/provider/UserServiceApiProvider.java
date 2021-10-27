@@ -18,5 +18,7 @@ public interface UserServiceApiProvider {
 
     AuthenticationResponse authenticate(AuthenticationRequest authenticationRequest) throws ApiException;
 
+    AuthenticationResponse refreshToken(RefreshTokenRequest refreshTokenRequest) throws ApiException;
+
     UserCreateResponse createUserAccount(UserCreateRequest userCreateRequest) throws ApiException;
 }

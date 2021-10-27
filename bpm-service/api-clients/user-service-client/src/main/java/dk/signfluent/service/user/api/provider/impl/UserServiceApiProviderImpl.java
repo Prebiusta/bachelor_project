@@ -50,6 +50,11 @@ public class UserServiceApiProviderImpl implements UserServiceApiProvider {
     }
 
     @Override
+    public AuthenticationResponse refreshToken(RefreshTokenRequest refreshTokenRequest) throws ApiException {
+        return authControllerApi.refreshToken(refreshTokenRequest);
+    }
+
+    @Override
     public UserCreateResponse createUserAccount(UserCreateRequest userCreateRequest) throws ApiException {
         return userControllerApi.createUser(userCreateRequest);
     }

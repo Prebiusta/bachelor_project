@@ -13,6 +13,8 @@ public interface KeycloakUserManagementService {
 
     AuthenticationResponse authenticate(AuthenticationRequest authenticationRequest);
 
+    AuthenticationResponse refreshToken(RefreshTokenRequest request);
+
     void assignRole(RoleManagementRequest roleManagementRequest);
 
     void revokeRole(RoleManagementRequest roleManagementRequest);

@@ -10,6 +10,8 @@ import org.keycloak.admin.client.resource.UsersResource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import java.util.Collections;
+
 @Configuration
 public class KeycloakAdminConfig {
     private final KeycloakIntegrationConfiguration keycloakIntegrationConfiguration;
@@ -49,5 +51,16 @@ public class KeycloakAdminConfig {
     @Bean
     public RolesResource rolesResource(RealmResource realmResource) {
         return realmResource.roles();
+    }
+
+    @Bean
+    public org.keycloak.authorization.client.Configuration kcConfig() {
+        return new org.keycloak.authorization.client.Configuration(
+                keycloakIntegrationConfiguration.getServerUrl(),
+                keycloakIntegrationConfiguration.getRealm(),
+                keycloakIntegrationConfiguration.getClientId(),
+                Collections.singletonMap("secret", keycloakIntegrationConfiguration.getClientSecret()),
+                null
+        );
     }
 }

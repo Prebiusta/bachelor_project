@@ -28,6 +28,12 @@ public class AuthenticationController {
         return userServiceApiProvider.authenticate(authenticationRequest);
     }
 
+    @PostMapping("/refreshToken")
+    @PermitAll
+    public AuthenticationResponse refreshToken(@RequestBody RefreshTokenRequest request) throws ApiException {
+        return userServiceApiProvider.refreshToken(request);
+    }
+
     @PostMapping("/createUser")
     @PreAuthorize(ADMINISTRATOR)
     public UserCreateResponse createUser(@RequestBody UserCreateRequest userCreateRequest) throws ApiException {

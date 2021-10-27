@@ -3,6 +3,7 @@ package dk.signfluent.integration.keycloak.service;
 import dk.signfluent.integration.keycloak.mapper.AuthTokenMapper;
 import dk.signfluent.integration.keycloak.mapper.UserMapper;
 import dk.signfluent.integration.keycloak.model.*;
+import dk.signfluent.integration.keycloak.provider.RefreshTokenProvider;
 import org.keycloak.admin.client.CreatedResponseUtil;
 import org.keycloak.admin.client.resource.RealmResource;
 import org.keycloak.admin.client.resource.RolesResource;
@@ -28,14 +29,16 @@ public class KeycloakUserManagementServiceImpl implements KeycloakUserManagement
     private final UserMapper userMapper;
     private final AuthTokenMapper authTokenMapper;
     private final AuthzClient authzClient;
+    private final RefreshTokenProvider refreshTokenProvider;
 
-    public KeycloakUserManagementServiceImpl(UsersResource usersResource, RolesResource rolesResource, RealmResource realmResource, UserMapper userMapper, AuthTokenMapper authTokenMapper, AuthzClient authzClient) {
+    public KeycloakUserManagementServiceImpl(UsersResource usersResource, RolesResource rolesResource, RealmResource realmResource, UserMapper userMapper, AuthTokenMapper authTokenMapper, AuthzClient authzClient, RefreshTokenProvider refreshTokenProvider) {
         this.usersResource = usersResource;
         this.rolesResource = rolesResource;
         this.realmResource = realmResource;
         this.userMapper = userMapper;
         this.authTokenMapper = authTokenMapper;
         this.authzClient = authzClient;
+        this.refreshTokenProvider = refreshTokenProvider;
     }
 
     @Override
@@ -56,6 +59,11 @@ public class KeycloakUserManagementServiceImpl implements KeycloakUserManagement
     public AuthenticationResponse authenticate(AuthenticationRequest authenticationRequest) {
         AccessTokenResponse accessTokenResponse = authzClient.obtainAccessToken(authenticationRequest.getUsername(), authenticationRequest.getPassword());
         return authTokenMapper.mapAccessTokenToAuthResponse(accessTokenResponse);
+    }
+
+    @Override
+    public AuthenticationResponse refreshToken(RefreshTokenRequest request) {
+        return authTokenMapper.mapAccessTokenToAuthResponse(refreshTokenProvider.refreshAuthToken(request));
     }
 
     @Override

@@ -2,7 +2,7 @@ keycloak:
   realm: master
   auth-server-url: http://localhost:8080/auth
   ssl-required: external
-  resource: user-service
+  resource: signfluent
   use-resource-role-mappings: true
   public-client: true
 

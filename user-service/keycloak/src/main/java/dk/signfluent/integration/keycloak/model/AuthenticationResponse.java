@@ -9,7 +9,4 @@ public class AuthenticationResponse {
     private long expiresIn;
     private long refreshExpiresIn;
     private String refreshToken;
-    private String tokenType;
-    private String idToken;
-    private int notBeforePolicy;
 }
