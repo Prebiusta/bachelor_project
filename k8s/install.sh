@@ -1,11 +1,19 @@
 #!/bin/bash
 eval $(minikube docker-env)
-docker-compose --project-name signfluent build
 
 # Forcing images to be reloaded
 kubectl delete --all deployments
 kubectl delete --all services
 kubectl delete --all pods
+
+DOCKER_RMI="docker rmi"
+$DOCKER_RMI signfluent/document-service:latest
+$DOCKER_RMI signfluent/notification-service:latest
+$DOCKER_RMI signfluent/user-service:latest
+$DOCKER_RMI signfluent/certificate-authority:latest
+$DOCKER_RMI signfluent/bpm-service:latest
+
+docker-compose --project-name signfluent build
 
 KUBECTL="kubectl apply -f"
 
