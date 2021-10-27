@@ -41,11 +41,12 @@
 							}
 						},
 						"url": {
-							"raw": "{{userServiceURL}}/authenticate",
+							"raw": "{{userServiceURL}}/api/authenticate",
 							"host": [
 								"{{userServiceURL}}"
 							],
 							"path": [
+								"api",
 								"authenticate"
 							]
 						}
@@ -268,6 +269,36 @@
 							"path": [
 								"api",
 								"getRolesForUser"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Users By Ids",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "[\"63c2f7ed-7b4e-4a5a-a847-4466fc6dcfe6\"]\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{userServiceURL}}/api/getUsersByIds",
+							"host": [
+								"{{userServiceURL}}"
+							],
+							"path": [
+								"api",
+								"getUsersByIds"
 							]
 						}
 					},
@@ -914,7 +945,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"userId\": \"4da64240-b567-44fc-98c7-5d1f91cb9982\",\n    \"document\": \"ZG9jdW1lbnQ=\",\n    \"description\": \"This is some dummy description\"\n}",
+									"raw": "{\n    \"document\": \"ZG9jdW1lbnQ=\",\n    \"description\": \"This is some dummy description\"\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -970,7 +1001,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "// {\n//     \"response\": {\n//         \"documentsForDelegation\": [\n//             {\n//                 \"taskId\": \"cba00e70-29e2-4dc3-a0ae-6d9c983358ed\",\n//                 \"document\": {\n//                     \"description\": \"I am document\",\n//                     \"status\": \"RECEIVED\",\n//                     \"uploadedBy\": \"cba00e70-29e2-4dc3-a0ae-6d9c983358ed\",\n//                     \"uploadedDate\": \"asdasda\"\n//                 }\n//             },\n//              {\n//                 \"taskId\": \"cba00e70-29e2-4dc3-a0ae-6d9c983358ed\",\n//                 \"document\": {\n//                     \"description\": \"I am document 2\",\n//                     \"status\": \"RECEIVED\",\n//                     \"uploadedBy\": \"cba00e70-29e2-4dc3-a0ae-6d9c983358ed\",\n//                     \"uploadedDate\": \"asdasda\"\n//                 }\n//             }\n//         ]\n//     }\n// }",
+									"raw": "",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -989,7 +1020,86 @@
 									]
 								}
 							},
-							"response": []
+							"response": [
+								{
+									"name": "Get Documents For Inspection",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{bpmServiceURL}}/api/signingProcess/getDocumentsForInspection",
+											"host": [
+												"{{bpmServiceURL}}"
+											],
+											"path": [
+												"api",
+												"signingProcess",
+												"getDocumentsForInspection"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "X-Content-Type-Options",
+											"value": "nosniff"
+										},
+										{
+											"key": "X-XSS-Protection",
+											"value": "1; mode=block"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, no-store, max-age=0, must-revalidate"
+										},
+										{
+											"key": "Pragma",
+											"value": "no-cache"
+										},
+										{
+											"key": "Expires",
+											"value": "0"
+										},
+										{
+											"key": "X-Frame-Options",
+											"value": "DENY"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Transfer-Encoding",
+											"value": "chunked"
+										},
+										{
+											"key": "Date",
+											"value": "Wed, 27 Oct 2021 19:50:13 GMT"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=60"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										}
+									],
+									"cookie": [],
+									"body": "[\n    {\n        \"taskId\": \"17855ed8-375f-11ec-a903-8a6a603d3056\",\n        \"document\": {\n            \"description\": \"This is some dummy description\",\n            \"uploadedBy\": {\n                \"email\": \"angel@signfluent.com\",\n                \"firstName\": \"David\",\n                \"id\": \"f21b0fb1-d483-4b05-a293-404066fd767b\",\n                \"lastName\": \"Franko\",\n                \"username\": \"angel\"\n            },\n            \"status\": \"RECEIVED\",\n            \"uploadedAt\": \"2021-10-27T19:50:09.762Z\"\n        }\n    },\n    {\n        \"taskId\": \"ef081332-375e-11ec-a903-8a6a603d3056\",\n        \"document\": {\n            \"description\": \"This is some dummy description\",\n            \"uploadedBy\": {\n                \"email\": \"info@signfluent.com\",\n                \"firstName\": \"Signfluent\",\n                \"id\": \"9f839275-6260-4748-bef3-9206d82cc7e6\",\n                \"lastName\": \"Admin\",\n                \"username\": \"administrator\"\n            },\n            \"status\": \"RECEIVED\",\n            \"uploadedAt\": \"2021-10-27T19:49:01.755Z\"\n        }\n    }\n]"
+								}
+							]
 						},
 						{
 							"name": "Get Document Content",
@@ -998,7 +1108,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"taskId\": \"60e5bf12-318a-11ec-9bbe-d22282faef24\"\n}\n\n\n// \"response\": {\n//         \"document\": {\n//             \"documentId\": \"cba00e70-29e2-4dc3-a0ae-6d9c983358ed\",\n//             \"description\": \"I am document\",\n//             \"status\": \"RECEIVED\",\n//             \"uploadedBy\": \"cba00e70-29e2-4dc3-a0ae-6d9c983358ed\",\n//             \"uploadedDate\": \"asdasda\",\n//             \"content\": \"ASdASDasdASdfjkASLDnaSLNDaSLKd==\"\n//         }\n//     }",
+									"raw": "{\n    \"taskId\": \"70470ead-3757-11ec-a2ac-8a6a603d3056\"\n}\n\n\n// \"response\": {\n//         \"document\": {\n//             \"documentId\": \"cba00e70-29e2-4dc3-a0ae-6d9c983358ed\",\n//             \"description\": \"I am document\",\n//             \"status\": \"RECEIVED\",\n//             \"uploadedBy\": \"cba00e70-29e2-4dc3-a0ae-6d9c983358ed\",\n//             \"uploadedDate\": \"asdasda\",\n//             \"content\": \"ASdASDasdASdfjkASLDnaSLNDaSLKd==\"\n//         }\n//     }",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -1017,7 +1127,86 @@
 									]
 								}
 							},
-							"response": []
+							"response": [
+								{
+									"name": "Get Document Content",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"taskId\": \"70470ead-3757-11ec-a2ac-8a6a603d3056\"\n}\n\n\n// \"response\": {\n//         \"document\": {\n//             \"documentId\": \"cba00e70-29e2-4dc3-a0ae-6d9c983358ed\",\n//             \"description\": \"I am document\",\n//             \"status\": \"RECEIVED\",\n//             \"uploadedBy\": \"cba00e70-29e2-4dc3-a0ae-6d9c983358ed\",\n//             \"uploadedDate\": \"asdasda\",\n//             \"content\": \"ASdASDasdASdfjkASLDnaSLNDaSLKd==\"\n//         }\n//     }",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{bpmServiceURL}}/api/signingProcess/getDocumentDetails",
+											"host": [
+												"{{bpmServiceURL}}"
+											],
+											"path": [
+												"api",
+												"signingProcess",
+												"getDocumentDetails"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "X-Content-Type-Options",
+											"value": "nosniff"
+										},
+										{
+											"key": "X-XSS-Protection",
+											"value": "1; mode=block"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, no-store, max-age=0, must-revalidate"
+										},
+										{
+											"key": "Pragma",
+											"value": "no-cache"
+										},
+										{
+											"key": "Expires",
+											"value": "0"
+										},
+										{
+											"key": "X-Frame-Options",
+											"value": "DENY"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Transfer-Encoding",
+											"value": "chunked"
+										},
+										{
+											"key": "Date",
+											"value": "Wed, 27 Oct 2021 18:56:02 GMT"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=60"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"description\": \"This is some dummy description\",\n    \"uploadedBy\": {\n        \"email\": \"info@signfluent.com\",\n        \"firstName\": \"Signfluent\",\n        \"id\": \"9f839275-6260-4748-bef3-9206d82cc7e6\",\n        \"lastName\": \"Admin\",\n        \"username\": \"administrator\"\n    },\n    \"status\": \"RECEIVED\",\n    \"uploadedAt\": \"2021-10-27T18:55:22.62Z\",\n    \"content\": \"ZG9jdW1lbnQ=\"\n}"
+								}
+							]
 						},
 						{
 							"name": "Inspect Document",
@@ -1219,7 +1408,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"username\": \"administrator\",\n    \"password\" : \"123456\"\n}",
+									"raw": "{\n    \"username\": \"angel\",\n    \"password\" : \"123456\"\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -1344,7 +1533,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"refreshToken\": \"eyJhbGciOiJIUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICI5MDVmZjgzNy1lMmVkLTQxYWUtYjM0ZS0yNWM4YmFlNzJhNWUifQ.eyJleHAiOjE2MzUzMzM4MjcsImlhdCI6MTYzNTMzMjAyNywianRpIjoiMDQzNDgxNTktMTM0Ny00NWMxLWE0YWQtMjNhNTVkZmZlOWQzIiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo4MDgwL2F1dGgvcmVhbG1zL21hc3RlciIsImF1ZCI6Imh0dHA6Ly9sb2NhbGhvc3Q6ODA4MC9hdXRoL3JlYWxtcy9tYXN0ZXIiLCJzdWIiOiI5ZjgzOTI3NS02MjYwLTQ3NDgtYmVmMy05MjA2ZDgyY2M3ZTYiLCJ0eXAiOiJSZWZyZXNoIiwiYXpwIjoic2lnbmZsdWVudCIsInNlc3Npb25fc3RhdGUiOiJjZjRjZWJmZS04MzFlLTRhNjEtOTBlOC1iZGViYTY3MjRjODUiLCJzY29wZSI6ImVtYWlsIHByb2ZpbGUiLCJzaWQiOiJjZjRjZWJmZS04MzFlLTRhNjEtOTBlOC1iZGViYTY3MjRjODUifQ.N880EA4MSO5BJv29K_7i0rNqbLG_A8vG3BfkSfCF-XA\"\n}",
+									"raw": "{\n    \"refreshToken\": \"eyJhbGciOiJIUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICI5MDVmZjgzNy1lMmVkLTQxYWUtYjM0ZS0yNWM4YmFlNzJhNWUifQ.eyJleHAiOjE2MzUzMzQ0NTYsImlhdCI6MTYzNTMzMjY1NiwianRpIjoiZGM2ZmI3MzAtMGVhZC00MzlhLWI2YzYtMmVkYWZlOGE3ZjU0IiwiaXNzIjoiaHR0cDovLzEwLjEwNS44NC43OTo4MDgwL2F1dGgvcmVhbG1zL21hc3RlciIsImF1ZCI6Imh0dHA6Ly8xMC4xMDUuODQuNzk6ODA4MC9hdXRoL3JlYWxtcy9tYXN0ZXIiLCJzdWIiOiI5ZjgzOTI3NS02MjYwLTQ3NDgtYmVmMy05MjA2ZDgyY2M3ZTYiLCJ0eXAiOiJSZWZyZXNoIiwiYXpwIjoic2lnbmZsdWVudCIsInNlc3Npb25fc3RhdGUiOiJlMTcxOGQ4NC01YzI0LTQyMDAtOWE0OS1hNzhkMmEwOWNhMDYiLCJzY29wZSI6ImVtYWlsIHByb2ZpbGUiLCJzaWQiOiJlMTcxOGQ4NC01YzI0LTQyMDAtOWE0OS1hNzhkMmEwOWNhMDYifQ.OycyGq5TgxTJkbO1avnqwpsTA8nMPqjMjowsZvKfWZ8\"\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -1914,7 +2103,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"userId\": \"45b91268-63c2-4e6c-94ff-189d99171202\"\n}",
+									"raw": "{\n    \"userId\": \"f21b0fb1-d483-4b05-a293-404066fd767b\"\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -2273,7 +2462,7 @@
 								},
 								{
 									"key": "client_id",
-									"value": "user-service",
+									"value": "signfluent",
 									"type": "text"
 								},
 								{
