@@ -9,43 +9,43 @@
 
     <ng-container matColumnDef="description">
         <th mat-header-cell *matHeaderCellDef> Description </th>
-        <td mat-cell *matCellDef="let document">{{document.description}}</td>
+        <td mat-cell *matCellDef="let documentTask">{{documentTask.document.description}}</td>
     </ng-container>
 
     <div *ngIf="type == 'OWN' || type =='ALL'">
         <ng-container matColumnDef="status">
             <th mat-header-cell *matHeaderCellDef> Status </th>>
-            <td mat-cell *matCellDef="let document" [ngClass]="{'sf-status-blue': document.status == 'For Approval',
-                'sf-status-yellow': document.status == 'Received',
-                'sf-status-red': document.status == 'Rejected',
-                'sf-status-green': document.status == 'Approved'}">
-                {{document.status}}</td>
+            <td mat-cell *matCellDef="let documentTask" [ngClass]="{'sf-status-blue': documentTask.document.status == 'For Approval',
+                'sf-status-yellow': documentTask.document.status == 'Received',
+                'sf-status-red': documentTask.document.status == 'Rejected',
+                'sf-status-green': documentTask.document.status == 'Approved'}">
+                {{documentTask.document.status}}</td>
         </ng-container>
     </div>
 
     <div *ngIf="type == 'APPROVAL' || type =='ALL' || type == 'DELEGATE'">
         <ng-container matColumnDef="uploadedBy">
             <th mat-header-cell *matHeaderCellDef> Uploaded By </th>
-            <td mat-cell *matCellDef="let document">{{document.uploadedBy}}</td>
+            <td mat-cell *matCellDef="let documentTask">{{documentTask.document.uploadedBy}}</td>
         </ng-container>
     </div>
 
     <ng-container matColumnDef="date">
         <th mat-header-cell *matHeaderCellDef> Date </th>
-        <td mat-cell *matCellDef="let document">{{document.date | date}}</td>
+        <td mat-cell *matCellDef="let documentTask">{{documentTask.document.uploadedAt | date}}</td>
     </ng-container>
 
     <div *ngIf="type == 'APPROVAL' || type=='DELEGATE'">
         <ng-container matColumnDef="action">
             <th mat-header-cell *matHeaderCellDef></th>
-            <td mat-cell *matCellDef="let document">
+            <td mat-cell *matCellDef="let documentTask">
                 <button mat-icon-button [matMenuTriggerFor]="menu">
                     <mat-icon>more_vert</mat-icon>
                 </button>
 
                 <mat-menu #menu="matMenu">
                     <div *ngIf="type == 'DELEGATE'">
-                        <button [routerLink]="['delegate']" mat-menu-item>
+                        <button routerLink="/delegate/{{documentTask.taskId}}" mat-menu-item>
                             <span>Delegate</span>
                         </button>
                     </div>

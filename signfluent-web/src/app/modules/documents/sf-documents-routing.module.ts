@@ -1,7 +1,7 @@
 import { NgModule } from "@angular/core";
 import { Routes, RouterModule } from "@angular/router";
-import { SfDocumentsApproveComponent } from "./documents-approve/sf-documents-approve.component";
-import { SfDocumentsDelegateComponent } from "./documents-delegate/sf-documents-delegate.component";
+import { SfDocumentsApproveComponent } from "./components/documents-approve/sf-documents-approve.component";
+import { SfDocumentsDelegateComponent } from "./components/documents-delegate/sf-documents-delegate.component";
 import { SfDocumentsComponent } from "./sf-documents.component";
 
 const routes: Routes = [
@@ -10,7 +10,7 @@ const routes: Routes = [
         component: SfDocumentsComponent
     },
     {
-        path: 'delegate',
+        path: 'delegate/:taskId',
         component: SfDocumentsDelegateComponent
     },
     {

@@ -16,13 +16,13 @@
         <div class="row mt-5 mx-5 justify-content-center">
             <mat-form-field appearance="outline">
                 <mat-label>Description</mat-label>
-                <textarea matInput></textarea>
+                <input matInput type="text" [(ngModel)]="description">
                 <mat-hint>Brief description of document</mat-hint>
             </mat-form-field>
         </div>
 
         <div class="row mt-5 mx-5 justify-content-center">
-            <button mat-raised-button color="primary">Upload</button>
+            <button mat-raised-button color="primary" (click)="onUpload()">Upload</button>
         </div>
     </div>
 </div>

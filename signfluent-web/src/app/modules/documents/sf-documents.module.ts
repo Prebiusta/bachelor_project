@@ -1,5 +1,6 @@
-import { CommonModule } from "@angular/common";
+import {CommonModule, Location} from "@angular/common";
 import { NgModule } from "@angular/core";
+import { FormsModule } from "@angular/forms";
 import { SignfluentDocumentsRoutingModule } from "./sf-documents-routing.module";
 import { ReactiveFormsModule } from "@angular/forms";
 import { DragDropModule } from '@angular/cdk/drag-drop';
@@ -16,6 +17,7 @@ import { MatStepperModule } from '@angular/material/stepper';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatDialogModule } from "@angular/material/dialog";
 import { MatCardModule } from '@angular/material/card';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 import { SfDocumentsComponent } from "./sf-documents.component";
 import { SfDocumentsDelegateComponent } from "./components/documents-delegate/sf-documents-delegate.component";
@@ -27,7 +29,7 @@ import { SfDocumentUploadComponent } from "./components/document-upload/sf-docum
 
 @NgModule({
     declarations: [SfDocumentsComponent, SfDocumentsListComponent, SfDocumentsApproveComponent, SfDocumentsDelegateComponent, SfDocumentDetailsComponent, SfDelegateRejectComponent, SfDocumentUploadComponent],
-    imports: [CommonModule, SignfluentDocumentsRoutingModule, ReactiveFormsModule, MatTableModule, MatTabsModule, MatPaginatorModule, MatFormFieldModule, MatInputModule, MatIconModule, MatMenuModule, MatButtonModule, MatStepperModule, MatCheckboxModule, DragDropModule, MatDialogModule, MatCardModule],
-    exports: [SfDocumentsComponent]
+    imports: [CommonModule, FormsModule, SignfluentDocumentsRoutingModule, ReactiveFormsModule, MatTableModule, MatTabsModule, MatPaginatorModule, MatFormFieldModule, MatInputModule, MatIconModule, MatMenuModule, MatButtonModule, MatStepperModule, MatCheckboxModule, DragDropModule, MatDialogModule, MatCardModule, MatSnackBarModule],
+    exports: [SfDocumentsComponent, SfDocumentsListComponent, SfDocumentsApproveComponent, SfDocumentsDelegateComponent, SfDocumentDetailsComponent, SfDelegateRejectComponent, SfDocumentUploadComponent]
 })
 export class SignfluentDocumentsModule { }

@@ -1,6 +1,7 @@
 export interface SfDocument {
-    description: string,
-    status: string,
-    uploadedBy: string,
-    date: Date,
+  description: string,
+  status: string,
+  uploadedBy: string,
+  uploadedAt: Date,
+  content?: File
 }
