@@ -25,7 +25,6 @@ public class Document {
     @Lob
     private byte[] content;
     @NotNull
-    @Lob
     private byte[] hash;
     @NotNull
     private DocumentStatus status;

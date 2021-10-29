@@ -132,8 +132,15 @@ public class DocumentService {
 
     public boolean validateDocument(String encodedContent) {
         byte[] content = Base64.decodeBase64(encodedContent);
+        try {
+            MessageDigest digest = MessageDigest.getInstance("SHA-256");
+            byte[] hash = digest.digest(content);
 
-        return repository.existsDocumentByContentAndStatus(content, DocumentStatus.APPROVED);
+            return repository.existsDocumentByHashAndStatus(hash, DocumentStatus.APPROVED);
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 
     private boolean checkLock(DocumentStatus status)
