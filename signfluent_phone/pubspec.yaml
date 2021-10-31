@@ -48,8 +48,16 @@ dependencies:
   device_info_plus: ^2.2.0
   firebase_core: ^1.7.0
   firebase_messaging: ^10.0.8
+  openapi_generator_annotations: ^3.2.1
+  intl: ^0.17.0
+  bpm_service_api:
+    path: api/bpm-service-api
+  dio: ^4.0.1
 
 dev_dependencies:
+  openapi_generator: ^3.2.1
+  build_runner: ^2.1.4
+  mobx_codegen: ^2.0.4
   flutter_test:
     sdk: flutter
 

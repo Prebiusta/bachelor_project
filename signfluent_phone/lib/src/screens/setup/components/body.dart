@@ -25,7 +25,7 @@ class _BodyState extends State<Body> {
 
     return StoreConnector<AppState, SetupViewModel>(
       onInit: (store) => store.dispatch(
-          initiateSetup(store.state.userState.authenticationResponse!.user.id)),
+          initiateSetup(store.state.userState.authenticationResponse!.userId!)),
       converter: (store) => SetupViewModel.fromStore(store),
       builder: (store, viewModel) => (viewModel.isLoading == false)
           ? SuccessView(

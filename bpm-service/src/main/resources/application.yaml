@@ -32,9 +32,16 @@ user:
         host: localhost
         port: 8003
 
+ca:
+  svc:
+    service:
+      host: localhost
+      port: 8004
+
+
 device:
   service:
     svc:
       service:
         host: localhost
-        port: 8003
+        port: 8005

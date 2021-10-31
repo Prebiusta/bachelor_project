@@ -123,8 +123,8 @@ spec:
           ports:
             - containerPort: 8080
           env:
-            - name: PROXY_ADDRESS_FORWARDING
-              value: "true"
+            - name: KEYCLOAK_FRONTEND_URL
+              value: "http://localhost:8080/auth"
             - name: DB_VENDOR
               value: "postgres"
             - name: DB_DATABASE

@@ -1,7 +1,12 @@
+// @dart=2.14
+
+import 'dart:ffi';
+
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:signfluent_phone/src/service_location.dart';
 import 'package:signfluent_phone/src/signfluent_app.dart';
+import 'package:signfluent_phone/src/service/bearer_token_service.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -18,6 +23,13 @@ class App extends StatefulWidget {
 
 class _AppState extends State<App> {
   final Future<FirebaseApp> _initialization = Firebase.initializeApp();
+  final BearerTokenService _bearerTokenService = getIt<BearerTokenService>();
+
+
+  @override
+  void dispose() {
+    _bearerTokenService.deleteBearerToken();
+  }
 
   @override
   Widget build(BuildContext context) {

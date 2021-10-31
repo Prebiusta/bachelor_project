@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:signfluent_phone/src/model/authentication_response.dart';
 
 @immutable
 class SetupState {

@@ -18,7 +18,7 @@ class SetupViewModel {
   static SetupViewModel fromStore(Store<AppState> store) {
     return SetupViewModel(
         isLoading: store.state.setupState.isLoading,
-        userId: store.state.userState.authenticationResponse!.user.id,
+        userId: store.state.userState.authenticationResponse!.userId!,
         deviceId: "123456",
         //TODO: Extract device ID from hardware
         store: store);

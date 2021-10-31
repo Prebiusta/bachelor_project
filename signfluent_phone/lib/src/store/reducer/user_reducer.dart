@@ -10,7 +10,7 @@ final userReducer = combineReducers<UserState>([
 ]);
 
 UserState _loginSuccess(UserState state, LoginSuccessAction action) {
-  return state.copyWith(authenticationResponse: action.authenticateResponse, loginError: false);
+  return state.copyWith(authenticationResponse: action.authenticationResponse, loginError: false);
 }
 
 UserState _loginFailed(UserState state, LoginFailedAction action) {

@@ -3,6 +3,7 @@ package dk.signfluent.certificateauthority.validation.controller;
 import dk.signfluent.certificateauthority.validation.mappers.SignatureRequestMapper;
 import dk.signfluent.certificateauthority.validation.network.SignatureValidationRequest;
 import dk.signfluent.certificateauthority.validation.services.ValidationService;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -17,6 +18,7 @@ public class ValidationController {
     }
 
     @PostMapping("/signature")
+    @ApiOperation(value = "Validates Signature", nickname = "validateSignature")
     public boolean validateSignature(@RequestBody SignatureValidationRequest signatureValidationRequest) {
         return validationService.validateSignature(mapper.mapSignatureRequest(signatureValidationRequest));
     }

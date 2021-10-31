@@ -4,6 +4,7 @@ import dk.signfluent.certificateauthority.certificatemanagement.mappers.IssueReq
 import dk.signfluent.certificateauthority.certificatemanagement.model.UserDetails;
 import dk.signfluent.certificateauthority.certificatemanagement.network.IssueX509CertificateRequest;
 import dk.signfluent.certificateauthority.certificatemanagement.services.CertificateService;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.security.cert.CertificateEncodingException;
 
 @RestController
-@RequestMapping("api/certificates")
+@RequestMapping("/api/certificates")
 public class CertificateController {
 
     private final CertificateService certificateService;
@@ -24,6 +25,7 @@ public class CertificateController {
     }
 
     @PostMapping("/issue")
+    @ApiOperation(value = "Returns X.509 Certificate in PEM format", nickname = "issueX509Certificate")
     public String issueX509Certificate(@RequestBody IssueX509CertificateRequest request) throws CertificateEncodingException {
         UserDetails userDetails = mapper.mapRequestToUserDetails(request);
         return mapper.X509ToBase64(certificateService.issueX509Certificate(userDetails));

@@ -2,15 +2,20 @@ package dk.signfluent.certificateauthority.certificatemanagement.services;
 
 import dk.signfluent.certificateauthority.certificatemanagement.model.CAConfigurationValues;
 import org.bouncycastle.asn1.x500.X500Name;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.util.ResourceUtils;
 
 import java.io.ByteArrayInputStream;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.security.*;
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
+import java.util.Base64;
 
 @Service
 public class CertificateDetailsService {
@@ -41,13 +46,14 @@ public class CertificateDetailsService {
     private KeyStore getKeyStore() throws KeyStoreException, CertificateException, IOException, NoSuchAlgorithmException {
         KeyStore keyStore = KeyStore.getInstance(caConfigurationValues.getKeystoreType());
 
-        try (FileInputStream is = new FileInputStream(ResourceUtils.getFile("classpath:" + caConfigurationValues.getCertificatePath()))) {
-            byte[] bytes = is.readAllBytes();
-            keyStore.load(
-                    new ByteArrayInputStream(bytes),
-                    caConfigurationValues.getKeystorePassword().toCharArray()
-            );
-        }
+        Resource resource = new ClassPathResource(caConfigurationValues.getCertificatePath());
+        InputStream inputStream = resource.getInputStream();
+        byte[] fileContent = FileCopyUtils.copyToByteArray(inputStream);
+
+        keyStore.load(
+                new ByteArrayInputStream(fileContent),
+                caConfigurationValues.getKeystorePassword().toCharArray()
+        );
 
         return keyStore;
     }

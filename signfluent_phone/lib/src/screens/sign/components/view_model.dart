@@ -20,7 +20,7 @@ class SignViewModel {
 
   static SignViewModel fromStore(Store<AppState> store) {
     return SignViewModel(
-        userId: store.state.userState.authenticationResponse!.user.id,
+        userId: store.state.userState.authenticationResponse!.userId!,
         fcmToken: store.state.userState.token!,
         signatureRequest: store.state.signState.signatureRequest,
         signingResponse: store.state.signState.signingResponse,
