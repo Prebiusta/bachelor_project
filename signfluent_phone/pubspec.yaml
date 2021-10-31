@@ -50,9 +50,10 @@ dependencies:
   firebase_messaging: ^10.0.8
   openapi_generator_annotations: ^3.2.1
   intl: ^0.17.0
+  slide_to_confirm: ^1.1.0
+  dio: ^4.0.1
   bpm_service_api:
     path: api/bpm-service-api
-  dio: ^4.0.1
 
 dev_dependencies:
   openapi_generator: ^3.2.1

@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:signfluent_phone/src/components/custom_text_button.dart';
 import 'package:signfluent_phone/src/components/error_view.dart';
 import 'package:signfluent_phone/src/components/signfluent_text.dart';
 import 'package:signfluent_phone/src/components/success_view.dart';
+import 'package:signfluent_phone/src/constants.dart';
 import 'package:signfluent_phone/src/model/signfluent_signature_request.dart';
 import 'package:signfluent_phone/src/screens/sign/components/view_model.dart';
+import 'package:slide_to_confirm/slide_to_confirm.dart';
 
 class SignatureSignResponse extends StatelessWidget {
   final SignViewModel viewModel;
@@ -49,15 +50,16 @@ class SignatureSignResponse extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
         const SignfluentText(
-          text: 'Signature awaits your signature',
+          text: 'Document awaits your signature',
         ),
-        SizedBox(height: size.height * 0.05),
-        CustomTextButton(
+        SizedBox(height: size.height * 0.15),
+        ConfirmationSlider(
+          foregroundColor: sDarkText,
           text: "SIGN",
-          onPressed: () {
-            viewModel.sign(data.taskId, data.hashToBeSigned);
-          },
-        )
+          backgroundColor: Colors.white,
+          onConfirmation: () =>
+              viewModel.sign(data.taskId, data.hashToBeSigned),
+        ),
       ],
     );
   }
