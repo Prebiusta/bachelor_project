@@ -1,4 +1,4 @@
-package dk.signfluent.service.bpm.model;
+package dk.signfluent.service.bpm.model.request;
 
 import lombok.Data;
 @Data

@@ -1,12 +1,14 @@
+import 'package:bpm_service_api/bpm_service_api.dart';
 import 'package:redux/redux.dart';
 import 'package:redux_thunk/redux_thunk.dart';
-import 'package:signfluent_phone/src/model/signfluent_signature_request.dart';
+import 'package:signfluent_phone/src/model/certificate_storage.dart';
+import 'package:signfluent_phone/src/provider/bpm_service_api_provider.dart';
 import 'package:signfluent_phone/src/service/rsa_service.dart';
-import 'package:signfluent_phone/src/service/signature_service.dart';
 import 'package:signfluent_phone/src/service_location.dart';
 
 final RSAService _rsaService = getIt<RSAService>();
-final SignatureService _signatureService = getIt<SignatureService>();
+final BpmServiceApiProvider _bpmServiceApiProvider =
+    getIt<BpmServiceApiProvider>();
 
 class FetchSignatureSuccessAction {
   Future<SignfluentSignatureRequest> signatureRequest;
@@ -27,21 +29,36 @@ ThunkAction signContent(String taskId, String content, String currentUserId) {
     Future(() async {
       String signedHash = await _rsaService.sign(content, currentUserId);
 
-      Future<String> submitSignatureTask = _signatureService
-          .submitSignatureTask(taskId, signedHash, currentUserId);
+      SignfluentSignature signature =
+          await _buildSignfluentSignature(currentUserId, taskId, signedHash);
+      Future<String> submitSignatureTask =
+          _bpmServiceApiProvider.submitSignatureRequest(signature);
 
       store.dispatch(SendSignatureResponseAction(submitSignatureTask));
     });
   };
 }
 
-ThunkAction fetchSignatureRequest(String currentUserId) {
+ThunkAction fetchSignatureRequest() {
   return (Store store) async {
     Future(() {
       Future<SignfluentSignatureRequest> signfluentSignatureRequest =
-          _signatureService.fetchSignatureRequest(currentUserId);
+          _bpmServiceApiProvider.getSignatureRequest();
 
       store.dispatch(FetchSignatureSuccessAction(signfluentSignatureRequest));
     });
   };
+}
+
+Future<SignfluentSignature> _buildSignfluentSignature(
+    String currentUserId, String taskId, String signedHash) async {
+  String certificate = await _rsaService
+      .getCertificateStorage(currentUserId)
+      .then((CertificateStorage storage) => storage.x509PEM);
+
+  SignfluentSignatureBuilder builder = SignfluentSignatureBuilder();
+  builder.taskId = taskId;
+  builder.signedContent = signedHash;
+  builder.x509Pem = certificate;
+  return builder.build();
 }

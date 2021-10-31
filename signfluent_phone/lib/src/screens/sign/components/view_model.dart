@@ -1,5 +1,5 @@
+import 'package:bpm_service_api/bpm_service_api.dart';
 import 'package:redux/redux.dart';
-import 'package:signfluent_phone/src/model/signfluent_signature_request.dart';
 import 'package:signfluent_phone/src/store/actions/actions.dart';
 import 'package:signfluent_phone/src/store/actions/sign_actions.dart';
 import 'package:signfluent_phone/src/store/state/app_sate.dart';
@@ -32,7 +32,7 @@ class SignViewModel {
   }
 
   void fetchSignatureRequests() {
-    store.dispatch(fetchSignatureRequest(userId));
+    store.dispatch(fetchSignatureRequest());
   }
 
   void sign(String taskId, String content) {

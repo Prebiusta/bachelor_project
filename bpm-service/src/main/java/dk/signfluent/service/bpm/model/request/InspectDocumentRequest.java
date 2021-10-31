@@ -1,6 +1,6 @@
-package dk.signfluent.service.bpm.model;
+package dk.signfluent.service.bpm.model.request;
 
-import dk.signfluent.user.service.model.User;
+import dk.signfluent.service.bpm.model.UserDTO;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 

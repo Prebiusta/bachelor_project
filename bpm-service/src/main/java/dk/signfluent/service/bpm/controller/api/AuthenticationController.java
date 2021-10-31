@@ -1,4 +1,4 @@
-package dk.signfluent.service.bpm.controller;
+package dk.signfluent.service.bpm.controller.api;
 
 import dk.signfluent.service.user.api.provider.UserServiceApiProvider;
 import dk.signfluent.user.service.invoker.ApiException;

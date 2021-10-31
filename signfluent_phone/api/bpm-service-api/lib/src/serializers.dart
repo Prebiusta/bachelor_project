@@ -12,6 +12,7 @@ import 'package:built_value/iso_8601_date_time_serializer.dart';
 import 'package:bpm_service_api/src/date_serializer.dart';
 import 'package:bpm_service_api/src/model/date.dart';
 
+import 'package:bpm_service_api/src/model/approver_document_request.dart';
 import 'package:bpm_service_api/src/model/authentication_request.dart';
 import 'package:bpm_service_api/src/model/authentication_response.dart';
 import 'package:bpm_service_api/src/model/base_response.dart';
@@ -26,6 +27,8 @@ import 'package:bpm_service_api/src/model/register_device_request.dart';
 import 'package:bpm_service_api/src/model/register_device_response.dart';
 import 'package:bpm_service_api/src/model/role_management_request.dart';
 import 'package:bpm_service_api/src/model/signfluent_role_response.dart';
+import 'package:bpm_service_api/src/model/signfluent_signature.dart';
+import 'package:bpm_service_api/src/model/signfluent_signature_request.dart';
 import 'package:bpm_service_api/src/model/task_id_request.dart';
 import 'package:bpm_service_api/src/model/update_fcm_token_request.dart';
 import 'package:bpm_service_api/src/model/update_fcm_token_response.dart';
@@ -39,6 +42,7 @@ import 'package:bpm_service_api/src/model/user_request.dart';
 part 'serializers.g.dart';
 
 @SerializersFor([
+  ApproverDocumentRequest,
   AuthenticationRequest,
   AuthenticationResponse,
   BaseResponse,
@@ -53,6 +57,8 @@ part 'serializers.g.dart';
   RegisterDeviceResponse,
   RoleManagementRequest,
   SignfluentRoleResponse,
+  SignfluentSignature,
+  SignfluentSignatureRequest,
   TaskIdRequest,
   UpdateFCMTokenRequest,
   UpdateFCMTokenResponse,

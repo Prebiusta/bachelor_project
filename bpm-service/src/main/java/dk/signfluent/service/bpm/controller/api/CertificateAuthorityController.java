@@ -1,4 +1,4 @@
-package dk.signfluent.service.bpm.controller;
+package dk.signfluent.service.bpm.controller.api;
 
 import dk.signfluent.ca.api.provider.CertificateAuthorityApiProvider;
 import dk.signfluent.ca.invoker.ApiException;

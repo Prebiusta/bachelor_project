@@ -12,7 +12,6 @@ import 'package:bpm_service_api/src/auth/oauth.dart';
 import 'package:bpm_service_api/src/api/authentication_controller_api.dart';
 import 'package:bpm_service_api/src/api/certificate_authority_controller_api.dart';
 import 'package:bpm_service_api/src/api/device_controller_api.dart';
-import 'package:bpm_service_api/src/api/poc_controller_api.dart';
 import 'package:bpm_service_api/src/api/role_management_controller_api.dart';
 import 'package:bpm_service_api/src/api/signing_process_controller_api.dart';
 
@@ -86,12 +85,6 @@ class BpmServiceApi {
   /// by doing that all interceptors will not be executed
   DeviceControllerApi getDeviceControllerApi() {
     return DeviceControllerApi(dio, serializers);
-  }
-
-  /// Get PocControllerApi instance, base route and serializer can be overridden by a given but be careful,
-  /// by doing that all interceptors will not be executed
-  PocControllerApi getPocControllerApi() {
-    return PocControllerApi(dio, serializers);
   }
 
   /// Get RoleManagementControllerApi instance, base route and serializer can be overridden by a given but be careful,

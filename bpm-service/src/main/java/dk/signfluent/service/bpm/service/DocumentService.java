@@ -4,6 +4,8 @@ import dk.signfluent.document.service.invoker.ApiException;
 import dk.signfluent.document.service.model.DocumentContent;
 import dk.signfluent.service.bpm.mapper.DocumentMapper;
 import dk.signfluent.service.bpm.model.*;
+import dk.signfluent.service.bpm.model.request.InspectDocumentRequest;
+import dk.signfluent.service.bpm.model.request.UploadDocumentRequest;
 import dk.signfluent.service.bpm.model.response.DocumentResponse;
 import dk.signfluent.service.bpm.provider.TaskDetailsProvider;
 import dk.signfluent.service.bpm.provider.UserProvider;
@@ -65,7 +67,16 @@ public class DocumentService {
     }
 
     public List<DocumentResponse> getDocumentsForInspection() {
-        List<TaskDocumentModel> taskToDocumentIdMapForFormKey = processTaskUtils.getTaskToDocumentIdMapForFormKey(ProcessFormKey.INSPECT_DOCUMENT);
+        List<TaskDocumentModel> taskToDocumentIdMapForFormKey = processTaskUtils.getTaskDocumentModelListForFormKey(ProcessFormKey.INSPECT_DOCUMENT);
+        try {
+            return taskDetailsProvider.appendDocumentsInformationToTask(taskToDocumentIdMapForFormKey);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public List<DocumentResponse> getDocumentsForApproval() {
+        List<TaskDocumentModel> taskToDocumentIdMapForFormKey = processTaskUtils.getTaskDocumentModelListForFormKeyAndAuthenticatedUser(ProcessFormKey.APPROVE_DOCUMENT);
         try {
             return taskDetailsProvider.appendDocumentsInformationToTask(taskToDocumentIdMapForFormKey);
         } catch (Exception e) {

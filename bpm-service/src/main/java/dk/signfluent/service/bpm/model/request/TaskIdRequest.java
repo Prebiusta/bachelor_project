@@ -1,4 +1,4 @@
-package dk.signfluent.service.bpm.model;
+package dk.signfluent.service.bpm.model.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -7,7 +7,8 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class DocumentServiceConfigValues {
-    private String url;
-    private String port;
+public class TaskIdRequest {
+    private String taskId;
 }
+
+

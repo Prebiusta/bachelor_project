@@ -71,24 +71,25 @@ Class | Method | HTTP request | Description
 [*CertificateAuthorityControllerApi*](doc/CertificateAuthorityControllerApi.md) | [**issueX509Certificate**](doc/CertificateAuthorityControllerApi.md#issuex509certificate) | **POST** /api/certificateAuthority/issueX509Certificate | Issues X509 Certificate and returns in PEM format
 [*DeviceControllerApi*](doc/DeviceControllerApi.md) | [**register**](doc/DeviceControllerApi.md#register) | **POST** /api/device/register | Registers a new device
 [*DeviceControllerApi*](doc/DeviceControllerApi.md) | [**updateFCMToken**](doc/DeviceControllerApi.md#updatefcmtoken) | **POST** /api/device/updateFCMToken | Updates FCM token for specified device
-[*PocControllerApi*](doc/PocControllerApi.md) | [**fetchDocumentUsingPOST**](doc/PocControllerApi.md#fetchdocumentusingpost) | **POST** /api/poc/retrieve/{taskID} | fetchDocument
-[*PocControllerApi*](doc/PocControllerApi.md) | [**startProcessUsingGET**](doc/PocControllerApi.md#startprocessusingget) | **GET** /api/poc/start | startProcess
-[*PocControllerApi*](doc/PocControllerApi.md) | [**uploadDocumentIdUsingPOST**](doc/PocControllerApi.md#uploaddocumentidusingpost) | **POST** /api/poc/upload/{taskID}/{docID} | uploadDocumentId
-[*PocControllerApi*](doc/PocControllerApi.md) | [**uploadDocumentUsingGET**](doc/PocControllerApi.md#uploaddocumentusingget) | **GET** /api/poc/uploadDocument | uploadDocument
 [*RoleManagementControllerApi*](doc/RoleManagementControllerApi.md) | [**assign**](doc/RoleManagementControllerApi.md#assign) | **POST** /api/role/assign | Assign a role to the user
 [*RoleManagementControllerApi*](doc/RoleManagementControllerApi.md) | [**getAlForUser**](doc/RoleManagementControllerApi.md#getalforuser) | **POST** /api/role/getForUser | Returns roles for specified user
 [*RoleManagementControllerApi*](doc/RoleManagementControllerApi.md) | [**getAll**](doc/RoleManagementControllerApi.md#getall) | **POST** /api/role/getAll | Returns all available roles
 [*RoleManagementControllerApi*](doc/RoleManagementControllerApi.md) | [**getAllForCurrentUser**](doc/RoleManagementControllerApi.md#getallforcurrentuser) | **POST** /api/role/getForCurrentUser | Returns all roles for currently authenticated user
 [*RoleManagementControllerApi*](doc/RoleManagementControllerApi.md) | [**revoke**](doc/RoleManagementControllerApi.md#revoke) | **POST** /api/role/revoke | Revoke a role from the user
+[*SigningProcessControllerApi*](doc/SigningProcessControllerApi.md) | [**approveDocument**](doc/SigningProcessControllerApi.md#approvedocument) | **POST** /api/signingProcess/approveDocument | Submit approve document decision
 [*SigningProcessControllerApi*](doc/SigningProcessControllerApi.md) | [**getActiveApprovers**](doc/SigningProcessControllerApi.md#getactiveapprovers) | **POST** /api/signingProcess/getActiveApprovers | Get active approvers
 [*SigningProcessControllerApi*](doc/SigningProcessControllerApi.md) | [**getDocumentDetails**](doc/SigningProcessControllerApi.md#getdocumentdetails) | **POST** /api/signingProcess/getDocumentDetails | Returns document details for specified task
+[*SigningProcessControllerApi*](doc/SigningProcessControllerApi.md) | [**getDocumentsForApproval**](doc/SigningProcessControllerApi.md#getdocumentsforapproval) | **POST** /api/signingProcess/getDocumentsForApproval | Returns documents needed User&#39;s approval
 [*SigningProcessControllerApi*](doc/SigningProcessControllerApi.md) | [**getDocumentsForInspection**](doc/SigningProcessControllerApi.md#getdocumentsforinspection) | **POST** /api/signingProcess/getDocumentsForInspection | Returns documents needed inspection
+[*SigningProcessControllerApi*](doc/SigningProcessControllerApi.md) | [**getSignatureRequest**](doc/SigningProcessControllerApi.md#getsignaturerequest) | **POST** /api/signingProcess/getSignatureRequest | Returns signature request for authenticated user
 [*SigningProcessControllerApi*](doc/SigningProcessControllerApi.md) | [**inspectDocument**](doc/SigningProcessControllerApi.md#inspectdocument) | **POST** /api/signingProcess/inspectDocument | Inspect document and assign approvers
+[*SigningProcessControllerApi*](doc/SigningProcessControllerApi.md) | [**submitSignature**](doc/SigningProcessControllerApi.md#submitsignature) | **POST** /api/signingProcess/submitSignature | Submits document signature
 [*SigningProcessControllerApi*](doc/SigningProcessControllerApi.md) | [**uploadDocument**](doc/SigningProcessControllerApi.md#uploaddocument) | **POST** /api/signingProcess/uploadDocument | Uploads a document
 
 
 ## Documentation For Models
 
+ - [ApproverDocumentRequest](doc/ApproverDocumentRequest.md)
  - [AuthenticationRequest](doc/AuthenticationRequest.md)
  - [AuthenticationResponse](doc/AuthenticationResponse.md)
  - [BaseResponse](doc/BaseResponse.md)
@@ -103,6 +104,8 @@ Class | Method | HTTP request | Description
  - [RegisterDeviceResponse](doc/RegisterDeviceResponse.md)
  - [RoleManagementRequest](doc/RoleManagementRequest.md)
  - [SignfluentRoleResponse](doc/SignfluentRoleResponse.md)
+ - [SignfluentSignature](doc/SignfluentSignature.md)
+ - [SignfluentSignatureRequest](doc/SignfluentSignatureRequest.md)
  - [TaskIdRequest](doc/TaskIdRequest.md)
  - [UpdateFCMTokenRequest](doc/UpdateFCMTokenRequest.md)
  - [UpdateFCMTokenResponse](doc/UpdateFCMTokenResponse.md)

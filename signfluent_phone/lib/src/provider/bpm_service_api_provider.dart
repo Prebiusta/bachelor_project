@@ -27,6 +27,12 @@ class BpmServiceApiProvider {
     return CertificateAuthorityControllerApi(client, standardSerializers);
   }
 
+  Future<SigningProcessControllerApi>
+  getSigningProcessControllerApi() async {
+    var client = await _dioClient(true);
+    return SigningProcessControllerApi(client, standardSerializers);
+  }
+
   Future<String> ping() async {
     return (await getAuthenticationControllerApi(false))
         .ping()
@@ -60,6 +66,14 @@ class BpmServiceApiProvider {
         .issueX509Certificate(
             issueX509CertificateRequest: issueX509CertificateRequest)
         .then((value) => value.data!);
+  }
+
+  Future<SignfluentSignatureRequest> getSignatureRequest() async {
+    return (await getSigningProcessControllerApi()).getSignatureRequest().then((value) => value.data!);
+  }
+
+  Future<String> submitSignatureRequest(SignfluentSignature signfluentSignature) async {
+    return (await getSigningProcessControllerApi()).submitSignature(signfluentSignature: signfluentSignature).then((value) => value.data!);
   }
 
   Future<Dio> _dioClient(bool withToken) async {

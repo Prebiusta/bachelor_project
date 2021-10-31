@@ -7,6 +7,7 @@ part of 'serializers.dart';
 // **************************************************************************
 
 Serializers _$serializers = (new Serializers().toBuilder()
+      ..add(ApproverDocumentRequest.serializer)
       ..add(AuthenticationRequest.serializer)
       ..add(AuthenticationResponse.serializer)
       ..add(BaseResponse.serializer)
@@ -21,6 +22,8 @@ Serializers _$serializers = (new Serializers().toBuilder()
       ..add(RegisterDeviceResponse.serializer)
       ..add(RoleManagementRequest.serializer)
       ..add(SignfluentRoleResponse.serializer)
+      ..add(SignfluentSignature.serializer)
+      ..add(SignfluentSignatureRequest.serializer)
       ..add(TaskIdRequest.serializer)
       ..add(UpdateFCMTokenRequest.serializer)
       ..add(UpdateFCMTokenResponse.serializer)

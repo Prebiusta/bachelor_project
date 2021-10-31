@@ -41,11 +41,11 @@
         <bpmn:outgoing>Flow_07gn2qm</bpmn:outgoing>
         <bpmn:outgoing>Flow_18oha99</bpmn:outgoing>
       </bpmn:exclusiveGateway>
-      <bpmn:userTask id="Activity_0ex6j1m" name="sign document" camunda:formKey="sign_document">
+      <bpmn:userTask id="Activity_0ex6j1m" name="sign document" camunda:formKey="signDocument" camunda:assignee="${approver}">
         <bpmn:incoming>Flow_1igry27</bpmn:incoming>
         <bpmn:outgoing>Flow_1otxse9</bpmn:outgoing>
       </bpmn:userTask>
-      <bpmn:userTask id="Activity_0gsdtoi" name="approve document" camunda:formKey="approve_document">
+      <bpmn:userTask id="Activity_0gsdtoi" name="approve document" camunda:formKey="approveDocument" camunda:assignee="${approver}">
         <bpmn:incoming>Flow_0qyfmjv</bpmn:incoming>
         <bpmn:incoming>Flow_1hggsbi</bpmn:incoming>
         <bpmn:outgoing>Flow_0onovrv</bpmn:outgoing>
@@ -89,7 +89,9 @@
         <bpmn:incoming>Flow_18oha99</bpmn:incoming>
         <bpmn:outgoing>Flow_1nyy39j</bpmn:outgoing>
       </bpmn:serviceTask>
-      <bpmn:sequenceFlow id="Flow_18oha99" name="No" sourceRef="Gateway_00hp4vu" targetRef="Activity_0ebq74n" />
+      <bpmn:sequenceFlow id="Flow_18oha99" name="No" sourceRef="Gateway_00hp4vu" targetRef="Activity_0ebq74n">
+        <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${isApproved == false}</bpmn:conditionExpression>
+      </bpmn:sequenceFlow>
       <bpmn:sequenceFlow id="Flow_1nyy39j" sourceRef="Activity_0ebq74n" targetRef="Event_1p6dhzx" />
       <bpmn:sequenceFlow id="Flow_0q6lbny" sourceRef="Activity_1rhm9l0" targetRef="Event_1x47tyn" />
       <bpmn:serviceTask id="Activity_1rhm9l0" name="Update document" camunda:delegateExpression="${updateDocumentDelegate}">
@@ -112,7 +114,9 @@
       <bpmn:errorEventDefinition id="ErrorEventDefinition_088owbs" errorRef="Error_1amx7qa" />
     </bpmn:boundaryEvent>
     <bpmn:sequenceFlow id="Flow_08bdwv2" sourceRef="Event_0zbd1yl" targetRef="Activity_0wrls7u" />
-    <bpmn:sequenceFlow id="Flow_1affiwm" sourceRef="Gateway_0vnxonf" targetRef="Activity_1tc9o9z" />
+    <bpmn:sequenceFlow id="Flow_1affiwm" name="valid" sourceRef="Gateway_0vnxonf" targetRef="Activity_1tc9o9z">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${isDocumentValid == true}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
     <bpmn:sequenceFlow id="Flow_1u9kna9" sourceRef="Activity_1tc9o9z" targetRef="Activity_1kduifk" />
     <bpmn:serviceTask id="Activity_1tc9o9z" name="append approvers to document" camunda:delegateExpression="${assignApproversDelegate}">
       <bpmn:incoming>Flow_1affiwm</bpmn:incoming>
@@ -121,6 +125,7 @@
   </bpmn:process>
   <bpmn:error id="Error_1t8g9gr" name="invalid_signature" errorCode="-1" />
   <bpmn:error id="Error_1amx7qa" name="document_rejected" errorCode="-2" />
+  <bpmn:message id="Message_1b1m4f3" name="notify_user" />
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
     <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="signingProcess">
       <bpmndi:BPMNEdge id="Flow_1u9kna9_di" bpmnElement="Flow_1u9kna9">
@@ -130,6 +135,9 @@
       <bpmndi:BPMNEdge id="Flow_1affiwm_di" bpmnElement="Flow_1affiwm">
         <di:waypoint x="495" y="437" />
         <di:waypoint x="540" y="437" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="506" y="419" width="23" height="14" />
+        </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_08bdwv2_di" bpmnElement="Flow_08bdwv2">
         <di:waypoint x="1240" y="252" />

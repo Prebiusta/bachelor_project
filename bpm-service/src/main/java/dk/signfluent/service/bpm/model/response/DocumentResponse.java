@@ -1,7 +1,7 @@
 package dk.signfluent.service.bpm.model.response;
 
 import dk.signfluent.service.bpm.model.Document;
-import dk.signfluent.service.bpm.model.TaskIdRequest;
+import dk.signfluent.service.bpm.model.request.TaskIdRequest;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 

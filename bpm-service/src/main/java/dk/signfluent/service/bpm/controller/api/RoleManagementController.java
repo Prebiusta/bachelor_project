@@ -1,4 +1,4 @@
-package dk.signfluent.service.bpm.controller;
+package dk.signfluent.service.bpm.controller.api;
 
 import dk.signfluent.service.bpm.provider.UserProvider;
 import dk.signfluent.service.user.api.provider.UserServiceApiProvider;

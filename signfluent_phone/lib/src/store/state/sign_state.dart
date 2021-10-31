@@ -1,5 +1,5 @@
+import 'package:bpm_service_api/bpm_service_api.dart';
 import 'package:flutter/material.dart';
-import 'package:signfluent_phone/src/model/signfluent_signature_request.dart';
 
 @immutable
 class SignState {

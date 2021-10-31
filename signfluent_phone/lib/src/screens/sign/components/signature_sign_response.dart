@@ -1,9 +1,9 @@
+import 'package:bpm_service_api/bpm_service_api.dart';
 import 'package:flutter/material.dart';
 import 'package:signfluent_phone/src/components/error_view.dart';
 import 'package:signfluent_phone/src/components/signfluent_text.dart';
 import 'package:signfluent_phone/src/components/success_view.dart';
 import 'package:signfluent_phone/src/constants.dart';
-import 'package:signfluent_phone/src/model/signfluent_signature_request.dart';
 import 'package:signfluent_phone/src/screens/sign/components/view_model.dart';
 import 'package:slide_to_confirm/slide_to_confirm.dart';
 
@@ -58,7 +58,7 @@ class SignatureSignResponse extends StatelessWidget {
           text: "SIGN",
           backgroundColor: Colors.white,
           onConfirmation: () =>
-              viewModel.sign(data.taskId, data.hashToBeSigned),
+              viewModel.sign(data.taskId!, data.contentToBeSigned!),
         ),
       ],
     );

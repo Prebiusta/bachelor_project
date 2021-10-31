@@ -1,11 +1,14 @@
 package dk.signfluent.service.bpm.utility;
 
 import dk.signfluent.service.bpm.model.TaskDocumentModel;
+import dk.signfluent.service.bpm.provider.UserProvider;
 import org.camunda.bpm.engine.TaskService;
 import org.camunda.bpm.engine.task.Task;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -14,9 +17,11 @@ import static dk.signfluent.service.bpm.utility.ProcessVariables.DOCUMENT_ID;
 @Component
 public class ProcessTaskUtils {
     private final TaskService taskService;
+    private final UserProvider userProvider;
 
-    public ProcessTaskUtils(TaskService taskService) {
+    public ProcessTaskUtils(TaskService taskService, UserProvider userProvider) {
         this.taskService = taskService;
+        this.userProvider = userProvider;
     }
 
     public String getDocumentId(String taskId) {
@@ -30,19 +35,24 @@ public class ProcessTaskUtils {
         return convertTaskStreamToDocumentIds(taskStream);
     }
 
-    public List<String> getTaskIdsForFormKeyAndUser(ProcessFormKey processFormKey, String userId) {
+    public List<TaskDocumentModel> getTaskDocumentModelListForFormKeyAndAuthenticatedUser(ProcessFormKey processFormKey) {
         return getTaskQueryStream()
                 .filter(task -> task.getFormKey().equalsIgnoreCase(processFormKey.getFormKey()))
-                .filter(task -> task.getAssignee().equalsIgnoreCase(userId))
-                .map(Task::getId)
+                .filter(task -> task.getAssignee().equalsIgnoreCase(userProvider.getCurrentUserId()))
+                .map(getTaskTaskDocumentModelMapFunction())
                 .collect(Collectors.toList());
     }
 
-    public List<TaskDocumentModel> getTaskToDocumentIdMapForFormKey(ProcessFormKey processFormKey) {
+    public List<TaskDocumentModel> getTaskDocumentModelListForFormKey(ProcessFormKey processFormKey) {
         return getTaskQueryStream()
                 .filter(task -> task.getFormKey().equalsIgnoreCase(processFormKey.getFormKey()))
-                .map(task -> new TaskDocumentModel(task.getId(), (String)taskService.getVariables(task.getId()).get(DOCUMENT_ID)))
+                .map(getTaskTaskDocumentModelMapFunction())
                 .collect(Collectors.toList());
+    }
+
+    @NotNull
+    private Function<Task, TaskDocumentModel> getTaskTaskDocumentModelMapFunction() {
+        return task -> new TaskDocumentModel(task.getId(), (String) taskService.getVariables(task.getId()).get(DOCUMENT_ID));
     }
 
     public List<String> getTaskIdsForFormKey(ProcessFormKey processFormKey) {
