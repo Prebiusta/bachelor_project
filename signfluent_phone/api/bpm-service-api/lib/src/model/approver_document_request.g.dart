@@ -10,13 +10,13 @@ class _$ApproverDocumentRequest extends ApproverDocumentRequest {
   @override
   final bool? approve;
   @override
-  final String? taskId;
+  final String? processId;
 
   factory _$ApproverDocumentRequest(
           [void Function(ApproverDocumentRequestBuilder)? updates]) =>
       (new ApproverDocumentRequestBuilder()..update(updates)).build();
 
-  _$ApproverDocumentRequest._({this.approve, this.taskId}) : super._();
+  _$ApproverDocumentRequest._({this.approve, this.processId}) : super._();
 
   @override
   ApproverDocumentRequest rebuild(
@@ -32,19 +32,19 @@ class _$ApproverDocumentRequest extends ApproverDocumentRequest {
     if (identical(other, this)) return true;
     return other is ApproverDocumentRequest &&
         approve == other.approve &&
-        taskId == other.taskId;
+        processId == other.processId;
   }
 
   @override
   int get hashCode {
-    return $jf($jc($jc(0, approve.hashCode), taskId.hashCode));
+    return $jf($jc($jc(0, approve.hashCode), processId.hashCode));
   }
 
   @override
   String toString() {
     return (newBuiltValueToStringHelper('ApproverDocumentRequest')
           ..add('approve', approve)
-          ..add('taskId', taskId))
+          ..add('processId', processId))
         .toString();
   }
 }
@@ -58,9 +58,9 @@ class ApproverDocumentRequestBuilder
   bool? get approve => _$this._approve;
   set approve(bool? approve) => _$this._approve = approve;
 
-  String? _taskId;
-  String? get taskId => _$this._taskId;
-  set taskId(String? taskId) => _$this._taskId = taskId;
+  String? _processId;
+  String? get processId => _$this._processId;
+  set processId(String? processId) => _$this._processId = processId;
 
   ApproverDocumentRequestBuilder() {
     ApproverDocumentRequest._defaults(this);
@@ -70,7 +70,7 @@ class ApproverDocumentRequestBuilder
     final $v = _$v;
     if ($v != null) {
       _approve = $v.approve;
-      _taskId = $v.taskId;
+      _processId = $v.processId;
       _$v = null;
     }
     return this;
@@ -90,7 +90,7 @@ class ApproverDocumentRequestBuilder
   @override
   _$ApproverDocumentRequest build() {
     final _$result = _$v ??
-        new _$ApproverDocumentRequest._(approve: approve, taskId: taskId);
+        new _$ApproverDocumentRequest._(approve: approve, processId: processId);
     replace(_$result);
     return _$result;
   }

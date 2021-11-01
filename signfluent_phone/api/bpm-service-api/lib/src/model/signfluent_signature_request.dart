@@ -11,13 +11,13 @@ part 'signfluent_signature_request.g.dart';
 ///
 /// Properties:
 /// * [contentToBeSigned] 
-/// * [taskId] 
+/// * [processId] 
 abstract class SignfluentSignatureRequest implements Built<SignfluentSignatureRequest, SignfluentSignatureRequestBuilder> {
     @BuiltValueField(wireName: r'contentToBeSigned')
     String? get contentToBeSigned;
 
-    @BuiltValueField(wireName: r'taskId')
-    String? get taskId;
+    @BuiltValueField(wireName: r'processId')
+    String? get processId;
 
     SignfluentSignatureRequest._();
 
@@ -47,10 +47,10 @@ class _$SignfluentSignatureRequestSerializer implements StructuredSerializer<Sig
                 ..add(serializers.serialize(object.contentToBeSigned,
                     specifiedType: const FullType(String)));
         }
-        if (object.taskId != null) {
+        if (object.processId != null) {
             result
-                ..add(r'taskId')
-                ..add(serializers.serialize(object.taskId,
+                ..add(r'processId')
+                ..add(serializers.serialize(object.processId,
                     specifiedType: const FullType(String)));
         }
         return result;
@@ -71,8 +71,8 @@ class _$SignfluentSignatureRequestSerializer implements StructuredSerializer<Sig
                     result.contentToBeSigned = serializers.deserialize(value,
                         specifiedType: const FullType(String)) as String;
                     break;
-                case r'taskId':
-                    result.taskId = serializers.deserialize(value,
+                case r'processId':
+                    result.processId = serializers.deserialize(value,
                         specifiedType: const FullType(String)) as String;
                     break;
             }

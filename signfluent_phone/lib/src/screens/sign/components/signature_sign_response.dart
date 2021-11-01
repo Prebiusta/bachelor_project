@@ -58,7 +58,7 @@ class SignatureSignResponse extends StatelessWidget {
           text: "SIGN",
           backgroundColor: Colors.white,
           onConfirmation: () =>
-              viewModel.sign(data.taskId!, data.contentToBeSigned!),
+              viewModel.sign(data.processId!, data.contentToBeSigned!),
         ),
       ],
     );

@@ -77,6 +77,7 @@ Class | Method | HTTP request | Description
 [*RoleManagementControllerApi*](doc/RoleManagementControllerApi.md) | [**getAllForCurrentUser**](doc/RoleManagementControllerApi.md#getallforcurrentuser) | **POST** /api/role/getForCurrentUser | Returns all roles for currently authenticated user
 [*RoleManagementControllerApi*](doc/RoleManagementControllerApi.md) | [**revoke**](doc/RoleManagementControllerApi.md#revoke) | **POST** /api/role/revoke | Revoke a role from the user
 [*SigningProcessControllerApi*](doc/SigningProcessControllerApi.md) | [**approveDocument**](doc/SigningProcessControllerApi.md#approvedocument) | **POST** /api/signingProcess/approveDocument | Submit approve document decision
+[*SigningProcessControllerApi*](doc/SigningProcessControllerApi.md) | [**assignApprovers**](doc/SigningProcessControllerApi.md#assignapprovers) | **POST** /api/signingProcess/assignApprovers | Assign approvers to a document
 [*SigningProcessControllerApi*](doc/SigningProcessControllerApi.md) | [**getActiveApprovers**](doc/SigningProcessControllerApi.md#getactiveapprovers) | **POST** /api/signingProcess/getActiveApprovers | Get active approvers
 [*SigningProcessControllerApi*](doc/SigningProcessControllerApi.md) | [**getDocumentDetails**](doc/SigningProcessControllerApi.md#getdocumentdetails) | **POST** /api/signingProcess/getDocumentDetails | Returns document details for specified task
 [*SigningProcessControllerApi*](doc/SigningProcessControllerApi.md) | [**getDocumentsForApproval**](doc/SigningProcessControllerApi.md#getdocumentsforapproval) | **POST** /api/signingProcess/getDocumentsForApproval | Returns documents needed User&#39;s approval
@@ -89,7 +90,9 @@ Class | Method | HTTP request | Description
 
 ## Documentation For Models
 
+ - [ApprovalOrderModel](doc/ApprovalOrderModel.md)
  - [ApproverDocumentRequest](doc/ApproverDocumentRequest.md)
+ - [AssignApproversRequest](doc/AssignApproversRequest.md)
  - [AuthenticationRequest](doc/AuthenticationRequest.md)
  - [AuthenticationResponse](doc/AuthenticationResponse.md)
  - [BaseResponse](doc/BaseResponse.md)
@@ -99,6 +102,7 @@ Class | Method | HTTP request | Description
  - [DocumentWithContent](doc/DocumentWithContent.md)
  - [InspectDocumentRequest](doc/InspectDocumentRequest.md)
  - [IssueX509CertificateRequest](doc/IssueX509CertificateRequest.md)
+ - [ProcessIdRequest](doc/ProcessIdRequest.md)
  - [RefreshTokenRequest](doc/RefreshTokenRequest.md)
  - [RegisterDeviceRequest](doc/RegisterDeviceRequest.md)
  - [RegisterDeviceResponse](doc/RegisterDeviceResponse.md)
@@ -106,14 +110,12 @@ Class | Method | HTTP request | Description
  - [SignfluentRoleResponse](doc/SignfluentRoleResponse.md)
  - [SignfluentSignature](doc/SignfluentSignature.md)
  - [SignfluentSignatureRequest](doc/SignfluentSignatureRequest.md)
- - [TaskIdRequest](doc/TaskIdRequest.md)
  - [UpdateFCMTokenRequest](doc/UpdateFCMTokenRequest.md)
  - [UpdateFCMTokenResponse](doc/UpdateFCMTokenResponse.md)
  - [UploadDocumentRequest](doc/UploadDocumentRequest.md)
  - [User](doc/User.md)
  - [UserCreateRequest](doc/UserCreateRequest.md)
  - [UserCreateResponse](doc/UserCreateResponse.md)
- - [UserDTO](doc/UserDTO.md)
  - [UserRequest](doc/UserRequest.md)
 
 

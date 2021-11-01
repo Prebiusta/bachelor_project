@@ -2,8 +2,6 @@
 // AUTO-GENERATED FILE, DO NOT MODIFY!
 //
 
-import 'package:built_collection/built_collection.dart';
-import 'package:bpm_service_api/src/model/user_dto.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 
@@ -12,22 +10,14 @@ part 'inspect_document_request.g.dart';
 /// InspectDocumentRequest
 ///
 /// Properties:
-/// * [approvers] 
-/// * [delegatorId] 
 /// * [isValid] 
-/// * [taskId] 
+/// * [processId] 
 abstract class InspectDocumentRequest implements Built<InspectDocumentRequest, InspectDocumentRequestBuilder> {
-    @BuiltValueField(wireName: r'approvers')
-    BuiltList<UserDTO>? get approvers;
-
-    @BuiltValueField(wireName: r'delegatorId')
-    String? get delegatorId;
-
     @BuiltValueField(wireName: r'isValid')
     bool? get isValid;
 
-    @BuiltValueField(wireName: r'taskId')
-    String? get taskId;
+    @BuiltValueField(wireName: r'processId')
+    String? get processId;
 
     InspectDocumentRequest._();
 
@@ -51,28 +41,16 @@ class _$InspectDocumentRequestSerializer implements StructuredSerializer<Inspect
     Iterable<Object?> serialize(Serializers serializers, InspectDocumentRequest object,
         {FullType specifiedType = FullType.unspecified}) {
         final result = <Object?>[];
-        if (object.approvers != null) {
-            result
-                ..add(r'approvers')
-                ..add(serializers.serialize(object.approvers,
-                    specifiedType: const FullType(BuiltList, [FullType(UserDTO)])));
-        }
-        if (object.delegatorId != null) {
-            result
-                ..add(r'delegatorId')
-                ..add(serializers.serialize(object.delegatorId,
-                    specifiedType: const FullType(String)));
-        }
         if (object.isValid != null) {
             result
                 ..add(r'isValid')
                 ..add(serializers.serialize(object.isValid,
                     specifiedType: const FullType(bool)));
         }
-        if (object.taskId != null) {
+        if (object.processId != null) {
             result
-                ..add(r'taskId')
-                ..add(serializers.serialize(object.taskId,
+                ..add(r'processId')
+                ..add(serializers.serialize(object.processId,
                     specifiedType: const FullType(String)));
         }
         return result;
@@ -89,20 +67,12 @@ class _$InspectDocumentRequestSerializer implements StructuredSerializer<Inspect
             iterator.moveNext();
             final Object? value = iterator.current;
             switch (key) {
-                case r'approvers':
-                    result.approvers.replace(serializers.deserialize(value,
-                        specifiedType: const FullType(BuiltList, [FullType(UserDTO)])) as BuiltList<UserDTO>);
-                    break;
-                case r'delegatorId':
-                    result.delegatorId = serializers.deserialize(value,
-                        specifiedType: const FullType(String)) as String;
-                    break;
                 case r'isValid':
                     result.isValid = serializers.deserialize(value,
                         specifiedType: const FullType(bool)) as bool;
                     break;
-                case r'taskId':
-                    result.taskId = serializers.deserialize(value,
+                case r'processId':
+                    result.processId = serializers.deserialize(value,
                         specifiedType: const FullType(String)) as String;
                     break;
             }

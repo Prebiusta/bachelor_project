@@ -10,13 +10,13 @@ class _$SignfluentSignatureRequest extends SignfluentSignatureRequest {
   @override
   final String? contentToBeSigned;
   @override
-  final String? taskId;
+  final String? processId;
 
   factory _$SignfluentSignatureRequest(
           [void Function(SignfluentSignatureRequestBuilder)? updates]) =>
       (new SignfluentSignatureRequestBuilder()..update(updates)).build();
 
-  _$SignfluentSignatureRequest._({this.contentToBeSigned, this.taskId})
+  _$SignfluentSignatureRequest._({this.contentToBeSigned, this.processId})
       : super._();
 
   @override
@@ -33,19 +33,19 @@ class _$SignfluentSignatureRequest extends SignfluentSignatureRequest {
     if (identical(other, this)) return true;
     return other is SignfluentSignatureRequest &&
         contentToBeSigned == other.contentToBeSigned &&
-        taskId == other.taskId;
+        processId == other.processId;
   }
 
   @override
   int get hashCode {
-    return $jf($jc($jc(0, contentToBeSigned.hashCode), taskId.hashCode));
+    return $jf($jc($jc(0, contentToBeSigned.hashCode), processId.hashCode));
   }
 
   @override
   String toString() {
     return (newBuiltValueToStringHelper('SignfluentSignatureRequest')
           ..add('contentToBeSigned', contentToBeSigned)
-          ..add('taskId', taskId))
+          ..add('processId', processId))
         .toString();
   }
 }
@@ -60,9 +60,9 @@ class SignfluentSignatureRequestBuilder
   set contentToBeSigned(String? contentToBeSigned) =>
       _$this._contentToBeSigned = contentToBeSigned;
 
-  String? _taskId;
-  String? get taskId => _$this._taskId;
-  set taskId(String? taskId) => _$this._taskId = taskId;
+  String? _processId;
+  String? get processId => _$this._processId;
+  set processId(String? processId) => _$this._processId = processId;
 
   SignfluentSignatureRequestBuilder() {
     SignfluentSignatureRequest._defaults(this);
@@ -72,7 +72,7 @@ class SignfluentSignatureRequestBuilder
     final $v = _$v;
     if ($v != null) {
       _contentToBeSigned = $v.contentToBeSigned;
-      _taskId = $v.taskId;
+      _processId = $v.processId;
       _$v = null;
     }
     return this;
@@ -93,7 +93,7 @@ class SignfluentSignatureRequestBuilder
   _$SignfluentSignatureRequest build() {
     final _$result = _$v ??
         new _$SignfluentSignatureRequest._(
-            contentToBeSigned: contentToBeSigned, taskId: taskId);
+            contentToBeSigned: contentToBeSigned, processId: processId);
     replace(_$result);
     return _$result;
   }

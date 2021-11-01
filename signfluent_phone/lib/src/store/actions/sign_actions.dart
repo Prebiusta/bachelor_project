@@ -24,13 +24,13 @@ class SendSignatureResponseAction {
 
 class ConfirmSignatureResponseAction {}
 
-ThunkAction signContent(String taskId, String content, String currentUserId) {
+ThunkAction signContent(String processId, String content, String currentUserId) {
   return (Store store) async {
     Future(() async {
       String signedHash = await _rsaService.sign(content, currentUserId);
 
       SignfluentSignature signature =
-          await _buildSignfluentSignature(currentUserId, taskId, signedHash);
+          await _buildSignfluentSignature(currentUserId, processId, signedHash);
       Future<String> submitSignatureTask =
           _bpmServiceApiProvider.submitSignatureRequest(signature);
 
@@ -51,13 +51,13 @@ ThunkAction fetchSignatureRequest() {
 }
 
 Future<SignfluentSignature> _buildSignfluentSignature(
-    String currentUserId, String taskId, String signedHash) async {
+    String currentUserId, String processId, String signedHash) async {
   String certificate = await _rsaService
       .getCertificateStorage(currentUserId)
       .then((CertificateStorage storage) => storage.x509PEM);
 
   SignfluentSignatureBuilder builder = SignfluentSignatureBuilder();
-  builder.taskId = taskId;
+  builder.processId = processId;
   builder.signedContent = signedHash;
   builder.x509Pem = certificate;
   return builder.build();

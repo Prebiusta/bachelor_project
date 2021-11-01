@@ -12,8 +12,8 @@ import lombok.NoArgsConstructor;
 public class SignfluentSignatureRequest extends ProcessIdRequest {
     private String contentToBeSigned;
 
-    public SignfluentSignatureRequest(String taskId, String contentToBeSigned) {
-        super(taskId);
+    public SignfluentSignatureRequest(String processId, String contentToBeSigned) {
+        super(processId);
         this.contentToBeSigned = contentToBeSigned;
     }
 }

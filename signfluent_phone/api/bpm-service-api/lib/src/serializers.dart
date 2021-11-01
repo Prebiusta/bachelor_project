@@ -12,7 +12,9 @@ import 'package:built_value/iso_8601_date_time_serializer.dart';
 import 'package:bpm_service_api/src/date_serializer.dart';
 import 'package:bpm_service_api/src/model/date.dart';
 
+import 'package:bpm_service_api/src/model/approval_order_model.dart';
 import 'package:bpm_service_api/src/model/approver_document_request.dart';
+import 'package:bpm_service_api/src/model/assign_approvers_request.dart';
 import 'package:bpm_service_api/src/model/authentication_request.dart';
 import 'package:bpm_service_api/src/model/authentication_response.dart';
 import 'package:bpm_service_api/src/model/base_response.dart';
@@ -22,6 +24,7 @@ import 'package:bpm_service_api/src/model/document_response.dart';
 import 'package:bpm_service_api/src/model/document_with_content.dart';
 import 'package:bpm_service_api/src/model/inspect_document_request.dart';
 import 'package:bpm_service_api/src/model/issue_x509_certificate_request.dart';
+import 'package:bpm_service_api/src/model/process_id_request.dart';
 import 'package:bpm_service_api/src/model/refresh_token_request.dart';
 import 'package:bpm_service_api/src/model/register_device_request.dart';
 import 'package:bpm_service_api/src/model/register_device_response.dart';
@@ -29,20 +32,20 @@ import 'package:bpm_service_api/src/model/role_management_request.dart';
 import 'package:bpm_service_api/src/model/signfluent_role_response.dart';
 import 'package:bpm_service_api/src/model/signfluent_signature.dart';
 import 'package:bpm_service_api/src/model/signfluent_signature_request.dart';
-import 'package:bpm_service_api/src/model/task_id_request.dart';
 import 'package:bpm_service_api/src/model/update_fcm_token_request.dart';
 import 'package:bpm_service_api/src/model/update_fcm_token_response.dart';
 import 'package:bpm_service_api/src/model/upload_document_request.dart';
 import 'package:bpm_service_api/src/model/user.dart';
 import 'package:bpm_service_api/src/model/user_create_request.dart';
 import 'package:bpm_service_api/src/model/user_create_response.dart';
-import 'package:bpm_service_api/src/model/user_dto.dart';
 import 'package:bpm_service_api/src/model/user_request.dart';
 
 part 'serializers.g.dart';
 
 @SerializersFor([
+  ApprovalOrderModel,
   ApproverDocumentRequest,
+  AssignApproversRequest,
   AuthenticationRequest,
   AuthenticationResponse,
   BaseResponse,
@@ -52,6 +55,7 @@ part 'serializers.g.dart';
   DocumentWithContent,
   InspectDocumentRequest,
   IssueX509CertificateRequest,
+  ProcessIdRequest,
   RefreshTokenRequest,
   RegisterDeviceRequest,
   RegisterDeviceResponse,
@@ -59,14 +63,12 @@ part 'serializers.g.dart';
   SignfluentRoleResponse,
   SignfluentSignature,
   SignfluentSignatureRequest,
-  TaskIdRequest,
   UpdateFCMTokenRequest,
   UpdateFCMTokenResponse,
   UploadDocumentRequest,
   User,
   UserCreateRequest,
   UserCreateResponse,
-  UserDTO,
   UserRequest,
 ])
 Serializers serializers = (_$serializers.toBuilder()

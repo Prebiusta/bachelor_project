@@ -10,6 +10,7 @@ All URIs are relative to *http://localhost:8000*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**approveDocument**](SigningProcessControllerApi.md#approvedocument) | **POST** /api/signingProcess/approveDocument | Submit approve document decision
+[**assignApprovers**](SigningProcessControllerApi.md#assignapprovers) | **POST** /api/signingProcess/assignApprovers | Assign approvers to a document
 [**getActiveApprovers**](SigningProcessControllerApi.md#getactiveapprovers) | **POST** /api/signingProcess/getActiveApprovers | Get active approvers
 [**getDocumentDetails**](SigningProcessControllerApi.md#getdocumentdetails) | **POST** /api/signingProcess/getDocumentDetails | Returns document details for specified task
 [**getDocumentsForApproval**](SigningProcessControllerApi.md#getdocumentsforapproval) | **POST** /api/signingProcess/getDocumentsForApproval | Returns documents needed User&#39;s approval
@@ -45,6 +46,47 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **approverDocumentRequest** | [**ApproverDocumentRequest**](ApproverDocumentRequest.md)| approverDocumentRequest | 
+
+### Return type
+
+**String**
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: */*
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **assignApprovers**
+> String assignApprovers(assignApproversRequest)
+
+Assign approvers to a document
+
+### Example 
+```dart
+import 'package:bpm_service_api/api.dart';
+
+final api = BpmServiceApi().getSigningProcessControllerApi();
+final AssignApproversRequest assignApproversRequest = ; // AssignApproversRequest | assignApproversRequest
+
+try { 
+    final response = api.assignApprovers(assignApproversRequest);
+    print(response);
+} catch on DioError (e) {
+    print('Exception when calling SigningProcessControllerApi->assignApprovers: $e\n');
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **assignApproversRequest** | [**AssignApproversRequest**](AssignApproversRequest.md)| assignApproversRequest | 
 
 ### Return type
 
@@ -108,7 +150,7 @@ Returns document details for specified task
 import 'package:bpm_service_api/api.dart';
 
 final api = BpmServiceApi().getSigningProcessControllerApi();
-final TaskIdRequest taskIdRequest = ; // TaskIdRequest | taskIdRequest
+final ProcessIdRequest taskIdRequest = ; // ProcessIdRequest | taskIdRequest
 
 try { 
     final response = api.getDocumentDetails(taskIdRequest);
@@ -122,7 +164,7 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **taskIdRequest** | [**TaskIdRequest**](TaskIdRequest.md)| taskIdRequest | 
+ **taskIdRequest** | [**ProcessIdRequest**](ProcessIdRequest.md)| taskIdRequest | 
 
 ### Return type
 

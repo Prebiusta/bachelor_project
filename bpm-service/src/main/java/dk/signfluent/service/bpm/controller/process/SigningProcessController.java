@@ -3,7 +3,6 @@ package dk.signfluent.service.bpm.controller.process;
 import dk.signfluent.document.service.invoker.ApiException;
 import dk.signfluent.service.bpm.model.DocumentWithContent;
 import dk.signfluent.service.bpm.model.request.*;
-import dk.signfluent.service.bpm.model.request.ProcessIdRequest;
 import dk.signfluent.service.bpm.model.response.DocumentResponse;
 import dk.signfluent.service.bpm.service.DocumentService;
 import dk.signfluent.service.bpm.service.UserService;
@@ -60,8 +59,8 @@ public class SigningProcessController {
     @ApiOperation(value = "Returns document details for specified task", nickname = "getDocumentDetails")
     @FormKey({ProcessFormKey.INSPECT_DOCUMENT, ProcessFormKey.APPROVE_DOCUMENT})
     @PreAuthorize(DELEGATOR_OR_APPROVER)
-    public DocumentWithContent getDocumentDetails(@RequestBody ProcessIdRequest taskIdRequest) {
-        return documentService.getDocumentDetails(taskIdRequest.getProcessId());
+    public DocumentWithContent getDocumentDetails(@RequestBody ProcessIdRequest processIdRequest) {
+        return documentService.getDocumentDetails(processIdRequest.getProcessId());
     }
 
     @PostMapping("/getActiveApprovers")

@@ -7,13 +7,13 @@ void main() {
   // TODO add properties to the builder and call build()
 
   group(SignfluentSignature, () {
-    // String signedContent
-    test('to test the property `signedContent`', () async {
+    // String processId
+    test('to test the property `processId`', () async {
       // TODO
     });
 
-    // String taskId
-    test('to test the property `taskId`', () async {
+    // String signedContent
+    test('to test the property `signedContent`', () async {
       // TODO
     });
 

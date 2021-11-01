@@ -10,13 +10,13 @@ class _$DocumentResponse extends DocumentResponse {
   @override
   final Document? document;
   @override
-  final String? taskId;
+  final String? processId;
 
   factory _$DocumentResponse(
           [void Function(DocumentResponseBuilder)? updates]) =>
       (new DocumentResponseBuilder()..update(updates)).build();
 
-  _$DocumentResponse._({this.document, this.taskId}) : super._();
+  _$DocumentResponse._({this.document, this.processId}) : super._();
 
   @override
   DocumentResponse rebuild(void Function(DocumentResponseBuilder) updates) =>
@@ -31,19 +31,19 @@ class _$DocumentResponse extends DocumentResponse {
     if (identical(other, this)) return true;
     return other is DocumentResponse &&
         document == other.document &&
-        taskId == other.taskId;
+        processId == other.processId;
   }
 
   @override
   int get hashCode {
-    return $jf($jc($jc(0, document.hashCode), taskId.hashCode));
+    return $jf($jc($jc(0, document.hashCode), processId.hashCode));
   }
 
   @override
   String toString() {
     return (newBuiltValueToStringHelper('DocumentResponse')
           ..add('document', document)
-          ..add('taskId', taskId))
+          ..add('processId', processId))
         .toString();
   }
 }
@@ -56,9 +56,9 @@ class DocumentResponseBuilder
   DocumentBuilder get document => _$this._document ??= new DocumentBuilder();
   set document(DocumentBuilder? document) => _$this._document = document;
 
-  String? _taskId;
-  String? get taskId => _$this._taskId;
-  set taskId(String? taskId) => _$this._taskId = taskId;
+  String? _processId;
+  String? get processId => _$this._processId;
+  set processId(String? processId) => _$this._processId = processId;
 
   DocumentResponseBuilder() {
     DocumentResponse._defaults(this);
@@ -68,7 +68,7 @@ class DocumentResponseBuilder
     final $v = _$v;
     if ($v != null) {
       _document = $v.document?.toBuilder();
-      _taskId = $v.taskId;
+      _processId = $v.processId;
       _$v = null;
     }
     return this;
@@ -91,7 +91,7 @@ class DocumentResponseBuilder
     try {
       _$result = _$v ??
           new _$DocumentResponse._(
-              document: _document?.build(), taskId: taskId);
+              document: _document?.build(), processId: processId);
     } catch (_) {
       late String _$failedField;
       try {

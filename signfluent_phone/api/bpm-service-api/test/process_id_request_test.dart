@@ -1,14 +1,14 @@
 import 'package:test/test.dart';
 import 'package:bpm_service_api/bpm_service_api.dart';
 
-// tests for TaskIdRequest
+// tests for ProcessIdRequest
 void main() {
-  final instance = TaskIdRequestBuilder();
+  final instance = ProcessIdRequestBuilder();
   // TODO add properties to the builder and call build()
 
-  group(TaskIdRequest, () {
-    // String taskId
-    test('to test the property `taskId`', () async {
+  group(ProcessIdRequest, () {
+    // String processId
+    test('to test the property `processId`', () async {
       // TODO
     });
 

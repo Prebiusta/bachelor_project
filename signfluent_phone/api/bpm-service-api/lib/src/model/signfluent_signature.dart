@@ -10,15 +10,15 @@ part 'signfluent_signature.g.dart';
 /// SignfluentSignature
 ///
 /// Properties:
+/// * [processId] 
 /// * [signedContent] 
-/// * [taskId] 
 /// * [x509Pem] 
 abstract class SignfluentSignature implements Built<SignfluentSignature, SignfluentSignatureBuilder> {
+    @BuiltValueField(wireName: r'processId')
+    String? get processId;
+
     @BuiltValueField(wireName: r'signedContent')
     String? get signedContent;
-
-    @BuiltValueField(wireName: r'taskId')
-    String? get taskId;
 
     @BuiltValueField(wireName: r'x509Pem')
     String? get x509Pem;
@@ -45,16 +45,16 @@ class _$SignfluentSignatureSerializer implements StructuredSerializer<Signfluent
     Iterable<Object?> serialize(Serializers serializers, SignfluentSignature object,
         {FullType specifiedType = FullType.unspecified}) {
         final result = <Object?>[];
+        if (object.processId != null) {
+            result
+                ..add(r'processId')
+                ..add(serializers.serialize(object.processId,
+                    specifiedType: const FullType(String)));
+        }
         if (object.signedContent != null) {
             result
                 ..add(r'signedContent')
                 ..add(serializers.serialize(object.signedContent,
-                    specifiedType: const FullType(String)));
-        }
-        if (object.taskId != null) {
-            result
-                ..add(r'taskId')
-                ..add(serializers.serialize(object.taskId,
                     specifiedType: const FullType(String)));
         }
         if (object.x509Pem != null) {
@@ -77,12 +77,12 @@ class _$SignfluentSignatureSerializer implements StructuredSerializer<Signfluent
             iterator.moveNext();
             final Object? value = iterator.current;
             switch (key) {
-                case r'signedContent':
-                    result.signedContent = serializers.deserialize(value,
+                case r'processId':
+                    result.processId = serializers.deserialize(value,
                         specifiedType: const FullType(String)) as String;
                     break;
-                case r'taskId':
-                    result.taskId = serializers.deserialize(value,
+                case r'signedContent':
+                    result.signedContent = serializers.deserialize(value,
                         specifiedType: const FullType(String)) as String;
                     break;
                 case r'x509Pem':

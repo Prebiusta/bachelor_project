@@ -12,13 +12,13 @@ part 'document_response.g.dart';
 ///
 /// Properties:
 /// * [document] 
-/// * [taskId] 
+/// * [processId] 
 abstract class DocumentResponse implements Built<DocumentResponse, DocumentResponseBuilder> {
     @BuiltValueField(wireName: r'document')
     Document? get document;
 
-    @BuiltValueField(wireName: r'taskId')
-    String? get taskId;
+    @BuiltValueField(wireName: r'processId')
+    String? get processId;
 
     DocumentResponse._();
 
@@ -48,10 +48,10 @@ class _$DocumentResponseSerializer implements StructuredSerializer<DocumentRespo
                 ..add(serializers.serialize(object.document,
                     specifiedType: const FullType(Document)));
         }
-        if (object.taskId != null) {
+        if (object.processId != null) {
             result
-                ..add(r'taskId')
-                ..add(serializers.serialize(object.taskId,
+                ..add(r'processId')
+                ..add(serializers.serialize(object.processId,
                     specifiedType: const FullType(String)));
         }
         return result;
@@ -72,8 +72,8 @@ class _$DocumentResponseSerializer implements StructuredSerializer<DocumentRespo
                     result.document.replace(serializers.deserialize(value,
                         specifiedType: const FullType(Document)) as Document);
                     break;
-                case r'taskId':
-                    result.taskId = serializers.deserialize(value,
+                case r'processId':
+                    result.processId = serializers.deserialize(value,
                         specifiedType: const FullType(String)) as String;
                     break;
             }

@@ -8,9 +8,9 @@ part of 'signfluent_signature.dart';
 
 class _$SignfluentSignature extends SignfluentSignature {
   @override
-  final String? signedContent;
+  final String? processId;
   @override
-  final String? taskId;
+  final String? signedContent;
   @override
   final String? x509Pem;
 
@@ -18,7 +18,7 @@ class _$SignfluentSignature extends SignfluentSignature {
           [void Function(SignfluentSignatureBuilder)? updates]) =>
       (new SignfluentSignatureBuilder()..update(updates)).build();
 
-  _$SignfluentSignature._({this.signedContent, this.taskId, this.x509Pem})
+  _$SignfluentSignature._({this.processId, this.signedContent, this.x509Pem})
       : super._();
 
   @override
@@ -34,22 +34,22 @@ class _$SignfluentSignature extends SignfluentSignature {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is SignfluentSignature &&
+        processId == other.processId &&
         signedContent == other.signedContent &&
-        taskId == other.taskId &&
         x509Pem == other.x509Pem;
   }
 
   @override
   int get hashCode {
-    return $jf($jc($jc($jc(0, signedContent.hashCode), taskId.hashCode),
+    return $jf($jc($jc($jc(0, processId.hashCode), signedContent.hashCode),
         x509Pem.hashCode));
   }
 
   @override
   String toString() {
     return (newBuiltValueToStringHelper('SignfluentSignature')
+          ..add('processId', processId)
           ..add('signedContent', signedContent)
-          ..add('taskId', taskId)
           ..add('x509Pem', x509Pem))
         .toString();
   }
@@ -59,14 +59,14 @@ class SignfluentSignatureBuilder
     implements Builder<SignfluentSignature, SignfluentSignatureBuilder> {
   _$SignfluentSignature? _$v;
 
+  String? _processId;
+  String? get processId => _$this._processId;
+  set processId(String? processId) => _$this._processId = processId;
+
   String? _signedContent;
   String? get signedContent => _$this._signedContent;
   set signedContent(String? signedContent) =>
       _$this._signedContent = signedContent;
-
-  String? _taskId;
-  String? get taskId => _$this._taskId;
-  set taskId(String? taskId) => _$this._taskId = taskId;
 
   String? _x509Pem;
   String? get x509Pem => _$this._x509Pem;
@@ -79,8 +79,8 @@ class SignfluentSignatureBuilder
   SignfluentSignatureBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
+      _processId = $v.processId;
       _signedContent = $v.signedContent;
-      _taskId = $v.taskId;
       _x509Pem = $v.x509Pem;
       _$v = null;
     }
@@ -102,7 +102,9 @@ class SignfluentSignatureBuilder
   _$SignfluentSignature build() {
     final _$result = _$v ??
         new _$SignfluentSignature._(
-            signedContent: signedContent, taskId: taskId, x509Pem: x509Pem);
+            processId: processId,
+            signedContent: signedContent,
+            x509Pem: x509Pem);
     replace(_$result);
     return _$result;
   }

@@ -11,13 +11,13 @@ part 'approver_document_request.g.dart';
 ///
 /// Properties:
 /// * [approve] 
-/// * [taskId] 
+/// * [processId] 
 abstract class ApproverDocumentRequest implements Built<ApproverDocumentRequest, ApproverDocumentRequestBuilder> {
     @BuiltValueField(wireName: r'approve')
     bool? get approve;
 
-    @BuiltValueField(wireName: r'taskId')
-    String? get taskId;
+    @BuiltValueField(wireName: r'processId')
+    String? get processId;
 
     ApproverDocumentRequest._();
 
@@ -47,10 +47,10 @@ class _$ApproverDocumentRequestSerializer implements StructuredSerializer<Approv
                 ..add(serializers.serialize(object.approve,
                     specifiedType: const FullType(bool)));
         }
-        if (object.taskId != null) {
+        if (object.processId != null) {
             result
-                ..add(r'taskId')
-                ..add(serializers.serialize(object.taskId,
+                ..add(r'processId')
+                ..add(serializers.serialize(object.processId,
                     specifiedType: const FullType(String)));
         }
         return result;
@@ -71,8 +71,8 @@ class _$ApproverDocumentRequestSerializer implements StructuredSerializer<Approv
                     result.approve = serializers.deserialize(value,
                         specifiedType: const FullType(bool)) as bool;
                     break;
-                case r'taskId':
-                    result.taskId = serializers.deserialize(value,
+                case r'processId':
+                    result.processId = serializers.deserialize(value,
                         specifiedType: const FullType(String)) as String;
                     break;
             }

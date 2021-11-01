@@ -35,8 +35,8 @@ class SignViewModel {
     store.dispatch(fetchSignatureRequest());
   }
 
-  void sign(String taskId, String content) {
-    store.dispatch(signContent(taskId, content, userId));
+  void sign(String processId, String content) {
+    store.dispatch(signContent(processId, content, userId));
   }
 
   void confirmSignatureResponse() {

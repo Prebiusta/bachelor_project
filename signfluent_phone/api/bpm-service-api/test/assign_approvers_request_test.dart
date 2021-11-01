@@ -1,14 +1,14 @@
 import 'package:test/test.dart';
 import 'package:bpm_service_api/bpm_service_api.dart';
 
-// tests for InspectDocumentRequest
+// tests for AssignApproversRequest
 void main() {
-  final instance = InspectDocumentRequestBuilder();
+  final instance = AssignApproversRequestBuilder();
   // TODO add properties to the builder and call build()
 
-  group(InspectDocumentRequest, () {
-    // bool isValid
-    test('to test the property `isValid`', () async {
+  group(AssignApproversRequest, () {
+    // BuiltList<ApprovalOrderModel> approvers
+    test('to test the property `approvers`', () async {
       // TODO
     });
 
