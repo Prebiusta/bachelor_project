@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
-public class SignfluentSignatureRequest extends TaskIdRequest{
+public class SignfluentSignatureRequest extends ProcessIdRequest {
     private String contentToBeSigned;
 
     public SignfluentSignatureRequest(String taskId, String contentToBeSigned) {

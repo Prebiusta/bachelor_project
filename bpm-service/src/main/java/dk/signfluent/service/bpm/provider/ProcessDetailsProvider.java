@@ -1,0 +1,48 @@
+package dk.signfluent.service.bpm.provider;
+
+import dk.signfluent.service.bpm.utility.ProcessFormKey;
+import org.camunda.bpm.engine.RuntimeService;
+import org.camunda.bpm.engine.TaskService;
+import org.camunda.bpm.engine.runtime.ProcessInstance;
+import org.camunda.bpm.engine.task.Task;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
+
+@Service
+public class ProcessDetailsProvider {
+    private final TaskService taskService;
+    private final RuntimeService runtimeService;
+
+    public ProcessDetailsProvider(TaskService taskService, RuntimeService runtimeService) {
+        this.taskService = taskService;
+        this.runtimeService = runtimeService;
+    }
+
+    public ProcessInstance getProcessInstanceById(String processInstanceId) {
+        return runtimeService.createProcessInstanceQuery().processInstanceId(processInstanceId).singleResult();
+    }
+
+    public List<ProcessInstance> getProcessInstancesWithFormKey(ProcessFormKey processFormKey) {
+        Set<String> collect = taskService.createTaskQuery().initializeFormKeys()
+                .list()
+                .stream()
+                .filter(task -> task.getFormKey().equalsIgnoreCase(processFormKey.getFormKey()))
+                .map(Task::getProcessInstanceId)
+                .collect(Collectors.toSet());
+        return runtimeService.createProcessInstanceQuery().processInstanceIds(collect).list();
+    }
+
+    public Task getFirstTaskForProcessInstanceAndFormKey(String processInstanceId, ProcessFormKey processFormKey) {
+        return taskService.createTaskQuery()
+                .processInstanceId(processInstanceId)
+                .initializeFormKeys()
+                .list()
+                .stream()
+                .filter(task -> task.getFormKey().equals(processFormKey.getFormKey()))
+                .findFirst()
+                .orElseThrow(() -> new IllegalArgumentException("Given task not found for specified process instance"));
+    }
+}

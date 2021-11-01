@@ -9,6 +9,8 @@ import dk.signfluent.service.bpm.model.response.DocumentResponse;
 import dk.signfluent.service.document.api.provider.DocumentServiceApiProvider;
 import dk.signfluent.service.user.api.provider.UserServiceApiProvider;
 import dk.signfluent.user.service.model.User;
+import org.camunda.bpm.engine.impl.persistence.entity.ExecutionEntity;
+import org.camunda.bpm.engine.runtime.ProcessInstance;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -30,7 +32,7 @@ import static org.mockito.Mockito.when;
 @RunWith(MockitoJUnitRunner.class)
 public class TaskDetailsProviderTest {
     private final String TEST_DOCUMENT_ID = "9e9f8e10-2345-46ab-b2aa-a3813ca9dc52";
-    private final String TEST_TASK_ID = "58761cd8-8f97-44ac-a7b8-b1bb0098a94f";
+    private final String TEST_PROCESS_INSTANCE_ID = "58761cd8-8f97-44ac-a7b8-b1bb0098a94f";
     private final String TEST_UPLOADER_ID = "e31a6359-90c6-4c3e-875f-529ab42e6960";
     private final String TEST_DESCRIPTION = "description";
     private final OffsetDateTime TEST_UPLOADED_DATE = OffsetDateTime.now();
@@ -56,7 +58,7 @@ public class TaskDetailsProviderTest {
         returnEmptyListOfUsersWhenUserServiceIsCalled();
         returnEmptyListOfDocumentsWhenDocumentServiceIsCalled();
 
-        List<DocumentResponse> documentResponses = taskDetailsProvider.appendDocumentsInformationToTask(createTestTaskDocumentModelList(0));
+        List<DocumentResponse> documentResponses = taskDetailsProvider.appendDocumentsInformationToTask(createProcessInstanceList(0));
 
         assertEquals(0, documentResponses.size());
     }
@@ -66,7 +68,7 @@ public class TaskDetailsProviderTest {
         returnEmptyListOfUsersWhenUserServiceIsCalled();
         returnListOfDocumentsWhenDocumentServiceIsCalled();
 
-        List<DocumentResponse> documentResponses = taskDetailsProvider.appendDocumentsInformationToTask(createTestTaskDocumentModelList(1));
+        List<DocumentResponse> documentResponses = taskDetailsProvider.appendDocumentsInformationToTask(createProcessInstanceList(1));
 
         assertNull(documentResponses.get(0).getDocument().getUploadedBy());
     }
@@ -76,7 +78,7 @@ public class TaskDetailsProviderTest {
         returnEmptyListOfUsersWhenUserServiceIsCalled();
         returnListOfDocumentsWithNullUploaderWhenDocumentServiceIsCalled();
 
-        taskDetailsProvider.appendDocumentsInformationToTask(createTestTaskDocumentModelList(1));
+        taskDetailsProvider.appendDocumentsInformationToTask(createProcessInstanceList(1));
     }
 
 
@@ -85,7 +87,7 @@ public class TaskDetailsProviderTest {
         returnListOfUsersWhenUserServiceIsCalled();
         returnEmptyListOfDocumentsWhenDocumentServiceIsCalled();
 
-        taskDetailsProvider.appendDocumentsInformationToTask(createTestTaskDocumentModelList(1));
+        taskDetailsProvider.appendDocumentsInformationToTask(createProcessInstanceList(1));
     }
 
 
@@ -94,7 +96,7 @@ public class TaskDetailsProviderTest {
         returnListOfUsersWhenUserServiceIsCalled();
         returnListOfDocumentsWhenDocumentServiceIsCalled();
 
-        List<DocumentResponse> documentResponses = taskDetailsProvider.appendDocumentsInformationToTask(createTestTaskDocumentModelList(1));
+        List<DocumentResponse> documentResponses = taskDetailsProvider.appendDocumentsInformationToTask(createProcessInstanceList(1));
 
         verifyDocumentResponseAttributes(documentResponses.get(0));
         verifyMappedUserAttributes(documentResponses.get(0).getDocument().getUploadedBy());
@@ -109,7 +111,7 @@ public class TaskDetailsProviderTest {
     }
 
     private void verifyDocumentResponseAttributes(DocumentResponse documentResponse) {
-        assertEquals(TEST_TASK_ID, documentResponse.getTaskId());
+        assertEquals(TEST_PROCESS_INSTANCE_ID, documentResponse.getProcessId());
 
         Document documentFromResponse = documentResponse.getDocument();
         assertEquals(TEST_DESCRIPTION, documentFromResponse.getDescription());
@@ -137,19 +139,19 @@ public class TaskDetailsProviderTest {
         when(userServiceApiProvider.getUsersByIds(any())).thenReturn(Collections.emptyList());
     }
 
-    private List<TaskDocumentModel> createTestTaskDocumentModelList(int amount) {
-        List<TaskDocumentModel> taskDocumentModelList = new ArrayList<>();
+    private List<ProcessInstance> createProcessInstanceList(int amount) {
+        List<ProcessInstance> taskDocumentModelList = new ArrayList<>();
         for (int i = 0; i < amount; i++) {
-            taskDocumentModelList.add(createTestTaskDocumentModel());
+            taskDocumentModelList.add(createTestProcessInstance());
         }
         return taskDocumentModelList;
     }
 
-    private TaskDocumentModel createTestTaskDocumentModel() {
-        TaskDocumentModel taskDocumentModel = new TaskDocumentModel();
-        taskDocumentModel.setDocumentId(TEST_DOCUMENT_ID);
-        taskDocumentModel.setTaskId(TEST_TASK_ID);
-        return taskDocumentModel;
+    private ProcessInstance createTestProcessInstance() {
+        ExecutionEntity executionEntity = new ExecutionEntity();
+        executionEntity.setProcessInstanceId(TEST_PROCESS_INSTANCE_ID);
+        executionEntity.setBusinessKey(TEST_DOCUMENT_ID);
+        return executionEntity;
     }
 
     private DocumentRow createTestDocumentRow(UUID uploaderId) {

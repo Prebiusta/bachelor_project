@@ -5,6 +5,6 @@ import lombok.EqualsAndHashCode;
 
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class ApproverDocumentRequest extends TaskIdRequest {
+public class ApproverDocumentRequest extends ProcessIdRequest {
     private boolean approve;
 }

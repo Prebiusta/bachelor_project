@@ -7,8 +7,8 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class TaskIdRequest {
-    private String taskId;
+public class ProcessIdRequest {
+    private String processId;
 }
 
 

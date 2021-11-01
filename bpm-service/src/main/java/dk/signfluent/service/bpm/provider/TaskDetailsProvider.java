@@ -8,6 +8,7 @@ import dk.signfluent.service.bpm.model.response.DocumentResponse;
 import dk.signfluent.service.document.api.provider.DocumentServiceApiProvider;
 import dk.signfluent.service.user.api.provider.UserServiceApiProvider;
 import dk.signfluent.user.service.model.User;
+import org.camunda.bpm.engine.runtime.ProcessInstance;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
@@ -31,29 +32,31 @@ public class TaskDetailsProvider {
         this.documentMapper = documentMapper;
     }
 
-    public List<DocumentResponse> appendDocumentsInformationToTask(List<TaskDocumentModel> taskIdsForDocuments) throws Exception {
-        List<DocumentRow> documentRowList = documentServiceApiProvider.getDocumentList(extractDocumentIdsFromTaskDocumentModel(taskIdsForDocuments));
+    public List<DocumentResponse> appendDocumentsInformationToTask(List<ProcessInstance> processInstanceList) throws Exception {
+        List<DocumentRow> documentRowList = documentServiceApiProvider.getDocumentList(extractDocumentIdsFromTaskDocumentModel(processInstanceList));
 
         Map<String, DocumentRow> documentIdToDocumentRowMap = getDocumentIdToDocumentRowMap(documentRowList);
         Map<String, User> userIdToUserMap = getUserIdToUserMap(extractUserIdsFromDocumentRowList(documentRowList));
 
-        return taskIdsForDocuments.stream()
+        return processInstanceList.stream()
                 .map(mapTaskDocumentModelToDocumentWithUserData(documentIdToDocumentRowMap, userIdToUserMap))
                 .collect(Collectors.toList());
     }
 
     @NotNull
-    private Function<TaskDocumentModel, DocumentResponse> mapTaskDocumentModelToDocumentWithUserData(Map<String, DocumentRow> documentIdToDocumentRowMap, Map<String, User> userIdToUserMap) {
-        return taskDocumentModel -> {
-            DocumentRow matchingDocumentRow = documentIdToDocumentRowMap.get(taskDocumentModel.getDocumentId());
-            Assert.notNull(matchingDocumentRow, "Document with ID " + taskDocumentModel.getDocumentId() + " was not found" );
+    private Function<ProcessInstance, DocumentResponse> mapTaskDocumentModelToDocumentWithUserData(Map<String, DocumentRow> documentIdToDocumentRowMap, Map<String, User> userIdToUserMap) {
+        return processInstance -> {
+            String documentId = extractDocumentIdFromProcessInstance(processInstance);
+
+            DocumentRow matchingDocumentRow = documentIdToDocumentRowMap.get(documentId);
+            Assert.notNull(matchingDocumentRow, "Document with ID " + documentId + " was not found" );
             Assert.notNull(matchingDocumentRow.getUploaderId(), "Uploader ID is not present");
 
             Document document = documentMapper.mapDocumentRowToDocument(matchingDocumentRow);
             document.setUploadedBy(userIdToUserMap.get(matchingDocumentRow.getUploaderId().toString()));
 
             DocumentResponse documentResponse = new DocumentResponse();
-            documentResponse.setTaskId(taskDocumentModel.getTaskId());
+            documentResponse.setProcessId(processInstance.getProcessInstanceId());
             documentResponse.setDocument(document);
             return documentResponse;
         };
@@ -65,8 +68,12 @@ public class TaskDetailsProvider {
     }
 
     @NotNull
-    private List<String> extractDocumentIdsFromTaskDocumentModel(List<TaskDocumentModel> taskIdsForDocuments) {
-        return taskIdsForDocuments.stream().map(TaskDocumentModel::getDocumentId).collect(Collectors.toList());
+    private List<String> extractDocumentIdsFromTaskDocumentModel(List<ProcessInstance> processInstanceList) {
+        return processInstanceList.stream().map(this::extractDocumentIdFromProcessInstance).collect(Collectors.toList());
+    }
+
+    private String extractDocumentIdFromProcessInstance(ProcessInstance processInstance) {
+        return processInstance.getBusinessKey();
     }
 
     private Map<String, DocumentRow> getDocumentIdToDocumentRowMap(List<DocumentRow> documentRowList) {

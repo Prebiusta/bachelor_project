@@ -1,25 +1,32 @@
 package dk.signfluent.service.bpm.service;
 
 import dk.signfluent.document.service.invoker.ApiException;
+import dk.signfluent.document.service.model.ApprovalOrderModel;
+import dk.signfluent.document.service.model.AssignApprovers;
 import dk.signfluent.document.service.model.DocumentContent;
 import dk.signfluent.service.bpm.mapper.DocumentMapper;
-import dk.signfluent.service.bpm.model.*;
+import dk.signfluent.service.bpm.model.DocumentWithContent;
+import dk.signfluent.service.bpm.model.request.AssignApproversRequest;
 import dk.signfluent.service.bpm.model.request.InspectDocumentRequest;
 import dk.signfluent.service.bpm.model.request.UploadDocumentRequest;
 import dk.signfluent.service.bpm.model.response.DocumentResponse;
+import dk.signfluent.service.bpm.provider.ProcessDetailsProvider;
 import dk.signfluent.service.bpm.provider.TaskDetailsProvider;
 import dk.signfluent.service.bpm.provider.UserProvider;
 import dk.signfluent.service.bpm.utility.ProcessFormKey;
-import dk.signfluent.service.bpm.utility.ProcessTaskUtils;
 import dk.signfluent.service.document.api.provider.DocumentServiceApiProvider;
 import dk.signfluent.service.user.api.provider.UserServiceApiProvider;
 import dk.signfluent.user.service.model.User;
 import org.camunda.bpm.engine.RuntimeService;
 import org.camunda.bpm.engine.TaskService;
+import org.camunda.bpm.engine.runtime.ProcessInstance;
+import org.camunda.bpm.engine.task.Task;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 import static dk.signfluent.service.bpm.utility.ProcessVariables.*;
 import static dk.signfluent.service.bpm.utility.Processes.SIGNING_PROCESS;
@@ -29,63 +36,57 @@ import static dk.signfluent.service.bpm.utility.Processes.SIGNING_PROCESS;
 public class DocumentService {
     private final RuntimeService runtimeService;
     private final TaskService taskService;
-    private final ProcessTaskUtils processTaskUtils;
     private final DocumentServiceApiProvider documentServiceApiProvider;
     private final UserServiceApiProvider userServiceApiProvider;
     private final DocumentMapper documentMapper;
     private final TaskDetailsProvider taskDetailsProvider;
     private final UserProvider userProvider;
+    private final ProcessDetailsProvider processDetailsProvider;
 
-    public DocumentService(RuntimeService runtimeService, TaskService taskService, ProcessTaskUtils processTaskUtils, DocumentServiceApiProvider documentServiceApiProvider, UserServiceApiProvider userServiceApiProvider, DocumentMapper documentMapper, TaskDetailsProvider taskDetailsProvider, UserProvider userProvider) {
+    public DocumentService(RuntimeService runtimeService, TaskService taskService, DocumentServiceApiProvider documentServiceApiProvider, UserServiceApiProvider userServiceApiProvider, DocumentMapper documentMapper, TaskDetailsProvider taskDetailsProvider, UserProvider userProvider, ProcessDetailsProvider processDetailsProvider) {
         this.runtimeService = runtimeService;
         this.taskService = taskService;
-        this.processTaskUtils = processTaskUtils;
         this.documentServiceApiProvider = documentServiceApiProvider;
         this.userServiceApiProvider = userServiceApiProvider;
         this.documentMapper = documentMapper;
         this.taskDetailsProvider = taskDetailsProvider;
         this.userProvider = userProvider;
+        this.processDetailsProvider = processDetailsProvider;
     }
 
     public void inspectDocument(InspectDocumentRequest inspectDocumentRequest) {
-        Map<String, Object> variables = new HashMap<>();
-        variables.put(IS_DOCUMENT_VALID, inspectDocumentRequest.getIsValid());
-        if (inspectDocumentRequest.getIsValid()) {
-            variables.put(APPROVERS, inspectDocumentRequest.getApprovers());
-            variables.put(DELEGATOR_ID, inspectDocumentRequest.getDelegatorId());
-        }
-        taskService.complete(inspectDocumentRequest.getTaskId(), variables);
+        Task inspectDocumentTask = processDetailsProvider.getFirstTaskForProcessInstanceAndFormKey(inspectDocumentRequest.getProcessId(), ProcessFormKey.INSPECT_DOCUMENT);
+        taskService.complete(inspectDocumentTask.getId(), getProcessVariablesForInspectDocument(inspectDocumentRequest));
     }
 
-    public void uploadDocument(UploadDocumentRequest uploadDocumentRequest) {
-        try {
-            String uploadedDocumentId = documentServiceApiProvider.uploadDocument(userProvider.getCurrentUserId(), uploadDocumentRequest.getDescription(), uploadDocumentRequest.getDocument());
-            runtimeService.startProcessInstanceByKey(SIGNING_PROCESS, uploadedDocumentId, Collections.singletonMap(DOCUMENT_ID, uploadedDocumentId));
-        } catch (ApiException e) {
-            throw new RuntimeException(e);
-        }
-    }
 
-    public List<DocumentResponse> getDocumentsForInspection() {
-        List<TaskDocumentModel> taskToDocumentIdMapForFormKey = processTaskUtils.getTaskDocumentModelListForFormKey(ProcessFormKey.INSPECT_DOCUMENT);
+    public void assignApprovers(AssignApproversRequest assignApproversRequest) {
+        Task assignApproversTask = processDetailsProvider.getFirstTaskForProcessInstanceAndFormKey(assignApproversRequest.getProcessId(), ProcessFormKey.ASSIGN_APPROVERS);
         try {
-            return taskDetailsProvider.appendDocumentsInformationToTask(taskToDocumentIdMapForFormKey);
+            documentServiceApiProvider.assignApprovers(createAssignApproversRequest(assignApproversRequest));
+            taskService.complete(assignApproversTask.getId(), getProcessVariablesForAssignApprovers(assignApproversRequest));
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            taskService.handleBpmnError(assignApproversTask.getId(), "-1", "Failed to assign approvers " + e);
         }
     }
 
-    public List<DocumentResponse> getDocumentsForApproval() {
-        List<TaskDocumentModel> taskToDocumentIdMapForFormKey = processTaskUtils.getTaskDocumentModelListForFormKeyAndAuthenticatedUser(ProcessFormKey.APPROVE_DOCUMENT);
-        try {
-            return taskDetailsProvider.appendDocumentsInformationToTask(taskToDocumentIdMapForFormKey);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
+    public void uploadDocument(UploadDocumentRequest uploadDocumentRequest) throws ApiException {
+        String uploadedDocumentId = documentServiceApiProvider.uploadDocument(userProvider.getCurrentUserId(), uploadDocumentRequest.getDescription(), uploadDocumentRequest.getDocument());
+        runtimeService.startProcessInstanceByKey(SIGNING_PROCESS, uploadedDocumentId, Collections.singletonMap(DOCUMENT_ID, uploadedDocumentId));
     }
 
-    public DocumentWithContent getDocumentDetails(String taskId) {
-        String documentId = processTaskUtils.getDocumentId(taskId);
+    public List<DocumentResponse> getDocumentsForInspection() throws Exception {
+        List<ProcessInstance> processInstancesWithFormKey = processDetailsProvider.getProcessInstancesWithFormKey(ProcessFormKey.INSPECT_DOCUMENT);
+        return taskDetailsProvider.appendDocumentsInformationToTask(processInstancesWithFormKey);
+    }
+
+    public List<DocumentResponse> getDocumentsForApproval() throws Exception {
+        List<ProcessInstance> processInstancesWithFormKey = processDetailsProvider.getProcessInstancesWithFormKey(ProcessFormKey.APPROVE_DOCUMENT);
+        return taskDetailsProvider.appendDocumentsInformationToTask(processInstancesWithFormKey);
+    }
+
+    public DocumentWithContent getDocumentDetails(String processId) {
+        String documentId = extractDocumentIdFromProcessId(processId);
         try {
             DocumentContent documentDetails = documentServiceApiProvider.getDocumentDetails(documentId);
             Assert.notNull(documentDetails.getUploaderId(), "Uploader ID is not present");
@@ -97,7 +98,37 @@ public class DocumentService {
         }
     }
 
+    @NotNull
+    private Map<String, Object> getProcessVariablesForAssignApprovers(AssignApproversRequest assignApproversRequest) {
+        List<String> approversInOrder = assignApproversRequest.getApprovers().stream()
+                .map(ApprovalOrderModel::getApproverId)
+                .filter(Objects::nonNull)
+                .map(UUID::toString)
+                .collect(Collectors.toList());
+        return Collections.singletonMap(APPROVERS, approversInOrder);
+    }
+
+    @NotNull
+    private Map<String, Object> getProcessVariablesForInspectDocument(InspectDocumentRequest inspectDocumentRequest) {
+        Map<String, Object> variables = new HashMap<>();
+        variables.put(IS_DOCUMENT_VALID, inspectDocumentRequest.getIsValid());
+        variables.put(DELEGATOR_ID, userProvider.getCurrentUserId());
+        return variables;
+    }
+
     private User getUploaderDetails(String uploaderId) throws Exception {
         return userServiceApiProvider.getUsersByIds(Collections.singletonList(uploaderId)).get(0);
+    }
+
+    private AssignApprovers createAssignApproversRequest(AssignApproversRequest assignApproversRequest) {
+        AssignApprovers assignApprovers = new AssignApprovers();
+        assignApprovers.setApprovers(assignApproversRequest.getApprovers());
+        assignApprovers.setDelegatorId(UUID.fromString(userProvider.getCurrentUserId()));
+        assignApprovers.setDocumentId(UUID.fromString(extractDocumentIdFromProcessId(assignApproversRequest.getProcessId())));
+        return assignApprovers;
+    }
+
+    private String extractDocumentIdFromProcessId(String processId) {
+        return processDetailsProvider.getProcessInstanceById(processId).getBusinessKey();
     }
 }

@@ -1,8 +1,9 @@
 package dk.signfluent.service.bpm.controller.process;
 
+import dk.signfluent.document.service.invoker.ApiException;
 import dk.signfluent.service.bpm.model.DocumentWithContent;
 import dk.signfluent.service.bpm.model.request.*;
-import dk.signfluent.service.bpm.model.request.TaskIdRequest;
+import dk.signfluent.service.bpm.model.request.ProcessIdRequest;
 import dk.signfluent.service.bpm.model.response.DocumentResponse;
 import dk.signfluent.service.bpm.service.DocumentService;
 import dk.signfluent.service.bpm.service.UserService;
@@ -34,7 +35,7 @@ public class SigningProcessController {
 
     @PostMapping(value = "/uploadDocument")
     @ApiOperation(value = "Uploads a document", nickname = "uploadDocument")
-    public void uploadDocument(@RequestBody UploadDocumentRequest uploadDocumentRequest) {
+    public void uploadDocument(@RequestBody UploadDocumentRequest uploadDocumentRequest) throws ApiException {
         documentService.uploadDocument(uploadDocumentRequest);
     }
 
@@ -51,7 +52,7 @@ public class SigningProcessController {
     @ApiOperation(value = "Returns documents needed inspection", nickname = "getDocumentsForInspection")
     @FormKey(ProcessFormKey.INSPECT_DOCUMENT)
     @PreAuthorize(DELEGATOR)
-    public List<DocumentResponse> getDocumentsForInspection() {
+    public List<DocumentResponse> getDocumentsForInspection() throws Exception {
         return documentService.getDocumentsForInspection();
     }
 
@@ -59,8 +60,8 @@ public class SigningProcessController {
     @ApiOperation(value = "Returns document details for specified task", nickname = "getDocumentDetails")
     @FormKey({ProcessFormKey.INSPECT_DOCUMENT, ProcessFormKey.APPROVE_DOCUMENT})
     @PreAuthorize(DELEGATOR_OR_APPROVER)
-    public DocumentWithContent getDocumentDetails(@RequestBody TaskIdRequest taskIdRequest) {
-        return documentService.getDocumentDetails(taskIdRequest.getTaskId());
+    public DocumentWithContent getDocumentDetails(@RequestBody ProcessIdRequest taskIdRequest) {
+        return documentService.getDocumentDetails(taskIdRequest.getProcessId());
     }
 
     @PostMapping("/getActiveApprovers")
@@ -71,11 +72,20 @@ public class SigningProcessController {
         return userService.getActiveApprovers();
     }
 
+    @PostMapping("/assignApprovers")
+    @ApiOperation(value = "Assign approvers to a document", nickname = "assignApprovers")
+    @FormKey(ProcessFormKey.ASSIGN_APPROVERS)
+    @PreAuthorize(DELEGATOR)
+    public String assignApprovers(@RequestBody AssignApproversRequest assignApproversRequest) {
+        documentService.assignApprovers(assignApproversRequest);
+        return "Done";
+    }
+
     @PostMapping("/getDocumentsForApproval")
     @ApiOperation(value = "Returns documents needed User's approval", nickname = "getDocumentsForApproval")
     @FormKey(ProcessFormKey.APPROVE_DOCUMENT)
     @PreAuthorize(APPROVER)
-    public List<DocumentResponse> getDocumentsForApproval() {
+    public List<DocumentResponse> getDocumentsForApproval() throws Exception {
         return documentService.getDocumentsForApproval();
     }
 

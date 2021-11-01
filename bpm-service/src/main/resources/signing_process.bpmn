@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:modeler="http://camunda.org/schema/modeler/1.0" id="Definitions_0b8919o" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="4.10.0" modeler:executionPlatform="Camunda Platform" modeler:executionPlatformVersion="7.15.0">
-  <bpmn:process id="signingProcess" isExecutable="true">
+  <bpmn:process id="signingProcess" name="Signing Process" isExecutable="true" camunda:historyTimeToLive="30">
     <bpmn:startEvent id="start_event" name="upload document" camunda:formKey="upload_document">
       <bpmn:outgoing>Flow_1jv8n72</bpmn:outgoing>
     </bpmn:startEvent>
@@ -8,24 +8,24 @@
       <bpmn:incoming>Flow_0c9pvs6</bpmn:incoming>
     </bpmn:endEvent>
     <bpmn:sequenceFlow id="Flow_0c9pvs6" sourceRef="Activity_0wrls7u" targetRef="Event_0yx4gjg" />
-    <bpmn:userTask id="Activity_1xqvoo6" name="inspect document" camunda:formKey="inspectDocument">
+    <bpmn:userTask id="Activity_1xqvoo6" name="Inspect Document" camunda:formKey="inspectDocument">
       <bpmn:incoming>Flow_1jv8n72</bpmn:incoming>
       <bpmn:outgoing>Flow_0p2uxp6</bpmn:outgoing>
     </bpmn:userTask>
     <bpmn:sequenceFlow id="Flow_0p2uxp6" sourceRef="Activity_1xqvoo6" targetRef="Gateway_0vnxonf" />
-    <bpmn:serviceTask id="Activity_0wrls7u" name="lock document" camunda:delegateExpression="${lockDocumentDelegate}">
+    <bpmn:serviceTask id="Activity_0wrls7u" name="Lock Document" camunda:delegateExpression="${lockDocumentDelegate}">
       <bpmn:incoming>Flow_1pfc4a0</bpmn:incoming>
       <bpmn:incoming>Flow_00nrhho</bpmn:incoming>
       <bpmn:incoming>Flow_08bdwv2</bpmn:incoming>
       <bpmn:incoming>Flow_1aaei9c</bpmn:incoming>
       <bpmn:outgoing>Flow_0c9pvs6</bpmn:outgoing>
     </bpmn:serviceTask>
-    <bpmn:exclusiveGateway id="Gateway_0vnxonf" name="inspect document?">
+    <bpmn:exclusiveGateway id="Gateway_0vnxonf" name="Is Document valid?">
       <bpmn:incoming>Flow_0p2uxp6</bpmn:incoming>
       <bpmn:outgoing>Flow_1pfc4a0</bpmn:outgoing>
       <bpmn:outgoing>Flow_1affiwm</bpmn:outgoing>
     </bpmn:exclusiveGateway>
-    <bpmn:sequenceFlow id="Flow_1pfc4a0" name="invalid" sourceRef="Gateway_0vnxonf" targetRef="Activity_0wrls7u">
+    <bpmn:sequenceFlow id="Flow_1pfc4a0" name="No" sourceRef="Gateway_0vnxonf" targetRef="Activity_0wrls7u">
       <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${isDocumentValid == false}</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
     <bpmn:sequenceFlow id="Flow_1jv8n72" sourceRef="start_event" targetRef="Activity_1xqvoo6" />
@@ -41,20 +41,20 @@
         <bpmn:outgoing>Flow_07gn2qm</bpmn:outgoing>
         <bpmn:outgoing>Flow_18oha99</bpmn:outgoing>
       </bpmn:exclusiveGateway>
-      <bpmn:userTask id="Activity_0ex6j1m" name="sign document" camunda:formKey="signDocument" camunda:assignee="${approver}">
+      <bpmn:userTask id="Activity_0ex6j1m" name="Sign Document" camunda:formKey="signDocument" camunda:assignee="${approver}">
         <bpmn:incoming>Flow_1igry27</bpmn:incoming>
         <bpmn:outgoing>Flow_1otxse9</bpmn:outgoing>
       </bpmn:userTask>
-      <bpmn:userTask id="Activity_0gsdtoi" name="approve document" camunda:formKey="approveDocument" camunda:assignee="${approver}">
+      <bpmn:userTask id="Activity_0gsdtoi" name="Approve Document" camunda:formKey="approveDocument" camunda:assignee="${approver}">
         <bpmn:incoming>Flow_0qyfmjv</bpmn:incoming>
         <bpmn:incoming>Flow_1hggsbi</bpmn:incoming>
         <bpmn:outgoing>Flow_0onovrv</bpmn:outgoing>
       </bpmn:userTask>
-      <bpmn:serviceTask id="Activity_14v5ij3" name="verify signature" camunda:delegateExpression="${verifySignatureDelegate}">
+      <bpmn:serviceTask id="Activity_14v5ij3" name="Verify Signature" camunda:delegateExpression="${verifySignatureDelegate}">
         <bpmn:incoming>Flow_1otxse9</bpmn:incoming>
         <bpmn:outgoing>Flow_0mwbzmy</bpmn:outgoing>
       </bpmn:serviceTask>
-      <bpmn:serviceTask id="Activity_0bcz08s" name="send push notification to approver for signature" camunda:delegateExpression="${notifyApproverDelegate}">
+      <bpmn:serviceTask id="Activity_0bcz08s" name="Notify Approver" camunda:delegateExpression="${notifyApproverDelegate}">
         <bpmn:incoming>Flow_07gn2qm</bpmn:incoming>
         <bpmn:outgoing>Flow_1igry27</bpmn:outgoing>
       </bpmn:serviceTask>
@@ -65,7 +65,7 @@
         </bpmn:timerEventDefinition>
       </bpmn:boundaryEvent>
       <bpmn:sequenceFlow id="Flow_0onovrv" sourceRef="Activity_0gsdtoi" targetRef="Gateway_00hp4vu" />
-      <bpmn:sequenceFlow id="Flow_07gn2qm" name="yes" sourceRef="Gateway_00hp4vu" targetRef="Activity_0bcz08s">
+      <bpmn:sequenceFlow id="Flow_07gn2qm" name="Yes" sourceRef="Gateway_00hp4vu" targetRef="Activity_0bcz08s">
         <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${isApproved == true}</bpmn:conditionExpression>
       </bpmn:sequenceFlow>
       <bpmn:sequenceFlow id="Flow_1igry27" sourceRef="Activity_0bcz08s" targetRef="Activity_0ex6j1m" />
@@ -85,7 +85,7 @@
         <bpmn:errorEventDefinition id="ErrorEventDefinition_19guliy" errorRef="Error_1t8g9gr" />
       </bpmn:endEvent>
       <bpmn:sequenceFlow id="Flow_1z0ta2z" sourceRef="Event_13yahfn" targetRef="Event_0588epk" />
-      <bpmn:serviceTask id="Activity_0ebq74n" name="Update rejected document" camunda:delegateExpression="${updateRejectedDocumentDelegate}">
+      <bpmn:serviceTask id="Activity_0ebq74n" name="Update Rejected Document" camunda:delegateExpression="${updateRejectedDocumentDelegate}">
         <bpmn:incoming>Flow_18oha99</bpmn:incoming>
         <bpmn:outgoing>Flow_1nyy39j</bpmn:outgoing>
       </bpmn:serviceTask>
@@ -94,7 +94,7 @@
       </bpmn:sequenceFlow>
       <bpmn:sequenceFlow id="Flow_1nyy39j" sourceRef="Activity_0ebq74n" targetRef="Event_1p6dhzx" />
       <bpmn:sequenceFlow id="Flow_0q6lbny" sourceRef="Activity_1rhm9l0" targetRef="Event_1x47tyn" />
-      <bpmn:serviceTask id="Activity_1rhm9l0" name="Update document" camunda:delegateExpression="${updateDocumentDelegate}">
+      <bpmn:serviceTask id="Activity_1rhm9l0" name="Update Document" camunda:delegateExpression="${updateDocumentDelegate}">
         <bpmn:incoming>Flow_0mwbzmy</bpmn:incoming>
         <bpmn:outgoing>Flow_0q6lbny</bpmn:outgoing>
       </bpmn:serviceTask>
@@ -114,14 +114,14 @@
       <bpmn:errorEventDefinition id="ErrorEventDefinition_088owbs" errorRef="Error_1amx7qa" />
     </bpmn:boundaryEvent>
     <bpmn:sequenceFlow id="Flow_08bdwv2" sourceRef="Event_0zbd1yl" targetRef="Activity_0wrls7u" />
-    <bpmn:sequenceFlow id="Flow_1affiwm" name="valid" sourceRef="Gateway_0vnxonf" targetRef="Activity_1tc9o9z">
+    <bpmn:sequenceFlow id="Flow_1affiwm" name="Yes" sourceRef="Gateway_0vnxonf" targetRef="Activity_1tc9o9z">
       <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${isDocumentValid == true}</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
     <bpmn:sequenceFlow id="Flow_1u9kna9" sourceRef="Activity_1tc9o9z" targetRef="Activity_1kduifk" />
-    <bpmn:serviceTask id="Activity_1tc9o9z" name="append approvers to document" camunda:delegateExpression="${assignApproversDelegate}">
+    <bpmn:userTask id="Activity_1tc9o9z" name="Assign Approvers" camunda:formKey="assignApprovers">
       <bpmn:incoming>Flow_1affiwm</bpmn:incoming>
       <bpmn:outgoing>Flow_1u9kna9</bpmn:outgoing>
-    </bpmn:serviceTask>
+    </bpmn:userTask>
   </bpmn:process>
   <bpmn:error id="Error_1t8g9gr" name="invalid_signature" errorCode="-1" />
   <bpmn:error id="Error_1amx7qa" name="document_rejected" errorCode="-2" />
@@ -129,25 +129,25 @@
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
     <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="signingProcess">
       <bpmndi:BPMNEdge id="Flow_1u9kna9_di" bpmnElement="Flow_1u9kna9">
-        <di:waypoint x="640" y="437" />
+        <di:waypoint x="660" y="437" />
         <di:waypoint x="740" y="437" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_1affiwm_di" bpmnElement="Flow_1affiwm">
         <di:waypoint x="495" y="437" />
-        <di:waypoint x="540" y="437" />
+        <di:waypoint x="560" y="437" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="506" y="419" width="23" height="14" />
+          <dc:Bounds x="519" y="413" width="19" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_08bdwv2_di" bpmnElement="Flow_08bdwv2">
         <di:waypoint x="1240" y="252" />
-        <di:waypoint x="1240" y="140" />
-        <di:waypoint x="2080" y="140" />
+        <di:waypoint x="1240" y="150" />
+        <di:waypoint x="2080" y="150" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_00nrhho_di" bpmnElement="Flow_00nrhho">
         <di:waypoint x="1780" y="252" />
-        <di:waypoint x="1780" y="170" />
-        <di:waypoint x="2080" y="170" />
+        <di:waypoint x="1780" y="180" />
+        <di:waypoint x="2080" y="180" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_1aaei9c_di" bpmnElement="Flow_1aaei9c">
         <di:waypoint x="1940" y="497" />
@@ -164,7 +164,7 @@
         <di:waypoint x="2130" y="80" />
         <di:waypoint x="2130" y="130" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="434" y="350" width="32" height="14" />
+          <dc:Bounds x="443" y="350" width="15" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_0p2uxp6_di" bpmnElement="Flow_0p2uxp6">
@@ -193,8 +193,11 @@
       <bpmndi:BPMNShape id="Gateway_0vnxonf_di" bpmnElement="Gateway_0vnxonf" isMarkerVisible="true">
         <dc:Bounds x="445" y="412" width="50" height="50" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="402" y="396" width="55" height="27" />
+          <dc:Bounds x="399" y="396" width="62" height="27" />
         </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1qo0e04_di" bpmnElement="Activity_1tc9o9z">
+        <dc:Bounds x="560" y="397" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_1kduifk_di" bpmnElement="Activity_1kduifk" isExpanded="true">
         <dc:Bounds x="740" y="270" width="1200" height="334" />
@@ -247,7 +250,7 @@
         <di:waypoint x="1165" y="474" />
         <di:waypoint x="1230" y="474" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="1187" y="450" width="18" height="14" />
+          <dc:Bounds x="1187" y="450" width="19" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_0onovrv_di" bpmnElement="Flow_0onovrv">
@@ -301,9 +304,6 @@
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Event_05feioy_di" bpmnElement="Event_0ajvg1s">
         <dc:Bounds x="1422" y="496" width="36" height="36" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_191z92w_di" bpmnElement="Activity_1tc9o9z">
-        <dc:Bounds x="540" y="397" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Event_0zbd1yl_di" bpmnElement="Event_0zbd1yl">
         <dc:Bounds x="1222" y="252" width="36" height="36" />
