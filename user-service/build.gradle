@@ -1,5 +1,5 @@
 plugins {
-    id 'org.springframework.boot' version '2.5.4'
+    id 'org.springframework.boot' version '2.5.5'
     id 'io.spring.dependency-management' version '1.0.11.RELEASE'
     id 'java'
 }
@@ -24,21 +24,35 @@ repositories {
 }
 
 dependencies {
-    implementation 'org.springframework.boot:spring-boot-starter-web:2.5.4'
+    implementation project(":keycloak")
+    implementation 'org.keycloak:keycloak-core:15.0.2'
+
+    // Spring Boot
+    implementation 'org.springframework.boot:spring-boot-starter-web:2.5.5'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test:2.5.5'
+
+    // JPA
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa:2.5.5'
+
+    // Swagger
     implementation 'io.springfox:springfox-swagger-ui:3.0.0'
     implementation 'io.springfox:springfox-swagger2:3.0.0'
 
-    implementation group: 'org.bouncycastle', name: 'bcprov-jdk15on', version: '1.69'
-    implementation group: 'org.bouncycastle', name: 'bcpkix-jdk15on', version: '1.69'
+    // Lombok
+    compileOnly 'org.projectlombok:lombok:1.18.22'
+    annotationProcessor 'org.projectlombok:lombok:1.18.22'
 
-    compileOnly 'org.projectlombok:lombok:1.18.20'
-    annotationProcessor 'org.projectlombok:lombok:1.18.20'
-    testImplementation 'org.springframework.boot:spring-boot-starter-test:2.5.4'
-    implementation 'org.springframework.boot:spring-boot-starter-data-jpa:2.5.4'
+    // H2 DB
     runtimeOnly 'com.h2database:h2:1.4.200'
-    testImplementation 'org.springframework.boot:spring-boot-starter-test:2.5.4'
+
+    // Mapstruct
     implementation 'org.mapstruct:mapstruct:1.4.2.Final'
     annotationProcessor 'org.mapstruct:mapstruct-processor:1.4.2.Final'
+
+    // Tests
+    testImplementation 'org.mockito:mockito-core:4.0.0'
+    testImplementation 'org.mockito:mockito-junit-jupiter:4.0.0'
+    testImplementation 'junit:junit:4.13.2'
 }
 
 test {

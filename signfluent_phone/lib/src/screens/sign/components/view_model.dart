@@ -1,5 +1,5 @@
+import 'package:bpm_service_api/bpm_service_api.dart';
 import 'package:redux/redux.dart';
-import 'package:signfluent_phone/src/model/signfluent_signature_request.dart';
 import 'package:signfluent_phone/src/store/actions/actions.dart';
 import 'package:signfluent_phone/src/store/actions/sign_actions.dart';
 import 'package:signfluent_phone/src/store/state/app_sate.dart';
@@ -20,7 +20,7 @@ class SignViewModel {
 
   static SignViewModel fromStore(Store<AppState> store) {
     return SignViewModel(
-        userId: store.state.userState.authenticationResponse!.user.id,
+        userId: store.state.userState.authenticationResponse!.userId!,
         fcmToken: store.state.userState.token!,
         signatureRequest: store.state.signState.signatureRequest,
         signingResponse: store.state.signState.signingResponse,
@@ -32,11 +32,11 @@ class SignViewModel {
   }
 
   void fetchSignatureRequests() {
-    store.dispatch(fetchSignatureRequest(userId));
+    store.dispatch(fetchSignatureRequest());
   }
 
-  void sign(String taskId, String content) {
-    store.dispatch(signContent(taskId, content, userId));
+  void sign(String processId, String content) {
+    store.dispatch(signContent(processId, content, userId));
   }
 
   void confirmSignatureResponse() {

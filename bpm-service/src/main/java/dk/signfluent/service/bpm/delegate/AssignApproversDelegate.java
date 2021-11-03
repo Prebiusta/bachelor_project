@@ -8,6 +8,7 @@ import org.camunda.bpm.engine.delegate.DelegateExecution;
 import org.camunda.bpm.engine.delegate.JavaDelegate;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -28,17 +29,32 @@ public class AssignApproversDelegate implements JavaDelegate {
 
     public void assignApprovers(DelegateExecution delegateExecution) throws ApiException {
         documentServiceApiProvider.assignApprovers(generateAssignApproversApiRequest(
-                (List<ApprovalOrderModel>) delegateExecution.getVariable(APPROVERS),
+                (List<String>) delegateExecution.getVariable(APPROVERS),
                 (String) delegateExecution.getVariable(DOCUMENT_ID),
                 (String) delegateExecution.getVariable(DELEGATOR_ID)
         ));
     }
 
-    private AssignApprovers generateAssignApproversApiRequest(List<ApprovalOrderModel> approvers, String documentId, String delegatorId) {
+    private AssignApprovers generateAssignApproversApiRequest(List<String> approvers, String documentId, String delegatorId) {
         AssignApprovers assignApprovers = new AssignApprovers();
-        assignApprovers.setApprovers(approvers);
+        assignApprovers.setApprovers(resolveApprovers(approvers));
         assignApprovers.setDocumentId(UUID.fromString(documentId));
         assignApprovers.setDelegatorId(UUID.fromString(delegatorId));
         return assignApprovers;
+    }
+
+    private List<ApprovalOrderModel> resolveApprovers(List<String> approvers) {
+        List<ApprovalOrderModel> approvalOrderModels = new ArrayList<>();
+        for (int i = 0; i < approvers.size(); i++) {
+            approvalOrderModels.add(generateApprovalOrderModel((int) i + 1, approvers.get(i)));
+        }
+        return approvalOrderModels;
+    }
+
+    private ApprovalOrderModel generateApprovalOrderModel(int order, String approverId) {
+        ApprovalOrderModel orderModel = new ApprovalOrderModel();
+        orderModel.setOrder(order);
+        orderModel.setApproverId(UUID.fromString(approverId));
+        return orderModel;
     }
 }

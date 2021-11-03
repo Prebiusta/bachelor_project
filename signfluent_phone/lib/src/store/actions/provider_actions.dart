@@ -1,12 +1,14 @@
 import 'package:flutter_redux_navigation/flutter_redux_navigation.dart';
 import 'package:redux/redux.dart';
 import 'package:redux_thunk/redux_thunk.dart';
+import 'package:signfluent_phone/src/provider/bpm_service_api_provider.dart';
 import 'package:signfluent_phone/src/routes/routes.dart';
 import 'package:signfluent_phone/src/service/api_provider.dart';
-import 'package:signfluent_phone/src/service/user_service.dart';
 import 'package:signfluent_phone/src/service_location.dart';
 
-final UserService _userService = getIt<UserService>();
+final BpmServiceApiProvider _bpmServiceApiProvider =
+    getIt<BpmServiceApiProvider>();
+
 final ApiProvider _apiProvider = getIt<ApiProvider>();
 
 class SetProviderLoading {
@@ -27,39 +29,26 @@ ThunkAction verifyExistingURL() {
   return (Store store) async {
     Future(() async {
       store.dispatch(SetProviderLoading(true));
-      String? baseURL = await _apiProvider.getBasePath();
-      if (baseURL != null) {
-        _userService.ping(baseURL).then((bool successful) async {
-          if (successful) {
-            store.dispatch(NavigateToAction.replace(loginBasePath));
-          }
-          store.dispatch(SetProviderLoading(false));
-        }, onError: (_) {
-          store.dispatch(SetProviderLoading(false));
-        });
-      } else {
-        store.dispatch(SetProviderLoading(false));
-      }
+      _bpmServiceApiProvider
+          .ping()
+          .then((value) =>
+              store.dispatch(NavigateToAction.replace(loginBasePath)))
+          .then((value) => store.dispatch(SetProviderLoading(false)))
+          .catchError((err) => store.dispatch(SetProviderLoading(false)));
     });
   };
 }
-
 
 ThunkAction verifyProvider(String baseURL) {
   return (Store store) async {
     Future(() async {
       store.dispatch(SetProviderLoading(true));
-      _userService.ping(baseURL).then((bool successful) async {
-        if (successful) {
-          await _apiProvider.setBasePath(baseURL);
-          store.dispatch(SetProviderSuccessful());
-          store.dispatch(NavigateToAction.replace(loginBasePath));
-        } else {
-          store.dispatch(SetProviderError("Provider responded with wrong message"));
-        }
-      }, onError: (_) {
-        store.dispatch(SetProviderError("Unable to reach provider"));
-      });
+      await _apiProvider.setBasePath(baseURL);
+      _bpmServiceApiProvider.ping().then((value) {
+        store.dispatch(SetProviderSuccessful());
+        store.dispatch(NavigateToAction.replace(loginBasePath));
+      }).catchError((error, stackTrace) =>
+          store.dispatch(SetProviderError("Unable to reach provider")));
     });
   };
 }

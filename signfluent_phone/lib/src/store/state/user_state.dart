@@ -1,12 +1,12 @@
+import 'package:bpm_service_api/bpm_service_api.dart';
 import 'package:flutter/material.dart';
-import 'package:signfluent_phone/src/model/authentication_response.dart';
 
 @immutable
 class UserState {
   final bool isLoading;
   final bool loginError;
   final String? token;
-  final AuthenticateResponse? authenticationResponse;
+  final AuthenticationResponse? authenticationResponse;
 
   const UserState({
     required this.isLoading,
@@ -27,7 +27,7 @@ class UserState {
       {bool? isLoading,
       bool? loginError,
       String? token,
-      AuthenticateResponse? authenticationResponse}) {
+      AuthenticationResponse? authenticationResponse}) {
     return UserState(
         isLoading: isLoading ?? this.isLoading,
         loginError: loginError ?? this.loginError,

@@ -15,9 +15,10 @@
 							"listen": "test",
 							"script": {
 								"exec": [
-									"const {user} = pm.response.json();",
+									"const {userId, token} = pm.response.json();",
 									"",
-									"pm.environment.set(\"currentUserId\", user.id);",
+									"pm.environment.set(\"currentUserId\", userId);",
+									"pm.environment.set(\"bearerToken\", token);",
 									""
 								],
 								"type": "text/javascript"
@@ -25,11 +26,14 @@
 						}
 					],
 					"request": {
+						"auth": {
+							"type": "noauth"
+						},
 						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"email\": \"user@signfluent.com\",\n    \"password\": \"123456\"\n}",
+							"raw": "{\n    \"username\": \"admin\",\n    \"password\": \"admin\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -47,77 +51,55 @@
 							]
 						}
 					},
-					"response": [
+					"response": []
+				},
+				{
+					"name": "Refresh Token",
+					"event": [
 						{
-							"name": "Authenticate",
-							"originalRequest": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n    \"email\": \"user@signfluent.com\",\n    \"password\": \"123456\"\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{userServiceURL}}/api/authenticate",
-									"host": [
-										"{{userServiceURL}}"
-									],
-									"path": [
-										"api",
-										"authenticate"
-									]
-								}
-							},
-							"status": "OK",
-							"code": 200,
-							"_postman_previewlanguage": "json",
-							"header": [
-								{
-									"key": "Vary",
-									"value": "Origin"
-								},
-								{
-									"key": "Vary",
-									"value": "Access-Control-Request-Method"
-								},
-								{
-									"key": "Vary",
-									"value": "Access-Control-Request-Headers"
-								},
-								{
-									"key": "Content-Type",
-									"value": "application/json"
-								},
-								{
-									"key": "Transfer-Encoding",
-									"value": "chunked"
-								},
-								{
-									"key": "Date",
-									"value": "Fri, 22 Oct 2021 22:30:25 GMT"
-								},
-								{
-									"key": "Keep-Alive",
-									"value": "timeout=60"
-								},
-								{
-									"key": "Connection",
-									"value": "keep-alive"
-								}
-							],
-							"cookie": [],
-							"body": "{\n    \"message\": \"Success\",\n    \"successful\": true,\n    \"user\": {\n        \"id\": \"0b80baf8-df1f-4a29-a9fa-dc5f6f512add\",\n        \"name\": \"user\",\n        \"email\": \"user@signfluent.com\"\n    }\n}"
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
 						}
-					]
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"refreshToken\": \"eyJhbGciOiJIUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICI5MDVmZjgzNy1lMmVkLTQxYWUtYjM0ZS0yNWM4YmFlNzJhNWUifQ.eyJleHAiOjE2MzUzMzI4MzYsImlhdCI6MTYzNTMzMTAzNiwianRpIjoiODRlZjA3NzgtN2Y3Yy00Y2M5LWIzYzktODE1MjJhMjFlMDEwIiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo4MDgwL2F1dGgvcmVhbG1zL21hc3RlciIsImF1ZCI6Imh0dHA6Ly9sb2NhbGhvc3Q6ODA4MC9hdXRoL3JlYWxtcy9tYXN0ZXIiLCJzdWIiOiI2M2MyZjdlZC03YjRlLTRhNWEtYTg0Ny00NDY2ZmM2ZGNmZTYiLCJ0eXAiOiJSZWZyZXNoIiwiYXpwIjoic2lnbmZsdWVudCIsInNlc3Npb25fc3RhdGUiOiI1YTM2NDViNS0yMWI4LTQ4ZTgtYmEyOC04MWMyYjEyM2Y4ODQiLCJzY29wZSI6ImVtYWlsIHByb2ZpbGUiLCJzaWQiOiI1YTM2NDViNS0yMWI4LTQ4ZTgtYmEyOC04MWMyYjEyM2Y4ODQifQ.dMbPgON3Aohd0OcVUAW0opWl2RcKAo-PNVc2s3JtN5c\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{userServiceURL}}/api/refreshToken",
+							"host": [
+								"{{userServiceURL}}"
+							],
+							"path": [
+								"api",
+								"refreshToken"
+							]
+						}
+					},
+					"response": []
 				},
 				{
 					"name": "Get Available Approvers",
 					"request": {
+						"auth": {
+							"type": "noauth"
+						},
 						"method": "POST",
 						"header": [],
 						"body": {
@@ -140,64 +122,187 @@
 							]
 						}
 					},
-					"response": [
-						{
-							"name": "Get Available Approvers",
-							"originalRequest": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{userServiceURL}}/api/getAvailableApprovers",
-									"host": [
-										"{{userServiceURL}}"
-									],
-									"path": [
-										"api",
-										"getAvailableApprovers"
-									]
+					"response": []
+				},
+				{
+					"name": "Create User",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"david\",\n    \"email\": \"david@signfluent.com\",\n    \"lastName\": \"Franko\",\n    \"firstName\": \"David\",\n    \"password\": \"123456\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
 								}
-							},
-							"status": "OK",
-							"code": 200,
-							"_postman_previewlanguage": "json",
-							"header": [
-								{
-									"key": "Vary",
-									"value": "Origin"
-								},
-								{
-									"key": "Vary",
-									"value": "Access-Control-Request-Method"
-								},
-								{
-									"key": "Vary",
-									"value": "Access-Control-Request-Headers"
-								},
-								{
-									"key": "Content-Type",
-									"value": "application/json"
-								},
-								{
-									"key": "Transfer-Encoding",
-									"value": "chunked"
-								},
-								{
-									"key": "Date",
-									"value": "Mon, 11 Oct 2021 17:14:48 GMT"
-								},
-								{
-									"key": "Keep-Alive",
-									"value": "timeout=60"
-								},
-								{
-									"key": "Connection",
-									"value": "keep-alive"
-								}
+							}
+						},
+						"url": {
+							"raw": "{{userServiceURL}}/api/create",
+							"host": [
+								"{{userServiceURL}}"
 							],
-							"cookie": [],
-							"body": "[\n    {\n        \"id\": \"5c10b7d4-3c42-4c16-b1a0-0131951177ea\",\n        \"name\": \"User Temp #0\",\n        \"email\": \"User Temp #0@signfluent.com\"\n    },\n    {\n        \"id\": \"f4c318ba-d051-4eac-be62-180744a3d83c\",\n        \"name\": \"User Temp #1\",\n        \"email\": \"User Temp #1@signfluent.com\"\n    },\n    {\n        \"id\": \"93b6efd6-c4b4-4224-b264-2974cc51c5d6\",\n        \"name\": \"User Temp #2\",\n        \"email\": \"User Temp #2@signfluent.com\"\n    },\n    {\n        \"id\": \"c991b926-36fe-4d25-adcc-89927549580e\",\n        \"name\": \"User Temp #3\",\n        \"email\": \"User Temp #3@signfluent.com\"\n    },\n    {\n        \"id\": \"74c8742d-0a9f-4fd7-b881-66ec2f1eeeca\",\n        \"name\": \"User Temp #4\",\n        \"email\": \"User Temp #4@signfluent.com\"\n    },\n    {\n        \"id\": \"be4961a7-e56c-4119-b065-a7e63079ad5c\",\n        \"name\": \"User Temp #5\",\n        \"email\": \"User Temp #5@signfluent.com\"\n    },\n    {\n        \"id\": \"e9fca47e-1bc3-471b-981e-940a62231f53\",\n        \"name\": \"User Temp #6\",\n        \"email\": \"User Temp #6@signfluent.com\"\n    },\n    {\n        \"id\": \"f4350e9d-bb54-4857-a73f-21bf17c39ad0\",\n        \"name\": \"User Temp #7\",\n        \"email\": \"User Temp #7@signfluent.com\"\n    },\n    {\n        \"id\": \"109dafdd-83f3-420c-a060-df3ed0c65db8\",\n        \"name\": \"User Temp #8\",\n        \"email\": \"User Temp #8@signfluent.com\"\n    },\n    {\n        \"id\": \"1a4b489d-bba1-4860-a1ff-adfd0ddf03de\",\n        \"name\": \"User Temp #9\",\n        \"email\": \"User Temp #9@signfluent.com\"\n    }\n]"
+							"path": [
+								"api",
+								"create"
+							]
 						}
-					]
+					},
+					"response": []
+				},
+				{
+					"name": "Assign Role",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"userId\": \"45b91268-63c2-4e6c-94ff-189d99171202\",\n    \"role\": \"administrator\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{userServiceURL}}/api/assignRole",
+							"host": [
+								"{{userServiceURL}}"
+							],
+							"path": [
+								"api",
+								"assignRole"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Revoke Role",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"userId\": \"{{currentUserId}}\",\n    \"role\": \"approver\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{userServiceURL}}/api/revokeRole",
+							"host": [
+								"{{userServiceURL}}"
+							],
+							"path": [
+								"api",
+								"revokeRole"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Available Roles",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{userServiceURL}}/api/getAvailableRoles",
+							"host": [
+								"{{userServiceURL}}"
+							],
+							"path": [
+								"api",
+								"getAvailableRoles"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Roles For User",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"userId\": \"45b91268-63c2-4e6c-94ff-189d99171202\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{userServiceURL}}/api/getRolesForUser",
+							"host": [
+								"{{userServiceURL}}"
+							],
+							"path": [
+								"api",
+								"getRolesForUser"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Users By Ids",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "[\"63c2f7ed-7b4e-4a5a-a847-4466fc6dcfe6\"]\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{userServiceURL}}/api/getUsersByIds",
+							"host": [
+								"{{userServiceURL}}"
+							],
+							"path": [
+								"api",
+								"getUsersByIds"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -603,7 +708,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"uploaderId\": \"4da64240-b567-44fc-98c7-5d1f91cb9982\",\n    \"description\": \"Test Doc\",\n    \"encodedContent\": \"ZG9jdW1lbnQ=\"\n}",
+							"raw": "{\n    \"uploaderId\": \"4da64240-b567-44fc-98c7-5d1f91cb9982\",\n    \"description\": \"Test Doc\",\n    \"encodedContent\": \"JVBERi0xLjcNCiW1tbW1DQoxIDAgb2JqDQo8PC9UeXBlL0NhdGFsb2cvUGFnZXMgMiAwIFIvTGFuZyhlbi1ESykgL1N0cnVjdFRyZWVSb290IDEwIDAgUi9NYXJrSW5mbzw8L01hcmtlZCB0cnVlPj4vTWV0YWRhdGEgMjAgMCBSL1ZpZXdlclByZWZlcmVuY2VzIDIxIDAgUj4+DQplbmRvYmoNCjIgMCBvYmoNCjw8L1R5cGUvUGFnZXMvQ291bnQgMS9LaWRzWyAzIDAgUl0gPj4NCmVuZG9iag0KMyAwIG9iag0KPDwvVHlwZS9QYWdlL1BhcmVudCAyIDAgUi9SZXNvdXJjZXM8PC9Gb250PDwvRjEgNSAwIFI+Pi9FeHRHU3RhdGU8PC9HUzcgNyAwIFIvR1M4IDggMCBSPj4vUHJvY1NldFsvUERGL1RleHQvSW1hZ2VCL0ltYWdlQy9JbWFnZUldID4+L01lZGlhQm94WyAwIDAgNTk1LjMyIDg0MS45Ml0gL0NvbnRlbnRzIDQgMCBSL0dyb3VwPDwvVHlwZS9Hcm91cC9TL1RyYW5zcGFyZW5jeS9DUy9EZXZpY2VSR0I+Pi9UYWJzL1MvU3RydWN0UGFyZW50cyAwPj4NCmVuZG9iag0KNCAwIG9iag0KPDwvRmlsdGVyL0ZsYXRlRGVjb2RlL0xlbmd0aCAyMDE+Pg0Kc3RyZWFtDQp4nK2OsQrCMBRF90D+4Y6JYJrUtElBHGytKApKKg7i4FCLoEFt/X9TcXH3wRsO7/LuQeTuJ4/xOFrniwIyWp18A1b74c7xyQTTIseDEilkP9YaBYkkS8QohtVKZDGeNSX7ATwl04qSqFRQSkiN6kxJn5ZQMLGQsYZJMqEtqlvIzZ1B04bXaD5kvzSn5MDchWvWhPV8xM7XF0+DUoeODzWr244bhk24Fj2X/IhqSckstG8p+YOtSlJhfmw/kl83/PZhts7xBsn9QyANCmVuZHN0cmVhbQ0KZW5kb2JqDQo1IDAgb2JqDQo8PC9UeXBlL0ZvbnQvU3VidHlwZS9UcnVlVHlwZS9OYW1lL0YxL0Jhc2VGb250L0JDREVFRStDYWxpYnJpL0VuY29kaW5nL1dpbkFuc2lFbmNvZGluZy9Gb250RGVzY3JpcHRvciA2IDAgUi9GaXJzdENoYXIgMzIvTGFz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wq4gV29yZCBmb3IgTWljcm9zb2Z0IDM2NTwveG1wOkNyZWF0b3JUb29sPjx4bXA6Q3JlYXRlRGF0ZT4yMDIxLTEwLTExVDE4OjI4OjMxKzAyOjAwPC94bXA6Q3JlYXRlRGF0ZT48eG1wOk1vZGlmeURhdGU+MjAyMS0xMC0xMVQxODoyODozMSswMjowMDwveG1wOk1vZGlmeURhdGU+PC9yZGY6RGVzY3JpcHRpb24+CjxyZGY6RGVzY3JpcHRpb24gcmRmOmFib3V0PSIiICB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyI+Cjx4bXBNTTpEb2N1bWVudElEPnV1aWQ6MzYzM0NDMjUtRkYyNC00QTE3LUFDRDUtOEE1RDEyQzJENDBCPC94bXBNTTpEb2N1bWVudElEPjx4bXBNTTpJbnN0YW5jZUlEPnV1aWQ6MzYzM0NDMjUtRkYyNC00QTE3LUFDRDUtOEE1RDEyQzJENDBCPC94bXBNTTpJbnN0YW5jZUlEPjwvcmRmOkRlc2NyaXB0aW9uPgogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKPC9yZGY6UkRGPjwveDp4bXBtZXRhPjw/eHBhY2tldCBlbmQ9InciPz4NCmVuZHN0cmVhbQ0KZW5kb2JqDQoyMSAwIG9iag0KPDwvRGlzcGxheURvY1RpdGxlIHRydWU+Pg0KZW5kb2JqDQoyMiAwIG9iag0KPDwvVHlwZS9YUmVmL1NpemUgMjIvV1sgMSA0IDJdIC9Sb290IDEgMCBSL0luZm8gOSAwIFIvSURbPDI1Q0MzMzM2MjRGRjE3NEFBQ0Q1OEE1RDEyQzJENDBCPjwyNUNDMzMzNjI0RkYxNzRBQUNENThBNUQxMkMyRDQwQj5dIC9GaWx0ZXIvRmxhdGVEZWNvZGUvTGVuZ3RoIDg3Pj4NCnN0cmVhbQ0KeJxjYACC//8ZgaQgAwOIWgah7oEpxjdgiuk/mGJeDqZYpkGo02CKFaiYCaydCUIxQygWCMUKoRghFFQlG1AfmzpYO/tmMMUxCUxVvwNTHYkMDAAL+gwVDQplbmRzdHJlYW0NCmVuZG9iag0KeHJlZg0KMCAyMw0KMDAwMDAwMDAxMCA2NTUzNSBmDQowMDAwMDAwMDE3IDAwMDAwIG4NCjAwMDAwMDAxNjYgMDAwMDAgbg0KMDAwMDAwMDIyMiAwMDAwMCBuDQowMDAwMDAwNDkyIDAwMDAwIG4NCjAwMDAwMDA3NjcgMDAwMDAgbg0KMDAwMDAwMDkzNSAwMDAwMCBuDQowMDAwMDAxMTc0IDAwMDAwIG4NCjAwMDAwMDEyMjcgMDAwMDAgbg0KMDAwMDAwMTI4MCAwMDAwMCBuDQowMDAwMDAwMDExIDY1NTM1IGYNCjAwMDAwMDAwMTIgNjU1MzUgZg0KMDAwMDAwMDAxMyA2NTUzNSBmDQowMDAwMDAwMDE0IDY1NTM1IGYNCjAwMDAwMDAwMTUgNjU1MzUgZg0KMDAwMDAwMDAxNiA2NTUzNSBmDQowMDAwMDAwMDE3IDY1NTM1IGYNCjAwMDAwMDAwMDAgNjU1MzUgZg0KMDAwMDAwMTk3MSAwMDAwMCBuDQowMDAwMDAyMTk0IDAwMDAwIG4NCjAwMDAwMzE3MjYgMDAwMDAgbg0KMDAwMDAzNDkxMyAwMDAwMCBuDQowMDAwMDM0OTU4IDAwMDAwIG4NCnRyYWlsZXINCjw8L1NpemUgMjMvUm9vdCAxIDAgUi9JbmZvIDkgMCBSL0lEWzwyNUNDMzMzNjI0RkYxNzRBQUNENThBNUQxMkMyRDQwQj48MjVDQzMzMzYyNEZGMTc0QUFDRDU4QTVEMTJDMkQ0MEI+XSA+Pg0Kc3RhcnR4cmVmDQozNTI0NA0KJSVFT0YNCnhyZWYNCjAgMA0KdHJhaWxlcg0KPDwvU2l6ZSAyMy9Sb290IDEgMCBSL0luZm8gOSAwIFIvSURbPDI1Q0MzMzM2MjRGRjE3NEFBQ0Q1OEE1RDEyQzJENDBCPjwyNUNDMzMzNjI0RkYxNzRBQUNENThBNUQxMkMyRDQwQj5dIC9QcmV2IDM1MjQ0L1hSZWZTdG0gMzQ5NTg+Pg0Kc3RhcnR4cmVmDQozNTg2MA0KJSVFT0Y=\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -840,7 +945,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"userId\": \"4da64240-b567-44fc-98c7-5d1f91cb9982\",\n    \"document\": \"ZG9jdW1lbnQ=\",\n    \"description\": \"This is some dummy description\"\n}",
+									"raw": "{\n    \"document\": \"ZG9jdW1lbnQ=\",\n    \"description\": \"This is some dummy description\"\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -896,7 +1001,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "// {\n//     \"response\": {\n//         \"documentsForDelegation\": [\n//             {\n//                 \"taskId\": \"cba00e70-29e2-4dc3-a0ae-6d9c983358ed\",\n//                 \"document\": {\n//                     \"description\": \"I am document\",\n//                     \"status\": \"RECEIVED\",\n//                     \"uploadedBy\": \"cba00e70-29e2-4dc3-a0ae-6d9c983358ed\",\n//                     \"uploadedDate\": \"asdasda\"\n//                 }\n//             },\n//              {\n//                 \"taskId\": \"cba00e70-29e2-4dc3-a0ae-6d9c983358ed\",\n//                 \"document\": {\n//                     \"description\": \"I am document 2\",\n//                     \"status\": \"RECEIVED\",\n//                     \"uploadedBy\": \"cba00e70-29e2-4dc3-a0ae-6d9c983358ed\",\n//                     \"uploadedDate\": \"asdasda\"\n//                 }\n//             }\n//         ]\n//     }\n// }",
+									"raw": "",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -915,7 +1020,86 @@
 									]
 								}
 							},
-							"response": []
+							"response": [
+								{
+									"name": "Get Documents For Inspection",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{bpmServiceURL}}/api/signingProcess/getDocumentsForInspection",
+											"host": [
+												"{{bpmServiceURL}}"
+											],
+											"path": [
+												"api",
+												"signingProcess",
+												"getDocumentsForInspection"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "X-Content-Type-Options",
+											"value": "nosniff"
+										},
+										{
+											"key": "X-XSS-Protection",
+											"value": "1; mode=block"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, no-store, max-age=0, must-revalidate"
+										},
+										{
+											"key": "Pragma",
+											"value": "no-cache"
+										},
+										{
+											"key": "Expires",
+											"value": "0"
+										},
+										{
+											"key": "X-Frame-Options",
+											"value": "DENY"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Transfer-Encoding",
+											"value": "chunked"
+										},
+										{
+											"key": "Date",
+											"value": "Wed, 27 Oct 2021 19:50:13 GMT"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=60"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										}
+									],
+									"cookie": [],
+									"body": "[\n    {\n        \"taskId\": \"17855ed8-375f-11ec-a903-8a6a603d3056\",\n        \"document\": {\n            \"description\": \"This is some dummy description\",\n            \"uploadedBy\": {\n                \"email\": \"angel@signfluent.com\",\n                \"firstName\": \"David\",\n                \"id\": \"f21b0fb1-d483-4b05-a293-404066fd767b\",\n                \"lastName\": \"Franko\",\n                \"username\": \"angel\"\n            },\n            \"status\": \"RECEIVED\",\n            \"uploadedAt\": \"2021-10-27T19:50:09.762Z\"\n        }\n    },\n    {\n        \"taskId\": \"ef081332-375e-11ec-a903-8a6a603d3056\",\n        \"document\": {\n            \"description\": \"This is some dummy description\",\n            \"uploadedBy\": {\n                \"email\": \"info@signfluent.com\",\n                \"firstName\": \"Signfluent\",\n                \"id\": \"9f839275-6260-4748-bef3-9206d82cc7e6\",\n                \"lastName\": \"Admin\",\n                \"username\": \"administrator\"\n            },\n            \"status\": \"RECEIVED\",\n            \"uploadedAt\": \"2021-10-27T19:49:01.755Z\"\n        }\n    }\n]"
+								}
+							]
 						},
 						{
 							"name": "Get Document Content",
@@ -924,7 +1108,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"taskId\": \"60e5bf12-318a-11ec-9bbe-d22282faef24\"\n}\n\n\n// \"response\": {\n//         \"document\": {\n//             \"documentId\": \"cba00e70-29e2-4dc3-a0ae-6d9c983358ed\",\n//             \"description\": \"I am document\",\n//             \"status\": \"RECEIVED\",\n//             \"uploadedBy\": \"cba00e70-29e2-4dc3-a0ae-6d9c983358ed\",\n//             \"uploadedDate\": \"asdasda\",\n//             \"content\": \"ASdASDasdASdfjkASLDnaSLNDaSLKd==\"\n//         }\n//     }",
+									"raw": "{\n    \"taskId\": \"70470ead-3757-11ec-a2ac-8a6a603d3056\"\n}\n\n\n// \"response\": {\n//         \"document\": {\n//             \"documentId\": \"cba00e70-29e2-4dc3-a0ae-6d9c983358ed\",\n//             \"description\": \"I am document\",\n//             \"status\": \"RECEIVED\",\n//             \"uploadedBy\": \"cba00e70-29e2-4dc3-a0ae-6d9c983358ed\",\n//             \"uploadedDate\": \"asdasda\",\n//             \"content\": \"ASdASDasdASdfjkASLDnaSLNDaSLKd==\"\n//         }\n//     }",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -943,7 +1127,86 @@
 									]
 								}
 							},
-							"response": []
+							"response": [
+								{
+									"name": "Get Document Content",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"taskId\": \"70470ead-3757-11ec-a2ac-8a6a603d3056\"\n}\n\n\n// \"response\": {\n//         \"document\": {\n//             \"documentId\": \"cba00e70-29e2-4dc3-a0ae-6d9c983358ed\",\n//             \"description\": \"I am document\",\n//             \"status\": \"RECEIVED\",\n//             \"uploadedBy\": \"cba00e70-29e2-4dc3-a0ae-6d9c983358ed\",\n//             \"uploadedDate\": \"asdasda\",\n//             \"content\": \"ASdASDasdASdfjkASLDnaSLNDaSLKd==\"\n//         }\n//     }",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{bpmServiceURL}}/api/signingProcess/getDocumentDetails",
+											"host": [
+												"{{bpmServiceURL}}"
+											],
+											"path": [
+												"api",
+												"signingProcess",
+												"getDocumentDetails"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "X-Content-Type-Options",
+											"value": "nosniff"
+										},
+										{
+											"key": "X-XSS-Protection",
+											"value": "1; mode=block"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, no-store, max-age=0, must-revalidate"
+										},
+										{
+											"key": "Pragma",
+											"value": "no-cache"
+										},
+										{
+											"key": "Expires",
+											"value": "0"
+										},
+										{
+											"key": "X-Frame-Options",
+											"value": "DENY"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Transfer-Encoding",
+											"value": "chunked"
+										},
+										{
+											"key": "Date",
+											"value": "Wed, 27 Oct 2021 18:56:02 GMT"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=60"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"description\": \"This is some dummy description\",\n    \"uploadedBy\": {\n        \"email\": \"info@signfluent.com\",\n        \"firstName\": \"Signfluent\",\n        \"id\": \"9f839275-6260-4748-bef3-9206d82cc7e6\",\n        \"lastName\": \"Admin\",\n        \"username\": \"administrator\"\n    },\n    \"status\": \"RECEIVED\",\n    \"uploadedAt\": \"2021-10-27T18:55:22.62Z\",\n    \"content\": \"ZG9jdW1lbnQ=\"\n}"
+								}
+							]
 						},
 						{
 							"name": "Inspect Document",
@@ -1085,6 +1348,998 @@
 							},
 							"response": []
 						}
+					],
+					"auth": {
+						"type": "bearer",
+						"bearer": [
+							{
+								"key": "token",
+								"value": "{{bearerToken}}",
+								"type": "string"
+							}
+						]
+					},
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						}
+					]
+				},
+				{
+					"name": "Authentication Controller",
+					"item": [
+						{
+							"name": "Login",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const {userId, token} = pm.response.json();",
+											"",
+											"pm.environment.set(\"currentUserId\", userId);",
+											"pm.environment.set(\"bearerToken\", token);",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"username\": \"angel\",\n    \"password\" : \"123456\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{bpmServiceURL}}/api/auth/login",
+									"host": [
+										"{{bpmServiceURL}}"
+									],
+									"path": [
+										"api",
+										"auth",
+										"login"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Login",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"username\": \"david\",\n    \"password\" : \"123456\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{bpmServiceURL}}/api/auth/login",
+											"host": [
+												"{{bpmServiceURL}}"
+											],
+											"path": [
+												"api",
+												"auth",
+												"login"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "X-Content-Type-Options",
+											"value": "nosniff"
+										},
+										{
+											"key": "X-XSS-Protection",
+											"value": "1; mode=block"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, no-store, max-age=0, must-revalidate"
+										},
+										{
+											"key": "Pragma",
+											"value": "no-cache"
+										},
+										{
+											"key": "Expires",
+											"value": "0"
+										},
+										{
+											"key": "X-Frame-Options",
+											"value": "DENY"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Transfer-Encoding",
+											"value": "chunked"
+										},
+										{
+											"key": "Date",
+											"value": "Mon, 25 Oct 2021 16:12:03 GMT"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=60"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"expiresIn\": 60,\n    \"idToken\": null,\n    \"notBeforePolicy\": 0,\n    \"refreshExpiresIn\": 1800,\n    \"refreshToken\": \"eyJhbGciOiJIUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICI4MjI1YTkyNy1kM2M3LTQzNTUtOTA5ZS1kYzBjZGRjNGVhZmUifQ.eyJleHAiOjE2MzUxODAxMjMsImlhdCI6MTYzNTE3ODMyMywianRpIjoiOWFmMDUwN2EtNzg2Zi00NmZiLTljYWEtZmM0OWNiMWUxN2M5IiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo4MDgwL2F1dGgvcmVhbG1zL21hc3RlciIsImF1ZCI6Imh0dHA6Ly9sb2NhbGhvc3Q6ODA4MC9hdXRoL3JlYWxtcy9tYXN0ZXIiLCJzdWIiOiI0NWI5MTI2OC02M2MyLTRlNmMtOTRmZi0xODlkOTkxNzEyMDIiLCJ0eXAiOiJSZWZyZXNoIiwiYXpwIjoidXNlci1zZXJ2aWNlIiwic2Vzc2lvbl9zdGF0ZSI6IjZmMWRmMmEyLTY2YTYtNDJkNC05OTgwLTI3YTExZTExMDljYiIsInNjb3BlIjoicHJvZmlsZSBlbWFpbCIsInNpZCI6IjZmMWRmMmEyLTY2YTYtNDJkNC05OTgwLTI3YTExZTExMDljYiJ9.hSiwdD_3DB7_sFYy9rIHYTjJX8yzLE0mECFUX5FYLhE\",\n    \"token\": \"eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJ2UlBuaXBKQUVqS1Y0RUk3SEd4RldUVUM2bTNJZ0w3LU9DeTQ0aFZhcVU0In0.eyJleHAiOjE2MzUxNzgzODMsImlhdCI6MTYzNTE3ODMyMywianRpIjoiYmVmMTMwZjQtZDQ5My00Nzg3LTkwYzktMmYyYTEwMDU0MTA2IiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo4MDgwL2F1dGgvcmVhbG1zL21hc3RlciIsImF1ZCI6ImFjY291bnQiLCJzdWIiOiI0NWI5MTI2OC02M2MyLTRlNmMtOTRmZi0xODlkOTkxNzEyMDIiLCJ0eXAiOiJCZWFyZXIiLCJhenAiOiJ1c2VyLXNlcnZpY2UiLCJzZXNzaW9uX3N0YXRlIjoiNmYxZGYyYTItNjZhNi00MmQ0LTk5ODAtMjdhMTFlMTEwOWNiIiwiYWNyIjoiMSIsImFsbG93ZWQtb3JpZ2lucyI6WyJodHRwOi8vbG9jYWxob3N0OjgwMDMiXSwicmVhbG1fYWNjZXNzIjp7InJvbGVzIjpbImFkbWluaXN0cmF0b3IiLCJkZWZhdWx0LXJvbGVzLW1hc3RlciIsIm9mZmxpbmVfYWNjZXNzIiwidW1hX2F1dGhvcml6YXRpb24iXX0sInJlc291cmNlX2FjY2VzcyI6eyJ1c2VyLXNlcnZpY2UiOnsicm9sZXMiOlsiYWRtaW5pc3RyYXRvciJdfSwiYWNjb3VudCI6eyJyb2xlcyI6WyJtYW5hZ2UtYWNjb3VudCIsIm1hbmFnZS1hY2NvdW50LWxpbmtzIiwidmlldy1wcm9maWxlIl19fSwic2NvcGUiOiJwcm9maWxlIGVtYWlsIiwic2lkIjoiNmYxZGYyYTItNjZhNi00MmQ0LTk5ODAtMjdhMTFlMTEwOWNiIiwiZW1haWxfdmVyaWZpZWQiOmZhbHNlLCJuYW1lIjoiRGF2aWQgRnJhbmtvIiwicHJlZmVycmVkX3VzZXJuYW1lIjoiZGF2aWQiLCJnaXZlbl9uYW1lIjoiRGF2aWQiLCJmYW1pbHlfbmFtZSI6IkZyYW5rbyIsImVtYWlsIjoiZGF2aWRAc2lnbmZsdWVudC5jb20ifQ.BGm7SzhpT4oVW9UAC973mRxbZJQeJmm8ciIlpvmyyYNz77Emh9AQeaegTihz_vREbHrjydN60D164grdwAz85eJl67YvvxA_h_hhMaUos_M_RM5yUmDHbduIUPMWv0dId29PTi8EKxe-HNvNp7qjXAHvWv1AbT4GmHImcxELt3NXLeVHMinsml_ExogKPN7ZHowwcrbfV75k-TK49AOd22mXScFY7kPGfbK54XS3k5lfc0jHvvIHpGf6sdmip0j14WNFqe7eWYWbqbEoB_sDoHrvd0HaCS_ET-PCz7utDJ0WncEtnXGCGevgtSz33npESdPveIQP4V6TvNaAjTn7fg\",\n    \"tokenType\": \"Bearer\",\n    \"userId\": \"45b91268-63c2-4e6c-94ff-189d99171202\"\n}"
+								}
+							]
+						},
+						{
+							"name": "Refresh Token",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const {userId, token} = pm.response.json();",
+											"",
+											"pm.environment.set(\"currentUserId\", userId);",
+											"pm.environment.set(\"bearerToken\", token);",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"refreshToken\": \"eyJhbGciOiJIUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICI5MDVmZjgzNy1lMmVkLTQxYWUtYjM0ZS0yNWM4YmFlNzJhNWUifQ.eyJleHAiOjE2MzUzMzQ0NTYsImlhdCI6MTYzNTMzMjY1NiwianRpIjoiZGM2ZmI3MzAtMGVhZC00MzlhLWI2YzYtMmVkYWZlOGE3ZjU0IiwiaXNzIjoiaHR0cDovLzEwLjEwNS44NC43OTo4MDgwL2F1dGgvcmVhbG1zL21hc3RlciIsImF1ZCI6Imh0dHA6Ly8xMC4xMDUuODQuNzk6ODA4MC9hdXRoL3JlYWxtcy9tYXN0ZXIiLCJzdWIiOiI5ZjgzOTI3NS02MjYwLTQ3NDgtYmVmMy05MjA2ZDgyY2M3ZTYiLCJ0eXAiOiJSZWZyZXNoIiwiYXpwIjoic2lnbmZsdWVudCIsInNlc3Npb25fc3RhdGUiOiJlMTcxOGQ4NC01YzI0LTQyMDAtOWE0OS1hNzhkMmEwOWNhMDYiLCJzY29wZSI6ImVtYWlsIHByb2ZpbGUiLCJzaWQiOiJlMTcxOGQ4NC01YzI0LTQyMDAtOWE0OS1hNzhkMmEwOWNhMDYifQ.OycyGq5TgxTJkbO1avnqwpsTA8nMPqjMjowsZvKfWZ8\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{bpmServiceURL}}/api/auth/refreshToken",
+									"host": [
+										"{{bpmServiceURL}}"
+									],
+									"path": [
+										"api",
+										"auth",
+										"refreshToken"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Refresh Token",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"refreshToken\": \"eyJhbGciOiJIUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICI5MDVmZjgzNy1lMmVkLTQxYWUtYjM0ZS0yNWM4YmFlNzJhNWUifQ.eyJleHAiOjE2MzUzMzM4MjcsImlhdCI6MTYzNTMzMjAyNywianRpIjoiMDQzNDgxNTktMTM0Ny00NWMxLWE0YWQtMjNhNTVkZmZlOWQzIiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo4MDgwL2F1dGgvcmVhbG1zL21hc3RlciIsImF1ZCI6Imh0dHA6Ly9sb2NhbGhvc3Q6ODA4MC9hdXRoL3JlYWxtcy9tYXN0ZXIiLCJzdWIiOiI5ZjgzOTI3NS02MjYwLTQ3NDgtYmVmMy05MjA2ZDgyY2M3ZTYiLCJ0eXAiOiJSZWZyZXNoIiwiYXpwIjoic2lnbmZsdWVudCIsInNlc3Npb25fc3RhdGUiOiJjZjRjZWJmZS04MzFlLTRhNjEtOTBlOC1iZGViYTY3MjRjODUiLCJzY29wZSI6ImVtYWlsIHByb2ZpbGUiLCJzaWQiOiJjZjRjZWJmZS04MzFlLTRhNjEtOTBlOC1iZGViYTY3MjRjODUifQ.N880EA4MSO5BJv29K_7i0rNqbLG_A8vG3BfkSfCF-XA\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{bpmServiceURL}}/api/auth/refreshToken",
+											"host": [
+												"{{bpmServiceURL}}"
+											],
+											"path": [
+												"api",
+												"auth",
+												"refreshToken"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "X-Content-Type-Options",
+											"value": "nosniff"
+										},
+										{
+											"key": "X-XSS-Protection",
+											"value": "1; mode=block"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, no-store, max-age=0, must-revalidate"
+										},
+										{
+											"key": "Pragma",
+											"value": "no-cache"
+										},
+										{
+											"key": "Expires",
+											"value": "0"
+										},
+										{
+											"key": "X-Frame-Options",
+											"value": "DENY"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Transfer-Encoding",
+											"value": "chunked"
+										},
+										{
+											"key": "Date",
+											"value": "Wed, 27 Oct 2021 10:54:24 GMT"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=60"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"expiresIn\": 35963,\n    \"refreshExpiresIn\": 1800,\n    \"refreshToken\": \"eyJhbGciOiJIUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICI5MDVmZjgzNy1lMmVkLTQxYWUtYjM0ZS0yNWM4YmFlNzJhNWUifQ.eyJleHAiOjE2MzUzMzM4NjQsImlhdCI6MTYzNTMzMjA2NCwianRpIjoiYzc1ODFiYTItOWE0MS00MDFiLTg3ZjAtNzA0OGI0ZjUxNWY1IiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo4MDgwL2F1dGgvcmVhbG1zL21hc3RlciIsImF1ZCI6Imh0dHA6Ly9sb2NhbGhvc3Q6ODA4MC9hdXRoL3JlYWxtcy9tYXN0ZXIiLCJzdWIiOiI5ZjgzOTI3NS02MjYwLTQ3NDgtYmVmMy05MjA2ZDgyY2M3ZTYiLCJ0eXAiOiJSZWZyZXNoIiwiYXpwIjoic2lnbmZsdWVudCIsInNlc3Npb25fc3RhdGUiOiJjZjRjZWJmZS04MzFlLTRhNjEtOTBlOC1iZGViYTY3MjRjODUiLCJzY29wZSI6ImVtYWlsIHByb2ZpbGUiLCJzaWQiOiJjZjRjZWJmZS04MzFlLTRhNjEtOTBlOC1iZGViYTY3MjRjODUifQ.Ed0mrUEH5rAler4ETxlrq1WUWUOo1bPH0dUxiitFX0c\",\n    \"token\": \"eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICI1eFNrUGdQYlZDVm5fUWNxTGd4STNfMDV3Q1NfVHNBV0lJRFdIUWhOM1U0In0.eyJleHAiOjE2MzUzNjgwMjcsImlhdCI6MTYzNTMzMjA2NCwianRpIjoiODY5ZDZmODktYzQzNi00NzZjLTlmMTgtN2VlZmFhNGYxNGZhIiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo4MDgwL2F1dGgvcmVhbG1zL21hc3RlciIsImF1ZCI6ImFjY291bnQiLCJzdWIiOiI5ZjgzOTI3NS02MjYwLTQ3NDgtYmVmMy05MjA2ZDgyY2M3ZTYiLCJ0eXAiOiJCZWFyZXIiLCJhenAiOiJzaWduZmx1ZW50Iiwic2Vzc2lvbl9zdGF0ZSI6ImNmNGNlYmZlLTgzMWUtNGE2MS05MGU4LWJkZWJhNjcyNGM4NSIsImFjciI6IjEiLCJhbGxvd2VkLW9yaWdpbnMiOlsiaHR0cDovL2xvY2FsaG9zdDo4MDAwIl0sInJlYWxtX2FjY2VzcyI6eyJyb2xlcyI6WyJhZG1pbmlzdHJhdG9yIiwiZGVmYXVsdC1yb2xlcy1tYXN0ZXIiLCJvZmZsaW5lX2FjY2VzcyIsInVtYV9hdXRob3JpemF0aW9uIl19LCJyZXNvdXJjZV9hY2Nlc3MiOnsic2lnbmZsdWVudCI6eyJyb2xlcyI6WyJhZG1pbmlzdHJhdG9yIl19LCJhY2NvdW50Ijp7InJvbGVzIjpbIm1hbmFnZS1hY2NvdW50IiwibWFuYWdlLWFjY291bnQtbGlua3MiLCJ2aWV3LXByb2ZpbGUiXX19LCJzY29wZSI6ImVtYWlsIHByb2ZpbGUiLCJzaWQiOiJjZjRjZWJmZS04MzFlLTRhNjEtOTBlOC1iZGViYTY3MjRjODUiLCJlbWFpbF92ZXJpZmllZCI6dHJ1ZSwibmFtZSI6IlNpZ25mbHVlbnQgQWRtaW4iLCJwcmVmZXJyZWRfdXNlcm5hbWUiOiJhZG1pbmlzdHJhdG9yIiwiZ2l2ZW5fbmFtZSI6IlNpZ25mbHVlbnQiLCJmYW1pbHlfbmFtZSI6IkFkbWluIiwiZW1haWwiOiJpbmZvQHNpZ25mbHVlbnQuY29tIn0.VFRqcQOYaLj99M2FRhpgDurpLrzBtEYtl6qpYq1bqyLSwXQS-tydfgepE6jNSFd4ahka8hhZDFh41Pvm-2hW2x6a-b0fdlhnPHuXse2M_3F5vDhcP3ooKk0d8PY0Cxvepyq5VxuaXQ7hFHWg8EJ6r2q9IrSZTkYLF7DkldHxrpyMRlsF_6iQTsbmGbNsuzvrn904NOEEx2Krr6wKPer3SvDWwM3ALARPqZNmfukLfDyBD1HaPpTcrLod2nfE7FkGV4bEnurN9L7rS2ODYD4FRFQ3i5S5uL_vHpmdCoGOxzT0ac-fTCR2UhsWgE2vMZr7uWqLBxEPlFHXG0ilV1jvnw\",\n    \"userId\": \"9f839275-6260-4748-bef3-9206d82cc7e6\"\n}"
+								}
+							]
+						},
+						{
+							"name": "Create User",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"username\": \"angel\",\n    \"email\": \"angel@signfluent.com\",\n    \"lastName\": \"Franko\",\n    \"firstName\": \"David\",\n    \"password\": \"123456\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{bpmServiceURL}}/api/auth/createUser",
+									"host": [
+										"{{bpmServiceURL}}"
+									],
+									"path": [
+										"api",
+										"auth",
+										"createUser"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Create User",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"username\": \"angel\",\n    \"email\": \"angel@signfluent.com\",\n    \"lastName\": \"Franko\",\n    \"firstName\": \"David\",\n    \"password\": \"123456\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{bpmServiceURL}}/api/auth/createUser",
+											"host": [
+												"{{bpmServiceURL}}"
+											],
+											"path": [
+												"api",
+												"auth",
+												"createUser"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "X-Content-Type-Options",
+											"value": "nosniff"
+										},
+										{
+											"key": "X-XSS-Protection",
+											"value": "1; mode=block"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, no-store, max-age=0, must-revalidate"
+										},
+										{
+											"key": "Pragma",
+											"value": "no-cache"
+										},
+										{
+											"key": "Expires",
+											"value": "0"
+										},
+										{
+											"key": "X-Frame-Options",
+											"value": "DENY"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Transfer-Encoding",
+											"value": "chunked"
+										},
+										{
+											"key": "Date",
+											"value": "Mon, 25 Oct 2021 16:11:59 GMT"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=60"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"userId\": \"595bfebf-a4d1-4b01-9e63-c6e8b0db0c0e\"\n}"
+								}
+							]
+						}
+					],
+					"auth": {
+						"type": "bearer",
+						"bearer": [
+							{
+								"key": "token",
+								"value": "{{bearerToken}}",
+								"type": "string"
+							}
+						]
+					},
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						}
+					]
+				},
+				{
+					"name": "Role Management Controller",
+					"item": [
+						{
+							"name": "Assign Role",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"userId\": \"{{currentUserId}}\",\n    \"role\": \"approver\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{bpmServiceURL}}/api/role/assign",
+									"host": [
+										"{{bpmServiceURL}}"
+									],
+									"path": [
+										"api",
+										"role",
+										"assign"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Assign Role",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"userId\": \"45b91268-63c2-4e6c-94ff-189d99171202\",\n    \"role\": \"administrator\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{bpmServiceURL}}/api/role/assign",
+											"host": [
+												"{{bpmServiceURL}}"
+											],
+											"path": [
+												"api",
+												"role",
+												"assign"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "X-Content-Type-Options",
+											"value": "nosniff"
+										},
+										{
+											"key": "X-XSS-Protection",
+											"value": "1; mode=block"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, no-store, max-age=0, must-revalidate"
+										},
+										{
+											"key": "Pragma",
+											"value": "no-cache"
+										},
+										{
+											"key": "Expires",
+											"value": "0"
+										},
+										{
+											"key": "X-Frame-Options",
+											"value": "DENY"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Transfer-Encoding",
+											"value": "chunked"
+										},
+										{
+											"key": "Date",
+											"value": "Mon, 25 Oct 2021 16:11:51 GMT"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=60"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"message\": \"Success\",\n    \"successful\": true\n}"
+								}
+							]
+						},
+						{
+							"name": "Revoke Role",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"userId\": \"{{currentUserId}}\",\n    \"role\": \"approver\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{bpmServiceURL}}/api/role/revoke",
+									"host": [
+										"{{bpmServiceURL}}"
+									],
+									"path": [
+										"api",
+										"role",
+										"revoke"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Revoke Role",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"userId\": \"{{currentUserId}}\",\n    \"role\": \"approver\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{bpmServiceURL}}/api/role/revoke",
+											"host": [
+												"{{bpmServiceURL}}"
+											],
+											"path": [
+												"api",
+												"role",
+												"revoke"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "X-Content-Type-Options",
+											"value": "nosniff"
+										},
+										{
+											"key": "X-XSS-Protection",
+											"value": "1; mode=block"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, no-store, max-age=0, must-revalidate"
+										},
+										{
+											"key": "Pragma",
+											"value": "no-cache"
+										},
+										{
+											"key": "Expires",
+											"value": "0"
+										},
+										{
+											"key": "X-Frame-Options",
+											"value": "DENY"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Transfer-Encoding",
+											"value": "chunked"
+										},
+										{
+											"key": "Date",
+											"value": "Mon, 25 Oct 2021 16:11:46 GMT"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=60"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"message\": \"Success\",\n    \"successful\": true\n}"
+								}
+							]
+						},
+						{
+							"name": "Get All",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{bpmServiceURL}}/api/role/getAll",
+									"host": [
+										"{{bpmServiceURL}}"
+									],
+									"path": [
+										"api",
+										"role",
+										"getAll"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Get All",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{bpmServiceURL}}/api/role/getAll",
+											"host": [
+												"{{bpmServiceURL}}"
+											],
+											"path": [
+												"api",
+												"role",
+												"getAll"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "X-Content-Type-Options",
+											"value": "nosniff"
+										},
+										{
+											"key": "X-XSS-Protection",
+											"value": "1; mode=block"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, no-store, max-age=0, must-revalidate"
+										},
+										{
+											"key": "Pragma",
+											"value": "no-cache"
+										},
+										{
+											"key": "Expires",
+											"value": "0"
+										},
+										{
+											"key": "X-Frame-Options",
+											"value": "DENY"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Transfer-Encoding",
+											"value": "chunked"
+										},
+										{
+											"key": "Date",
+											"value": "Mon, 25 Oct 2021 16:11:25 GMT"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=60"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										}
+									],
+									"cookie": [],
+									"body": "[\n    {\n        \"key\": \"approver\",\n        \"name\": \"Approver\"\n    },\n    {\n        \"key\": \"delegator\",\n        \"name\": \"Delegator\"\n    },\n    {\n        \"key\": \"administrator\",\n        \"name\": \"Administrator\"\n    }\n]"
+								}
+							]
+						},
+						{
+							"name": "Get For User",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"userId\": \"f21b0fb1-d483-4b05-a293-404066fd767b\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{bpmServiceURL}}/api/role/getForUser",
+									"host": [
+										"{{bpmServiceURL}}"
+									],
+									"path": [
+										"api",
+										"role",
+										"getForUser"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Get For User",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"userId\": \"45b91268-63c2-4e6c-94ff-189d99171202\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{bpmServiceURL}}/api/role/getForUser",
+											"host": [
+												"{{bpmServiceURL}}"
+											],
+											"path": [
+												"api",
+												"role",
+												"getForUser"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "X-Content-Type-Options",
+											"value": "nosniff"
+										},
+										{
+											"key": "X-XSS-Protection",
+											"value": "1; mode=block"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, no-store, max-age=0, must-revalidate"
+										},
+										{
+											"key": "Pragma",
+											"value": "no-cache"
+										},
+										{
+											"key": "Expires",
+											"value": "0"
+										},
+										{
+											"key": "X-Frame-Options",
+											"value": "DENY"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Transfer-Encoding",
+											"value": "chunked"
+										},
+										{
+											"key": "Date",
+											"value": "Mon, 25 Oct 2021 16:11:33 GMT"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=60"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										}
+									],
+									"cookie": [],
+									"body": "[\n    {\n        \"key\": \"administrator\",\n        \"name\": \"Administrator\"\n    }\n]"
+								}
+							]
+						},
+						{
+							"name": "Get For Current User",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"userId\": \"45b91268-63c2-4e6c-94ff-189d99171202\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{bpmServiceURL}}/api/role/getForCurrentUser",
+									"host": [
+										"{{bpmServiceURL}}"
+									],
+									"path": [
+										"api",
+										"role",
+										"getForCurrentUser"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Get For Current User",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"userId\": \"45b91268-63c2-4e6c-94ff-189d99171202\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{bpmServiceURL}}/api/role/getForCurrentUser",
+											"host": [
+												"{{bpmServiceURL}}"
+											],
+											"path": [
+												"api",
+												"role",
+												"getForCurrentUser"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "X-Content-Type-Options",
+											"value": "nosniff"
+										},
+										{
+											"key": "X-XSS-Protection",
+											"value": "1; mode=block"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, no-store, max-age=0, must-revalidate"
+										},
+										{
+											"key": "Pragma",
+											"value": "no-cache"
+										},
+										{
+											"key": "Expires",
+											"value": "0"
+										},
+										{
+											"key": "X-Frame-Options",
+											"value": "DENY"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Transfer-Encoding",
+											"value": "chunked"
+										},
+										{
+											"key": "Date",
+											"value": "Mon, 25 Oct 2021 16:11:36 GMT"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=60"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										}
+									],
+									"cookie": [],
+									"body": "[\n    {\n        \"key\": \"administrator\",\n        \"name\": \"Administrator\"\n    }\n]"
+								}
+							]
+						}
+					],
+					"auth": {
+						"type": "bearer",
+						"bearer": [
+							{
+								"key": "token",
+								"value": "{{bearerToken}}",
+								"type": "string"
+							}
+						]
+					},
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						}
 					]
 				}
 			]
@@ -1186,6 +2441,63 @@
 							"body": "true"
 						}
 					]
+				}
+			]
+		},
+		{
+			"name": "Keycloak",
+			"item": [
+				{
+					"name": "Get Token",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "grant_type",
+									"value": "password",
+									"type": "text"
+								},
+								{
+									"key": "client_id",
+									"value": "signfluent",
+									"type": "text"
+								},
+								{
+									"key": "client_secret",
+									"value": "4ddb8d43-e612-47dd-980c-06a13e5b06fc",
+									"type": "text"
+								},
+								{
+									"key": "username",
+									"value": "admin",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "admin",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{keycloakURL}}/auth/realms/master/protocol/openid-connect/token",
+							"host": [
+								"{{keycloakURL}}"
+							],
+							"path": [
+								"auth",
+								"realms",
+								"master",
+								"protocol",
+								"openid-connect",
+								"token"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		}

@@ -1,0 +1,50 @@
+plugins {
+    id 'java'
+}
+
+group 'dk.signfluent'
+version '1.0.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    // Keycloak
+    implementation 'org.keycloak:keycloak-admin-client:15.0.2'
+    implementation 'org.keycloak:keycloak-authz-client:15.0.2'
+    implementation 'org.keycloak:keycloak-core:15.0.2'
+    implementation 'org.jboss.resteasy:resteasy-client:4.5.1.Final'
+    implementation 'org.jboss.resteasy:resteasy-jackson2-provider:4.5.1.Final'
+
+    // Spring Boot
+    implementation 'org.springframework.boot:spring-boot-starter-web:2.5.5'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test:2.5.5'
+
+    // JPA
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa:2.5.5'
+
+    // Swagger
+    implementation 'io.springfox:springfox-swagger-ui:3.0.0'
+    implementation 'io.springfox:springfox-swagger2:3.0.0'
+
+    // Lombok
+    compileOnly 'org.projectlombok:lombok:1.18.22'
+    annotationProcessor 'org.projectlombok:lombok:1.18.22'
+
+    // H2 DB
+    runtimeOnly 'com.h2database:h2:1.4.200'
+
+    // Mapstruct
+    implementation 'org.mapstruct:mapstruct:1.4.2.Final'
+    annotationProcessor 'org.mapstruct:mapstruct-processor:1.4.2.Final'
+
+    // Tests
+    testImplementation 'org.mockito:mockito-core:4.0.0'
+    testImplementation 'org.mockito:mockito-junit-jupiter:4.0.0'
+    testImplementation 'junit:junit:4.13.2'
+}
+
+test {
+    useJUnitPlatform()
+}

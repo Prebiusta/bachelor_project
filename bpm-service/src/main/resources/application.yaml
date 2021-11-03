@@ -1,3 +1,15 @@
+keycloak:
+  realm: master
+  auth-server-url: http://localhost:8080/auth
+  ssl-required: external
+  resource: signfluent
+  use-resource-role-mappings: true
+  public-client: true
+
+idp-keycloak:
+  service:
+    host: localhost
+    port: 8080
 
 camunda.bpm.admin-user:
   id: proof
@@ -20,9 +32,16 @@ user:
         host: localhost
         port: 8003
 
+ca:
+  svc:
+    service:
+      host: localhost
+      port: 8004
+
+
 device:
   service:
     svc:
       service:
         host: localhost
-        port: 8003
+        port: 8005

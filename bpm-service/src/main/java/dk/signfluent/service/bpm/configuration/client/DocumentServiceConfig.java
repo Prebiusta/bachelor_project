@@ -1,6 +1,5 @@
 package dk.signfluent.service.bpm.configuration.client;
 
-import dk.signfluent.service.bpm.model.DocumentServiceConfigValues;
 import dk.signfluent.service.document.api.config.DocumentServiceApiClientConfig;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
