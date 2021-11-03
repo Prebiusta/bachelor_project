@@ -7,6 +7,7 @@ import org.camunda.bpm.engine.runtime.ProcessInstance;
 import org.camunda.bpm.engine.task.Task;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -26,13 +27,28 @@ public class ProcessDetailsProvider {
     }
 
     public List<ProcessInstance> getProcessInstancesWithFormKey(ProcessFormKey processFormKey) {
-        Set<String> collect = taskService.createTaskQuery().initializeFormKeys()
+        Set<String> processInstanceIds = taskService.createTaskQuery().initializeFormKeys()
                 .list()
                 .stream()
                 .filter(task -> task.getFormKey().equalsIgnoreCase(processFormKey.getFormKey()))
                 .map(Task::getProcessInstanceId)
                 .collect(Collectors.toSet());
-        return runtimeService.createProcessInstanceQuery().processInstanceIds(collect).list();
+        if (processInstanceIds.isEmpty())
+            return Collections.emptyList();
+        return runtimeService.createProcessInstanceQuery().processInstanceIds(processInstanceIds).list();
+    }
+
+    public List<ProcessInstance> getProcessInstancesWithFormKeyAndAssignee(ProcessFormKey processFormKey, String assignee) {
+        Set<String> processInstanceIds = taskService.createTaskQuery().initializeFormKeys()
+                .list()
+                .stream()
+                .filter(task -> task.getFormKey().equalsIgnoreCase(processFormKey.getFormKey()))
+                .filter(task -> task.getAssignee().equalsIgnoreCase(assignee))
+                .map(Task::getProcessInstanceId)
+                .collect(Collectors.toSet());
+        if (processInstanceIds.isEmpty())
+            return Collections.emptyList();
+        return runtimeService.createProcessInstanceQuery().processInstanceIds(processInstanceIds).list();
     }
 
     public Task getFirstTaskForProcessInstanceAndFormKey(String processInstanceId, ProcessFormKey processFormKey) {

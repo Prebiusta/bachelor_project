@@ -6,6 +6,2164 @@
 	},
 	"item": [
 		{
+			"name": "BPM Service",
+			"item": [
+				{
+					"name": "Authentication Controller",
+					"item": [
+						{
+							"name": "Login",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const {userId, token} = pm.response.json();",
+											"",
+											"pm.environment.set(\"currentUserId\", userId);",
+											"pm.environment.set(\"bearerToken\", token);",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"username\": \"admin\",\n    \"password\" : \"admin\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{bpmServiceURL}}/api/auth/login",
+									"host": [
+										"{{bpmServiceURL}}"
+									],
+									"path": [
+										"api",
+										"auth",
+										"login"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Login",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"username\": \"david\",\n    \"password\" : \"123456\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{bpmServiceURL}}/api/auth/login",
+											"host": [
+												"{{bpmServiceURL}}"
+											],
+											"path": [
+												"api",
+												"auth",
+												"login"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "X-Content-Type-Options",
+											"value": "nosniff"
+										},
+										{
+											"key": "X-XSS-Protection",
+											"value": "1; mode=block"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, no-store, max-age=0, must-revalidate"
+										},
+										{
+											"key": "Pragma",
+											"value": "no-cache"
+										},
+										{
+											"key": "Expires",
+											"value": "0"
+										},
+										{
+											"key": "X-Frame-Options",
+											"value": "DENY"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Transfer-Encoding",
+											"value": "chunked"
+										},
+										{
+											"key": "Date",
+											"value": "Mon, 25 Oct 2021 16:12:03 GMT"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=60"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"expiresIn\": 60,\n    \"idToken\": null,\n    \"notBeforePolicy\": 0,\n    \"refreshExpiresIn\": 1800,\n    \"refreshToken\": \"eyJhbGciOiJIUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICI4MjI1YTkyNy1kM2M3LTQzNTUtOTA5ZS1kYzBjZGRjNGVhZmUifQ.eyJleHAiOjE2MzUxODAxMjMsImlhdCI6MTYzNTE3ODMyMywianRpIjoiOWFmMDUwN2EtNzg2Zi00NmZiLTljYWEtZmM0OWNiMWUxN2M5IiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo4MDgwL2F1dGgvcmVhbG1zL21hc3RlciIsImF1ZCI6Imh0dHA6Ly9sb2NhbGhvc3Q6ODA4MC9hdXRoL3JlYWxtcy9tYXN0ZXIiLCJzdWIiOiI0NWI5MTI2OC02M2MyLTRlNmMtOTRmZi0xODlkOTkxNzEyMDIiLCJ0eXAiOiJSZWZyZXNoIiwiYXpwIjoidXNlci1zZXJ2aWNlIiwic2Vzc2lvbl9zdGF0ZSI6IjZmMWRmMmEyLTY2YTYtNDJkNC05OTgwLTI3YTExZTExMDljYiIsInNjb3BlIjoicHJvZmlsZSBlbWFpbCIsInNpZCI6IjZmMWRmMmEyLTY2YTYtNDJkNC05OTgwLTI3YTExZTExMDljYiJ9.hSiwdD_3DB7_sFYy9rIHYTjJX8yzLE0mECFUX5FYLhE\",\n    \"token\": \"eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJ2UlBuaXBKQUVqS1Y0RUk3SEd4RldUVUM2bTNJZ0w3LU9DeTQ0aFZhcVU0In0.eyJleHAiOjE2MzUxNzgzODMsImlhdCI6MTYzNTE3ODMyMywianRpIjoiYmVmMTMwZjQtZDQ5My00Nzg3LTkwYzktMmYyYTEwMDU0MTA2IiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo4MDgwL2F1dGgvcmVhbG1zL21hc3RlciIsImF1ZCI6ImFjY291bnQiLCJzdWIiOiI0NWI5MTI2OC02M2MyLTRlNmMtOTRmZi0xODlkOTkxNzEyMDIiLCJ0eXAiOiJCZWFyZXIiLCJhenAiOiJ1c2VyLXNlcnZpY2UiLCJzZXNzaW9uX3N0YXRlIjoiNmYxZGYyYTItNjZhNi00MmQ0LTk5ODAtMjdhMTFlMTEwOWNiIiwiYWNyIjoiMSIsImFsbG93ZWQtb3JpZ2lucyI6WyJodHRwOi8vbG9jYWxob3N0OjgwMDMiXSwicmVhbG1fYWNjZXNzIjp7InJvbGVzIjpbImFkbWluaXN0cmF0b3IiLCJkZWZhdWx0LXJvbGVzLW1hc3RlciIsIm9mZmxpbmVfYWNjZXNzIiwidW1hX2F1dGhvcml6YXRpb24iXX0sInJlc291cmNlX2FjY2VzcyI6eyJ1c2VyLXNlcnZpY2UiOnsicm9sZXMiOlsiYWRtaW5pc3RyYXRvciJdfSwiYWNjb3VudCI6eyJyb2xlcyI6WyJtYW5hZ2UtYWNjb3VudCIsIm1hbmFnZS1hY2NvdW50LWxpbmtzIiwidmlldy1wcm9maWxlIl19fSwic2NvcGUiOiJwcm9maWxlIGVtYWlsIiwic2lkIjoiNmYxZGYyYTItNjZhNi00MmQ0LTk5ODAtMjdhMTFlMTEwOWNiIiwiZW1haWxfdmVyaWZpZWQiOmZhbHNlLCJuYW1lIjoiRGF2aWQgRnJhbmtvIiwicHJlZmVycmVkX3VzZXJuYW1lIjoiZGF2aWQiLCJnaXZlbl9uYW1lIjoiRGF2aWQiLCJmYW1pbHlfbmFtZSI6IkZyYW5rbyIsImVtYWlsIjoiZGF2aWRAc2lnbmZsdWVudC5jb20ifQ.BGm7SzhpT4oVW9UAC973mRxbZJQeJmm8ciIlpvmyyYNz77Emh9AQeaegTihz_vREbHrjydN60D164grdwAz85eJl67YvvxA_h_hhMaUos_M_RM5yUmDHbduIUPMWv0dId29PTi8EKxe-HNvNp7qjXAHvWv1AbT4GmHImcxELt3NXLeVHMinsml_ExogKPN7ZHowwcrbfV75k-TK49AOd22mXScFY7kPGfbK54XS3k5lfc0jHvvIHpGf6sdmip0j14WNFqe7eWYWbqbEoB_sDoHrvd0HaCS_ET-PCz7utDJ0WncEtnXGCGevgtSz33npESdPveIQP4V6TvNaAjTn7fg\",\n    \"tokenType\": \"Bearer\",\n    \"userId\": \"45b91268-63c2-4e6c-94ff-189d99171202\"\n}"
+								}
+							]
+						},
+						{
+							"name": "Refresh Token",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const {userId, token} = pm.response.json();",
+											"",
+											"pm.environment.set(\"currentUserId\", userId);",
+											"pm.environment.set(\"bearerToken\", token);",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"refreshToken\": \"eyJhbGciOiJIUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICI5MDVmZjgzNy1lMmVkLTQxYWUtYjM0ZS0yNWM4YmFlNzJhNWUifQ.eyJleHAiOjE2MzU1MjMxNDcsImlhdCI6MTYzNTUyMTM0NywianRpIjoiOWUzNjk3ZTAtMmE0My00Mjk1LWJjMTctZDE0ZmE4NGE2ZGQ4IiwiaXNzIjoiaHR0cDovLzEwLjEwNC44MS4yNTU6ODA4MC9hdXRoL3JlYWxtcy9tYXN0ZXIiLCJhdWQiOiJodHRwOi8vMTAuMTA0LjgxLjI1NTo4MDgwL2F1dGgvcmVhbG1zL21hc3RlciIsInN1YiI6ImYyMWIwZmIxLWQ0ODMtNGIwNS1hMjkzLTQwNDA2NmZkNzY3YiIsInR5cCI6IlJlZnJlc2giLCJhenAiOiJzaWduZmx1ZW50Iiwic2Vzc2lvbl9zdGF0ZSI6IjU0ZGU3NzNhLTYwOGEtNGZmNS1hMWJiLTljM2ZmODllY2IwNCIsInNjb3BlIjoiZW1haWwgcHJvZmlsZSIsInNpZCI6IjU0ZGU3NzNhLTYwOGEtNGZmNS1hMWJiLTljM2ZmODllY2IwNCJ9.QBk3DtK9ZPDVuEAE2yT2MjcTBad59dew9B8sEdiN4XI\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{bpmServiceURL}}/api/auth/refreshToken",
+									"host": [
+										"{{bpmServiceURL}}"
+									],
+									"path": [
+										"api",
+										"auth",
+										"refreshToken"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Refresh Token",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"refreshToken\": \"eyJhbGciOiJIUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICI5MDVmZjgzNy1lMmVkLTQxYWUtYjM0ZS0yNWM4YmFlNzJhNWUifQ.eyJleHAiOjE2MzUzMzM4MjcsImlhdCI6MTYzNTMzMjAyNywianRpIjoiMDQzNDgxNTktMTM0Ny00NWMxLWE0YWQtMjNhNTVkZmZlOWQzIiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo4MDgwL2F1dGgvcmVhbG1zL21hc3RlciIsImF1ZCI6Imh0dHA6Ly9sb2NhbGhvc3Q6ODA4MC9hdXRoL3JlYWxtcy9tYXN0ZXIiLCJzdWIiOiI5ZjgzOTI3NS02MjYwLTQ3NDgtYmVmMy05MjA2ZDgyY2M3ZTYiLCJ0eXAiOiJSZWZyZXNoIiwiYXpwIjoic2lnbmZsdWVudCIsInNlc3Npb25fc3RhdGUiOiJjZjRjZWJmZS04MzFlLTRhNjEtOTBlOC1iZGViYTY3MjRjODUiLCJzY29wZSI6ImVtYWlsIHByb2ZpbGUiLCJzaWQiOiJjZjRjZWJmZS04MzFlLTRhNjEtOTBlOC1iZGViYTY3MjRjODUifQ.N880EA4MSO5BJv29K_7i0rNqbLG_A8vG3BfkSfCF-XA\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{bpmServiceURL}}/api/auth/refreshToken",
+											"host": [
+												"{{bpmServiceURL}}"
+											],
+											"path": [
+												"api",
+												"auth",
+												"refreshToken"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "X-Content-Type-Options",
+											"value": "nosniff"
+										},
+										{
+											"key": "X-XSS-Protection",
+											"value": "1; mode=block"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, no-store, max-age=0, must-revalidate"
+										},
+										{
+											"key": "Pragma",
+											"value": "no-cache"
+										},
+										{
+											"key": "Expires",
+											"value": "0"
+										},
+										{
+											"key": "X-Frame-Options",
+											"value": "DENY"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Transfer-Encoding",
+											"value": "chunked"
+										},
+										{
+											"key": "Date",
+											"value": "Wed, 27 Oct 2021 10:54:24 GMT"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=60"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"expiresIn\": 35963,\n    \"refreshExpiresIn\": 1800,\n    \"refreshToken\": \"eyJhbGciOiJIUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICI5MDVmZjgzNy1lMmVkLTQxYWUtYjM0ZS0yNWM4YmFlNzJhNWUifQ.eyJleHAiOjE2MzUzMzM4NjQsImlhdCI6MTYzNTMzMjA2NCwianRpIjoiYzc1ODFiYTItOWE0MS00MDFiLTg3ZjAtNzA0OGI0ZjUxNWY1IiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo4MDgwL2F1dGgvcmVhbG1zL21hc3RlciIsImF1ZCI6Imh0dHA6Ly9sb2NhbGhvc3Q6ODA4MC9hdXRoL3JlYWxtcy9tYXN0ZXIiLCJzdWIiOiI5ZjgzOTI3NS02MjYwLTQ3NDgtYmVmMy05MjA2ZDgyY2M3ZTYiLCJ0eXAiOiJSZWZyZXNoIiwiYXpwIjoic2lnbmZsdWVudCIsInNlc3Npb25fc3RhdGUiOiJjZjRjZWJmZS04MzFlLTRhNjEtOTBlOC1iZGViYTY3MjRjODUiLCJzY29wZSI6ImVtYWlsIHByb2ZpbGUiLCJzaWQiOiJjZjRjZWJmZS04MzFlLTRhNjEtOTBlOC1iZGViYTY3MjRjODUifQ.Ed0mrUEH5rAler4ETxlrq1WUWUOo1bPH0dUxiitFX0c\",\n    \"token\": \"eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICI1eFNrUGdQYlZDVm5fUWNxTGd4STNfMDV3Q1NfVHNBV0lJRFdIUWhOM1U0In0.eyJleHAiOjE2MzUzNjgwMjcsImlhdCI6MTYzNTMzMjA2NCwianRpIjoiODY5ZDZmODktYzQzNi00NzZjLTlmMTgtN2VlZmFhNGYxNGZhIiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo4MDgwL2F1dGgvcmVhbG1zL21hc3RlciIsImF1ZCI6ImFjY291bnQiLCJzdWIiOiI5ZjgzOTI3NS02MjYwLTQ3NDgtYmVmMy05MjA2ZDgyY2M3ZTYiLCJ0eXAiOiJCZWFyZXIiLCJhenAiOiJzaWduZmx1ZW50Iiwic2Vzc2lvbl9zdGF0ZSI6ImNmNGNlYmZlLTgzMWUtNGE2MS05MGU4LWJkZWJhNjcyNGM4NSIsImFjciI6IjEiLCJhbGxvd2VkLW9yaWdpbnMiOlsiaHR0cDovL2xvY2FsaG9zdDo4MDAwIl0sInJlYWxtX2FjY2VzcyI6eyJyb2xlcyI6WyJhZG1pbmlzdHJhdG9yIiwiZGVmYXVsdC1yb2xlcy1tYXN0ZXIiLCJvZmZsaW5lX2FjY2VzcyIsInVtYV9hdXRob3JpemF0aW9uIl19LCJyZXNvdXJjZV9hY2Nlc3MiOnsic2lnbmZsdWVudCI6eyJyb2xlcyI6WyJhZG1pbmlzdHJhdG9yIl19LCJhY2NvdW50Ijp7InJvbGVzIjpbIm1hbmFnZS1hY2NvdW50IiwibWFuYWdlLWFjY291bnQtbGlua3MiLCJ2aWV3LXByb2ZpbGUiXX19LCJzY29wZSI6ImVtYWlsIHByb2ZpbGUiLCJzaWQiOiJjZjRjZWJmZS04MzFlLTRhNjEtOTBlOC1iZGViYTY3MjRjODUiLCJlbWFpbF92ZXJpZmllZCI6dHJ1ZSwibmFtZSI6IlNpZ25mbHVlbnQgQWRtaW4iLCJwcmVmZXJyZWRfdXNlcm5hbWUiOiJhZG1pbmlzdHJhdG9yIiwiZ2l2ZW5fbmFtZSI6IlNpZ25mbHVlbnQiLCJmYW1pbHlfbmFtZSI6IkFkbWluIiwiZW1haWwiOiJpbmZvQHNpZ25mbHVlbnQuY29tIn0.VFRqcQOYaLj99M2FRhpgDurpLrzBtEYtl6qpYq1bqyLSwXQS-tydfgepE6jNSFd4ahka8hhZDFh41Pvm-2hW2x6a-b0fdlhnPHuXse2M_3F5vDhcP3ooKk0d8PY0Cxvepyq5VxuaXQ7hFHWg8EJ6r2q9IrSZTkYLF7DkldHxrpyMRlsF_6iQTsbmGbNsuzvrn904NOEEx2Krr6wKPer3SvDWwM3ALARPqZNmfukLfDyBD1HaPpTcrLod2nfE7FkGV4bEnurN9L7rS2ODYD4FRFQ3i5S5uL_vHpmdCoGOxzT0ac-fTCR2UhsWgE2vMZr7uWqLBxEPlFHXG0ilV1jvnw\",\n    \"userId\": \"9f839275-6260-4748-bef3-9206d82cc7e6\"\n}"
+								}
+							]
+						},
+						{
+							"name": "Create User",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"username\": \"david\",\n    \"email\": \"david@signfluent.com\",\n    \"lastName\": \"Franko\",\n    \"firstName\": \"David\",\n    \"password\": \"123456\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{bpmServiceURL}}/api/auth/createUser",
+									"host": [
+										"{{bpmServiceURL}}"
+									],
+									"path": [
+										"api",
+										"auth",
+										"createUser"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Create User",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"username\": \"angel\",\n    \"email\": \"angel@signfluent.com\",\n    \"lastName\": \"Franko\",\n    \"firstName\": \"David\",\n    \"password\": \"123456\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{bpmServiceURL}}/api/auth/createUser",
+											"host": [
+												"{{bpmServiceURL}}"
+											],
+											"path": [
+												"api",
+												"auth",
+												"createUser"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "X-Content-Type-Options",
+											"value": "nosniff"
+										},
+										{
+											"key": "X-XSS-Protection",
+											"value": "1; mode=block"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, no-store, max-age=0, must-revalidate"
+										},
+										{
+											"key": "Pragma",
+											"value": "no-cache"
+										},
+										{
+											"key": "Expires",
+											"value": "0"
+										},
+										{
+											"key": "X-Frame-Options",
+											"value": "DENY"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Transfer-Encoding",
+											"value": "chunked"
+										},
+										{
+											"key": "Date",
+											"value": "Mon, 25 Oct 2021 16:11:59 GMT"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=60"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"userId\": \"595bfebf-a4d1-4b01-9e63-c6e8b0db0c0e\"\n}"
+								}
+							]
+						},
+						{
+							"name": "Ping",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{bpmServiceURL}}/api/auth/ping",
+									"host": [
+										"{{bpmServiceURL}}"
+									],
+									"path": [
+										"api",
+										"auth",
+										"ping"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "New Request",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{bpmServiceURL}}/api/auth/ping",
+											"host": [
+												"{{bpmServiceURL}}"
+											],
+											"path": [
+												"api",
+												"auth",
+												"ping"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "plain",
+									"header": [
+										{
+											"key": "X-Content-Type-Options",
+											"value": "nosniff"
+										},
+										{
+											"key": "X-XSS-Protection",
+											"value": "1; mode=block"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, no-store, max-age=0, must-revalidate"
+										},
+										{
+											"key": "Pragma",
+											"value": "no-cache"
+										},
+										{
+											"key": "Expires",
+											"value": "0"
+										},
+										{
+											"key": "X-Frame-Options",
+											"value": "DENY"
+										},
+										{
+											"key": "Content-Type",
+											"value": "text/plain;charset=UTF-8"
+										},
+										{
+											"key": "Content-Length",
+											"value": "4"
+										},
+										{
+											"key": "Date",
+											"value": "Sun, 31 Oct 2021 13:20:48 GMT"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=60"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										}
+									],
+									"cookie": [],
+									"body": "pong"
+								}
+							]
+						}
+					],
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						}
+					]
+				},
+				{
+					"name": "Signing Process",
+					"item": [
+						{
+							"name": "Upload Document",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"document\": \"ZG9jdW1lbnQ=\",\n    \"description\": \"This is some dummy description\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{bpmServiceURL}}/api/signingProcess/uploadDocument",
+									"host": [
+										"{{bpmServiceURL}}"
+									],
+									"path": [
+										"api",
+										"signingProcess",
+										"uploadDocument"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Approvers",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{bpmServiceURL}}/api/signingProcess/getActiveApprovers",
+									"host": [
+										"{{bpmServiceURL}}"
+									],
+									"path": [
+										"api",
+										"signingProcess",
+										"getActiveApprovers"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Get Approvers",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{bpmServiceURL}}/api/signingProcess/getActiveApprovers",
+											"host": [
+												"{{bpmServiceURL}}"
+											],
+											"path": [
+												"api",
+												"signingProcess",
+												"getActiveApprovers"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "X-Content-Type-Options",
+											"value": "nosniff"
+										},
+										{
+											"key": "X-XSS-Protection",
+											"value": "1; mode=block"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, no-store, max-age=0, must-revalidate"
+										},
+										{
+											"key": "Pragma",
+											"value": "no-cache"
+										},
+										{
+											"key": "Expires",
+											"value": "0"
+										},
+										{
+											"key": "X-Frame-Options",
+											"value": "DENY"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Transfer-Encoding",
+											"value": "chunked"
+										},
+										{
+											"key": "Date",
+											"value": "Mon, 01 Nov 2021 12:20:51 GMT"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=60"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										}
+									],
+									"cookie": [],
+									"body": "[\n    {\n        \"email\": \"david@signfluent.com\",\n        \"firstName\": \"David\",\n        \"id\": \"94d69f0e-8443-4cb8-8391-a1383591aeb8\",\n        \"lastName\": \"Franko\",\n        \"username\": \"david\"\n    },\n    {\n        \"email\": \"angel@signfluent.com\",\n        \"firstName\": \"David\",\n        \"id\": \"f21b0fb1-d483-4b05-a293-404066fd767b\",\n        \"lastName\": \"Franko\",\n        \"username\": \"angel\"\n    },\n    {\n        \"email\": null,\n        \"firstName\": null,\n        \"id\": \"63c2f7ed-7b4e-4a5a-a847-4466fc6dcfe6\",\n        \"lastName\": null,\n        \"username\": \"admin\"\n    }\n]"
+								}
+							]
+						},
+						{
+							"name": "Get Documents For Inspection",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{bpmServiceURL}}/api/signingProcess/getDocumentsForInspection",
+									"host": [
+										"{{bpmServiceURL}}"
+									],
+									"path": [
+										"api",
+										"signingProcess",
+										"getDocumentsForInspection"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Get Documents For Inspection",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{bpmServiceURL}}/api/signingProcess/getDocumentsForInspection",
+											"host": [
+												"{{bpmServiceURL}}"
+											],
+											"path": [
+												"api",
+												"signingProcess",
+												"getDocumentsForInspection"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "X-Content-Type-Options",
+											"value": "nosniff"
+										},
+										{
+											"key": "X-XSS-Protection",
+											"value": "1; mode=block"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, no-store, max-age=0, must-revalidate"
+										},
+										{
+											"key": "Pragma",
+											"value": "no-cache"
+										},
+										{
+											"key": "Expires",
+											"value": "0"
+										},
+										{
+											"key": "X-Frame-Options",
+											"value": "DENY"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Transfer-Encoding",
+											"value": "chunked"
+										},
+										{
+											"key": "Date",
+											"value": "Mon, 01 Nov 2021 12:21:04 GMT"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=60"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										}
+									],
+									"cookie": [],
+									"body": "[\n    {\n        \"processId\": \"084d57f0-3b0e-11ec-9a9e-7abe63a89206\",\n        \"document\": {\n            \"description\": \"This is some dummy description\",\n            \"uploadedBy\": {\n                \"email\": \"david@signfluent.com\",\n                \"firstName\": \"David\",\n                \"id\": \"94d69f0e-8443-4cb8-8391-a1383591aeb8\",\n                \"lastName\": \"Franko\",\n                \"username\": \"david\"\n            },\n            \"status\": \"RECEIVED\",\n            \"uploadedAt\": \"2021-11-01T12:19:59.647Z\"\n        }\n    },\n    {\n        \"processId\": \"1adc03d6-3b0e-11ec-9a9e-7abe63a89206\",\n        \"document\": {\n            \"description\": \"This is some dummy description\",\n            \"uploadedBy\": {\n                \"email\": \"angel@signfluent.com\",\n                \"firstName\": \"David\",\n                \"id\": \"f21b0fb1-d483-4b05-a293-404066fd767b\",\n                \"lastName\": \"Franko\",\n                \"username\": \"angel\"\n            },\n            \"status\": \"RECEIVED\",\n            \"uploadedAt\": \"2021-11-01T12:20:30.779Z\"\n        }\n    },\n    {\n        \"processId\": \"1b35bc9c-3b0e-11ec-9a9e-7abe63a89206\",\n        \"document\": {\n            \"description\": \"This is some dummy description\",\n            \"uploadedBy\": {\n                \"email\": \"angel@signfluent.com\",\n                \"firstName\": \"David\",\n                \"id\": \"f21b0fb1-d483-4b05-a293-404066fd767b\",\n                \"lastName\": \"Franko\",\n                \"username\": \"angel\"\n            },\n            \"status\": \"RECEIVED\",\n            \"uploadedAt\": \"2021-11-01T12:20:31.369Z\"\n        }\n    },\n    {\n        \"processId\": \"250ea432-3b0e-11ec-9a9e-7abe63a89206\",\n        \"document\": {\n            \"description\": \"This is some dummy description\",\n            \"uploadedBy\": {\n                \"email\": null,\n                \"firstName\": null,\n                \"id\": \"63c2f7ed-7b4e-4a5a-a847-4466fc6dcfe6\",\n                \"lastName\": null,\n                \"username\": \"admin\"\n            },\n            \"status\": \"RECEIVED\",\n            \"uploadedAt\": \"2021-11-01T12:20:47.877Z\"\n        }\n    },\n    {\n        \"processId\": \"f49f0b3a-3b0d-11ec-9a9e-7abe63a89206\",\n        \"document\": {\n            \"description\": \"This is some dummy description\",\n            \"uploadedBy\": {\n                \"email\": \"david@signfluent.com\",\n                \"firstName\": \"David\",\n                \"id\": \"94d69f0e-8443-4cb8-8391-a1383591aeb8\",\n                \"lastName\": \"Franko\",\n                \"username\": \"david\"\n            },\n            \"status\": \"RECEIVED\",\n            \"uploadedAt\": \"2021-11-01T12:19:26.614Z\"\n        }\n    }\n]"
+								}
+							]
+						},
+						{
+							"name": "Get Document Details",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"processId\": \"084d57f0-3b0e-11ec-9a9e-7abe63a89206\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{bpmServiceURL}}/api/signingProcess/getDocumentDetails",
+									"host": [
+										"{{bpmServiceURL}}"
+									],
+									"path": [
+										"api",
+										"signingProcess",
+										"getDocumentDetails"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Get Document Content",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"processId\": \"084d57f0-3b0e-11ec-9a9e-7abe63a89206\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{bpmServiceURL}}/api/signingProcess/getDocumentDetails",
+											"host": [
+												"{{bpmServiceURL}}"
+											],
+											"path": [
+												"api",
+												"signingProcess",
+												"getDocumentDetails"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "X-Content-Type-Options",
+											"value": "nosniff"
+										},
+										{
+											"key": "X-XSS-Protection",
+											"value": "1; mode=block"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, no-store, max-age=0, must-revalidate"
+										},
+										{
+											"key": "Pragma",
+											"value": "no-cache"
+										},
+										{
+											"key": "Expires",
+											"value": "0"
+										},
+										{
+											"key": "X-Frame-Options",
+											"value": "DENY"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Transfer-Encoding",
+											"value": "chunked"
+										},
+										{
+											"key": "Date",
+											"value": "Mon, 01 Nov 2021 12:22:08 GMT"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=60"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"description\": \"This is some dummy description\",\n    \"uploadedBy\": {\n        \"email\": \"david@signfluent.com\",\n        \"firstName\": \"David\",\n        \"id\": \"94d69f0e-8443-4cb8-8391-a1383591aeb8\",\n        \"lastName\": \"Franko\",\n        \"username\": \"david\"\n    },\n    \"status\": \"RECEIVED\",\n    \"uploadedAt\": \"2021-11-01T12:19:59.647Z\",\n    \"content\": \"ZG9jdW1lbnQ=\"\n}"
+								}
+							]
+						},
+						{
+							"name": "Inspect Document",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"processId\": \"084d57f0-3b0e-11ec-9a9e-7abe63a89206\",\n    \"isValid\": true\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{bpmServiceURL}}/api/signingProcess/inspectDocument",
+									"host": [
+										"{{bpmServiceURL}}"
+									],
+									"path": [
+										"api",
+										"signingProcess",
+										"inspectDocument"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Assign Approvers",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"processId\": \"1dde5c22-3b10-11ec-8602-7abe63a89206\",\n    \"approvers\": [\n        {\n            \"approverId\": \"94d69f0e-8443-4cb8-8391-a1383591aeb8\",\n            \"order\": 1\n        },\n        {\n            \"approverId\": \"{{$randomUUID}}\",\n            \"order\": 2\n        }\n    ]\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{bpmServiceURL}}/api/signingProcess/assignApprovers",
+									"host": [
+										"{{bpmServiceURL}}"
+									],
+									"path": [
+										"api",
+										"signingProcess",
+										"assignApprovers"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Documents For Approval",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{bpmServiceURL}}/api/signingProcess/getDocumentsForApproval",
+									"host": [
+										"{{bpmServiceURL}}"
+									],
+									"path": [
+										"api",
+										"signingProcess",
+										"getDocumentsForApproval"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Get Documents For Approval",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{bpmServiceURL}}/api/signingProcess/getDocumentsForApproval",
+											"host": [
+												"{{bpmServiceURL}}"
+											],
+											"path": [
+												"api",
+												"signingProcess",
+												"getDocumentsForApproval"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "X-Content-Type-Options",
+											"value": "nosniff"
+										},
+										{
+											"key": "X-XSS-Protection",
+											"value": "1; mode=block"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, no-store, max-age=0, must-revalidate"
+										},
+										{
+											"key": "Pragma",
+											"value": "no-cache"
+										},
+										{
+											"key": "Expires",
+											"value": "0"
+										},
+										{
+											"key": "X-Frame-Options",
+											"value": "DENY"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Transfer-Encoding",
+											"value": "chunked"
+										},
+										{
+											"key": "Date",
+											"value": "Mon, 01 Nov 2021 12:35:41 GMT"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=60"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										}
+									],
+									"cookie": [],
+									"body": "[\n    {\n        \"processId\": \"1dde5c22-3b10-11ec-8602-7abe63a89206\",\n        \"document\": {\n            \"description\": \"This is some dummy description\",\n            \"uploadedBy\": {\n                \"email\": \"angel@signfluent.com\",\n                \"firstName\": \"David\",\n                \"id\": \"f21b0fb1-d483-4b05-a293-404066fd767b\",\n                \"lastName\": \"Franko\",\n                \"username\": \"angel\"\n            },\n            \"status\": \"FOR_APPROVAL\",\n            \"uploadedAt\": \"2021-11-01T12:34:54.822Z\"\n        }\n    },\n    {\n        \"processId\": \"fa27c021-3b0f-11ec-8602-7abe63a89206\",\n        \"document\": {\n            \"description\": \"This is some dummy description\",\n            \"uploadedBy\": {\n                \"email\": null,\n                \"firstName\": null,\n                \"id\": \"63c2f7ed-7b4e-4a5a-a847-4466fc6dcfe6\",\n                \"lastName\": null,\n                \"username\": \"admin\"\n            },\n            \"status\": \"FOR_APPROVAL\",\n            \"uploadedAt\": \"2021-11-01T12:33:54.894Z\"\n        }\n    }\n]"
+								}
+							]
+						},
+						{
+							"name": "Approve Document",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"taskId\": \"cba00e70-29e2-4dc3-a0ae-6d9c983358ed\",\n    \"approve\": true\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{bpmServiceURL}}/api/signingProcess/approveDocument",
+									"host": [
+										"{{bpmServiceURL}}"
+									],
+									"path": [
+										"api",
+										"signingProcess",
+										"approveDocument"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Signature Request",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{bpmServiceURL}}/api/signingProcess/getSignatureRequest",
+									"host": [
+										"{{bpmServiceURL}}"
+									],
+									"path": [
+										"api",
+										"signingProcess",
+										"getSignatureRequest"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Get Signature Request",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{bpmServiceURL}}/api/signingProcess/getSignatureRequest",
+											"host": [
+												"{{bpmServiceURL}}"
+											],
+											"path": [
+												"api",
+												"signingProcess",
+												"getSignatureRequest"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "X-Content-Type-Options",
+											"value": "nosniff"
+										},
+										{
+											"key": "X-XSS-Protection",
+											"value": "1; mode=block"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, no-store, max-age=0, must-revalidate"
+										},
+										{
+											"key": "Pragma",
+											"value": "no-cache"
+										},
+										{
+											"key": "Expires",
+											"value": "0"
+										},
+										{
+											"key": "X-Frame-Options",
+											"value": "DENY"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Transfer-Encoding",
+											"value": "chunked"
+										},
+										{
+											"key": "Date",
+											"value": "Mon, 01 Nov 2021 12:35:53 GMT"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=60"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"processId\": \"123456\",\n    \"contentToBeSigned\": \"signMe\"\n}"
+								}
+							]
+						},
+						{
+							"name": "Sign Document",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"processId\": \"cba00e70-29e2-4dc3-a0ae-6d9c983358ed\",\n    \"signedContent\": \"asdasdasdsadsadas\",\n    \"x509Pem\": \"asdasdasd\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{bpmServiceURL}}/api/signingProcess/submitSignature",
+									"host": [
+										"{{bpmServiceURL}}"
+									],
+									"path": [
+										"api",
+										"signingProcess",
+										"submitSignature"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						}
+					]
+				},
+				{
+					"name": "Role Management Controller",
+					"item": [
+						{
+							"name": "Assign Role",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"userId\": \"{{currentUserId}}\",\n    \"role\": \"approver\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{bpmServiceURL}}/api/role/assign",
+									"host": [
+										"{{bpmServiceURL}}"
+									],
+									"path": [
+										"api",
+										"role",
+										"assign"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Assign Role",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"userId\": \"45b91268-63c2-4e6c-94ff-189d99171202\",\n    \"role\": \"administrator\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{bpmServiceURL}}/api/role/assign",
+											"host": [
+												"{{bpmServiceURL}}"
+											],
+											"path": [
+												"api",
+												"role",
+												"assign"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "X-Content-Type-Options",
+											"value": "nosniff"
+										},
+										{
+											"key": "X-XSS-Protection",
+											"value": "1; mode=block"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, no-store, max-age=0, must-revalidate"
+										},
+										{
+											"key": "Pragma",
+											"value": "no-cache"
+										},
+										{
+											"key": "Expires",
+											"value": "0"
+										},
+										{
+											"key": "X-Frame-Options",
+											"value": "DENY"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Transfer-Encoding",
+											"value": "chunked"
+										},
+										{
+											"key": "Date",
+											"value": "Mon, 25 Oct 2021 16:11:51 GMT"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=60"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"message\": \"Success\",\n    \"successful\": true\n}"
+								}
+							]
+						},
+						{
+							"name": "Revoke Role",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"userId\": \"{{currentUserId}}\",\n    \"role\": \"approver\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{bpmServiceURL}}/api/role/revoke",
+									"host": [
+										"{{bpmServiceURL}}"
+									],
+									"path": [
+										"api",
+										"role",
+										"revoke"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Revoke Role",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"userId\": \"{{currentUserId}}\",\n    \"role\": \"approver\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{bpmServiceURL}}/api/role/revoke",
+											"host": [
+												"{{bpmServiceURL}}"
+											],
+											"path": [
+												"api",
+												"role",
+												"revoke"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "X-Content-Type-Options",
+											"value": "nosniff"
+										},
+										{
+											"key": "X-XSS-Protection",
+											"value": "1; mode=block"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, no-store, max-age=0, must-revalidate"
+										},
+										{
+											"key": "Pragma",
+											"value": "no-cache"
+										},
+										{
+											"key": "Expires",
+											"value": "0"
+										},
+										{
+											"key": "X-Frame-Options",
+											"value": "DENY"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Transfer-Encoding",
+											"value": "chunked"
+										},
+										{
+											"key": "Date",
+											"value": "Mon, 25 Oct 2021 16:11:46 GMT"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=60"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"message\": \"Success\",\n    \"successful\": true\n}"
+								}
+							]
+						},
+						{
+							"name": "Get All",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{bpmServiceURL}}/api/role/getAll",
+									"host": [
+										"{{bpmServiceURL}}"
+									],
+									"path": [
+										"api",
+										"role",
+										"getAll"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Get All",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{bpmServiceURL}}/api/role/getAll",
+											"host": [
+												"{{bpmServiceURL}}"
+											],
+											"path": [
+												"api",
+												"role",
+												"getAll"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "X-Content-Type-Options",
+											"value": "nosniff"
+										},
+										{
+											"key": "X-XSS-Protection",
+											"value": "1; mode=block"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, no-store, max-age=0, must-revalidate"
+										},
+										{
+											"key": "Pragma",
+											"value": "no-cache"
+										},
+										{
+											"key": "Expires",
+											"value": "0"
+										},
+										{
+											"key": "X-Frame-Options",
+											"value": "DENY"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Transfer-Encoding",
+											"value": "chunked"
+										},
+										{
+											"key": "Date",
+											"value": "Mon, 25 Oct 2021 16:11:25 GMT"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=60"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										}
+									],
+									"cookie": [],
+									"body": "[\n    {\n        \"key\": \"approver\",\n        \"name\": \"Approver\"\n    },\n    {\n        \"key\": \"delegator\",\n        \"name\": \"Delegator\"\n    },\n    {\n        \"key\": \"administrator\",\n        \"name\": \"Administrator\"\n    }\n]"
+								}
+							]
+						},
+						{
+							"name": "Get For User",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"userId\": \"{{currentUserId}}\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{bpmServiceURL}}/api/role/getForUser",
+									"host": [
+										"{{bpmServiceURL}}"
+									],
+									"path": [
+										"api",
+										"role",
+										"getForUser"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Get For User",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"userId\": \"45b91268-63c2-4e6c-94ff-189d99171202\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{bpmServiceURL}}/api/role/getForUser",
+											"host": [
+												"{{bpmServiceURL}}"
+											],
+											"path": [
+												"api",
+												"role",
+												"getForUser"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "X-Content-Type-Options",
+											"value": "nosniff"
+										},
+										{
+											"key": "X-XSS-Protection",
+											"value": "1; mode=block"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, no-store, max-age=0, must-revalidate"
+										},
+										{
+											"key": "Pragma",
+											"value": "no-cache"
+										},
+										{
+											"key": "Expires",
+											"value": "0"
+										},
+										{
+											"key": "X-Frame-Options",
+											"value": "DENY"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Transfer-Encoding",
+											"value": "chunked"
+										},
+										{
+											"key": "Date",
+											"value": "Mon, 25 Oct 2021 16:11:33 GMT"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=60"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										}
+									],
+									"cookie": [],
+									"body": "[\n    {\n        \"key\": \"administrator\",\n        \"name\": \"Administrator\"\n    }\n]"
+								}
+							]
+						},
+						{
+							"name": "Get For Current User",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"userId\": \"45b91268-63c2-4e6c-94ff-189d99171202\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{bpmServiceURL}}/api/role/getForCurrentUser",
+									"host": [
+										"{{bpmServiceURL}}"
+									],
+									"path": [
+										"api",
+										"role",
+										"getForCurrentUser"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Get For Current User",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"userId\": \"45b91268-63c2-4e6c-94ff-189d99171202\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{bpmServiceURL}}/api/role/getForCurrentUser",
+											"host": [
+												"{{bpmServiceURL}}"
+											],
+											"path": [
+												"api",
+												"role",
+												"getForCurrentUser"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "X-Content-Type-Options",
+											"value": "nosniff"
+										},
+										{
+											"key": "X-XSS-Protection",
+											"value": "1; mode=block"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, no-store, max-age=0, must-revalidate"
+										},
+										{
+											"key": "Pragma",
+											"value": "no-cache"
+										},
+										{
+											"key": "Expires",
+											"value": "0"
+										},
+										{
+											"key": "X-Frame-Options",
+											"value": "DENY"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Transfer-Encoding",
+											"value": "chunked"
+										},
+										{
+											"key": "Date",
+											"value": "Mon, 25 Oct 2021 16:11:36 GMT"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=60"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										}
+									],
+									"cookie": [],
+									"body": "[\n    {\n        \"key\": \"administrator\",\n        \"name\": \"Administrator\"\n    }\n]"
+								}
+							]
+						}
+					],
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						}
+					]
+				},
+				{
+					"name": "Device Controller",
+					"item": [
+						{
+							"name": "Register Device",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"if (pm.response.code === 200) {",
+											"    const {deviceEntity} = pm.response.json();",
+											"",
+											"    pm.environment.set(\"registeredDevice\", deviceEntity.id);",
+											"}",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"deviceHardwareId\": \"123\",\n    \"userId\": \"{{currentUserId}}\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{bpmServiceURL}}/api/device/register",
+									"host": [
+										"{{bpmServiceURL}}"
+									],
+									"path": [
+										"api",
+										"device",
+										"register"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Register Device",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"deviceHardwareId\": \"1234\",\n    \"userId\": \"63c2f7ed-7b4e-4a5a-a847-4466fc6dcfe6\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{bpmServiceURL}}/api/device/register",
+											"host": [
+												"{{bpmServiceURL}}"
+											],
+											"path": [
+												"api",
+												"device",
+												"register"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "X-Content-Type-Options",
+											"value": "nosniff"
+										},
+										{
+											"key": "X-XSS-Protection",
+											"value": "1; mode=block"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, no-store, max-age=0, must-revalidate"
+										},
+										{
+											"key": "Pragma",
+											"value": "no-cache"
+										},
+										{
+											"key": "Expires",
+											"value": "0"
+										},
+										{
+											"key": "X-Frame-Options",
+											"value": "DENY"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Transfer-Encoding",
+											"value": "chunked"
+										},
+										{
+											"key": "Date",
+											"value": "Sun, 31 Oct 2021 13:24:58 GMT"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=60"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"deviceEntity\": {\n        \"deviceHardwareId\": \"1234\",\n        \"fcmtoken\": null,\n        \"id\": \"a57bd58b-a30c-4ab9-b2ff-e533e55bac11\",\n        \"userId\": \"63c2f7ed-7b4e-4a5a-a847-4466fc6dcfe6\"\n    },\n    \"message\": \"Success\",\n    \"successful\": true\n}"
+								}
+							]
+						},
+						{
+							"name": "Update FCM Token",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"userId\": \"{{currentUserId}}\",\n    \"fcmToken\": \"{{$randomUUID}}\",\n    \"deviceHardwareId\": \"123\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{bpmServiceURL}}/api/device/updateFCMToken",
+									"host": [
+										"{{bpmServiceURL}}"
+									],
+									"path": [
+										"api",
+										"device",
+										"updateFCMToken"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Update FCM Token",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"userId\": \"{{currentUserId}}\",\n    \"fcmToken\": \"{{$randomUUID}}\",\n    \"deviceHardwareId\": \"123\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{bpmServiceURL}}/api/device/updateFCMToken",
+											"host": [
+												"{{bpmServiceURL}}"
+											],
+											"path": [
+												"api",
+												"device",
+												"updateFCMToken"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "X-Content-Type-Options",
+											"value": "nosniff"
+										},
+										{
+											"key": "X-XSS-Protection",
+											"value": "1; mode=block"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, no-store, max-age=0, must-revalidate"
+										},
+										{
+											"key": "Pragma",
+											"value": "no-cache"
+										},
+										{
+											"key": "Expires",
+											"value": "0"
+										},
+										{
+											"key": "X-Frame-Options",
+											"value": "DENY"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Transfer-Encoding",
+											"value": "chunked"
+										},
+										{
+											"key": "Date",
+											"value": "Sun, 31 Oct 2021 13:30:44 GMT"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=60"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"deviceEntity\": {\n        \"deviceHardwareId\": \"123\",\n        \"fcmtoken\": \"56a415b2-e21e-4773-9c74-da7ba82af7b2\",\n        \"id\": \"a0837e9f-d9b2-4045-9f52-9b9c5d5dd62e\",\n        \"userId\": \"94d69f0e-8443-4cb8-8391-a1383591aeb8\"\n    },\n    \"message\": \"Success\",\n    \"successful\": true\n}"
+								}
+							]
+						}
+					],
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						}
+					]
+				},
+				{
+					"name": "Certificate Authority Controller",
+					"item": [
+						{
+							"name": "Issue X509 Certificate",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"publicKeyPem\": \"-----BEGIN RSA PUBLIC KEY-----MIIBCgKCAQEArSAO/SXALcm87OeJVDqdV4r0YR89AfKENMR0j0DMDYAhnFpiucwzQgBeWNbmvrAPSeoHMrqQXlh1Q+Czyt071/x/iByiRbM4E1glNTb5zWpZCNXgbG+0SkeFDHZyYokQ4rvnhRuAIx0/lDA73cMyEsBVGepBV4oqYUPUvs2zkE6n1hwdy/h5D+fLnnS5ZEWz/sklnaAFH8fYuZIhlHvA3Tx0KEHBPWHH0tRoGY+0ufuquD9kUnpaRwpT5v4hDglx9NsfQIPtqm+WR1Etv3+yarMIgoV7d63HbXFwLCgrvxqATCq+cog9SNz66WCrzqm+6jO/ffylWbgxnra9IYXvxQIDAQAB-----END RSA PUBLIC KEY-----\",\n    \"userId\": \"{{currentUserId}}\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{bpmServiceURL}}/api/certificateAuthority/issueX509Certificate",
+									"host": [
+										"{{bpmServiceURL}}"
+									],
+									"path": [
+										"api",
+										"certificateAuthority",
+										"issueX509Certificate"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Issue X509 Certificate",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"publicKeyPem\": \"-----BEGIN RSA PUBLIC KEY-----MIIBCgKCAQEArSAO/SXALcm87OeJVDqdV4r0YR89AfKENMR0j0DMDYAhnFpiucwzQgBeWNbmvrAPSeoHMrqQXlh1Q+Czyt071/x/iByiRbM4E1glNTb5zWpZCNXgbG+0SkeFDHZyYokQ4rvnhRuAIx0/lDA73cMyEsBVGepBV4oqYUPUvs2zkE6n1hwdy/h5D+fLnnS5ZEWz/sklnaAFH8fYuZIhlHvA3Tx0KEHBPWHH0tRoGY+0ufuquD9kUnpaRwpT5v4hDglx9NsfQIPtqm+WR1Etv3+yarMIgoV7d63HbXFwLCgrvxqATCq+cog9SNz66WCrzqm+6jO/ffylWbgxnra9IYXvxQIDAQAB-----END RSA PUBLIC KEY-----\",\n    \"userId\": \"{{currentUserId}}\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{bpmServiceURL}}/api/certificateAuthority/issueX509Certificate",
+											"host": [
+												"{{bpmServiceURL}}"
+											],
+											"path": [
+												"api",
+												"certificateAuthority",
+												"issueX509Certificate"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "plain",
+									"header": [
+										{
+											"key": "X-Content-Type-Options",
+											"value": "nosniff"
+										},
+										{
+											"key": "X-XSS-Protection",
+											"value": "1; mode=block"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, no-store, max-age=0, must-revalidate"
+										},
+										{
+											"key": "Pragma",
+											"value": "no-cache"
+										},
+										{
+											"key": "Expires",
+											"value": "0"
+										},
+										{
+											"key": "X-Frame-Options",
+											"value": "DENY"
+										},
+										{
+											"key": "Content-Type",
+											"value": "text/plain;charset=UTF-8"
+										},
+										{
+											"key": "Content-Length",
+											"value": "1120"
+										},
+										{
+											"key": "Date",
+											"value": "Sun, 31 Oct 2021 13:36:55 GMT"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=60"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										}
+									],
+									"cookie": [],
+									"body": "MIIDQzCCAiugAwIBAgIGAXzWkT/MMA0GCSqGSIb3DQEBCwUAMIGVMSIwIAYJKoZIhvcNAQkBFhNpbmZvQHNpZ25mbHVlbnQuY29tMRMwEQYDVQQDDApTaWduZmx1ZW50MREwDwYDVQQLDAhTb2Z0d2FyZTETMBEGA1UECgwKU2lnbmZsdWVudDEQMA4GA1UEBwwHSG9yc2VuczETMBEGA1UECAwKTWlkanlsbGFuZDELMAkGA1UEBhMCREswHhcNMjExMDMwMTMzNjU1WhcNMjMxMDMxMTMzNjU1WjAvMS0wKwYDVQQuEyQ5NGQ2OWYwZS04NDQzLTRjYjgtODM5MS1hMTM4MzU5MWFlYjgwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQCtIA79JcAtybzs54lUOp1XivRhHz0B8oQ0xHSPQMwNgCGcWmK5zDNCAF5Y1ua+sA9J6gcyupBeWHVD4LPK3TvX/H+IHKJFszgTWCU1NvnNalkI1eBsb7RKR4UMdnJiiRDiu+eFG4AjHT+UMDvdwzISwFUZ6kFXiiphQ9S+zbOQTqfWHB3L+HkP58uedLlkRbP+ySWdoAUfx9i5kiGUe8DdPHQoQcE9YcfS1GgZj7S5+6q4P2RSelpHClPm/iEOCXH02x9Ag+2qb5ZHUS2/f7JqswiChXt3rcdtcXAsKCu/GoBMKr5yiD1I3PrpYKvOqb7qM799/KVZuDGetr0hhe/FAgMBAAEwDQYJKoZIhvcNAQELBQADggEBAJwG69D0teCfDrShILtFwXwaYn/Wf4aMJxDIx/PyGXuXUwnOmw2NcTGnYQOoGClbj3/yKf970rguvY3euUwHUIK1bzhvsjkJyYpSadsi22inHP4q4FKR3Lvrf7OV2oTsUEEjLMLWeu5UzbUZP+4ao/XYEleHHxUetNDwJaDL2bwgzQu4cbKf73TUWbI+f1hBzWUPC+KrLR054re1AWgan4EgoOlhCX7fra3S7zTWCfsKcYbBH+O1MOfwb0TyJxWhOHFPwayIMdy5+XRlY9o0Eu7slKks7ENTvke1hbUS7EB8q3RWuPFneFMFVNKk8nfd08FjP490b1d97jtSLZ2ySiY="
+								}
+							]
+						}
+					]
+				}
+			],
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "{{bearerToken}}",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
 			"name": "User Service",
 			"item": [
 				{
@@ -929,1418 +3087,6 @@
 						}
 					},
 					"response": []
-				}
-			]
-		},
-		{
-			"name": "BPM Service",
-			"item": [
-				{
-					"name": "Signing Process",
-					"item": [
-						{
-							"name": "Upload Document",
-							"request": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n    \"document\": \"ZG9jdW1lbnQ=\",\n    \"description\": \"This is some dummy description\"\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{bpmServiceURL}}/api/signingProcess/uploadDocument",
-									"host": [
-										"{{bpmServiceURL}}"
-									],
-									"path": [
-										"api",
-										"signingProcess",
-										"uploadDocument"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Get Approvers",
-							"request": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n    \"taskId\": \"cba00e70-29e2-4dc3-a0ae-6d9c983358ed\"\n}\n\n\n    // \"response\": {\n    //     \"approvers\": [\n    //         {\n    //             \"userId\": \"123\",\n    //             \"email\": \"asd@asd.asd\",\n    //             \"name\": \"asdasd\"\n    //         },\n    //         {\n    //             \"userId\": \"123\",\n    //             \"email\": \"asd@asd.asd\",\n    //             \"name\": \"asdasd\"\n    //         },\n    //         {\n    //             \"userId\": \"123\",\n    //             \"email\": \"asd@asd.asd\",\n    //             \"name\": \"asdasd\"\n    //         }\n    //     ]\n    // }",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{bpmServiceURL}}/api/signingProcess/getActiveApprovers",
-									"host": [
-										"{{bpmServiceURL}}"
-									],
-									"path": [
-										"api",
-										"signingProcess",
-										"getActiveApprovers"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Get Documents For Inspection",
-							"request": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{bpmServiceURL}}/api/signingProcess/getDocumentsForInspection",
-									"host": [
-										"{{bpmServiceURL}}"
-									],
-									"path": [
-										"api",
-										"signingProcess",
-										"getDocumentsForInspection"
-									]
-								}
-							},
-							"response": [
-								{
-									"name": "Get Documents For Inspection",
-									"originalRequest": {
-										"method": "POST",
-										"header": [],
-										"body": {
-											"mode": "raw",
-											"raw": "",
-											"options": {
-												"raw": {
-													"language": "json"
-												}
-											}
-										},
-										"url": {
-											"raw": "{{bpmServiceURL}}/api/signingProcess/getDocumentsForInspection",
-											"host": [
-												"{{bpmServiceURL}}"
-											],
-											"path": [
-												"api",
-												"signingProcess",
-												"getDocumentsForInspection"
-											]
-										}
-									},
-									"status": "OK",
-									"code": 200,
-									"_postman_previewlanguage": "json",
-									"header": [
-										{
-											"key": "X-Content-Type-Options",
-											"value": "nosniff"
-										},
-										{
-											"key": "X-XSS-Protection",
-											"value": "1; mode=block"
-										},
-										{
-											"key": "Cache-Control",
-											"value": "no-cache, no-store, max-age=0, must-revalidate"
-										},
-										{
-											"key": "Pragma",
-											"value": "no-cache"
-										},
-										{
-											"key": "Expires",
-											"value": "0"
-										},
-										{
-											"key": "X-Frame-Options",
-											"value": "DENY"
-										},
-										{
-											"key": "Content-Type",
-											"value": "application/json"
-										},
-										{
-											"key": "Transfer-Encoding",
-											"value": "chunked"
-										},
-										{
-											"key": "Date",
-											"value": "Wed, 27 Oct 2021 19:50:13 GMT"
-										},
-										{
-											"key": "Keep-Alive",
-											"value": "timeout=60"
-										},
-										{
-											"key": "Connection",
-											"value": "keep-alive"
-										}
-									],
-									"cookie": [],
-									"body": "[\n    {\n        \"taskId\": \"17855ed8-375f-11ec-a903-8a6a603d3056\",\n        \"document\": {\n            \"description\": \"This is some dummy description\",\n            \"uploadedBy\": {\n                \"email\": \"angel@signfluent.com\",\n                \"firstName\": \"David\",\n                \"id\": \"f21b0fb1-d483-4b05-a293-404066fd767b\",\n                \"lastName\": \"Franko\",\n                \"username\": \"angel\"\n            },\n            \"status\": \"RECEIVED\",\n            \"uploadedAt\": \"2021-10-27T19:50:09.762Z\"\n        }\n    },\n    {\n        \"taskId\": \"ef081332-375e-11ec-a903-8a6a603d3056\",\n        \"document\": {\n            \"description\": \"This is some dummy description\",\n            \"uploadedBy\": {\n                \"email\": \"info@signfluent.com\",\n                \"firstName\": \"Signfluent\",\n                \"id\": \"9f839275-6260-4748-bef3-9206d82cc7e6\",\n                \"lastName\": \"Admin\",\n                \"username\": \"administrator\"\n            },\n            \"status\": \"RECEIVED\",\n            \"uploadedAt\": \"2021-10-27T19:49:01.755Z\"\n        }\n    }\n]"
-								}
-							]
-						},
-						{
-							"name": "Get Document Content",
-							"request": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n    \"taskId\": \"70470ead-3757-11ec-a2ac-8a6a603d3056\"\n}\n\n\n// \"response\": {\n//         \"document\": {\n//             \"documentId\": \"cba00e70-29e2-4dc3-a0ae-6d9c983358ed\",\n//             \"description\": \"I am document\",\n//             \"status\": \"RECEIVED\",\n//             \"uploadedBy\": \"cba00e70-29e2-4dc3-a0ae-6d9c983358ed\",\n//             \"uploadedDate\": \"asdasda\",\n//             \"content\": \"ASdASDasdASdfjkASLDnaSLNDaSLKd==\"\n//         }\n//     }",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{bpmServiceURL}}/api/signingProcess/getDocumentDetails",
-									"host": [
-										"{{bpmServiceURL}}"
-									],
-									"path": [
-										"api",
-										"signingProcess",
-										"getDocumentDetails"
-									]
-								}
-							},
-							"response": [
-								{
-									"name": "Get Document Content",
-									"originalRequest": {
-										"method": "POST",
-										"header": [],
-										"body": {
-											"mode": "raw",
-											"raw": "{\n    \"taskId\": \"70470ead-3757-11ec-a2ac-8a6a603d3056\"\n}\n\n\n// \"response\": {\n//         \"document\": {\n//             \"documentId\": \"cba00e70-29e2-4dc3-a0ae-6d9c983358ed\",\n//             \"description\": \"I am document\",\n//             \"status\": \"RECEIVED\",\n//             \"uploadedBy\": \"cba00e70-29e2-4dc3-a0ae-6d9c983358ed\",\n//             \"uploadedDate\": \"asdasda\",\n//             \"content\": \"ASdASDasdASdfjkASLDnaSLNDaSLKd==\"\n//         }\n//     }",
-											"options": {
-												"raw": {
-													"language": "json"
-												}
-											}
-										},
-										"url": {
-											"raw": "{{bpmServiceURL}}/api/signingProcess/getDocumentDetails",
-											"host": [
-												"{{bpmServiceURL}}"
-											],
-											"path": [
-												"api",
-												"signingProcess",
-												"getDocumentDetails"
-											]
-										}
-									},
-									"status": "OK",
-									"code": 200,
-									"_postman_previewlanguage": "json",
-									"header": [
-										{
-											"key": "X-Content-Type-Options",
-											"value": "nosniff"
-										},
-										{
-											"key": "X-XSS-Protection",
-											"value": "1; mode=block"
-										},
-										{
-											"key": "Cache-Control",
-											"value": "no-cache, no-store, max-age=0, must-revalidate"
-										},
-										{
-											"key": "Pragma",
-											"value": "no-cache"
-										},
-										{
-											"key": "Expires",
-											"value": "0"
-										},
-										{
-											"key": "X-Frame-Options",
-											"value": "DENY"
-										},
-										{
-											"key": "Content-Type",
-											"value": "application/json"
-										},
-										{
-											"key": "Transfer-Encoding",
-											"value": "chunked"
-										},
-										{
-											"key": "Date",
-											"value": "Wed, 27 Oct 2021 18:56:02 GMT"
-										},
-										{
-											"key": "Keep-Alive",
-											"value": "timeout=60"
-										},
-										{
-											"key": "Connection",
-											"value": "keep-alive"
-										}
-									],
-									"cookie": [],
-									"body": "{\n    \"description\": \"This is some dummy description\",\n    \"uploadedBy\": {\n        \"email\": \"info@signfluent.com\",\n        \"firstName\": \"Signfluent\",\n        \"id\": \"9f839275-6260-4748-bef3-9206d82cc7e6\",\n        \"lastName\": \"Admin\",\n        \"username\": \"administrator\"\n    },\n    \"status\": \"RECEIVED\",\n    \"uploadedAt\": \"2021-10-27T18:55:22.62Z\",\n    \"content\": \"ZG9jdW1lbnQ=\"\n}"
-								}
-							]
-						},
-						{
-							"name": "Inspect Document",
-							"request": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n    \"taskId\": \"60e5bf12-318a-11ec-9bbe-d22282faef24\",\n    \"isValid\": true,\n    \"delegatorId\": \"cba00e70-29e2-4dc3-a0ae-6d9c983358ed\",\n    \"approvers\": [\n        {\n            \"approverId\": \"d0b0dd1c-91d0-4911-a94e-dbedf1ebd905\",\n            \"order\": 1\n        },\n        {\n            \"approverId\": \"548b60cc-6f8c-4631-a1e5-297017f58548\",\n            \"order\": 2\n        },\n        {\n            \"approverId\": \"548b60cc-6f8c-4631-a1e5-297017f58548\",\n            \"order\": 3\n        },\n        {\n            \"approverId\": \"548b60cc-6f8c-4631-a1e5-297017f58548\",\n            \"order\": 4\n        }\n    ]\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{bpmServiceURL}}/api/signingProcess/inspectDocument",
-									"host": [
-										"{{bpmServiceURL}}"
-									],
-									"path": [
-										"api",
-										"signingProcess",
-										"inspectDocument"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Get Documents For Approval",
-							"request": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n    \"userId\": \"cba00e70-29e2-4dc3-a0ae-6d9c983358ed\"\n}\n\n\n// {\n//     \"response\": {\n//         \"documentsForDelegation\": [\n//             {\n//                 \"taskId\": \"cba00e70-29e2-4dc3-a0ae-6d9c983358ed\",\n//                 \"document\": {\n//                     \"description\": \"I am document\",\n//                     \"status\": \"RECEIVED\",\n//                     \"uploadedBy\": \"cba00e70-29e2-4dc3-a0ae-6d9c983358ed\",\n//                     \"uploadedDate\": \"asdasda\"\n//                 }\n//             },\n//              {\n//                 \"taskId\": \"cba00e70-29e2-4dc3-a0ae-6d9c983358ed\",\n//                 \"document\": {\n//                     \"description\": \"I am document 2\",\n//                     \"status\": \"RECEIVED\",\n//                     \"uploadedBy\": \"cba00e70-29e2-4dc3-a0ae-6d9c983358ed\",\n//                     \"uploadedDate\": \"asdasda\"\n//                 }\n//             }\n//         ]\n//     }\n// }",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{bpmServiceURL}}/api/signingProcess/getDocumentsForApproval",
-									"host": [
-										"{{bpmServiceURL}}"
-									],
-									"path": [
-										"api",
-										"signingProcess",
-										"getDocumentsForApproval"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Approve Document",
-							"request": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n    \"taskId\": \"cba00e70-29e2-4dc3-a0ae-6d9c983358ed\",\n    \"approve\": true // false\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{bpmServiceURL}}/api/signingProcess/approveDocument",
-									"host": [
-										"{{bpmServiceURL}}"
-									],
-									"path": [
-										"api",
-										"signingProcess",
-										"approveDocument"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Get Signature Request",
-							"request": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n    \"userId\": \"cba00e70-29e2-4dc3-a0ae-6d9c983358ed\"\n}\n\n\n// \"response\": {\n//         \"signatureRequest\": {\n//             \"contentToSign\": \"asdadasdas\",\n//             \"taskId\": \"cba00e70-29e2-4dc3-a0ae-6d9c983358ed\"\n//         }\n//     }",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{bpmServiceURL}}/api/signingProcess/getSignatureRequest",
-									"host": [
-										"{{bpmServiceURL}}"
-									],
-									"path": [
-										"api",
-										"signingProcess",
-										"getSignatureRequest"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Sign Document",
-							"request": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n    \"taskId\": \"cba00e70-29e2-4dc3-a0ae-6d9c983358ed\",\n    \"signedContent\": \"asdasdasdsadsadas\",\n    \"x509Pem\": \"asdasdasd\"\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{bpmServiceURL}}/api/signingProcess/signDocument",
-									"host": [
-										"{{bpmServiceURL}}"
-									],
-									"path": [
-										"api",
-										"signingProcess",
-										"signDocument"
-									]
-								}
-							},
-							"response": []
-						}
-					],
-					"auth": {
-						"type": "bearer",
-						"bearer": [
-							{
-								"key": "token",
-								"value": "{{bearerToken}}",
-								"type": "string"
-							}
-						]
-					},
-					"event": [
-						{
-							"listen": "prerequest",
-							"script": {
-								"type": "text/javascript",
-								"exec": [
-									""
-								]
-							}
-						},
-						{
-							"listen": "test",
-							"script": {
-								"type": "text/javascript",
-								"exec": [
-									""
-								]
-							}
-						}
-					]
-				},
-				{
-					"name": "Authentication Controller",
-					"item": [
-						{
-							"name": "Login",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"exec": [
-											"const {userId, token} = pm.response.json();",
-											"",
-											"pm.environment.set(\"currentUserId\", userId);",
-											"pm.environment.set(\"bearerToken\", token);",
-											""
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"auth": {
-									"type": "noauth"
-								},
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n    \"username\": \"angel\",\n    \"password\" : \"123456\"\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{bpmServiceURL}}/api/auth/login",
-									"host": [
-										"{{bpmServiceURL}}"
-									],
-									"path": [
-										"api",
-										"auth",
-										"login"
-									]
-								}
-							},
-							"response": [
-								{
-									"name": "Login",
-									"originalRequest": {
-										"method": "POST",
-										"header": [],
-										"body": {
-											"mode": "raw",
-											"raw": "{\n    \"username\": \"david\",\n    \"password\" : \"123456\"\n}",
-											"options": {
-												"raw": {
-													"language": "json"
-												}
-											}
-										},
-										"url": {
-											"raw": "{{bpmServiceURL}}/api/auth/login",
-											"host": [
-												"{{bpmServiceURL}}"
-											],
-											"path": [
-												"api",
-												"auth",
-												"login"
-											]
-										}
-									},
-									"status": "OK",
-									"code": 200,
-									"_postman_previewlanguage": "json",
-									"header": [
-										{
-											"key": "X-Content-Type-Options",
-											"value": "nosniff"
-										},
-										{
-											"key": "X-XSS-Protection",
-											"value": "1; mode=block"
-										},
-										{
-											"key": "Cache-Control",
-											"value": "no-cache, no-store, max-age=0, must-revalidate"
-										},
-										{
-											"key": "Pragma",
-											"value": "no-cache"
-										},
-										{
-											"key": "Expires",
-											"value": "0"
-										},
-										{
-											"key": "X-Frame-Options",
-											"value": "DENY"
-										},
-										{
-											"key": "Content-Type",
-											"value": "application/json"
-										},
-										{
-											"key": "Transfer-Encoding",
-											"value": "chunked"
-										},
-										{
-											"key": "Date",
-											"value": "Mon, 25 Oct 2021 16:12:03 GMT"
-										},
-										{
-											"key": "Keep-Alive",
-											"value": "timeout=60"
-										},
-										{
-											"key": "Connection",
-											"value": "keep-alive"
-										}
-									],
-									"cookie": [],
-									"body": "{\n    \"expiresIn\": 60,\n    \"idToken\": null,\n    \"notBeforePolicy\": 0,\n    \"refreshExpiresIn\": 1800,\n    \"refreshToken\": \"eyJhbGciOiJIUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICI4MjI1YTkyNy1kM2M3LTQzNTUtOTA5ZS1kYzBjZGRjNGVhZmUifQ.eyJleHAiOjE2MzUxODAxMjMsImlhdCI6MTYzNTE3ODMyMywianRpIjoiOWFmMDUwN2EtNzg2Zi00NmZiLTljYWEtZmM0OWNiMWUxN2M5IiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo4MDgwL2F1dGgvcmVhbG1zL21hc3RlciIsImF1ZCI6Imh0dHA6Ly9sb2NhbGhvc3Q6ODA4MC9hdXRoL3JlYWxtcy9tYXN0ZXIiLCJzdWIiOiI0NWI5MTI2OC02M2MyLTRlNmMtOTRmZi0xODlkOTkxNzEyMDIiLCJ0eXAiOiJSZWZyZXNoIiwiYXpwIjoidXNlci1zZXJ2aWNlIiwic2Vzc2lvbl9zdGF0ZSI6IjZmMWRmMmEyLTY2YTYtNDJkNC05OTgwLTI3YTExZTExMDljYiIsInNjb3BlIjoicHJvZmlsZSBlbWFpbCIsInNpZCI6IjZmMWRmMmEyLTY2YTYtNDJkNC05OTgwLTI3YTExZTExMDljYiJ9.hSiwdD_3DB7_sFYy9rIHYTjJX8yzLE0mECFUX5FYLhE\",\n    \"token\": \"eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJ2UlBuaXBKQUVqS1Y0RUk3SEd4RldUVUM2bTNJZ0w3LU9DeTQ0aFZhcVU0In0.eyJleHAiOjE2MzUxNzgzODMsImlhdCI6MTYzNTE3ODMyMywianRpIjoiYmVmMTMwZjQtZDQ5My00Nzg3LTkwYzktMmYyYTEwMDU0MTA2IiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo4MDgwL2F1dGgvcmVhbG1zL21hc3RlciIsImF1ZCI6ImFjY291bnQiLCJzdWIiOiI0NWI5MTI2OC02M2MyLTRlNmMtOTRmZi0xODlkOTkxNzEyMDIiLCJ0eXAiOiJCZWFyZXIiLCJhenAiOiJ1c2VyLXNlcnZpY2UiLCJzZXNzaW9uX3N0YXRlIjoiNmYxZGYyYTItNjZhNi00MmQ0LTk5ODAtMjdhMTFlMTEwOWNiIiwiYWNyIjoiMSIsImFsbG93ZWQtb3JpZ2lucyI6WyJodHRwOi8vbG9jYWxob3N0OjgwMDMiXSwicmVhbG1fYWNjZXNzIjp7InJvbGVzIjpbImFkbWluaXN0cmF0b3IiLCJkZWZhdWx0LXJvbGVzLW1hc3RlciIsIm9mZmxpbmVfYWNjZXNzIiwidW1hX2F1dGhvcml6YXRpb24iXX0sInJlc291cmNlX2FjY2VzcyI6eyJ1c2VyLXNlcnZpY2UiOnsicm9sZXMiOlsiYWRtaW5pc3RyYXRvciJdfSwiYWNjb3VudCI6eyJyb2xlcyI6WyJtYW5hZ2UtYWNjb3VudCIsIm1hbmFnZS1hY2NvdW50LWxpbmtzIiwidmlldy1wcm9maWxlIl19fSwic2NvcGUiOiJwcm9maWxlIGVtYWlsIiwic2lkIjoiNmYxZGYyYTItNjZhNi00MmQ0LTk5ODAtMjdhMTFlMTEwOWNiIiwiZW1haWxfdmVyaWZpZWQiOmZhbHNlLCJuYW1lIjoiRGF2aWQgRnJhbmtvIiwicHJlZmVycmVkX3VzZXJuYW1lIjoiZGF2aWQiLCJnaXZlbl9uYW1lIjoiRGF2aWQiLCJmYW1pbHlfbmFtZSI6IkZyYW5rbyIsImVtYWlsIjoiZGF2aWRAc2lnbmZsdWVudC5jb20ifQ.BGm7SzhpT4oVW9UAC973mRxbZJQeJmm8ciIlpvmyyYNz77Emh9AQeaegTihz_vREbHrjydN60D164grdwAz85eJl67YvvxA_h_hhMaUos_M_RM5yUmDHbduIUPMWv0dId29PTi8EKxe-HNvNp7qjXAHvWv1AbT4GmHImcxELt3NXLeVHMinsml_ExogKPN7ZHowwcrbfV75k-TK49AOd22mXScFY7kPGfbK54XS3k5lfc0jHvvIHpGf6sdmip0j14WNFqe7eWYWbqbEoB_sDoHrvd0HaCS_ET-PCz7utDJ0WncEtnXGCGevgtSz33npESdPveIQP4V6TvNaAjTn7fg\",\n    \"tokenType\": \"Bearer\",\n    \"userId\": \"45b91268-63c2-4e6c-94ff-189d99171202\"\n}"
-								}
-							]
-						},
-						{
-							"name": "Refresh Token",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"exec": [
-											"const {userId, token} = pm.response.json();",
-											"",
-											"pm.environment.set(\"currentUserId\", userId);",
-											"pm.environment.set(\"bearerToken\", token);",
-											""
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"auth": {
-									"type": "noauth"
-								},
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n    \"refreshToken\": \"eyJhbGciOiJIUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICI5MDVmZjgzNy1lMmVkLTQxYWUtYjM0ZS0yNWM4YmFlNzJhNWUifQ.eyJleHAiOjE2MzUzMzQ0NTYsImlhdCI6MTYzNTMzMjY1NiwianRpIjoiZGM2ZmI3MzAtMGVhZC00MzlhLWI2YzYtMmVkYWZlOGE3ZjU0IiwiaXNzIjoiaHR0cDovLzEwLjEwNS44NC43OTo4MDgwL2F1dGgvcmVhbG1zL21hc3RlciIsImF1ZCI6Imh0dHA6Ly8xMC4xMDUuODQuNzk6ODA4MC9hdXRoL3JlYWxtcy9tYXN0ZXIiLCJzdWIiOiI5ZjgzOTI3NS02MjYwLTQ3NDgtYmVmMy05MjA2ZDgyY2M3ZTYiLCJ0eXAiOiJSZWZyZXNoIiwiYXpwIjoic2lnbmZsdWVudCIsInNlc3Npb25fc3RhdGUiOiJlMTcxOGQ4NC01YzI0LTQyMDAtOWE0OS1hNzhkMmEwOWNhMDYiLCJzY29wZSI6ImVtYWlsIHByb2ZpbGUiLCJzaWQiOiJlMTcxOGQ4NC01YzI0LTQyMDAtOWE0OS1hNzhkMmEwOWNhMDYifQ.OycyGq5TgxTJkbO1avnqwpsTA8nMPqjMjowsZvKfWZ8\"\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{bpmServiceURL}}/api/auth/refreshToken",
-									"host": [
-										"{{bpmServiceURL}}"
-									],
-									"path": [
-										"api",
-										"auth",
-										"refreshToken"
-									]
-								}
-							},
-							"response": [
-								{
-									"name": "Refresh Token",
-									"originalRequest": {
-										"method": "POST",
-										"header": [],
-										"body": {
-											"mode": "raw",
-											"raw": "{\n    \"refreshToken\": \"eyJhbGciOiJIUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICI5MDVmZjgzNy1lMmVkLTQxYWUtYjM0ZS0yNWM4YmFlNzJhNWUifQ.eyJleHAiOjE2MzUzMzM4MjcsImlhdCI6MTYzNTMzMjAyNywianRpIjoiMDQzNDgxNTktMTM0Ny00NWMxLWE0YWQtMjNhNTVkZmZlOWQzIiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo4MDgwL2F1dGgvcmVhbG1zL21hc3RlciIsImF1ZCI6Imh0dHA6Ly9sb2NhbGhvc3Q6ODA4MC9hdXRoL3JlYWxtcy9tYXN0ZXIiLCJzdWIiOiI5ZjgzOTI3NS02MjYwLTQ3NDgtYmVmMy05MjA2ZDgyY2M3ZTYiLCJ0eXAiOiJSZWZyZXNoIiwiYXpwIjoic2lnbmZsdWVudCIsInNlc3Npb25fc3RhdGUiOiJjZjRjZWJmZS04MzFlLTRhNjEtOTBlOC1iZGViYTY3MjRjODUiLCJzY29wZSI6ImVtYWlsIHByb2ZpbGUiLCJzaWQiOiJjZjRjZWJmZS04MzFlLTRhNjEtOTBlOC1iZGViYTY3MjRjODUifQ.N880EA4MSO5BJv29K_7i0rNqbLG_A8vG3BfkSfCF-XA\"\n}",
-											"options": {
-												"raw": {
-													"language": "json"
-												}
-											}
-										},
-										"url": {
-											"raw": "{{bpmServiceURL}}/api/auth/refreshToken",
-											"host": [
-												"{{bpmServiceURL}}"
-											],
-											"path": [
-												"api",
-												"auth",
-												"refreshToken"
-											]
-										}
-									},
-									"status": "OK",
-									"code": 200,
-									"_postman_previewlanguage": "json",
-									"header": [
-										{
-											"key": "X-Content-Type-Options",
-											"value": "nosniff"
-										},
-										{
-											"key": "X-XSS-Protection",
-											"value": "1; mode=block"
-										},
-										{
-											"key": "Cache-Control",
-											"value": "no-cache, no-store, max-age=0, must-revalidate"
-										},
-										{
-											"key": "Pragma",
-											"value": "no-cache"
-										},
-										{
-											"key": "Expires",
-											"value": "0"
-										},
-										{
-											"key": "X-Frame-Options",
-											"value": "DENY"
-										},
-										{
-											"key": "Content-Type",
-											"value": "application/json"
-										},
-										{
-											"key": "Transfer-Encoding",
-											"value": "chunked"
-										},
-										{
-											"key": "Date",
-											"value": "Wed, 27 Oct 2021 10:54:24 GMT"
-										},
-										{
-											"key": "Keep-Alive",
-											"value": "timeout=60"
-										},
-										{
-											"key": "Connection",
-											"value": "keep-alive"
-										}
-									],
-									"cookie": [],
-									"body": "{\n    \"expiresIn\": 35963,\n    \"refreshExpiresIn\": 1800,\n    \"refreshToken\": \"eyJhbGciOiJIUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICI5MDVmZjgzNy1lMmVkLTQxYWUtYjM0ZS0yNWM4YmFlNzJhNWUifQ.eyJleHAiOjE2MzUzMzM4NjQsImlhdCI6MTYzNTMzMjA2NCwianRpIjoiYzc1ODFiYTItOWE0MS00MDFiLTg3ZjAtNzA0OGI0ZjUxNWY1IiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo4MDgwL2F1dGgvcmVhbG1zL21hc3RlciIsImF1ZCI6Imh0dHA6Ly9sb2NhbGhvc3Q6ODA4MC9hdXRoL3JlYWxtcy9tYXN0ZXIiLCJzdWIiOiI5ZjgzOTI3NS02MjYwLTQ3NDgtYmVmMy05MjA2ZDgyY2M3ZTYiLCJ0eXAiOiJSZWZyZXNoIiwiYXpwIjoic2lnbmZsdWVudCIsInNlc3Npb25fc3RhdGUiOiJjZjRjZWJmZS04MzFlLTRhNjEtOTBlOC1iZGViYTY3MjRjODUiLCJzY29wZSI6ImVtYWlsIHByb2ZpbGUiLCJzaWQiOiJjZjRjZWJmZS04MzFlLTRhNjEtOTBlOC1iZGViYTY3MjRjODUifQ.Ed0mrUEH5rAler4ETxlrq1WUWUOo1bPH0dUxiitFX0c\",\n    \"token\": \"eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICI1eFNrUGdQYlZDVm5fUWNxTGd4STNfMDV3Q1NfVHNBV0lJRFdIUWhOM1U0In0.eyJleHAiOjE2MzUzNjgwMjcsImlhdCI6MTYzNTMzMjA2NCwianRpIjoiODY5ZDZmODktYzQzNi00NzZjLTlmMTgtN2VlZmFhNGYxNGZhIiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo4MDgwL2F1dGgvcmVhbG1zL21hc3RlciIsImF1ZCI6ImFjY291bnQiLCJzdWIiOiI5ZjgzOTI3NS02MjYwLTQ3NDgtYmVmMy05MjA2ZDgyY2M3ZTYiLCJ0eXAiOiJCZWFyZXIiLCJhenAiOiJzaWduZmx1ZW50Iiwic2Vzc2lvbl9zdGF0ZSI6ImNmNGNlYmZlLTgzMWUtNGE2MS05MGU4LWJkZWJhNjcyNGM4NSIsImFjciI6IjEiLCJhbGxvd2VkLW9yaWdpbnMiOlsiaHR0cDovL2xvY2FsaG9zdDo4MDAwIl0sInJlYWxtX2FjY2VzcyI6eyJyb2xlcyI6WyJhZG1pbmlzdHJhdG9yIiwiZGVmYXVsdC1yb2xlcy1tYXN0ZXIiLCJvZmZsaW5lX2FjY2VzcyIsInVtYV9hdXRob3JpemF0aW9uIl19LCJyZXNvdXJjZV9hY2Nlc3MiOnsic2lnbmZsdWVudCI6eyJyb2xlcyI6WyJhZG1pbmlzdHJhdG9yIl19LCJhY2NvdW50Ijp7InJvbGVzIjpbIm1hbmFnZS1hY2NvdW50IiwibWFuYWdlLWFjY291bnQtbGlua3MiLCJ2aWV3LXByb2ZpbGUiXX19LCJzY29wZSI6ImVtYWlsIHByb2ZpbGUiLCJzaWQiOiJjZjRjZWJmZS04MzFlLTRhNjEtOTBlOC1iZGViYTY3MjRjODUiLCJlbWFpbF92ZXJpZmllZCI6dHJ1ZSwibmFtZSI6IlNpZ25mbHVlbnQgQWRtaW4iLCJwcmVmZXJyZWRfdXNlcm5hbWUiOiJhZG1pbmlzdHJhdG9yIiwiZ2l2ZW5fbmFtZSI6IlNpZ25mbHVlbnQiLCJmYW1pbHlfbmFtZSI6IkFkbWluIiwiZW1haWwiOiJpbmZvQHNpZ25mbHVlbnQuY29tIn0.VFRqcQOYaLj99M2FRhpgDurpLrzBtEYtl6qpYq1bqyLSwXQS-tydfgepE6jNSFd4ahka8hhZDFh41Pvm-2hW2x6a-b0fdlhnPHuXse2M_3F5vDhcP3ooKk0d8PY0Cxvepyq5VxuaXQ7hFHWg8EJ6r2q9IrSZTkYLF7DkldHxrpyMRlsF_6iQTsbmGbNsuzvrn904NOEEx2Krr6wKPer3SvDWwM3ALARPqZNmfukLfDyBD1HaPpTcrLod2nfE7FkGV4bEnurN9L7rS2ODYD4FRFQ3i5S5uL_vHpmdCoGOxzT0ac-fTCR2UhsWgE2vMZr7uWqLBxEPlFHXG0ilV1jvnw\",\n    \"userId\": \"9f839275-6260-4748-bef3-9206d82cc7e6\"\n}"
-								}
-							]
-						},
-						{
-							"name": "Create User",
-							"request": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n    \"username\": \"angel\",\n    \"email\": \"angel@signfluent.com\",\n    \"lastName\": \"Franko\",\n    \"firstName\": \"David\",\n    \"password\": \"123456\"\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{bpmServiceURL}}/api/auth/createUser",
-									"host": [
-										"{{bpmServiceURL}}"
-									],
-									"path": [
-										"api",
-										"auth",
-										"createUser"
-									]
-								}
-							},
-							"response": [
-								{
-									"name": "Create User",
-									"originalRequest": {
-										"method": "POST",
-										"header": [],
-										"body": {
-											"mode": "raw",
-											"raw": "{\n    \"username\": \"angel\",\n    \"email\": \"angel@signfluent.com\",\n    \"lastName\": \"Franko\",\n    \"firstName\": \"David\",\n    \"password\": \"123456\"\n}",
-											"options": {
-												"raw": {
-													"language": "json"
-												}
-											}
-										},
-										"url": {
-											"raw": "{{bpmServiceURL}}/api/auth/createUser",
-											"host": [
-												"{{bpmServiceURL}}"
-											],
-											"path": [
-												"api",
-												"auth",
-												"createUser"
-											]
-										}
-									},
-									"status": "OK",
-									"code": 200,
-									"_postman_previewlanguage": "json",
-									"header": [
-										{
-											"key": "X-Content-Type-Options",
-											"value": "nosniff"
-										},
-										{
-											"key": "X-XSS-Protection",
-											"value": "1; mode=block"
-										},
-										{
-											"key": "Cache-Control",
-											"value": "no-cache, no-store, max-age=0, must-revalidate"
-										},
-										{
-											"key": "Pragma",
-											"value": "no-cache"
-										},
-										{
-											"key": "Expires",
-											"value": "0"
-										},
-										{
-											"key": "X-Frame-Options",
-											"value": "DENY"
-										},
-										{
-											"key": "Content-Type",
-											"value": "application/json"
-										},
-										{
-											"key": "Transfer-Encoding",
-											"value": "chunked"
-										},
-										{
-											"key": "Date",
-											"value": "Mon, 25 Oct 2021 16:11:59 GMT"
-										},
-										{
-											"key": "Keep-Alive",
-											"value": "timeout=60"
-										},
-										{
-											"key": "Connection",
-											"value": "keep-alive"
-										}
-									],
-									"cookie": [],
-									"body": "{\n    \"userId\": \"595bfebf-a4d1-4b01-9e63-c6e8b0db0c0e\"\n}"
-								}
-							]
-						}
-					],
-					"auth": {
-						"type": "bearer",
-						"bearer": [
-							{
-								"key": "token",
-								"value": "{{bearerToken}}",
-								"type": "string"
-							}
-						]
-					},
-					"event": [
-						{
-							"listen": "prerequest",
-							"script": {
-								"type": "text/javascript",
-								"exec": [
-									""
-								]
-							}
-						},
-						{
-							"listen": "test",
-							"script": {
-								"type": "text/javascript",
-								"exec": [
-									""
-								]
-							}
-						}
-					]
-				},
-				{
-					"name": "Role Management Controller",
-					"item": [
-						{
-							"name": "Assign Role",
-							"request": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n    \"userId\": \"{{currentUserId}}\",\n    \"role\": \"approver\"\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{bpmServiceURL}}/api/role/assign",
-									"host": [
-										"{{bpmServiceURL}}"
-									],
-									"path": [
-										"api",
-										"role",
-										"assign"
-									]
-								}
-							},
-							"response": [
-								{
-									"name": "Assign Role",
-									"originalRequest": {
-										"method": "POST",
-										"header": [],
-										"body": {
-											"mode": "raw",
-											"raw": "{\n    \"userId\": \"45b91268-63c2-4e6c-94ff-189d99171202\",\n    \"role\": \"administrator\"\n}",
-											"options": {
-												"raw": {
-													"language": "json"
-												}
-											}
-										},
-										"url": {
-											"raw": "{{bpmServiceURL}}/api/role/assign",
-											"host": [
-												"{{bpmServiceURL}}"
-											],
-											"path": [
-												"api",
-												"role",
-												"assign"
-											]
-										}
-									},
-									"status": "OK",
-									"code": 200,
-									"_postman_previewlanguage": "json",
-									"header": [
-										{
-											"key": "X-Content-Type-Options",
-											"value": "nosniff"
-										},
-										{
-											"key": "X-XSS-Protection",
-											"value": "1; mode=block"
-										},
-										{
-											"key": "Cache-Control",
-											"value": "no-cache, no-store, max-age=0, must-revalidate"
-										},
-										{
-											"key": "Pragma",
-											"value": "no-cache"
-										},
-										{
-											"key": "Expires",
-											"value": "0"
-										},
-										{
-											"key": "X-Frame-Options",
-											"value": "DENY"
-										},
-										{
-											"key": "Content-Type",
-											"value": "application/json"
-										},
-										{
-											"key": "Transfer-Encoding",
-											"value": "chunked"
-										},
-										{
-											"key": "Date",
-											"value": "Mon, 25 Oct 2021 16:11:51 GMT"
-										},
-										{
-											"key": "Keep-Alive",
-											"value": "timeout=60"
-										},
-										{
-											"key": "Connection",
-											"value": "keep-alive"
-										}
-									],
-									"cookie": [],
-									"body": "{\n    \"message\": \"Success\",\n    \"successful\": true\n}"
-								}
-							]
-						},
-						{
-							"name": "Revoke Role",
-							"request": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n    \"userId\": \"{{currentUserId}}\",\n    \"role\": \"approver\"\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{bpmServiceURL}}/api/role/revoke",
-									"host": [
-										"{{bpmServiceURL}}"
-									],
-									"path": [
-										"api",
-										"role",
-										"revoke"
-									]
-								}
-							},
-							"response": [
-								{
-									"name": "Revoke Role",
-									"originalRequest": {
-										"method": "POST",
-										"header": [],
-										"body": {
-											"mode": "raw",
-											"raw": "{\n    \"userId\": \"{{currentUserId}}\",\n    \"role\": \"approver\"\n}",
-											"options": {
-												"raw": {
-													"language": "json"
-												}
-											}
-										},
-										"url": {
-											"raw": "{{bpmServiceURL}}/api/role/revoke",
-											"host": [
-												"{{bpmServiceURL}}"
-											],
-											"path": [
-												"api",
-												"role",
-												"revoke"
-											]
-										}
-									},
-									"status": "OK",
-									"code": 200,
-									"_postman_previewlanguage": "json",
-									"header": [
-										{
-											"key": "X-Content-Type-Options",
-											"value": "nosniff"
-										},
-										{
-											"key": "X-XSS-Protection",
-											"value": "1; mode=block"
-										},
-										{
-											"key": "Cache-Control",
-											"value": "no-cache, no-store, max-age=0, must-revalidate"
-										},
-										{
-											"key": "Pragma",
-											"value": "no-cache"
-										},
-										{
-											"key": "Expires",
-											"value": "0"
-										},
-										{
-											"key": "X-Frame-Options",
-											"value": "DENY"
-										},
-										{
-											"key": "Content-Type",
-											"value": "application/json"
-										},
-										{
-											"key": "Transfer-Encoding",
-											"value": "chunked"
-										},
-										{
-											"key": "Date",
-											"value": "Mon, 25 Oct 2021 16:11:46 GMT"
-										},
-										{
-											"key": "Keep-Alive",
-											"value": "timeout=60"
-										},
-										{
-											"key": "Connection",
-											"value": "keep-alive"
-										}
-									],
-									"cookie": [],
-									"body": "{\n    \"message\": \"Success\",\n    \"successful\": true\n}"
-								}
-							]
-						},
-						{
-							"name": "Get All",
-							"request": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{bpmServiceURL}}/api/role/getAll",
-									"host": [
-										"{{bpmServiceURL}}"
-									],
-									"path": [
-										"api",
-										"role",
-										"getAll"
-									]
-								}
-							},
-							"response": [
-								{
-									"name": "Get All",
-									"originalRequest": {
-										"method": "POST",
-										"header": [],
-										"body": {
-											"mode": "raw",
-											"raw": "",
-											"options": {
-												"raw": {
-													"language": "json"
-												}
-											}
-										},
-										"url": {
-											"raw": "{{bpmServiceURL}}/api/role/getAll",
-											"host": [
-												"{{bpmServiceURL}}"
-											],
-											"path": [
-												"api",
-												"role",
-												"getAll"
-											]
-										}
-									},
-									"status": "OK",
-									"code": 200,
-									"_postman_previewlanguage": "json",
-									"header": [
-										{
-											"key": "X-Content-Type-Options",
-											"value": "nosniff"
-										},
-										{
-											"key": "X-XSS-Protection",
-											"value": "1; mode=block"
-										},
-										{
-											"key": "Cache-Control",
-											"value": "no-cache, no-store, max-age=0, must-revalidate"
-										},
-										{
-											"key": "Pragma",
-											"value": "no-cache"
-										},
-										{
-											"key": "Expires",
-											"value": "0"
-										},
-										{
-											"key": "X-Frame-Options",
-											"value": "DENY"
-										},
-										{
-											"key": "Content-Type",
-											"value": "application/json"
-										},
-										{
-											"key": "Transfer-Encoding",
-											"value": "chunked"
-										},
-										{
-											"key": "Date",
-											"value": "Mon, 25 Oct 2021 16:11:25 GMT"
-										},
-										{
-											"key": "Keep-Alive",
-											"value": "timeout=60"
-										},
-										{
-											"key": "Connection",
-											"value": "keep-alive"
-										}
-									],
-									"cookie": [],
-									"body": "[\n    {\n        \"key\": \"approver\",\n        \"name\": \"Approver\"\n    },\n    {\n        \"key\": \"delegator\",\n        \"name\": \"Delegator\"\n    },\n    {\n        \"key\": \"administrator\",\n        \"name\": \"Administrator\"\n    }\n]"
-								}
-							]
-						},
-						{
-							"name": "Get For User",
-							"request": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n    \"userId\": \"f21b0fb1-d483-4b05-a293-404066fd767b\"\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{bpmServiceURL}}/api/role/getForUser",
-									"host": [
-										"{{bpmServiceURL}}"
-									],
-									"path": [
-										"api",
-										"role",
-										"getForUser"
-									]
-								}
-							},
-							"response": [
-								{
-									"name": "Get For User",
-									"originalRequest": {
-										"method": "POST",
-										"header": [],
-										"body": {
-											"mode": "raw",
-											"raw": "{\n    \"userId\": \"45b91268-63c2-4e6c-94ff-189d99171202\"\n}",
-											"options": {
-												"raw": {
-													"language": "json"
-												}
-											}
-										},
-										"url": {
-											"raw": "{{bpmServiceURL}}/api/role/getForUser",
-											"host": [
-												"{{bpmServiceURL}}"
-											],
-											"path": [
-												"api",
-												"role",
-												"getForUser"
-											]
-										}
-									},
-									"status": "OK",
-									"code": 200,
-									"_postman_previewlanguage": "json",
-									"header": [
-										{
-											"key": "X-Content-Type-Options",
-											"value": "nosniff"
-										},
-										{
-											"key": "X-XSS-Protection",
-											"value": "1; mode=block"
-										},
-										{
-											"key": "Cache-Control",
-											"value": "no-cache, no-store, max-age=0, must-revalidate"
-										},
-										{
-											"key": "Pragma",
-											"value": "no-cache"
-										},
-										{
-											"key": "Expires",
-											"value": "0"
-										},
-										{
-											"key": "X-Frame-Options",
-											"value": "DENY"
-										},
-										{
-											"key": "Content-Type",
-											"value": "application/json"
-										},
-										{
-											"key": "Transfer-Encoding",
-											"value": "chunked"
-										},
-										{
-											"key": "Date",
-											"value": "Mon, 25 Oct 2021 16:11:33 GMT"
-										},
-										{
-											"key": "Keep-Alive",
-											"value": "timeout=60"
-										},
-										{
-											"key": "Connection",
-											"value": "keep-alive"
-										}
-									],
-									"cookie": [],
-									"body": "[\n    {\n        \"key\": \"administrator\",\n        \"name\": \"Administrator\"\n    }\n]"
-								}
-							]
-						},
-						{
-							"name": "Get For Current User",
-							"request": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n    \"userId\": \"45b91268-63c2-4e6c-94ff-189d99171202\"\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{bpmServiceURL}}/api/role/getForCurrentUser",
-									"host": [
-										"{{bpmServiceURL}}"
-									],
-									"path": [
-										"api",
-										"role",
-										"getForCurrentUser"
-									]
-								}
-							},
-							"response": [
-								{
-									"name": "Get For Current User",
-									"originalRequest": {
-										"method": "POST",
-										"header": [],
-										"body": {
-											"mode": "raw",
-											"raw": "{\n    \"userId\": \"45b91268-63c2-4e6c-94ff-189d99171202\"\n}",
-											"options": {
-												"raw": {
-													"language": "json"
-												}
-											}
-										},
-										"url": {
-											"raw": "{{bpmServiceURL}}/api/role/getForCurrentUser",
-											"host": [
-												"{{bpmServiceURL}}"
-											],
-											"path": [
-												"api",
-												"role",
-												"getForCurrentUser"
-											]
-										}
-									},
-									"status": "OK",
-									"code": 200,
-									"_postman_previewlanguage": "json",
-									"header": [
-										{
-											"key": "X-Content-Type-Options",
-											"value": "nosniff"
-										},
-										{
-											"key": "X-XSS-Protection",
-											"value": "1; mode=block"
-										},
-										{
-											"key": "Cache-Control",
-											"value": "no-cache, no-store, max-age=0, must-revalidate"
-										},
-										{
-											"key": "Pragma",
-											"value": "no-cache"
-										},
-										{
-											"key": "Expires",
-											"value": "0"
-										},
-										{
-											"key": "X-Frame-Options",
-											"value": "DENY"
-										},
-										{
-											"key": "Content-Type",
-											"value": "application/json"
-										},
-										{
-											"key": "Transfer-Encoding",
-											"value": "chunked"
-										},
-										{
-											"key": "Date",
-											"value": "Mon, 25 Oct 2021 16:11:36 GMT"
-										},
-										{
-											"key": "Keep-Alive",
-											"value": "timeout=60"
-										},
-										{
-											"key": "Connection",
-											"value": "keep-alive"
-										}
-									],
-									"cookie": [],
-									"body": "[\n    {\n        \"key\": \"administrator\",\n        \"name\": \"Administrator\"\n    }\n]"
-								}
-							]
-						}
-					],
-					"auth": {
-						"type": "bearer",
-						"bearer": [
-							{
-								"key": "token",
-								"value": "{{bearerToken}}",
-								"type": "string"
-							}
-						]
-					},
-					"event": [
-						{
-							"listen": "prerequest",
-							"script": {
-								"type": "text/javascript",
-								"exec": [
-									""
-								]
-							}
-						},
-						{
-							"listen": "test",
-							"script": {
-								"type": "text/javascript",
-								"exec": [
-									""
-								]
-							}
-						}
-					]
 				}
 			]
 		},
