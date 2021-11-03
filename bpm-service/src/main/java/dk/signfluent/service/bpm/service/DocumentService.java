@@ -81,7 +81,7 @@ public class DocumentService {
     }
 
     public List<DocumentResponse> getDocumentsForApproval() throws Exception {
-        List<ProcessInstance> processInstancesWithFormKey = processDetailsProvider.getProcessInstancesWithFormKey(ProcessFormKey.APPROVE_DOCUMENT);
+        List<ProcessInstance> processInstancesWithFormKey = processDetailsProvider.getProcessInstancesWithFormKeyAndAssignee(ProcessFormKey.APPROVE_DOCUMENT, userProvider.getCurrentUserId());
         return taskDetailsProvider.appendDocumentsInformationToTask(processInstancesWithFormKey);
     }
 
