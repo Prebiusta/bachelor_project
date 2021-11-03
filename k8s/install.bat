@@ -7,13 +7,14 @@ kubectl delete --all pods
 set KUBECTL=kubectl apply -f
 
 %KUBECTL% 00_keycloak.yml
+%KUBECTL% 00_firebase_sa_account_credentials_secret.yml
 
 %KUBECTL% 01_bpm_service_svc.yml
 %KUBECTL% 01_ca_svc.yml
 %KUBECTL% 01_device_service_svc.yml
 %KUBECTL% 01_document_service_svc.yml
 %KUBECTL% 01_notification_service_svc.yml
-%KUBECTL% 01_user_service_svc.ymlt
+%KUBECTL% 01_user_service_svc.yml
 
 %KUBECTL% 02_bpm_service_deployment.yml
 %KUBECTL% 02_ca_deployment.yml

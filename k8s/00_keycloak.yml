@@ -27,28 +27,6 @@ spec:
     requests:
       storage: 500M
 ---
-apiVersion: v1
-kind: Secret
-metadata:
-  name: keycloak-secret-config
-type: Opaque
-data:
-  # admin
-  username: YWRtaW4=
-  # admin
-  password: YWRtaW4=
----
-apiVersion: v1
-kind: Secret
-metadata:
-  name: database-secret-config
-type: Opaque
-data:
-  # postgres
-  dbname: a2V5Y2xvYWs=
-  username: a2V5Y2xvYWs=
-  password: a2V5Y2xvYWs=
----
 apiVersion: apps/v1
 kind: Deployment
 metadata:

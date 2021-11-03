@@ -11,6 +11,7 @@ docker-compose --project-name signfluent build --parallel --force-rm
 KUBECTL="kubectl apply -f"
 
 $KUBECTL 00_keycloak.yml
+$KUBECTL 00_firebase_sa_account_credentials_secret.yml
 
 $KUBECTL 01_bpm_service_svc.yml
 $KUBECTL 01_ca_svc.yml
