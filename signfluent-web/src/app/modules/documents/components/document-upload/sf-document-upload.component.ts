@@ -1,8 +1,9 @@
-import {Component} from "@angular/core";
-import {MatSnackBar} from "@angular/material/snack-bar";
-import {Base64Service} from "src/app/modules/core/services/base64.service";
-import {SfDocument} from "../../model/sf-document";
-import {DocumentService} from "../../services/document.service";
+import { Component } from "@angular/core";
+import { FormBuilder, FormControl, FormGroup, Validators } from "@angular/forms";
+import { MatSnackBar } from "@angular/material/snack-bar";
+import { Base64Service } from "src/app/modules/core/services/base64.service";
+import { SignfluentErrorStateMatcher } from "src/app/util/signfluent-error-state-matcher";
+import { DocumentService } from "../../services/document.service";
 
 @Component({
   selector: 'sf-document-upload',
@@ -13,10 +14,18 @@ import {DocumentService} from "../../services/document.service";
 export class SfDocumentUploadComponent {
 
   public fileName = '';
-  public description = '';
   private uploadedFile: any;
+  public matcher = new SignfluentErrorStateMatcher();
+  public descriptionFormControl!: FormGroup;
 
-  constructor(private documentService: DocumentService, private base64Service: Base64Service, private snackbar: MatSnackBar) {
+  constructor(private documentService: DocumentService, private base64Service: Base64Service, private snackbar: MatSnackBar, private builder: FormBuilder) {
+  }
+
+  ngOnInit() {
+    this.descriptionFormControl = this.builder.group({
+      description: [null, Validators.required],
+      file: [null, Validators.required]
+    })
   }
 
   public onFileSelected(event: any): void {
@@ -36,18 +45,20 @@ export class SfDocumentUploadComponent {
 
   public onUpload(): void {
     // @ts-ignore
-    const request = {description: this.description, document: this.uploadedFile, userId: '4da64240-b567-44fc-98c7-5d1f91cb9982'}
-    this.documentService.upload(request).subscribe({
-      next: data => {
-        this.snackbar.open("Document sucessfully uploaded", undefined, {
-          duration: 5 * 1000
-        });
-      },
-      error: error => {
-        this.snackbar.open("Unable to upload document", undefined, {
-          duration: 5 * 1000
-        });
-      }
-    });
+    if (this.descriptionFormControl.valid) {
+      const request = { description: this.descriptionFormControl.get('description')?.value, document: this.uploadedFile, userId: '4da64240-b567-44fc-98c7-5d1f91cb9982' }
+      this.documentService.upload(request).subscribe({
+        next: data => {
+          this.snackbar.open("Document sucessfully uploaded", undefined, {
+            duration: 5 * 1000
+          });
+        },
+        error: error => {
+          this.snackbar.open("Unable to upload document", undefined, {
+            duration: 5 * 1000
+          });
+        }
+      });
+    }
   }
 }

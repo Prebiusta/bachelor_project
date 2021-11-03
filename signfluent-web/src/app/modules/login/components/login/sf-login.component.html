@@ -1,0 +1,47 @@
+<div class="m-0 row">
+    <div class="col d-flex justify-content-center text-center top-margin">
+        <div class="login-container">
+            <mat-card>
+                <form [formGroup]="loginForm" (ngSubmit)="login()">
+                    <mat-card-content>
+                        <div class="col">
+                            <img mat-card-image class="logo" src="../../../../assets/logo_black.svg">
+                            <div class="row justify-content-center">
+                                <mat-form-field appearance="outline" style="text-align: center;">
+                                    <label>
+                                        <input matInput placeholder="Username" formControlName="username"
+                                            [errorStateMatcher]="matcher">
+                                    </label>
+                                    <mat-error>
+                                        <span
+                                            *ngIf="!loginForm.get('username')?.valid && loginForm.get('username')?.touched">Please
+                                            enter Username</span>
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                            <div class="row justify-content-center">
+                                <mat-form-field appearance="outline" style="text-align: center;">
+                                    <label>
+                                        <input matInput type="password" placeholder="Password"
+                                            formControlName="password" [errorStateMatcher]="matcher">
+                                    </label>
+                                    <mat-error>
+                                        <span
+                                            *ngIf="!loginForm.get('password')?.valid && loginForm.get('password')?.touched">Please
+                                            enter Password</span>
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                    </mat-card-content>
+                    <mat-card-actions>
+                        <button type="submit" mat-button [disabled]="!loginForm.valid">Login</button>
+                    </mat-card-actions>
+                    <mat-card-footer class="my-2">
+                        ⓒ Signfluent 2021 | 1.0.0
+                    </mat-card-footer>
+                </form>
+            </mat-card>
+        </div>
+    </div>
+</div>

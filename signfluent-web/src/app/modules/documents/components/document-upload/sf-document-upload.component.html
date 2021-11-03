@@ -1,28 +1,36 @@
 <div class="upload-container">
     <div class="col my-5">
-        <div class="row m-0 justify-content-center">
-            <input type="file" class="file-input" (change)="onFileSelected($event)" #fileUpload>
+        <form [formGroup]="descriptionFormControl" (ngSubmit)="onUpload()">
+            <div class="row m-0 justify-content-center">
+                <input type="file" class="file-input" formControlName="file" (change)="onFileSelected($event)"
+                    #fileUpload>
 
-            <div class="file-upload">
+                <div class="file-upload">
 
-                {{fileName || "No file uploaded yet."}}
+                    {{fileName || "No file uploaded yet."}}
 
-                <button mat-mini-fab color="primary" class="upload-btn" (click)="fileUpload.click()">
-                    <mat-icon>attach_file</mat-icon>
-                </button>
+                    <button mat-mini-fab color="primary" class="upload-btn" (click)="fileUpload.click()">
+                        <mat-icon>attach_file</mat-icon>
+                    </button>
+                </div>
             </div>
-        </div>
 
-        <div class="row mt-5 mx-5 justify-content-center">
-            <mat-form-field appearance="outline">
-                <mat-label>Description</mat-label>
-                <input matInput type="text" [(ngModel)]="description">
-                <mat-hint>Brief description of document</mat-hint>
-            </mat-form-field>
-        </div>
+            <div class="row mt-5 mx-5 justify-content-center">
+                <mat-form-field appearance="outline">
+                    <mat-label>Description</mat-label>
+                    <input matInput type="text" formControlName="description" [errorStateMatcher]="matcher">
+                    <mat-hint>Brief description of document</mat-hint>
+                    <mat-error>
+                        <span
+                            *ngIf="!descriptionFormControl.get('description')?.valid && descriptionFormControl.get('description')?.touched">Please
+                            provide description</span>
+                    </mat-error>
+                </mat-form-field>
+            </div>
 
-        <div class="row mt-5 mx-5 justify-content-center">
-            <button mat-raised-button color="primary" (click)="onUpload()">Upload</button>
-        </div>
+            <div class="row mt-5 mx-5 justify-content-center">
+                <button type="submit" mat-raised-button color="primary" [disabled]="!descriptionFormControl.valid">Upload</button>
+            </div>
+        </form>
     </div>
 </div>

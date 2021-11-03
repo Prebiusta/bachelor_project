@@ -1,4 +1,5 @@
-import {CommonModule, Location} from "@angular/common";
+import { CommonModule, Location } from "@angular/common";
+import { RouterModule } from "@angular/router";
 import { NgModule } from "@angular/core";
 import { FormsModule } from "@angular/forms";
 import { SignfluentDocumentsRoutingModule } from "./sf-documents-routing.module";
@@ -29,7 +30,7 @@ import { SfDocumentUploadComponent } from "./components/document-upload/sf-docum
 
 @NgModule({
     declarations: [SfDocumentsComponent, SfDocumentsListComponent, SfDocumentsApproveComponent, SfDocumentsDelegateComponent, SfDocumentDetailsComponent, SfDelegateRejectComponent, SfDocumentUploadComponent],
-    imports: [CommonModule, FormsModule, SignfluentDocumentsRoutingModule, ReactiveFormsModule, MatTableModule, MatTabsModule, MatPaginatorModule, MatFormFieldModule, MatInputModule, MatIconModule, MatMenuModule, MatButtonModule, MatStepperModule, MatCheckboxModule, DragDropModule, MatDialogModule, MatCardModule, MatSnackBarModule],
-    exports: [SfDocumentsComponent, SfDocumentsListComponent, SfDocumentsApproveComponent, SfDocumentsDelegateComponent, SfDocumentDetailsComponent, SfDelegateRejectComponent, SfDocumentUploadComponent]
+    imports: [CommonModule, FormsModule, SignfluentDocumentsRoutingModule, RouterModule, ReactiveFormsModule, MatTableModule, MatTabsModule, MatPaginatorModule, MatFormFieldModule, MatInputModule, MatIconModule, MatMenuModule, MatButtonModule, MatStepperModule, MatCheckboxModule, DragDropModule, MatDialogModule, MatCardModule, MatSnackBarModule],
+    exports: [SfDocumentsComponent]
 })
 export class SignfluentDocumentsModule { }

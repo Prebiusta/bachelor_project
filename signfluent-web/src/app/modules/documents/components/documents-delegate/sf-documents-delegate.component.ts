@@ -88,6 +88,9 @@ export class SfDocumentsDelegateComponent {
         });
     }
 
+    public openRejectDialog(): void {
+        this.dialog.open(SfDelegateRejectComponent)
+    }
 
     private orderApprovers() {
         return this.assigned.map((assigne, index) => {
@@ -95,10 +98,6 @@ export class SfDocumentsDelegateComponent {
             const approver: SfApproverOrder = { approverId: approverId, order: index }
             return approver;
         })
-    }
-
-    public openRejectDialog(): void {
-        this.dialog.open(SfDelegateRejectComponent)
     }
 
 }

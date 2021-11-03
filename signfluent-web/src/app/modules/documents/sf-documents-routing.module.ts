@@ -7,15 +7,16 @@ import { SfDocumentsComponent } from "./sf-documents.component";
 const routes: Routes = [
     {
         path: '',
-        component: SfDocumentsComponent
+        component: SfDocumentsComponent,
+        pathMatch: 'full',
     },
     {
         path: 'delegate/:taskId',
-        component: SfDocumentsDelegateComponent
+        component: SfDocumentsDelegateComponent,
     },
     {
         path: 'approve',
-        component: SfDocumentsApproveComponent
+        component: SfDocumentsApproveComponent,
     }
 ]
 

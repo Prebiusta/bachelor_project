@@ -1,7 +1,5 @@
-import {Component, Input} from "@angular/core";
-import {DocumentService} from "../../services/document.service";
-import {ActivatedRoute} from "@angular/router";
-import {SfDocument} from "../../model/sf-document";
+import { Component, Input } from "@angular/core";
+import { SfDocument } from "../../model/sf-document";
 
 
 @Component({
@@ -12,19 +10,16 @@ import {SfDocument} from "../../model/sf-document";
 
 export class SfDocumentDetailsComponent {
 
-  @Input() public document!: SfDocument;
+  @Input() public document?: SfDocument;
 
-  constructor(private documentService: DocumentService, private route: ActivatedRoute) {
+  constructor() { }
+
+  public download() {
+      const source = `data:application/pdf;base64,${this.document?.content}`;
+      const link = document.createElement("a");
+      link.href = source;
+      link.download = `Document.pdf`
+      link.click();
+      link.remove();
   }
-
-  public downloadMyFile() {
-    const link = document.createElement('a');
-    link.setAttribute('target', '_blank');
-    link.setAttribute('href', '../../../../assets/Signfluent test PDF.pdf');
-    link.setAttribute('download', `Signfluent test PDF.pdf`);
-    document.body.appendChild(link);
-    link.click();
-    link.remove();
-  }
-
 }

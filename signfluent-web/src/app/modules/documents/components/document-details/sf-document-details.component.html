@@ -1,4 +1,4 @@
-<p><b>Owner:</b> {{document.uploadedBy}}</p>
-<p><b>Date:</b> {{document.uploadedAt | date}}</p>
-<p><b>Description:</b><br> {{document.description}}</p>
-<button mat-raised-button color="primary" (click)="downloadMyFile()">Download document</button>
+<p><b>Owner:</b> {{document?.uploadedBy}}</p>
+<p><b>Date:</b> {{document?.uploadedAt | date}}</p>
+<p><b>Description:</b><br> {{document?.description}}</p>
+<button mat-raised-button color="primary" (click)="download()">Download document</button>
