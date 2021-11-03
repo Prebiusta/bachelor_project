@@ -6,7 +6,18 @@ kubectl delete --all deployments
 kubectl delete --all services
 kubectl delete --all pods
 
+<<<<<<< HEAD
 docker-compose --project-name signfluent build --parallel --force-rm
+=======
+DOCKER_RMI="docker rmi"
+$DOCKER_RMI signfluent/document-service:latest
+$DOCKER_RMI signfluent/notification-service:latest
+$DOCKER_RMI signfluent/user-service:latest
+$DOCKER_RMI signfluent/certificate-authority:latest
+$DOCKER_RMI signfluent/bpm-service:latest
+
+docker-compose --project-name signfluent build
+>>>>>>> story/B2-10-as-an-approver-i-want-to-approve-t
 
 KUBECTL="kubectl apply -f"
 

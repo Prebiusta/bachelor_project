@@ -1,8 +1,17 @@
 @echo off
-docker-compose --project-name signfluent build
 kubectl delete --all deployments
 kubectl delete --all services
 kubectl delete --all pods
+
+set DOCKER_RMI=docker rmi
+
+%DOCKER_RMI% signfluent/document-service:latest
+%DOCKER_RMI% signfluent/notification-service:latest
+%DOCKER_RMI% signfluent/user-service:latest
+%DOCKER_RMI% signfluent/certificate-authority:latest
+%DOCKER_RMI% signfluent/bpm-service:latest
+
+docker-compose --project-name signfluent build
 
 set KUBECTL=kubectl apply -f
 
@@ -13,7 +22,7 @@ set KUBECTL=kubectl apply -f
 %KUBECTL% 01_device_service_svc.yml
 %KUBECTL% 01_document_service_svc.yml
 %KUBECTL% 01_notification_service_svc.yml
-%KUBECTL% 01_user_service_svc.ymlt
+%KUBECTL% 01_user_service_svc.yml
 
 %KUBECTL% 02_bpm_service_deployment.yml
 %KUBECTL% 02_ca_deployment.yml
