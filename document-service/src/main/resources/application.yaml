@@ -1,2 +1,11 @@
 server:
   port: 8001
+
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:2001/document-service
+    username: postgres
+    password: postgres
+  jpa:
+    hibernate:
+      ddl-auto: create

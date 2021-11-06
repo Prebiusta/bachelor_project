@@ -3,20 +3,16 @@ kubectl delete --all deployments
 kubectl delete --all services
 kubectl delete --all pods
 
-set DOCKER_RMI=docker rmi
-
-%DOCKER_RMI% signfluent/document-service:latest
-%DOCKER_RMI% signfluent/notification-service:latest
-%DOCKER_RMI% signfluent/user-service:latest
-%DOCKER_RMI% signfluent/certificate-authority:latest
-%DOCKER_RMI% signfluent/bpm-service:latest
-
-docker-compose --project-name signfluent build
+docker-compose --project-name signfluent build --parallel --force-rm
 
 set KUBECTL=kubectl apply -f
 
-%KUBECTL% 00_keycloak.yml
+%KUBECTL% 00_ca_config.yml
+%KUBECTL% 00_database_secret.yml
 %KUBECTL% 00_firebase_sa_account_credentials_secret.yml
+%KUBECTL% 00_keycloak_secret.yml
+
+%KUBECTL% 00_keycloak.yml
 
 %KUBECTL% 01_bpm_service_svc.yml
 %KUBECTL% 01_ca_svc.yml

@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class CAConfigurationValues {
-    private String certificatePath;
     private String keystorePassword;
     private String keystoreType;
+    private String certificatePem;
 }

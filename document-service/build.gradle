@@ -40,8 +40,8 @@ dependencies {
     compileOnly 'org.projectlombok:lombok:1.18.22'
     annotationProcessor 'org.projectlombok:lombok:1.18.22'
 
-    // H2 DB
-    runtimeOnly 'com.h2database:h2:1.4.200'
+    // Postgresql
+    implementation 'org.postgresql:postgresql:42.3.1'
 
     // Mapstruct
     implementation 'org.mapstruct:mapstruct:1.4.2.Final'

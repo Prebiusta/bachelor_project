@@ -9,6 +9,7 @@ import dk.signfluent.service.document.utils.Mappers.ApprovalOrderMapper;
 import dk.signfluent.service.document.utils.Mappers.DocumentMapper;
 import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -17,6 +18,7 @@ import java.util.List;
 import java.util.UUID;
 
 @Service
+@Transactional
 public class DocumentService {
 
     private final DocumentRepository repository;

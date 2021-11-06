@@ -1,6 +1,7 @@
 package dk.signfluent.certificateauthority.certificatemanagement.services;
 
 import dk.signfluent.certificateauthority.certificatemanagement.model.UserDetails;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import org.bouncycastle.asn1.ASN1Sequence;
@@ -24,6 +25,7 @@ import java.security.spec.RSAPublicKeySpec;
 import java.util.Date;
 
 @Service
+@Slf4j
 public class CertificateService {
     private final CertificateDetailsService certificateDetailsService;
 
@@ -36,8 +38,8 @@ public class CertificateService {
             X509v3CertificateBuilder builder = getX509v3CertificateBuilder(userDetails);
             return signCertificateByCA(builder);
         } catch (Exception e) {
-            e.printStackTrace();
-            return null;
+            log.error("Unable to issue certificate " + e.getMessage());
+            throw new RuntimeException(e);
         }
     }
 

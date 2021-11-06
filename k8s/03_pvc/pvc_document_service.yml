@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  labels:
+    app: document-service-db
+  name: document-service-pvc
+spec:
+  storageClassName: manual
+  volumeName: document-service-pv
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 200M

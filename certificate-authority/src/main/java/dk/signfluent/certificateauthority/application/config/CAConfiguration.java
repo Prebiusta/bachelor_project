@@ -7,21 +7,21 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class CAConfiguration {
-    @Value("${certificate.path}")
-    private String certificatePath;
-
     @Value("${certificate.keystore.password}")
     private String keystorePassword;
 
     @Value("${certificate.keystore.type}")
     private String keystoreType;
 
+    @Value("${certificate.pem}")
+    private String certificatePem;
+
     @Bean
     public CAConfigurationValues caConfigurationValues() {
         return new CAConfigurationValues(
-                certificatePath,
                 keystorePassword,
-                keystoreType
+                keystoreType,
+                certificatePem
         );
     }
 }

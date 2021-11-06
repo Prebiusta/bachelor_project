@@ -14,23 +14,20 @@ spec:
       labels:
         app: notification-service
     spec:
+      volumes:
+        - name: google-cloud-keys
+          secret:
+            secretName: firebase-sa-account-credentials
       containers:
         - name: notification-service
           imagePullPolicy: Never
           image: signfluent/notification-service:latest
           ports:
             - containerPort: 8003
+          volumeMounts:
+            - name: google-cloud-keys
+              mountPath: /var/secrets/google
+              readOnly: true
           env:
             - name: GOOGLE_APPLICATION_CREDENTIALS
-              value: /etc/gcp/sa_credentials.json
-          volumeMounts:
-            - name: firebase-sa-account-credentials-volume
-              mountPath: /etc/gcp
-              readOnly: true
-      volumes:
-        - name: firebase-sa-account-credentials-volume
-          secret:
-            secretName: firebase-sa-account-credentials
-            items:
-              - key: key_json
-                path: sa_credentials.json
+              value: /var/secrets/google/key.json

@@ -51,6 +51,3 @@ Thumbs.db
 
 # GCP Key
 key.json
-
-# k8s secrets
-*secret*

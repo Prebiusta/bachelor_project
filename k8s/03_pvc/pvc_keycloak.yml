@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  labels:
+    app: keycloak-db
+  name: keycloak-pvc
+spec:
+  storageClassName: manual
+  volumeName: keycloak-pv
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 200M
