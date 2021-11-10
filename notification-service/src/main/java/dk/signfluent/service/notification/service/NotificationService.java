@@ -6,7 +6,6 @@ import dk.signfluent.service.notification.entity.NotificationTime;
 import dk.signfluent.service.notification.model.NotificationRequest;
 import dk.signfluent.service.notification.model.NotificationResponse;
 import dk.signfluent.service.notification.repository.NotificationTimeRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
