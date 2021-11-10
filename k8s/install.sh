@@ -6,7 +6,7 @@ kubectl delete --all deployments
 kubectl delete --all svc
 kubectl delete --all configmaps
 
-#DOCKER_BUILDKIT=1 docker-compose --project-name signfluent build --parallel
+DOCKER_BUILDKIT=1 docker-compose --project-name signfluent build --parallel
 
 KUBECTL="kubectl apply -f"
 
