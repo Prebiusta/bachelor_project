@@ -1,0 +1,56 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: notification-service-deployment
+  labels:
+    app: notification-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: notification-service
+  template:
+    metadata:
+      labels:
+        app: notification-service
+    spec:
+      containers:
+        - name: notification-service
+          imagePullPolicy: Never
+          image: signfluent/notification-service:latest
+          ports:
+            - containerPort: 8002
+          env:
+            - name: "spring.datasource.url"
+              valueFrom:
+                configMapKeyRef:
+                  name: notification-service-config-map
+                  key: dbConnectionString
+            - name: "jpa.hibernate.ddl-auto"
+              valueFrom:
+                configMapKeyRef:
+                  name: notification-service-config-map
+                  key: ddl-auto
+            - name: "spring.datasource.username"
+              valueFrom:
+                configMapKeyRef:
+                  name: db-config-map
+                  key: dbUsername
+            - name: "spring.datasource.password"
+              valueFrom:
+                configMapKeyRef:
+                  name: db-config-map
+                  key: dbPassword
+            - name: GOOGLE_APPLICATION_CREDENTIALS
+              value: /etc/gcp/sa_credentials.json
+          volumeMounts:
+            - name: firebase-sa-account-credentials-volume
+              mountPath: /etc/gcp
+              readOnly: true
+      volumes:
+        - name: firebase-sa-account-credentials-volume
+          secret:
+            secretName: firebase-sa-account-credentials
+            items:
+              - key: key.json
+                path: sa_credentials.json

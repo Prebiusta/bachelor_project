@@ -1,45 +1,45 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: document-service-deployment
+  name: device-service-deployment
   labels:
-    app: document-service
+    app: device-service
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: document-service
+      app: device-service
   template:
     metadata:
       labels:
-        app: document-service
+        app: device-service
     spec:
       containers:
-        - name: document-service
+        - name: device-service
           imagePullPolicy: Never
-          image: signfluent/document-service:latest
+          image: signfluent/device-service:latest
           ports:
-            - containerPort: 8001
+            - containerPort: 8005
           env:
             - name: "spring.datasource.url"
               valueFrom:
                 configMapKeyRef:
-                  name: document-service-config-map
+                  name: device-service-config-map
                   key: dbConnectionString
+            - name: "jpa.hibernate.ddl-auto"
+              valueFrom:
+                configMapKeyRef:
+                  name: device-service-config-map
+                  key: ddl-auto
             - name: "spring.datasource.username"
               valueFrom:
                 configMapKeyRef:
-                  name: document-service-config-map
+                  name: db-config-map
                   key: dbUsername
             - name: "spring.datasource.password"
               valueFrom:
                 configMapKeyRef:
-                  name: document-service-config-map
+                  name: db-config-map
                   key: dbPassword
-            - name: "jpa.hibernate.ddl-auto"
-              valueFrom:
-                configMapKeyRef:
-                  name: document-service-config-map
-                  key: ddl-auto
       imagePullSecrets:
         - name: gcp-sa-key

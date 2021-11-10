@@ -3,11 +3,9 @@ kind: ConfigMap
 metadata:
   name: keycloak-config-map
 data:
-  dbUsername: "keycloakSecret"
-  dbPassword: "keycloakSecret"
-  dbVendor: "postgres"
+  dbVendor: "mariadb"
   dbDatabase: "keycloak"
-  dbPort: "2080"
   frontEndURL: "http://localhost:8080/auth"
   username: "admin"
   password: "admin"
+  jdbcParams: "createDatabaseIfNotExist=true"

@@ -6,5 +6,6 @@ spec:
   selector:
     app: device-service
   ports:
-    - port: 8005
+    - name: http
+      port: 8005
       targetPort: 8005

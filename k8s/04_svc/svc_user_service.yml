@@ -6,5 +6,6 @@ spec:
   selector:
     app: user-service
   ports:
-    - port: 8003
+    - name: http
+      port: 8003
       targetPort: 8003

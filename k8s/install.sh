@@ -4,14 +4,14 @@ eval $(minikube docker-env)
 # Forcing images to be reloaded
 kubectl delete --all deployments
 kubectl delete --all svc
-kubectl delete --all secrets
+kubectl delete --all configmaps
 
-docker-compose --project-name signfluent build --parallel
+#DOCKER_BUILDKIT=1 docker-compose --project-name signfluent build --parallel
 
 KUBECTL="kubectl apply -f"
 
 $KUBECTL 01_config
 $KUBECTL 02_pv
 $KUBECTL 03_pvc
-$KUBECTL 05_svc
-$KUBECTL 06_deployment
+$KUBECTL 04_svc
+$KUBECTL 05_deployment

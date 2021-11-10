@@ -1,14 +1,14 @@
 kind: PersistentVolume
 apiVersion: v1
 metadata:
-  name: keycloak-pv
+  name: mariadb-pv
   labels:
     type: local
 spec:
   storageClassName: manual
   capacity:
-    storage: 200M
+    storage: 500M
   accessModes:
     - ReadWriteOnce
   hostPath:
-    path: "/mnt/data/document-service"
+    path: "/mnt/data"

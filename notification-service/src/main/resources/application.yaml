@@ -1,2 +1,11 @@
 server:
   port: 8002
+
+spring:
+  datasource:
+    url: jdbc:mariadb://localhost:3306/notification-service?createDatabaseIfNotExist=true
+    username: root
+    password: Pa55w0rd
+  jpa:
+    hibernate:
+      ddl-auto: create

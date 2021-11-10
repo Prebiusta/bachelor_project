@@ -21,17 +21,12 @@ spec:
             - containerPort: 8080
           env:
             - name: DB_ADDR
-              value: keycloak-db-svc
+              value: mysql
             - name: DB_PORT
               valueFrom:
                 configMapKeyRef:
-                  name: keycloak-config-map
+                  name: db-config-map
                   key: dbPort
-            - name: KEYCLOAK_FRONTEND_URL
-              valueFrom:
-                configMapKeyRef:
-                  name: keycloak-config-map
-                  key: frontEndURL
             - name: DB_VENDOR
               valueFrom:
                 configMapKeyRef:
@@ -45,13 +40,23 @@ spec:
             - name: DB_USER
               valueFrom:
                 configMapKeyRef:
-                  name: keycloak-config-map
+                  name: db-config-map
                   key: dbUsername
             - name: DB_PASSWORD
               valueFrom:
                 configMapKeyRef:
-                  name: keycloak-config-map
+                  name: db-config-map
                   key: dbPassword
+            - name: JDBC_PARAMS
+              valueFrom:
+                configMapKeyRef:
+                  name: keycloak-config-map
+                  key: jdbcParams
+            - name: KEYCLOAK_FRONTEND_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: keycloak-config-map
+                  key: frontEndURL
             - name: KEYCLOAK_USER
               valueFrom:
                 configMapKeyRef:

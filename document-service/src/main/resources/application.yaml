@@ -3,9 +3,9 @@ server:
 
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:2001/document-service
-    username: postgres
-    password: postgres
+    url: jdbc:mariadb://localhost:3306/document-service?createDatabaseIfNotExist=true
+    username: root
+    password: Pa55w0rd
   jpa:
     hibernate:
       ddl-auto: create

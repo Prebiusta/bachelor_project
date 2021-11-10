@@ -3,8 +3,5 @@ kind: ConfigMap
 metadata:
   name: document-service-config-map
 data:
-  dbUsername: "documentServiceSecret"
-  dbPassword: "documentServiceSecret"
-  dbDatabase: "document-service"
-  dbConnectionString: "jdbc:postgresql://document-service-db-svc:2001/document-service"
+  dbConnectionString: "jdbc:mariadb://mysql:3306/document-service?createDatabaseIfNotExist=true"
   ddl-auto: "create"
