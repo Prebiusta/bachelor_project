@@ -1,0 +1,95 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: bpm-service-deployment
+  labels:
+    app: bpm-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: bpm-service
+  template:
+    metadata:
+      labels:
+        app: bpm-service
+    spec:
+      containers:
+        - name: bpm-service
+          imagePullPolicy: Never
+          image: signfluent/bpm-service:latest
+          ports:
+            - containerPort: 8000
+          env:
+            - name: "spring.datasource.username"
+              valueFrom:
+                configMapKeyRef:
+                  name: db-config-map
+                  key: dbUsername
+            - name: "spring.datasource.password"
+              valueFrom:
+                configMapKeyRef:
+                  name: db-config-map
+                  key: dbPassword
+            - name: "spring.datasource.url"
+              valueFrom:
+                configMapKeyRef:
+                  name: bpm-config-map
+                  key: dbConnectionString
+            - name: "jpa.hibernate.ddl-auto"
+              valueFrom:
+                configMapKeyRef:
+                  name: bpm-config-map
+                  key: ddl-auto
+            - name: "keycloak.realm"
+              valueFrom:
+                configMapKeyRef:
+                  name: bpm-config-map
+                  key: keycloak.realm
+            - name: "keycloak.auth-server-url"
+              valueFrom:
+                configMapKeyRef:
+                  name: bpm-config-map
+                  key: keycloak.auth-server-url
+            - name: "keycloak.ssl-required"
+              valueFrom:
+                configMapKeyRef:
+                  name: bpm-config-map
+                  key: keycloak.ssl-required
+            - name: "keycloak.resource"
+              valueFrom:
+                configMapKeyRef:
+                  name: bpm-config-map
+                  key: keycloak.resource
+            - name: "keycloak.use-resource-role-mappings"
+              valueFrom:
+                configMapKeyRef:
+                  name: bpm-config-map
+                  key: keycloak.use-resource-role-mappings
+            - name: "keycloak.public-client"
+              valueFrom:
+                configMapKeyRef:
+                  name: bpm-config-map
+                  key: keycloak.public-client
+            - name: "camunda.bpm.database.schema-update"
+              valueFrom:
+                configMapKeyRef:
+                  name: bpm-config-map
+                  key: camunda.schema-update
+            - name: "camunda.bpm.database.jdbc-batch-processing"
+              valueFrom:
+                configMapKeyRef:
+                  name: bpm-config-map
+                  key: camunda.jdbc-batch-processing
+            - name: "camunda.bpm.admin-user.id"
+              valueFrom:
+                configMapKeyRef:
+                  name: bpm-config-map
+                  key: camunda.admin-name
+            - name: "camunda.bpm.admin-user.password"
+              valueFrom:
+                configMapKeyRef:
+                  name: bpm-config-map
+                  key: camunda.admin-password
+      imagePullSecrets:
+        - name: gcp-sa-key

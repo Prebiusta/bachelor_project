@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: bpm-config-map
+data:
+  dbConnectionString: "jdbc:mariadb://mysql:3306/bpm-service?createDatabaseIfNotExist=true"
+  ddl-auto: "create"
+  camunda.schema-update: "true"
+  camunda.jdbc-batch-processing: "false"
+  camunda.admin-name: "proof"
+  camunda.admin-password: "proof"
+
+  keycloak.realm: "master"
+  keycloak.auth-server-url: "http://localhost:8080/auth"
+  keycloak.ssl-required: "external"
+  keycloak.resource: "signfluent"
+  keycloak.use-resource-role-mappings: "true"
+  keycloak.public-client: "true"

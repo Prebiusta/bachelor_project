@@ -6,17 +6,31 @@ keycloak:
   use-resource-role-mappings: true
   public-client: true
 
+camunda:
+  bpm:
+    database:
+      schema-update: true
+      jdbc-batch-processing: false
+    admin-user:
+      id: proof
+      password: proof
+
+spring:
+  datasource:
+    url: jdbc:mariadb://localhost:3306/bpm-service?createDatabaseIfNotExist=true
+    username: root
+    password: Pa55w0rd
+  jpa:
+    hibernate:
+      ddl-auto: create
+
+server:
+  port: 8000
+
 idp-keycloak:
   service:
     host: localhost
     port: 8080
-
-camunda.bpm.admin-user:
-  id: proof
-  password: proof
-
-server:
-  port: 8000
 
 document:
   service:
