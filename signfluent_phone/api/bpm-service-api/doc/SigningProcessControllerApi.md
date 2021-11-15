@@ -22,7 +22,7 @@ Method | HTTP request | Description
 
 
 # **approveDocument**
-> String approveDocument(approverDocumentRequest)
+> String approveDocument(approveDocumentRequest)
 
 Submit approve document decision
 
@@ -31,10 +31,10 @@ Submit approve document decision
 import 'package:bpm_service_api/api.dart';
 
 final api = BpmServiceApi().getSigningProcessControllerApi();
-final ApproverDocumentRequest approverDocumentRequest = ; // ApproverDocumentRequest | approverDocumentRequest
+final ApproverDocumentRequest approveDocumentRequest = ; // ApproverDocumentRequest | approveDocumentRequest
 
 try { 
-    final response = api.approveDocument(approverDocumentRequest);
+    final response = api.approveDocument(approveDocumentRequest);
     print(response);
 } catch on DioError (e) {
     print('Exception when calling SigningProcessControllerApi->approveDocument: $e\n');
@@ -45,7 +45,7 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **approverDocumentRequest** | [**ApproverDocumentRequest**](ApproverDocumentRequest.md)| approverDocumentRequest | 
+ **approveDocumentRequest** | [**ApproverDocumentRequest**](ApproverDocumentRequest.md)| approveDocumentRequest | 
 
 ### Return type
 

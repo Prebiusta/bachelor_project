@@ -11,4 +11,5 @@ import java.util.List;
 @EqualsAndHashCode(callSuper = true)
 public class AssignApproversRequest extends ProcessIdRequest {
     private List<ApprovalOrderModel> approvers;
+    private String delegatorId;
 }

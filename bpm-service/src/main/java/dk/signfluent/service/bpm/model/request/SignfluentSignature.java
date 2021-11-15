@@ -8,4 +8,5 @@ import lombok.EqualsAndHashCode;
 public class SignfluentSignature extends ProcessIdRequest {
     private String signedContent;
     private String x509Pem;
+    private String approverId;
 }

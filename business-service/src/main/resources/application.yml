@@ -1,0 +1,48 @@
+keycloak:
+  realm: master
+  auth-server-url: http://localhost:8080/auth
+  ssl-required: external
+  resource: signfluent
+  use-resource-role-mappings: true
+  public-client: true
+
+server:
+  port: 8006
+
+bpm:
+  service:
+    host: localhost
+    port: 8000
+    
+idp-keycloak:
+  service:
+    host: localhost
+    port: 8080
+
+document:
+  service:
+    svc:
+      service:
+        host: localhost
+        port: 8001
+
+user:
+  service:
+    svc:
+      service:
+        host: localhost
+        port: 8003
+
+ca:
+  svc:
+    service:
+      host: localhost
+      port: 8004
+
+
+device:
+  service:
+    svc:
+      service:
+        host: localhost
+        port: 8005

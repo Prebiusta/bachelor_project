@@ -1,0 +1,47 @@
+plugins {
+    id 'org.springframework.boot' version '2.5.6'
+    id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+    id 'java'
+}
+
+group = 'dk.signfluent'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '11'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation project(":api-clients:user-service-client")
+    implementation project(":api-clients:document-service-client")
+    implementation project(":api-clients:notification-service-client")
+    implementation project(":api-clients:certificate-authority-client")
+    implementation project(":api-clients:device-service-client")
+    implementation project(":api-clients:bpm-service-client")
+
+    // Required for child dependencies
+    implementation 'com.squareup.okhttp3:okhttp:4.9.2'
+    implementation 'com.squareup.okhttp3:logging-interceptor:4.9.2'
+
+    // Spring
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+    // Keycloak
+    implementation 'org.springframework.boot:spring-boot-starter-security:2.5.5'
+    implementation 'org.keycloak:keycloak-spring-boot-starter:15.0.2'
+    implementation 'org.keycloak:keycloak-spring-security-adapter:15.0.2'
+
+    // Swagger
+    implementation 'io.springfox:springfox-swagger-ui:3.0.0'
+    implementation 'io.springfox:springfox-swagger2:3.0.0'
+
+    // Lombok
+    compileOnly 'org.projectlombok:lombok:1.18.22'
+    annotationProcessor 'org.projectlombok:lombok:1.18.22'
+}
+
+test {
+    useJUnitPlatform()
+}

@@ -9,7 +9,7 @@ void main() {
   group(SigningProcessControllerApi, () {
     // Submit approve document decision
     //
-    //Future<String> approveDocument(ApproverDocumentRequest approverDocumentRequest) async
+    //Future<String> approveDocument(ApproverDocumentRequest approveDocumentRequest) async
     test('test approveDocument', () async {
       // TODO
     });

@@ -31,7 +31,7 @@ class SigningProcessControllerApi {
   /// 
   ///
   /// Parameters:
-  /// * [approverDocumentRequest] - approverDocumentRequest
+  /// * [approveDocumentRequest] - approveDocumentRequest
   /// * [cancelToken] - A [CancelToken] that can be used to cancel the operation
   /// * [headers] - Can be used to add additional headers to the request
   /// * [extras] - Can be used to add flags to the request
@@ -42,7 +42,7 @@ class SigningProcessControllerApi {
   /// Returns a [Future] containing a [Response] with a [String] as data
   /// Throws [DioError] if API call or serialization fails
   Future<Response<String>> approveDocument({ 
-    required ApproverDocumentRequest approverDocumentRequest,
+    required ApproverDocumentRequest approveDocumentRequest,
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
     Map<String, dynamic>? extra,
@@ -68,7 +68,7 @@ class SigningProcessControllerApi {
 
     try {
       const _type = FullType(ApproverDocumentRequest);
-      _bodyData = _serializers.serialize(approverDocumentRequest, specifiedType: _type);
+      _bodyData = _serializers.serialize(approveDocumentRequest, specifiedType: _type);
 
     } catch(error, stackTrace) {
       throw DioError(

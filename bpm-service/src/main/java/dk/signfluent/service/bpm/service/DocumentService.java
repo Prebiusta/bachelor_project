@@ -9,10 +9,10 @@ import dk.signfluent.service.bpm.model.DocumentWithContent;
 import dk.signfluent.service.bpm.model.request.AssignApproversRequest;
 import dk.signfluent.service.bpm.model.request.InspectDocumentRequest;
 import dk.signfluent.service.bpm.model.request.UploadDocumentRequest;
+import dk.signfluent.service.bpm.model.request.UserBasedRequest;
 import dk.signfluent.service.bpm.model.response.DocumentResponse;
 import dk.signfluent.service.bpm.provider.ProcessDetailsProvider;
 import dk.signfluent.service.bpm.provider.TaskDetailsProvider;
-import dk.signfluent.service.bpm.provider.UserProvider;
 import dk.signfluent.service.bpm.utility.ProcessFormKey;
 import dk.signfluent.service.document.api.provider.DocumentServiceApiProvider;
 import dk.signfluent.service.user.api.provider.UserServiceApiProvider;
@@ -40,17 +40,15 @@ public class DocumentService {
     private final UserServiceApiProvider userServiceApiProvider;
     private final DocumentMapper documentMapper;
     private final TaskDetailsProvider taskDetailsProvider;
-    private final UserProvider userProvider;
     private final ProcessDetailsProvider processDetailsProvider;
 
-    public DocumentService(RuntimeService runtimeService, TaskService taskService, DocumentServiceApiProvider documentServiceApiProvider, UserServiceApiProvider userServiceApiProvider, DocumentMapper documentMapper, TaskDetailsProvider taskDetailsProvider, UserProvider userProvider, ProcessDetailsProvider processDetailsProvider) {
+    public DocumentService(RuntimeService runtimeService, TaskService taskService, DocumentServiceApiProvider documentServiceApiProvider, UserServiceApiProvider userServiceApiProvider, DocumentMapper documentMapper, TaskDetailsProvider taskDetailsProvider, ProcessDetailsProvider processDetailsProvider) {
         this.runtimeService = runtimeService;
         this.taskService = taskService;
         this.documentServiceApiProvider = documentServiceApiProvider;
         this.userServiceApiProvider = userServiceApiProvider;
         this.documentMapper = documentMapper;
         this.taskDetailsProvider = taskDetailsProvider;
-        this.userProvider = userProvider;
         this.processDetailsProvider = processDetailsProvider;
     }
 
@@ -71,7 +69,7 @@ public class DocumentService {
     }
 
     public void uploadDocument(UploadDocumentRequest uploadDocumentRequest) throws ApiException {
-        String uploadedDocumentId = documentServiceApiProvider.uploadDocument(userProvider.getCurrentUserId(), uploadDocumentRequest.getDescription(), uploadDocumentRequest.getDocument());
+        String uploadedDocumentId = documentServiceApiProvider.uploadDocument(uploadDocumentRequest.getUserId(), uploadDocumentRequest.getDescription(), uploadDocumentRequest.getDocument());
         runtimeService.startProcessInstanceByKey(SIGNING_PROCESS, uploadedDocumentId, Collections.singletonMap(DOCUMENT_ID, uploadedDocumentId));
     }
 
@@ -80,8 +78,8 @@ public class DocumentService {
         return taskDetailsProvider.appendDocumentsInformationToTask(processInstancesWithFormKey);
     }
 
-    public List<DocumentResponse> getDocumentsForApproval() throws Exception {
-        List<ProcessInstance> processInstancesWithFormKey = processDetailsProvider.getProcessInstancesWithFormKeyAndAssignee(ProcessFormKey.APPROVE_DOCUMENT, userProvider.getCurrentUserId());
+    public List<DocumentResponse> getDocumentsForApproval(UserBasedRequest userBasedRequest) throws Exception {
+        List<ProcessInstance> processInstancesWithFormKey = processDetailsProvider.getProcessInstancesWithFormKeyAndAssignee(ProcessFormKey.APPROVE_DOCUMENT, userBasedRequest.getUserId());
         return taskDetailsProvider.appendDocumentsInformationToTask(processInstancesWithFormKey);
     }
 
@@ -112,7 +110,7 @@ public class DocumentService {
     private Map<String, Object> getProcessVariablesForInspectDocument(InspectDocumentRequest inspectDocumentRequest) {
         Map<String, Object> variables = new HashMap<>();
         variables.put(IS_DOCUMENT_VALID, inspectDocumentRequest.getIsValid());
-        variables.put(DELEGATOR_ID, userProvider.getCurrentUserId());
+        variables.put(DELEGATOR_ID, inspectDocumentRequest.getDelegatorId());
         return variables;
     }
 
@@ -123,7 +121,7 @@ public class DocumentService {
     private AssignApprovers createAssignApproversRequest(AssignApproversRequest assignApproversRequest) {
         AssignApprovers assignApprovers = new AssignApprovers();
         assignApprovers.setApprovers(assignApproversRequest.getApprovers());
-        assignApprovers.setDelegatorId(UUID.fromString(userProvider.getCurrentUserId()));
+        assignApprovers.setDelegatorId(UUID.fromString(assignApproversRequest.getDelegatorId()));
         assignApprovers.setDocumentId(UUID.fromString(extractDocumentIdFromProcessId(assignApproversRequest.getProcessId())));
         return assignApprovers;
     }
