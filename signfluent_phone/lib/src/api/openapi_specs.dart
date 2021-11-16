@@ -2,10 +2,10 @@ import 'package:openapi_generator_annotations/openapi_generator_annotations.dart
 
 @Openapi(
     additionalProperties:
-    AdditionalProperties(pubName: 'bpm_service_api', pubAuthor: 'Signfluent', prependFormOrBodyParameters: true),
-    inputSpecFile: 'lib/src/api/bpm-service-api-spec.json',
+    AdditionalProperties(pubName: 'business_service_api', pubAuthor: 'Signfluent', prependFormOrBodyParameters: true),
+    inputSpecFile: 'lib/src/api/business-service-api-spec.json',
     generatorName: Generator.dioNext,
-    outputDirectory: 'api/bpm-service-api',
+    outputDirectory: 'api/business-service-api',
     alwaysRun: true,
 )
 class OpenapiSpecs extends OpenapiGeneratorConfig {

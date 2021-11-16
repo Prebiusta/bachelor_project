@@ -1,4 +1,4 @@
-import 'package:bpm_service_api/bpm_service_api.dart';
+import 'package:business_service_api/business_service_api.dart';
 import 'package:flutter/material.dart';
 import 'package:signfluent_phone/src/components/error_view.dart';
 import 'package:signfluent_phone/src/components/spinner.dart';

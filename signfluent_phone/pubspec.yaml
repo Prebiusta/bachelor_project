@@ -52,8 +52,8 @@ dependencies:
   intl: ^0.17.0
   slide_to_confirm: ^1.1.0
   dio: ^4.0.1
-  bpm_service_api:
-    path: api/bpm-service-api
+  business_service_api:
+    path: api/business-service-api
 
 dev_dependencies:
   openapi_generator: ^3.2.1

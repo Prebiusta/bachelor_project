@@ -1,4 +1,4 @@
-import 'package:bpm_service_api/bpm_service_api.dart';
+import 'package:business_service_api/business_service_api.dart';
 import 'package:redux/redux.dart';
 import 'package:redux_thunk/redux_thunk.dart';
 import 'package:signfluent_phone/src/model/certificate_storage.dart';

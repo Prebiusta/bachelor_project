@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:bpm_service_api/bpm_service_api.dart';
+import 'package:business_service_api/business_service_api.dart';
 import 'package:dio/dio.dart';
 import 'package:signfluent_phone/src/service/api_provider.dart';
 import 'package:signfluent_phone/src/service/bearer_token_service.dart';

@@ -86,8 +86,8 @@ public class SigningProcessController {
     @PostMapping("/getSignatureRequest")
     @ApiOperation(value = "Returns signature request for authenticated user", nickname = "getSignatureRequest")
     @PreAuthorize(APPROVER)
-    public SignfluentSignatureRequest getSignatureRequest(@RequestBody UserBasedRequest userBasedRequest) throws ApiException {
-        return bpmServiceApiProvider.getSignatureRequest(userBasedRequest);
+    public SignfluentSignatureRequest getSignatureRequest() throws ApiException {
+        return bpmServiceApiProvider.getSignatureRequest(requestProvider.generateUserBasedRequest());
     }
 
     @PostMapping("/submitSignature")
