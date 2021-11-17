@@ -72,3 +72,8 @@ sourceSets {
         }
     }
 }
+
+compileJava {
+    dependsOn tasks.openApiGenerate
+}
+
