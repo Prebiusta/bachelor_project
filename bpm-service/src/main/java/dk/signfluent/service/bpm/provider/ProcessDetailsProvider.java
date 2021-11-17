@@ -11,6 +11,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Service
 public class ProcessDetailsProvider {
@@ -52,13 +53,25 @@ public class ProcessDetailsProvider {
     }
 
     public Task getFirstTaskForProcessInstanceAndFormKey(String processInstanceId, ProcessFormKey processFormKey) {
+        return getTaskStreamForProcessId(processInstanceId)
+                .filter(task -> task.getFormKey().equals(processFormKey.getFormKey()))
+                .findFirst()
+                .orElseThrow(() -> new IllegalArgumentException("Given task not found for specified process instance"));
+    }
+
+    public Task getFirstTaskForProcessInstanceFormKeyAndAssignee(String processInstanceId, ProcessFormKey processFormKey, String assignee) {
+        return getTaskStreamForProcessId(processInstanceId)
+                .filter(task -> task.getFormKey().equals(processFormKey.getFormKey()))
+
+                .findFirst()
+                .orElseThrow(() -> new IllegalArgumentException("Given task not found for specified process instance"));
+    }
+
+    private Stream<Task> getTaskStreamForProcessId(String processInstanceId) {
         return taskService.createTaskQuery()
                 .processInstanceId(processInstanceId)
                 .initializeFormKeys()
                 .list()
-                .stream()
-                .filter(task -> task.getFormKey().equals(processFormKey.getFormKey()))
-                .findFirst()
-                .orElseThrow(() -> new IllegalArgumentException("Given task not found for specified process instance"));
+                .stream();
     }
 }
