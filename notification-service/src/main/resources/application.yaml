@@ -2,6 +2,15 @@ server:
   port: 8002
 
 spring:
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: signfluent@gmail.com
+    password: ${MailPassword}
+    properties.mail.smtp.auth: true
+    properties.mail.smtp.starttls.enable: true
+
+spring:
   datasource:
     url: jdbc:mariadb://localhost:3306/notification-service?createDatabaseIfNotExist=true
     username: root

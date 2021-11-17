@@ -6,6 +6,6 @@ import java.util.List;
 
 @Data
 public class NotificationRequest {
-    private List<String> tokens;
+    private List<String> receivers;
     private String messageText;
 }
