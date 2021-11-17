@@ -13,6 +13,8 @@ public interface KeycloakUserManagementService {
 
     List<User> getUsers(List<String> userIds);
 
+    List<User> getAllUsers();
+
     AuthenticationResponse authenticate(AuthenticationRequest authenticationRequest);
 
     AuthenticationResponse refreshToken(RefreshTokenRequest request);

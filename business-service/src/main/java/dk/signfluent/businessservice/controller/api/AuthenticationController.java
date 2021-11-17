@@ -35,13 +35,6 @@ public class AuthenticationController {
         return userServiceApiProvider.refreshToken(request);
     }
 
-    @PostMapping("/createUser")
-    @ApiOperation(value = "Creates a new user", nickname = "createUser")
-    @PreAuthorize(ADMINISTRATOR)
-    public UserCreateResponse createUser(@RequestBody UserCreateRequest userCreateRequest) throws ApiException {
-        return userServiceApiProvider.createUserAccount(userCreateRequest);
-    }
-
     @GetMapping("/ping")
     @ApiOperation(value = "Verifies the connection", nickname = "ping")
     @PermitAll

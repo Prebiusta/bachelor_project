@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 import static dk.signfluent.businessservice.utility.AuthorizationTypes.ADMINISTRATOR;
+import static dk.signfluent.businessservice.utility.AuthorizationTypes.AUTHENTICATED;
 
 
 @RestController
@@ -53,13 +54,14 @@ public class RoleManagementController {
 
     @PostMapping("/getForUser")
     @ApiOperation(value = "Returns roles for specified user", nickname = "getAlForUser")
-    @PreAuthorize("hasAuthority('administrator')")
+    @PreAuthorize(ADMINISTRATOR)
     public List<SignfluentRoleResponse> getForUser(@RequestBody UserRequest userRequest) throws ApiException {
         return userServiceApiProvider.getRoleForUser(userRequest);
     }
 
     @PostMapping("/getForCurrentUser")
     @ApiOperation(value = "Returns all roles for currently authenticated user", nickname = "getAllForCurrentUser")
+    @PreAuthorize(AUTHENTICATED)
     public List<SignfluentRoleResponse> getForCurrentUser() throws ApiException {
         return userServiceApiProvider.getRoleForUser(new UserRequest().userId(userProvider.getCurrentUserId()));
     }

@@ -21,6 +21,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Service
 public class KeycloakUserManagementServiceImpl implements KeycloakUserManagementService {
@@ -58,10 +59,15 @@ public class KeycloakUserManagementServiceImpl implements KeycloakUserManagement
 
     @Override
     public List<User> getUsers(List<String> userIds) {
-        return usersResource
-                .list()
-                .stream()
+        return getUserRepresentationListStream()
                 .filter(userRepresentation -> userIds.contains(userRepresentation.getId()))
+                .map(userMapper::mapUserRepresentationToUser)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<User> getAllUsers() {
+        return getUserRepresentationListStream()
                 .map(userMapper::mapUserRepresentationToUser)
                 .collect(Collectors.toList());
     }
@@ -92,6 +98,12 @@ public class KeycloakUserManagementServiceImpl implements KeycloakUserManagement
     @Override
     public List<RoleRepresentation> getRolesForUser(UserRequest userRequest) {
         return usersResource.get(userRequest.getUserId()).roles().getAll().getRealmMappings();
+    }
+
+    private Stream<UserRepresentation> getUserRepresentationListStream() {
+        return usersResource
+                .list()
+                .stream();
     }
 
     private RoleRepresentation getRoleRepresentation(String role) {

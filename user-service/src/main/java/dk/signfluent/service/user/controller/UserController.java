@@ -68,4 +68,10 @@ public class UserController {
     public List<User> getUsersByIds(@RequestBody List<String> userIds) {
         return keycloakUserManagementService.getUsers(userIds);
     }
+
+    @PostMapping("/getAll")
+    @ApiOperation(value = "Get all users", nickname = "getAllUsers")
+    public List<User> getAllUsers() {
+        return keycloakUserManagementService.getAllUsers();
+    }
 }

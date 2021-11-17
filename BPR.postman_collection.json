@@ -262,113 +262,6 @@
 							]
 						},
 						{
-							"name": "Create User",
-							"request": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n    \"username\": \"david\",\n    \"email\": \"david@signfluent.com\",\n    \"lastName\": \"Franko\",\n    \"firstName\": \"David\",\n    \"password\": \"123456\"\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{businessServiceURL}}/api/auth/createUser",
-									"host": [
-										"{{businessServiceURL}}"
-									],
-									"path": [
-										"api",
-										"auth",
-										"createUser"
-									]
-								}
-							},
-							"response": [
-								{
-									"name": "Create User",
-									"originalRequest": {
-										"method": "POST",
-										"header": [],
-										"body": {
-											"mode": "raw",
-											"raw": "{\n    \"username\": \"angel\",\n    \"email\": \"angel@signfluent.com\",\n    \"lastName\": \"Franko\",\n    \"firstName\": \"David\",\n    \"password\": \"123456\"\n}",
-											"options": {
-												"raw": {
-													"language": "json"
-												}
-											}
-										},
-										"url": {
-											"raw": "{{bpmServiceURL}}/api/auth/createUser",
-											"host": [
-												"{{bpmServiceURL}}"
-											],
-											"path": [
-												"api",
-												"auth",
-												"createUser"
-											]
-										}
-									},
-									"status": "OK",
-									"code": 200,
-									"_postman_previewlanguage": "json",
-									"header": [
-										{
-											"key": "X-Content-Type-Options",
-											"value": "nosniff"
-										},
-										{
-											"key": "X-XSS-Protection",
-											"value": "1; mode=block"
-										},
-										{
-											"key": "Cache-Control",
-											"value": "no-cache, no-store, max-age=0, must-revalidate"
-										},
-										{
-											"key": "Pragma",
-											"value": "no-cache"
-										},
-										{
-											"key": "Expires",
-											"value": "0"
-										},
-										{
-											"key": "X-Frame-Options",
-											"value": "DENY"
-										},
-										{
-											"key": "Content-Type",
-											"value": "application/json"
-										},
-										{
-											"key": "Transfer-Encoding",
-											"value": "chunked"
-										},
-										{
-											"key": "Date",
-											"value": "Mon, 25 Oct 2021 16:11:59 GMT"
-										},
-										{
-											"key": "Keep-Alive",
-											"value": "timeout=60"
-										},
-										{
-											"key": "Connection",
-											"value": "keep-alive"
-										}
-									],
-									"cookie": [],
-									"body": "{\n    \"userId\": \"595bfebf-a4d1-4b01-9e63-c6e8b0db0c0e\"\n}"
-								}
-							]
-						},
-						{
 							"name": "Ping",
 							"request": {
 								"auth": {
@@ -2130,6 +2023,203 @@
 							}
 						}
 					]
+				},
+				{
+					"name": "User Controller",
+					"item": [
+						{
+							"name": "Create User",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"username\": \"david\",\n    \"email\": \"david@signfluent.com\",\n    \"lastName\": \"Franko\",\n    \"firstName\": \"David\",\n    \"password\": \"123456\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{businessServiceURL}}/api/user/createUser",
+									"host": [
+										"{{businessServiceURL}}"
+									],
+									"path": [
+										"api",
+										"user",
+										"createUser"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Create User",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"username\": \"angel\",\n    \"email\": \"angel@signfluent.com\",\n    \"lastName\": \"Franko\",\n    \"firstName\": \"David\",\n    \"password\": \"123456\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{bpmServiceURL}}/api/auth/createUser",
+											"host": [
+												"{{bpmServiceURL}}"
+											],
+											"path": [
+												"api",
+												"auth",
+												"createUser"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "X-Content-Type-Options",
+											"value": "nosniff"
+										},
+										{
+											"key": "X-XSS-Protection",
+											"value": "1; mode=block"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, no-store, max-age=0, must-revalidate"
+										},
+										{
+											"key": "Pragma",
+											"value": "no-cache"
+										},
+										{
+											"key": "Expires",
+											"value": "0"
+										},
+										{
+											"key": "X-Frame-Options",
+											"value": "DENY"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Transfer-Encoding",
+											"value": "chunked"
+										},
+										{
+											"key": "Date",
+											"value": "Mon, 25 Oct 2021 16:11:59 GMT"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=60"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"userId\": \"595bfebf-a4d1-4b01-9e63-c6e8b0db0c0e\"\n}"
+								}
+							]
+						},
+						{
+							"name": "Get All Users",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{businessServiceURL}}/api/user/getAllUsers",
+									"host": [
+										"{{businessServiceURL}}"
+									],
+									"path": [
+										"api",
+										"user",
+										"getAllUsers"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get User Details",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"username\": \"david\",\n    \"email\": \"david@signfluent.com\",\n    \"lastName\": \"Franko\",\n    \"firstName\": \"David\",\n    \"password\": \"123456\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{businessServiceURL}}/api/user/getUserDetails/{{currentUserId}}",
+									"host": [
+										"{{businessServiceURL}}"
+									],
+									"path": [
+										"api",
+										"user",
+										"getUserDetails",
+										"{{currentUserId}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Current User Details Copy",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"username\": \"david\",\n    \"email\": \"david@signfluent.com\",\n    \"lastName\": \"Franko\",\n    \"firstName\": \"David\",\n    \"password\": \"123456\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{businessServiceURL}}/api/user/getCurrentUserDetails",
+									"host": [
+										"{{businessServiceURL}}"
+									],
+									"path": [
+										"api",
+										"user",
+										"getCurrentUserDetails"
+									]
+								}
+							},
+							"response": []
+						}
+					]
 				}
 			],
 			"auth": {
@@ -3192,6 +3282,36 @@
 							"path": [
 								"api",
 								"getUsersByIds"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Users",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "[\"63c2f7ed-7b4e-4a5a-a847-4466fc6dcfe6\"]\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{userServiceURL}}/api/getAll",
+							"host": [
+								"{{userServiceURL}}"
+							],
+							"path": [
+								"api",
+								"getAll"
 							]
 						}
 					},

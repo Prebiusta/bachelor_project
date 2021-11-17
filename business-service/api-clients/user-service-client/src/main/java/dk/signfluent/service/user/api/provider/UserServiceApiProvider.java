@@ -10,6 +10,8 @@ public interface UserServiceApiProvider {
 
     List<User> getUsersByIds(List<String> ids) throws ApiException;
 
+    List<User> getAllUsers() throws ApiException;
+
     BaseResponse assignRole(RoleManagementRequest roleManagementRequest) throws ApiException;
 
     BaseResponse revokeRole(RoleManagementRequest roleManagementRequest) throws ApiException;

@@ -30,6 +30,11 @@ public class UserServiceApiProviderImpl implements UserServiceApiProvider {
     }
 
     @Override
+    public List<User> getAllUsers() throws ApiException {
+        return userControllerApi.getAllUsers();
+    }
+
+    @Override
     public BaseResponse assignRole(RoleManagementRequest roleManagementRequest) throws ApiException {
         return userControllerApi.assignRole(roleManagementRequest);
     }
