@@ -1,2 +1,2 @@
 @echo off
-docker-compose --project-name signfluent up
+docker-compose --project-name signfluent up -d
