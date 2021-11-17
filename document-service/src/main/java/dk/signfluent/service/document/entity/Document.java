@@ -4,6 +4,7 @@ import com.sun.istack.NotNull;
 import dk.signfluent.service.document.utils.Enums.DocumentStatus;
 import lombok.*;
 import org.hibernate.Hibernate;
+import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -19,6 +20,7 @@ import java.util.UUID;
 public class Document {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Type(type="uuid-char")
     private UUID id;
     private String description;
     @NotNull

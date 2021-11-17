@@ -2,6 +2,7 @@ package dk.signfluent.service.document.entity;
 
 import lombok.*;
 import org.hibernate.Hibernate;
+import org.hibernate.annotations.Type;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -17,6 +18,7 @@ import java.util.UUID;
 public class ApprovalOrder {
     @Id
     @GeneratedValue
+    @Type(type="uuid-char")
     private UUID id;
 
     private UUID approverId;

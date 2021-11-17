@@ -5,7 +5,6 @@ import dk.signfluent.bpm.service.model.*;
 import dk.signfluent.businessservice.provider.RequestProvider;
 import dk.signfluent.service.bpm.provider.BpmServiceApiProvider;
 import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.Authorization;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
