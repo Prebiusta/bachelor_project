@@ -7,7 +7,7 @@ spring:
     host: smtp.gmail.com
     port: 587
     username: signfluent@gmail.com
-    password: xuunxooprcnaqbhv
+    password: ${MailPassword}
     properties.mail.smtp.auth: true
     properties.mail.smtp.starttls.enable: true
 
