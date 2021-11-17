@@ -1,2 +1,13 @@
 server:
   port: 8002
+
+
+spring:
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: signfluent@gmail.com
+    password: xuunxooprcnaqbhv
+    properties.mail.smtp.auth: true
+    properties.mail.smtp.starttls.enable: true
+
