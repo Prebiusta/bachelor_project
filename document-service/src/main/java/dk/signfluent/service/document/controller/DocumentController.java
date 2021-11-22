@@ -1,5 +1,6 @@
 package dk.signfluent.service.document.controller;
 
+import dk.signfluent.service.document.entity.Document;
 import dk.signfluent.service.document.model.*;
 import dk.signfluent.service.document.service.DocumentService;
 import io.swagger.annotations.ApiOperation;
@@ -33,6 +34,12 @@ public class DocumentController {
     @ApiOperation(value = "Returns all available documents", nickname = "getDocumentsForUploader")
     public List<DocumentRow> getDocumentsForUploader(@PathVariable String userId) throws Exception {
         return documentService.getAllDocumentsForUploader(userId);
+    }
+
+    @PostMapping("/getDocumentDetails/{documentId}")
+    @ApiOperation(value = "Returns all available documents", nickname = "getDocumentDetails")
+    public Document getDocumentDetails(@PathVariable String documentId) throws Exception {
+        return documentService.getDocumentDetails(documentId);
     }
 
     @PostMapping("/getDocumentList")

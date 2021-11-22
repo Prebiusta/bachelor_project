@@ -12,8 +12,6 @@ import java.util.UUID;
 public interface DocumentRepository extends JpaRepository<Document, UUID> {
     List<Document> getDocumentsByIdIn(List<UUID> ids);
 
-    List<Document> getDocumentsByUploaderId(UUID uploader_id);
-
     Document getDocumentById(UUID id);
 
     boolean existsDocumentByHashAndStatus(byte[] hash, DocumentStatus status);

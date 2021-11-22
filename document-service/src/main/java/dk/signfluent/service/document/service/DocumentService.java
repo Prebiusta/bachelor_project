@@ -51,6 +51,10 @@ public class DocumentService {
         return documentMapper.documentToDocumentRow(documents);
     }
 
+    public Document getDocumentDetails(String documentId) {
+        return repository.getDocumentById(UUID.fromString(documentId));
+    }
+
     public List<DocumentRow> getAllDocuments() {
         return repository.findAll()
                 .stream()
@@ -59,8 +63,9 @@ public class DocumentService {
     }
 
     public List<DocumentRow> getAllDocumentsForUploader(String uploaderId) {
-        return repository.getDocumentsByUploaderId(UUID.fromString(uploaderId))
+        return repository.findAll()
                 .stream()
+                .filter(a -> a.getUploader().getUploaderId().equals(UUID.fromString(uploaderId)))
                 .map(documentMapper::mapDocumentToDocumentRow)
                 .collect(Collectors.toList());
     }
