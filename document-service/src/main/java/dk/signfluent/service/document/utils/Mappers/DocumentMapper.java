@@ -4,7 +4,10 @@ import dk.signfluent.service.document.entity.Document;
 import dk.signfluent.service.document.model.DocumentContent;
 import dk.signfluent.service.document.model.DocumentRow;
 import org.apache.tomcat.util.codec.binary.Base64;
-import org.mapstruct.*;
+import org.mapstruct.BeforeMapping;
+import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
+import org.mapstruct.MappingTarget;
 
 import java.util.List;
 
@@ -22,7 +25,7 @@ public interface DocumentMapper {
         documentContent.setContent(new String(Base64.encodeBase64(document.getContent())));
     }
 
-    default DocumentRow map(Document source) {
+    default DocumentRow mapDocumentToDocumentRow(Document source) {
         DocumentRow document = new DocumentRow();
         document.setDocumentId(source.getId());
         document.setDescription(source.getDescription());
