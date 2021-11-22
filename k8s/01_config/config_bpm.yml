@@ -9,10 +9,3 @@ data:
   camunda.jdbc-batch-processing: "false"
   camunda.admin-name: "proof"
   camunda.admin-password: "proof"
-
-  keycloak.realm: "master"
-  keycloak.auth-server-url: "http://localhost:8080/auth"
-  keycloak.ssl-required: "external"
-  keycloak.resource: "signfluent"
-  keycloak.use-resource-role-mappings: "true"
-  keycloak.public-client: "true"

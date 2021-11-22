@@ -41,6 +41,26 @@ spec:
                 configMapKeyRef:
                   name: db-config-map
                   key: dbPassword
+            - name: "spring.mail.host"
+              valueFrom:
+                configMapKeyRef:
+                  name: notification-service-config-map
+                  key: smtpHost
+            - name: "spring.mail.port"
+              valueFrom:
+                configMapKeyRef:
+                  name: notification-service-config-map
+                  key: smtpPort
+            - name: "spring.mail.username"
+              valueFrom:
+                configMapKeyRef:
+                  name: notification-service-config-map
+                  key: smtpUsername
+            - name: "spring.mail.password"
+              valueFrom:
+                configMapKeyRef:
+                  name: notification-service-config-map
+                  key: smtpPassword
             - name: GOOGLE_APPLICATION_CREDENTIALS
               value: /etc/gcp/sa_credentials.json
           volumeMounts:

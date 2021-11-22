@@ -5,3 +5,7 @@ metadata:
 data:
   dbConnectionString: "jdbc:mariadb://mysql:3306/notification-service?createDatabaseIfNotExist=true"
   ddl-auto: "create"
+  smtpHost: "smtp.gmail.com"
+  smtpPort: "587"
+  smtpUsername: "signfluent@gmail.com"
+  smtpPassword: "xuunxooprcnaqbhv"

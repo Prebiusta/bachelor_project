@@ -36,3 +36,8 @@ services:
     container_name: device-service
     build: ../device-service
     image: signfluent/device-service:latest
+
+  business_service:
+    container_name: business-service
+    build: ../business-service
+    image: signfluent/business-service:latest
