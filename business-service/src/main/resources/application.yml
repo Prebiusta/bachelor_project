@@ -26,6 +26,13 @@ document:
         host: localhost
         port: 8001
 
+notification:
+  service:
+    svc:
+      service:
+        host: localhost
+        port: 8002
+
 user:
   service:
     svc:
@@ -38,7 +45,6 @@ ca:
     service:
       host: localhost
       port: 8004
-
 
 device:
   service:

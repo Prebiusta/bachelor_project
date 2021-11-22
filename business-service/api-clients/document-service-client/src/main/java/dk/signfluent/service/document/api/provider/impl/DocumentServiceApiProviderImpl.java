@@ -3,6 +3,7 @@ package dk.signfluent.service.document.api.provider.impl;
 import dk.signfluent.document.service.api.DocumentControllerApi;
 import dk.signfluent.document.service.invoker.ApiException;
 import dk.signfluent.document.service.model.AssignApprovers;
+import dk.signfluent.document.service.model.Document;
 import dk.signfluent.document.service.model.DocumentContent;
 import dk.signfluent.document.service.model.DocumentRow;
 import dk.signfluent.service.document.api.provider.DocumentServiceApiProvider;
@@ -24,7 +25,7 @@ public class DocumentServiceApiProviderImpl implements DocumentServiceApiProvide
     }
 
     @Override
-    public DocumentContent getDocumentDetails(String documentId) throws ApiException {
+    public DocumentContent getBasicDocumentDetails(String documentId) throws ApiException {
         return documentControllerApi.getDocumentContent(UUID.fromString(documentId));
     }
 
@@ -32,6 +33,21 @@ public class DocumentServiceApiProviderImpl implements DocumentServiceApiProvide
     public List<DocumentRow> getDocumentList(List<String> documentIds) throws ApiException {
         List<UUID> docIds = documentIds.stream().map(UUID::fromString).collect(Collectors.toList());
         return documentControllerApi.getDocumentList(docIds);
+    }
+
+    @Override
+    public List<DocumentRow> getAllDocuments() throws ApiException {
+        return documentControllerApi.getAllDocuments();
+    }
+
+    @Override
+    public List<DocumentRow> getAllDocumentsForUploader(String userId) throws ApiException {
+        return documentControllerApi.getDocumentsForUploader(userId);
+    }
+
+    @Override
+    public Document getDocumentDetails(String documentId) throws ApiException {
+        return documentControllerApi.getDocumentDetails(documentId);
     }
 
     @Override
