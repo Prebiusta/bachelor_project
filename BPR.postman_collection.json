@@ -9,1322 +9,6 @@
 			"name": "Business Service",
 			"item": [
 				{
-					"name": "Authentication Controller",
-					"item": [
-						{
-							"name": "Login",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"exec": [
-											"const {userId, token} = pm.response.json();",
-											"",
-											"pm.environment.set(\"currentUserId\", userId);",
-											"pm.environment.set(\"bearerToken\", token);",
-											""
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"auth": {
-									"type": "noauth"
-								},
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n    \"username\": \"admin\",\n    \"password\" : \"admin\"\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{businessServiceURL}}/api/auth/login",
-									"host": [
-										"{{businessServiceURL}}"
-									],
-									"path": [
-										"api",
-										"auth",
-										"login"
-									]
-								}
-							},
-							"response": [
-								{
-									"name": "Login",
-									"originalRequest": {
-										"method": "POST",
-										"header": [],
-										"body": {
-											"mode": "raw",
-											"raw": "{\n    \"username\": \"david\",\n    \"password\" : \"123456\"\n}",
-											"options": {
-												"raw": {
-													"language": "json"
-												}
-											}
-										},
-										"url": {
-											"raw": "{{bpmServiceURL}}/api/auth/login",
-											"host": [
-												"{{bpmServiceURL}}"
-											],
-											"path": [
-												"api",
-												"auth",
-												"login"
-											]
-										}
-									},
-									"status": "OK",
-									"code": 200,
-									"_postman_previewlanguage": "json",
-									"header": [
-										{
-											"key": "X-Content-Type-Options",
-											"value": "nosniff"
-										},
-										{
-											"key": "X-XSS-Protection",
-											"value": "1; mode=block"
-										},
-										{
-											"key": "Cache-Control",
-											"value": "no-cache, no-store, max-age=0, must-revalidate"
-										},
-										{
-											"key": "Pragma",
-											"value": "no-cache"
-										},
-										{
-											"key": "Expires",
-											"value": "0"
-										},
-										{
-											"key": "X-Frame-Options",
-											"value": "DENY"
-										},
-										{
-											"key": "Content-Type",
-											"value": "application/json"
-										},
-										{
-											"key": "Transfer-Encoding",
-											"value": "chunked"
-										},
-										{
-											"key": "Date",
-											"value": "Mon, 25 Oct 2021 16:12:03 GMT"
-										},
-										{
-											"key": "Keep-Alive",
-											"value": "timeout=60"
-										},
-										{
-											"key": "Connection",
-											"value": "keep-alive"
-										}
-									],
-									"cookie": [],
-									"body": "{\n    \"expiresIn\": 60,\n    \"idToken\": null,\n    \"notBeforePolicy\": 0,\n    \"refreshExpiresIn\": 1800,\n    \"refreshToken\": \"eyJhbGciOiJIUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICI4MjI1YTkyNy1kM2M3LTQzNTUtOTA5ZS1kYzBjZGRjNGVhZmUifQ.eyJleHAiOjE2MzUxODAxMjMsImlhdCI6MTYzNTE3ODMyMywianRpIjoiOWFmMDUwN2EtNzg2Zi00NmZiLTljYWEtZmM0OWNiMWUxN2M5IiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo4MDgwL2F1dGgvcmVhbG1zL21hc3RlciIsImF1ZCI6Imh0dHA6Ly9sb2NhbGhvc3Q6ODA4MC9hdXRoL3JlYWxtcy9tYXN0ZXIiLCJzdWIiOiI0NWI5MTI2OC02M2MyLTRlNmMtOTRmZi0xODlkOTkxNzEyMDIiLCJ0eXAiOiJSZWZyZXNoIiwiYXpwIjoidXNlci1zZXJ2aWNlIiwic2Vzc2lvbl9zdGF0ZSI6IjZmMWRmMmEyLTY2YTYtNDJkNC05OTgwLTI3YTExZTExMDljYiIsInNjb3BlIjoicHJvZmlsZSBlbWFpbCIsInNpZCI6IjZmMWRmMmEyLTY2YTYtNDJkNC05OTgwLTI3YTExZTExMDljYiJ9.hSiwdD_3DB7_sFYy9rIHYTjJX8yzLE0mECFUX5FYLhE\",\n    \"token\": \"eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJ2UlBuaXBKQUVqS1Y0RUk3SEd4RldUVUM2bTNJZ0w3LU9DeTQ0aFZhcVU0In0.eyJleHAiOjE2MzUxNzgzODMsImlhdCI6MTYzNTE3ODMyMywianRpIjoiYmVmMTMwZjQtZDQ5My00Nzg3LTkwYzktMmYyYTEwMDU0MTA2IiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo4MDgwL2F1dGgvcmVhbG1zL21hc3RlciIsImF1ZCI6ImFjY291bnQiLCJzdWIiOiI0NWI5MTI2OC02M2MyLTRlNmMtOTRmZi0xODlkOTkxNzEyMDIiLCJ0eXAiOiJCZWFyZXIiLCJhenAiOiJ1c2VyLXNlcnZpY2UiLCJzZXNzaW9uX3N0YXRlIjoiNmYxZGYyYTItNjZhNi00MmQ0LTk5ODAtMjdhMTFlMTEwOWNiIiwiYWNyIjoiMSIsImFsbG93ZWQtb3JpZ2lucyI6WyJodHRwOi8vbG9jYWxob3N0OjgwMDMiXSwicmVhbG1fYWNjZXNzIjp7InJvbGVzIjpbImFkbWluaXN0cmF0b3IiLCJkZWZhdWx0LXJvbGVzLW1hc3RlciIsIm9mZmxpbmVfYWNjZXNzIiwidW1hX2F1dGhvcml6YXRpb24iXX0sInJlc291cmNlX2FjY2VzcyI6eyJ1c2VyLXNlcnZpY2UiOnsicm9sZXMiOlsiYWRtaW5pc3RyYXRvciJdfSwiYWNjb3VudCI6eyJyb2xlcyI6WyJtYW5hZ2UtYWNjb3VudCIsIm1hbmFnZS1hY2NvdW50LWxpbmtzIiwidmlldy1wcm9maWxlIl19fSwic2NvcGUiOiJwcm9maWxlIGVtYWlsIiwic2lkIjoiNmYxZGYyYTItNjZhNi00MmQ0LTk5ODAtMjdhMTFlMTEwOWNiIiwiZW1haWxfdmVyaWZpZWQiOmZhbHNlLCJuYW1lIjoiRGF2aWQgRnJhbmtvIiwicHJlZmVycmVkX3VzZXJuYW1lIjoiZGF2aWQiLCJnaXZlbl9uYW1lIjoiRGF2aWQiLCJmYW1pbHlfbmFtZSI6IkZyYW5rbyIsImVtYWlsIjoiZGF2aWRAc2lnbmZsdWVudC5jb20ifQ.BGm7SzhpT4oVW9UAC973mRxbZJQeJmm8ciIlpvmyyYNz77Emh9AQeaegTihz_vREbHrjydN60D164grdwAz85eJl67YvvxA_h_hhMaUos_M_RM5yUmDHbduIUPMWv0dId29PTi8EKxe-HNvNp7qjXAHvWv1AbT4GmHImcxELt3NXLeVHMinsml_ExogKPN7ZHowwcrbfV75k-TK49AOd22mXScFY7kPGfbK54XS3k5lfc0jHvvIHpGf6sdmip0j14WNFqe7eWYWbqbEoB_sDoHrvd0HaCS_ET-PCz7utDJ0WncEtnXGCGevgtSz33npESdPveIQP4V6TvNaAjTn7fg\",\n    \"tokenType\": \"Bearer\",\n    \"userId\": \"45b91268-63c2-4e6c-94ff-189d99171202\"\n}"
-								}
-							]
-						},
-						{
-							"name": "Refresh Token",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"exec": [
-											"const {userId, token} = pm.response.json();",
-											"",
-											"pm.environment.set(\"currentUserId\", userId);",
-											"pm.environment.set(\"bearerToken\", token);",
-											""
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"auth": {
-									"type": "noauth"
-								},
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n    \"refreshToken\": \"eyJhbGciOiJIUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICI5MDVmZjgzNy1lMmVkLTQxYWUtYjM0ZS0yNWM4YmFlNzJhNWUifQ.eyJleHAiOjE2MzU1MjMxNDcsImlhdCI6MTYzNTUyMTM0NywianRpIjoiOWUzNjk3ZTAtMmE0My00Mjk1LWJjMTctZDE0ZmE4NGE2ZGQ4IiwiaXNzIjoiaHR0cDovLzEwLjEwNC44MS4yNTU6ODA4MC9hdXRoL3JlYWxtcy9tYXN0ZXIiLCJhdWQiOiJodHRwOi8vMTAuMTA0LjgxLjI1NTo4MDgwL2F1dGgvcmVhbG1zL21hc3RlciIsInN1YiI6ImYyMWIwZmIxLWQ0ODMtNGIwNS1hMjkzLTQwNDA2NmZkNzY3YiIsInR5cCI6IlJlZnJlc2giLCJhenAiOiJzaWduZmx1ZW50Iiwic2Vzc2lvbl9zdGF0ZSI6IjU0ZGU3NzNhLTYwOGEtNGZmNS1hMWJiLTljM2ZmODllY2IwNCIsInNjb3BlIjoiZW1haWwgcHJvZmlsZSIsInNpZCI6IjU0ZGU3NzNhLTYwOGEtNGZmNS1hMWJiLTljM2ZmODllY2IwNCJ9.QBk3DtK9ZPDVuEAE2yT2MjcTBad59dew9B8sEdiN4XI\"\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{businessServiceURL}}/api/auth/refreshToken",
-									"host": [
-										"{{businessServiceURL}}"
-									],
-									"path": [
-										"api",
-										"auth",
-										"refreshToken"
-									]
-								}
-							},
-							"response": [
-								{
-									"name": "Refresh Token",
-									"originalRequest": {
-										"method": "POST",
-										"header": [],
-										"body": {
-											"mode": "raw",
-											"raw": "{\n    \"refreshToken\": \"eyJhbGciOiJIUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICI5MDVmZjgzNy1lMmVkLTQxYWUtYjM0ZS0yNWM4YmFlNzJhNWUifQ.eyJleHAiOjE2MzUzMzM4MjcsImlhdCI6MTYzNTMzMjAyNywianRpIjoiMDQzNDgxNTktMTM0Ny00NWMxLWE0YWQtMjNhNTVkZmZlOWQzIiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo4MDgwL2F1dGgvcmVhbG1zL21hc3RlciIsImF1ZCI6Imh0dHA6Ly9sb2NhbGhvc3Q6ODA4MC9hdXRoL3JlYWxtcy9tYXN0ZXIiLCJzdWIiOiI5ZjgzOTI3NS02MjYwLTQ3NDgtYmVmMy05MjA2ZDgyY2M3ZTYiLCJ0eXAiOiJSZWZyZXNoIiwiYXpwIjoic2lnbmZsdWVudCIsInNlc3Npb25fc3RhdGUiOiJjZjRjZWJmZS04MzFlLTRhNjEtOTBlOC1iZGViYTY3MjRjODUiLCJzY29wZSI6ImVtYWlsIHByb2ZpbGUiLCJzaWQiOiJjZjRjZWJmZS04MzFlLTRhNjEtOTBlOC1iZGViYTY3MjRjODUifQ.N880EA4MSO5BJv29K_7i0rNqbLG_A8vG3BfkSfCF-XA\"\n}",
-											"options": {
-												"raw": {
-													"language": "json"
-												}
-											}
-										},
-										"url": {
-											"raw": "{{bpmServiceURL}}/api/auth/refreshToken",
-											"host": [
-												"{{bpmServiceURL}}"
-											],
-											"path": [
-												"api",
-												"auth",
-												"refreshToken"
-											]
-										}
-									},
-									"status": "OK",
-									"code": 200,
-									"_postman_previewlanguage": "json",
-									"header": [
-										{
-											"key": "X-Content-Type-Options",
-											"value": "nosniff"
-										},
-										{
-											"key": "X-XSS-Protection",
-											"value": "1; mode=block"
-										},
-										{
-											"key": "Cache-Control",
-											"value": "no-cache, no-store, max-age=0, must-revalidate"
-										},
-										{
-											"key": "Pragma",
-											"value": "no-cache"
-										},
-										{
-											"key": "Expires",
-											"value": "0"
-										},
-										{
-											"key": "X-Frame-Options",
-											"value": "DENY"
-										},
-										{
-											"key": "Content-Type",
-											"value": "application/json"
-										},
-										{
-											"key": "Transfer-Encoding",
-											"value": "chunked"
-										},
-										{
-											"key": "Date",
-											"value": "Wed, 27 Oct 2021 10:54:24 GMT"
-										},
-										{
-											"key": "Keep-Alive",
-											"value": "timeout=60"
-										},
-										{
-											"key": "Connection",
-											"value": "keep-alive"
-										}
-									],
-									"cookie": [],
-									"body": "{\n    \"expiresIn\": 35963,\n    \"refreshExpiresIn\": 1800,\n    \"refreshToken\": \"eyJhbGciOiJIUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICI5MDVmZjgzNy1lMmVkLTQxYWUtYjM0ZS0yNWM4YmFlNzJhNWUifQ.eyJleHAiOjE2MzUzMzM4NjQsImlhdCI6MTYzNTMzMjA2NCwianRpIjoiYzc1ODFiYTItOWE0MS00MDFiLTg3ZjAtNzA0OGI0ZjUxNWY1IiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo4MDgwL2F1dGgvcmVhbG1zL21hc3RlciIsImF1ZCI6Imh0dHA6Ly9sb2NhbGhvc3Q6ODA4MC9hdXRoL3JlYWxtcy9tYXN0ZXIiLCJzdWIiOiI5ZjgzOTI3NS02MjYwLTQ3NDgtYmVmMy05MjA2ZDgyY2M3ZTYiLCJ0eXAiOiJSZWZyZXNoIiwiYXpwIjoic2lnbmZsdWVudCIsInNlc3Npb25fc3RhdGUiOiJjZjRjZWJmZS04MzFlLTRhNjEtOTBlOC1iZGViYTY3MjRjODUiLCJzY29wZSI6ImVtYWlsIHByb2ZpbGUiLCJzaWQiOiJjZjRjZWJmZS04MzFlLTRhNjEtOTBlOC1iZGViYTY3MjRjODUifQ.Ed0mrUEH5rAler4ETxlrq1WUWUOo1bPH0dUxiitFX0c\",\n    \"token\": \"eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICI1eFNrUGdQYlZDVm5fUWNxTGd4STNfMDV3Q1NfVHNBV0lJRFdIUWhOM1U0In0.eyJleHAiOjE2MzUzNjgwMjcsImlhdCI6MTYzNTMzMjA2NCwianRpIjoiODY5ZDZmODktYzQzNi00NzZjLTlmMTgtN2VlZmFhNGYxNGZhIiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo4MDgwL2F1dGgvcmVhbG1zL21hc3RlciIsImF1ZCI6ImFjY291bnQiLCJzdWIiOiI5ZjgzOTI3NS02MjYwLTQ3NDgtYmVmMy05MjA2ZDgyY2M3ZTYiLCJ0eXAiOiJCZWFyZXIiLCJhenAiOiJzaWduZmx1ZW50Iiwic2Vzc2lvbl9zdGF0ZSI6ImNmNGNlYmZlLTgzMWUtNGE2MS05MGU4LWJkZWJhNjcyNGM4NSIsImFjciI6IjEiLCJhbGxvd2VkLW9yaWdpbnMiOlsiaHR0cDovL2xvY2FsaG9zdDo4MDAwIl0sInJlYWxtX2FjY2VzcyI6eyJyb2xlcyI6WyJhZG1pbmlzdHJhdG9yIiwiZGVmYXVsdC1yb2xlcy1tYXN0ZXIiLCJvZmZsaW5lX2FjY2VzcyIsInVtYV9hdXRob3JpemF0aW9uIl19LCJyZXNvdXJjZV9hY2Nlc3MiOnsic2lnbmZsdWVudCI6eyJyb2xlcyI6WyJhZG1pbmlzdHJhdG9yIl19LCJhY2NvdW50Ijp7InJvbGVzIjpbIm1hbmFnZS1hY2NvdW50IiwibWFuYWdlLWFjY291bnQtbGlua3MiLCJ2aWV3LXByb2ZpbGUiXX19LCJzY29wZSI6ImVtYWlsIHByb2ZpbGUiLCJzaWQiOiJjZjRjZWJmZS04MzFlLTRhNjEtOTBlOC1iZGViYTY3MjRjODUiLCJlbWFpbF92ZXJpZmllZCI6dHJ1ZSwibmFtZSI6IlNpZ25mbHVlbnQgQWRtaW4iLCJwcmVmZXJyZWRfdXNlcm5hbWUiOiJhZG1pbmlzdHJhdG9yIiwiZ2l2ZW5fbmFtZSI6IlNpZ25mbHVlbnQiLCJmYW1pbHlfbmFtZSI6IkFkbWluIiwiZW1haWwiOiJpbmZvQHNpZ25mbHVlbnQuY29tIn0.VFRqcQOYaLj99M2FRhpgDurpLrzBtEYtl6qpYq1bqyLSwXQS-tydfgepE6jNSFd4ahka8hhZDFh41Pvm-2hW2x6a-b0fdlhnPHuXse2M_3F5vDhcP3ooKk0d8PY0Cxvepyq5VxuaXQ7hFHWg8EJ6r2q9IrSZTkYLF7DkldHxrpyMRlsF_6iQTsbmGbNsuzvrn904NOEEx2Krr6wKPer3SvDWwM3ALARPqZNmfukLfDyBD1HaPpTcrLod2nfE7FkGV4bEnurN9L7rS2ODYD4FRFQ3i5S5uL_vHpmdCoGOxzT0ac-fTCR2UhsWgE2vMZr7uWqLBxEPlFHXG0ilV1jvnw\",\n    \"userId\": \"9f839275-6260-4748-bef3-9206d82cc7e6\"\n}"
-								}
-							]
-						},
-						{
-							"name": "Ping",
-							"request": {
-								"auth": {
-									"type": "noauth"
-								},
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{businessServiceURL}}/api/auth/ping",
-									"host": [
-										"{{businessServiceURL}}"
-									],
-									"path": [
-										"api",
-										"auth",
-										"ping"
-									]
-								}
-							},
-							"response": [
-								{
-									"name": "New Request",
-									"originalRequest": {
-										"method": "GET",
-										"header": [],
-										"url": {
-											"raw": "{{bpmServiceURL}}/api/auth/ping",
-											"host": [
-												"{{bpmServiceURL}}"
-											],
-											"path": [
-												"api",
-												"auth",
-												"ping"
-											]
-										}
-									},
-									"status": "OK",
-									"code": 200,
-									"_postman_previewlanguage": "plain",
-									"header": [
-										{
-											"key": "X-Content-Type-Options",
-											"value": "nosniff"
-										},
-										{
-											"key": "X-XSS-Protection",
-											"value": "1; mode=block"
-										},
-										{
-											"key": "Cache-Control",
-											"value": "no-cache, no-store, max-age=0, must-revalidate"
-										},
-										{
-											"key": "Pragma",
-											"value": "no-cache"
-										},
-										{
-											"key": "Expires",
-											"value": "0"
-										},
-										{
-											"key": "X-Frame-Options",
-											"value": "DENY"
-										},
-										{
-											"key": "Content-Type",
-											"value": "text/plain;charset=UTF-8"
-										},
-										{
-											"key": "Content-Length",
-											"value": "4"
-										},
-										{
-											"key": "Date",
-											"value": "Sun, 31 Oct 2021 13:20:48 GMT"
-										},
-										{
-											"key": "Keep-Alive",
-											"value": "timeout=60"
-										},
-										{
-											"key": "Connection",
-											"value": "keep-alive"
-										}
-									],
-									"cookie": [],
-									"body": "pong"
-								}
-							]
-						}
-					],
-					"event": [
-						{
-							"listen": "prerequest",
-							"script": {
-								"type": "text/javascript",
-								"exec": [
-									""
-								]
-							}
-						},
-						{
-							"listen": "test",
-							"script": {
-								"type": "text/javascript",
-								"exec": [
-									""
-								]
-							}
-						}
-					]
-				},
-				{
-					"name": "Role Management Controller",
-					"item": [
-						{
-							"name": "Assign Role",
-							"request": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n    \"userId\": \"{{currentUserId}}\",\n    \"role\": \"approver\"\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{bpmServiceURL}}/api/role/assign",
-									"host": [
-										"{{bpmServiceURL}}"
-									],
-									"path": [
-										"api",
-										"role",
-										"assign"
-									]
-								}
-							},
-							"response": [
-								{
-									"name": "Assign Role",
-									"originalRequest": {
-										"method": "POST",
-										"header": [],
-										"body": {
-											"mode": "raw",
-											"raw": "{\n    \"userId\": \"45b91268-63c2-4e6c-94ff-189d99171202\",\n    \"role\": \"administrator\"\n}",
-											"options": {
-												"raw": {
-													"language": "json"
-												}
-											}
-										},
-										"url": {
-											"raw": "{{bpmServiceURL}}/api/role/assign",
-											"host": [
-												"{{bpmServiceURL}}"
-											],
-											"path": [
-												"api",
-												"role",
-												"assign"
-											]
-										}
-									},
-									"status": "OK",
-									"code": 200,
-									"_postman_previewlanguage": "json",
-									"header": [
-										{
-											"key": "X-Content-Type-Options",
-											"value": "nosniff"
-										},
-										{
-											"key": "X-XSS-Protection",
-											"value": "1; mode=block"
-										},
-										{
-											"key": "Cache-Control",
-											"value": "no-cache, no-store, max-age=0, must-revalidate"
-										},
-										{
-											"key": "Pragma",
-											"value": "no-cache"
-										},
-										{
-											"key": "Expires",
-											"value": "0"
-										},
-										{
-											"key": "X-Frame-Options",
-											"value": "DENY"
-										},
-										{
-											"key": "Content-Type",
-											"value": "application/json"
-										},
-										{
-											"key": "Transfer-Encoding",
-											"value": "chunked"
-										},
-										{
-											"key": "Date",
-											"value": "Mon, 25 Oct 2021 16:11:51 GMT"
-										},
-										{
-											"key": "Keep-Alive",
-											"value": "timeout=60"
-										},
-										{
-											"key": "Connection",
-											"value": "keep-alive"
-										}
-									],
-									"cookie": [],
-									"body": "{\n    \"message\": \"Success\",\n    \"successful\": true\n}"
-								}
-							]
-						},
-						{
-							"name": "Revoke Role",
-							"request": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n    \"userId\": \"{{currentUserId}}\",\n    \"role\": \"approver\"\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{bpmServiceURL}}/api/role/revoke",
-									"host": [
-										"{{bpmServiceURL}}"
-									],
-									"path": [
-										"api",
-										"role",
-										"revoke"
-									]
-								}
-							},
-							"response": [
-								{
-									"name": "Revoke Role",
-									"originalRequest": {
-										"method": "POST",
-										"header": [],
-										"body": {
-											"mode": "raw",
-											"raw": "{\n    \"userId\": \"{{currentUserId}}\",\n    \"role\": \"approver\"\n}",
-											"options": {
-												"raw": {
-													"language": "json"
-												}
-											}
-										},
-										"url": {
-											"raw": "{{bpmServiceURL}}/api/role/revoke",
-											"host": [
-												"{{bpmServiceURL}}"
-											],
-											"path": [
-												"api",
-												"role",
-												"revoke"
-											]
-										}
-									},
-									"status": "OK",
-									"code": 200,
-									"_postman_previewlanguage": "json",
-									"header": [
-										{
-											"key": "X-Content-Type-Options",
-											"value": "nosniff"
-										},
-										{
-											"key": "X-XSS-Protection",
-											"value": "1; mode=block"
-										},
-										{
-											"key": "Cache-Control",
-											"value": "no-cache, no-store, max-age=0, must-revalidate"
-										},
-										{
-											"key": "Pragma",
-											"value": "no-cache"
-										},
-										{
-											"key": "Expires",
-											"value": "0"
-										},
-										{
-											"key": "X-Frame-Options",
-											"value": "DENY"
-										},
-										{
-											"key": "Content-Type",
-											"value": "application/json"
-										},
-										{
-											"key": "Transfer-Encoding",
-											"value": "chunked"
-										},
-										{
-											"key": "Date",
-											"value": "Mon, 25 Oct 2021 16:11:46 GMT"
-										},
-										{
-											"key": "Keep-Alive",
-											"value": "timeout=60"
-										},
-										{
-											"key": "Connection",
-											"value": "keep-alive"
-										}
-									],
-									"cookie": [],
-									"body": "{\n    \"message\": \"Success\",\n    \"successful\": true\n}"
-								}
-							]
-						},
-						{
-							"name": "Get All",
-							"request": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{businessServiceURL}}/api/role/getAll",
-									"host": [
-										"{{businessServiceURL}}"
-									],
-									"path": [
-										"api",
-										"role",
-										"getAll"
-									]
-								}
-							},
-							"response": [
-								{
-									"name": "Get All",
-									"originalRequest": {
-										"method": "POST",
-										"header": [],
-										"body": {
-											"mode": "raw",
-											"raw": "",
-											"options": {
-												"raw": {
-													"language": "json"
-												}
-											}
-										},
-										"url": {
-											"raw": "{{bpmServiceURL}}/api/role/getAll",
-											"host": [
-												"{{bpmServiceURL}}"
-											],
-											"path": [
-												"api",
-												"role",
-												"getAll"
-											]
-										}
-									},
-									"status": "OK",
-									"code": 200,
-									"_postman_previewlanguage": "json",
-									"header": [
-										{
-											"key": "X-Content-Type-Options",
-											"value": "nosniff"
-										},
-										{
-											"key": "X-XSS-Protection",
-											"value": "1; mode=block"
-										},
-										{
-											"key": "Cache-Control",
-											"value": "no-cache, no-store, max-age=0, must-revalidate"
-										},
-										{
-											"key": "Pragma",
-											"value": "no-cache"
-										},
-										{
-											"key": "Expires",
-											"value": "0"
-										},
-										{
-											"key": "X-Frame-Options",
-											"value": "DENY"
-										},
-										{
-											"key": "Content-Type",
-											"value": "application/json"
-										},
-										{
-											"key": "Transfer-Encoding",
-											"value": "chunked"
-										},
-										{
-											"key": "Date",
-											"value": "Mon, 25 Oct 2021 16:11:25 GMT"
-										},
-										{
-											"key": "Keep-Alive",
-											"value": "timeout=60"
-										},
-										{
-											"key": "Connection",
-											"value": "keep-alive"
-										}
-									],
-									"cookie": [],
-									"body": "[\n    {\n        \"key\": \"approver\",\n        \"name\": \"Approver\"\n    },\n    {\n        \"key\": \"delegator\",\n        \"name\": \"Delegator\"\n    },\n    {\n        \"key\": \"administrator\",\n        \"name\": \"Administrator\"\n    }\n]"
-								}
-							]
-						},
-						{
-							"name": "Get For User",
-							"request": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n    \"userId\": \"{{currentUserId}}\"\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{bpmServiceURL}}/api/role/getForUser",
-									"host": [
-										"{{bpmServiceURL}}"
-									],
-									"path": [
-										"api",
-										"role",
-										"getForUser"
-									]
-								}
-							},
-							"response": [
-								{
-									"name": "Get For User",
-									"originalRequest": {
-										"method": "POST",
-										"header": [],
-										"body": {
-											"mode": "raw",
-											"raw": "{\n    \"userId\": \"45b91268-63c2-4e6c-94ff-189d99171202\"\n}",
-											"options": {
-												"raw": {
-													"language": "json"
-												}
-											}
-										},
-										"url": {
-											"raw": "{{bpmServiceURL}}/api/role/getForUser",
-											"host": [
-												"{{bpmServiceURL}}"
-											],
-											"path": [
-												"api",
-												"role",
-												"getForUser"
-											]
-										}
-									},
-									"status": "OK",
-									"code": 200,
-									"_postman_previewlanguage": "json",
-									"header": [
-										{
-											"key": "X-Content-Type-Options",
-											"value": "nosniff"
-										},
-										{
-											"key": "X-XSS-Protection",
-											"value": "1; mode=block"
-										},
-										{
-											"key": "Cache-Control",
-											"value": "no-cache, no-store, max-age=0, must-revalidate"
-										},
-										{
-											"key": "Pragma",
-											"value": "no-cache"
-										},
-										{
-											"key": "Expires",
-											"value": "0"
-										},
-										{
-											"key": "X-Frame-Options",
-											"value": "DENY"
-										},
-										{
-											"key": "Content-Type",
-											"value": "application/json"
-										},
-										{
-											"key": "Transfer-Encoding",
-											"value": "chunked"
-										},
-										{
-											"key": "Date",
-											"value": "Mon, 25 Oct 2021 16:11:33 GMT"
-										},
-										{
-											"key": "Keep-Alive",
-											"value": "timeout=60"
-										},
-										{
-											"key": "Connection",
-											"value": "keep-alive"
-										}
-									],
-									"cookie": [],
-									"body": "[\n    {\n        \"key\": \"administrator\",\n        \"name\": \"Administrator\"\n    }\n]"
-								}
-							]
-						},
-						{
-							"name": "Get For Current User",
-							"request": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n    \"userId\": \"45b91268-63c2-4e6c-94ff-189d99171202\"\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{businessServiceURL}}/api/role/getForCurrentUser",
-									"host": [
-										"{{businessServiceURL}}"
-									],
-									"path": [
-										"api",
-										"role",
-										"getForCurrentUser"
-									]
-								}
-							},
-							"response": [
-								{
-									"name": "Get For Current User",
-									"originalRequest": {
-										"method": "POST",
-										"header": [],
-										"body": {
-											"mode": "raw",
-											"raw": "{\n    \"userId\": \"45b91268-63c2-4e6c-94ff-189d99171202\"\n}",
-											"options": {
-												"raw": {
-													"language": "json"
-												}
-											}
-										},
-										"url": {
-											"raw": "{{bpmServiceURL}}/api/role/getForCurrentUser",
-											"host": [
-												"{{bpmServiceURL}}"
-											],
-											"path": [
-												"api",
-												"role",
-												"getForCurrentUser"
-											]
-										}
-									},
-									"status": "OK",
-									"code": 200,
-									"_postman_previewlanguage": "json",
-									"header": [
-										{
-											"key": "X-Content-Type-Options",
-											"value": "nosniff"
-										},
-										{
-											"key": "X-XSS-Protection",
-											"value": "1; mode=block"
-										},
-										{
-											"key": "Cache-Control",
-											"value": "no-cache, no-store, max-age=0, must-revalidate"
-										},
-										{
-											"key": "Pragma",
-											"value": "no-cache"
-										},
-										{
-											"key": "Expires",
-											"value": "0"
-										},
-										{
-											"key": "X-Frame-Options",
-											"value": "DENY"
-										},
-										{
-											"key": "Content-Type",
-											"value": "application/json"
-										},
-										{
-											"key": "Transfer-Encoding",
-											"value": "chunked"
-										},
-										{
-											"key": "Date",
-											"value": "Mon, 25 Oct 2021 16:11:36 GMT"
-										},
-										{
-											"key": "Keep-Alive",
-											"value": "timeout=60"
-										},
-										{
-											"key": "Connection",
-											"value": "keep-alive"
-										}
-									],
-									"cookie": [],
-									"body": "[\n    {\n        \"key\": \"administrator\",\n        \"name\": \"Administrator\"\n    }\n]"
-								}
-							]
-						}
-					],
-					"event": [
-						{
-							"listen": "prerequest",
-							"script": {
-								"type": "text/javascript",
-								"exec": [
-									""
-								]
-							}
-						},
-						{
-							"listen": "test",
-							"script": {
-								"type": "text/javascript",
-								"exec": [
-									""
-								]
-							}
-						}
-					]
-				},
-				{
-					"name": "Device Controller",
-					"item": [
-						{
-							"name": "Register Device",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"exec": [
-											"if (pm.response.code === 200) {",
-											"    const {deviceEntity} = pm.response.json();",
-											"",
-											"    pm.environment.set(\"registeredDevice\", deviceEntity.id);",
-											"}",
-											""
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n    \"deviceHardwareId\": \"123\",\n    \"userId\": \"{{currentUserId}}\"\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{businessServiceURL}}/api/device/register",
-									"host": [
-										"{{businessServiceURL}}"
-									],
-									"path": [
-										"api",
-										"device",
-										"register"
-									]
-								}
-							},
-							"response": [
-								{
-									"name": "Register Device",
-									"originalRequest": {
-										"method": "POST",
-										"header": [],
-										"body": {
-											"mode": "raw",
-											"raw": "{\n    \"deviceHardwareId\": \"1234\",\n    \"userId\": \"63c2f7ed-7b4e-4a5a-a847-4466fc6dcfe6\"\n}",
-											"options": {
-												"raw": {
-													"language": "json"
-												}
-											}
-										},
-										"url": {
-											"raw": "{{bpmServiceURL}}/api/device/register",
-											"host": [
-												"{{bpmServiceURL}}"
-											],
-											"path": [
-												"api",
-												"device",
-												"register"
-											]
-										}
-									},
-									"status": "OK",
-									"code": 200,
-									"_postman_previewlanguage": "json",
-									"header": [
-										{
-											"key": "X-Content-Type-Options",
-											"value": "nosniff"
-										},
-										{
-											"key": "X-XSS-Protection",
-											"value": "1; mode=block"
-										},
-										{
-											"key": "Cache-Control",
-											"value": "no-cache, no-store, max-age=0, must-revalidate"
-										},
-										{
-											"key": "Pragma",
-											"value": "no-cache"
-										},
-										{
-											"key": "Expires",
-											"value": "0"
-										},
-										{
-											"key": "X-Frame-Options",
-											"value": "DENY"
-										},
-										{
-											"key": "Content-Type",
-											"value": "application/json"
-										},
-										{
-											"key": "Transfer-Encoding",
-											"value": "chunked"
-										},
-										{
-											"key": "Date",
-											"value": "Sun, 31 Oct 2021 13:24:58 GMT"
-										},
-										{
-											"key": "Keep-Alive",
-											"value": "timeout=60"
-										},
-										{
-											"key": "Connection",
-											"value": "keep-alive"
-										}
-									],
-									"cookie": [],
-									"body": "{\n    \"deviceEntity\": {\n        \"deviceHardwareId\": \"1234\",\n        \"fcmtoken\": null,\n        \"id\": \"a57bd58b-a30c-4ab9-b2ff-e533e55bac11\",\n        \"userId\": \"63c2f7ed-7b4e-4a5a-a847-4466fc6dcfe6\"\n    },\n    \"message\": \"Success\",\n    \"successful\": true\n}"
-								}
-							]
-						},
-						{
-							"name": "Update FCM Token",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"exec": [
-											""
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n    \"userId\": \"{{currentUserId}}\",\n    \"fcmToken\": \"{{$randomUUID}}\",\n    \"deviceHardwareId\": \"123\"\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{businessServiceURL}}/api/device/updateFCMToken",
-									"host": [
-										"{{businessServiceURL}}"
-									],
-									"path": [
-										"api",
-										"device",
-										"updateFCMToken"
-									]
-								}
-							},
-							"response": [
-								{
-									"name": "Update FCM Token",
-									"originalRequest": {
-										"method": "POST",
-										"header": [],
-										"body": {
-											"mode": "raw",
-											"raw": "{\n    \"userId\": \"{{currentUserId}}\",\n    \"fcmToken\": \"{{$randomUUID}}\",\n    \"deviceHardwareId\": \"123\"\n}",
-											"options": {
-												"raw": {
-													"language": "json"
-												}
-											}
-										},
-										"url": {
-											"raw": "{{bpmServiceURL}}/api/device/updateFCMToken",
-											"host": [
-												"{{bpmServiceURL}}"
-											],
-											"path": [
-												"api",
-												"device",
-												"updateFCMToken"
-											]
-										}
-									},
-									"status": "OK",
-									"code": 200,
-									"_postman_previewlanguage": "json",
-									"header": [
-										{
-											"key": "X-Content-Type-Options",
-											"value": "nosniff"
-										},
-										{
-											"key": "X-XSS-Protection",
-											"value": "1; mode=block"
-										},
-										{
-											"key": "Cache-Control",
-											"value": "no-cache, no-store, max-age=0, must-revalidate"
-										},
-										{
-											"key": "Pragma",
-											"value": "no-cache"
-										},
-										{
-											"key": "Expires",
-											"value": "0"
-										},
-										{
-											"key": "X-Frame-Options",
-											"value": "DENY"
-										},
-										{
-											"key": "Content-Type",
-											"value": "application/json"
-										},
-										{
-											"key": "Transfer-Encoding",
-											"value": "chunked"
-										},
-										{
-											"key": "Date",
-											"value": "Sun, 31 Oct 2021 13:30:44 GMT"
-										},
-										{
-											"key": "Keep-Alive",
-											"value": "timeout=60"
-										},
-										{
-											"key": "Connection",
-											"value": "keep-alive"
-										}
-									],
-									"cookie": [],
-									"body": "{\n    \"deviceEntity\": {\n        \"deviceHardwareId\": \"123\",\n        \"fcmtoken\": \"56a415b2-e21e-4773-9c74-da7ba82af7b2\",\n        \"id\": \"a0837e9f-d9b2-4045-9f52-9b9c5d5dd62e\",\n        \"userId\": \"94d69f0e-8443-4cb8-8391-a1383591aeb8\"\n    },\n    \"message\": \"Success\",\n    \"successful\": true\n}"
-								}
-							]
-						}
-					],
-					"event": [
-						{
-							"listen": "prerequest",
-							"script": {
-								"type": "text/javascript",
-								"exec": [
-									""
-								]
-							}
-						},
-						{
-							"listen": "test",
-							"script": {
-								"type": "text/javascript",
-								"exec": [
-									""
-								]
-							}
-						}
-					]
-				},
-				{
-					"name": "Certificate Authority Controller",
-					"item": [
-						{
-							"name": "Issue X509 Certificate",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"exec": [
-											""
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n    \"publicKeyPem\": \"-----BEGIN RSA PUBLIC KEY-----MIIBCgKCAQEArSAO/SXALcm87OeJVDqdV4r0YR89AfKENMR0j0DMDYAhnFpiucwzQgBeWNbmvrAPSeoHMrqQXlh1Q+Czyt071/x/iByiRbM4E1glNTb5zWpZCNXgbG+0SkeFDHZyYokQ4rvnhRuAIx0/lDA73cMyEsBVGepBV4oqYUPUvs2zkE6n1hwdy/h5D+fLnnS5ZEWz/sklnaAFH8fYuZIhlHvA3Tx0KEHBPWHH0tRoGY+0ufuquD9kUnpaRwpT5v4hDglx9NsfQIPtqm+WR1Etv3+yarMIgoV7d63HbXFwLCgrvxqATCq+cog9SNz66WCrzqm+6jO/ffylWbgxnra9IYXvxQIDAQAB-----END RSA PUBLIC KEY-----\",\n    \"userId\": \"{{currentUserId}}\"\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{businessServiceURL}}/api/certificates/issue",
-									"host": [
-										"{{businessServiceURL}}"
-									],
-									"path": [
-										"api",
-										"certificates",
-										"issue"
-									]
-								}
-							},
-							"response": [
-								{
-									"name": "Issue X509 Certificate",
-									"originalRequest": {
-										"method": "POST",
-										"header": [],
-										"body": {
-											"mode": "raw",
-											"raw": "{\n    \"publicKeyPem\": \"-----BEGIN RSA PUBLIC KEY-----MIIBCgKCAQEArSAO/SXALcm87OeJVDqdV4r0YR89AfKENMR0j0DMDYAhnFpiucwzQgBeWNbmvrAPSeoHMrqQXlh1Q+Czyt071/x/iByiRbM4E1glNTb5zWpZCNXgbG+0SkeFDHZyYokQ4rvnhRuAIx0/lDA73cMyEsBVGepBV4oqYUPUvs2zkE6n1hwdy/h5D+fLnnS5ZEWz/sklnaAFH8fYuZIhlHvA3Tx0KEHBPWHH0tRoGY+0ufuquD9kUnpaRwpT5v4hDglx9NsfQIPtqm+WR1Etv3+yarMIgoV7d63HbXFwLCgrvxqATCq+cog9SNz66WCrzqm+6jO/ffylWbgxnra9IYXvxQIDAQAB-----END RSA PUBLIC KEY-----\",\n    \"userId\": \"{{currentUserId}}\"\n}",
-											"options": {
-												"raw": {
-													"language": "json"
-												}
-											}
-										},
-										"url": {
-											"raw": "{{bpmServiceURL}}/api/certificateAuthority/issueX509Certificate",
-											"host": [
-												"{{bpmServiceURL}}"
-											],
-											"path": [
-												"api",
-												"certificateAuthority",
-												"issueX509Certificate"
-											]
-										}
-									},
-									"status": "OK",
-									"code": 200,
-									"_postman_previewlanguage": "plain",
-									"header": [
-										{
-											"key": "X-Content-Type-Options",
-											"value": "nosniff"
-										},
-										{
-											"key": "X-XSS-Protection",
-											"value": "1; mode=block"
-										},
-										{
-											"key": "Cache-Control",
-											"value": "no-cache, no-store, max-age=0, must-revalidate"
-										},
-										{
-											"key": "Pragma",
-											"value": "no-cache"
-										},
-										{
-											"key": "Expires",
-											"value": "0"
-										},
-										{
-											"key": "X-Frame-Options",
-											"value": "DENY"
-										},
-										{
-											"key": "Content-Type",
-											"value": "text/plain;charset=UTF-8"
-										},
-										{
-											"key": "Content-Length",
-											"value": "1120"
-										},
-										{
-											"key": "Date",
-											"value": "Sun, 31 Oct 2021 13:36:55 GMT"
-										},
-										{
-											"key": "Keep-Alive",
-											"value": "timeout=60"
-										},
-										{
-											"key": "Connection",
-											"value": "keep-alive"
-										}
-									],
-									"cookie": [],
-									"body": "MIIDQzCCAiugAwIBAgIGAXzWkT/MMA0GCSqGSIb3DQEBCwUAMIGVMSIwIAYJKoZIhvcNAQkBFhNpbmZvQHNpZ25mbHVlbnQuY29tMRMwEQYDVQQDDApTaWduZmx1ZW50MREwDwYDVQQLDAhTb2Z0d2FyZTETMBEGA1UECgwKU2lnbmZsdWVudDEQMA4GA1UEBwwHSG9yc2VuczETMBEGA1UECAwKTWlkanlsbGFuZDELMAkGA1UEBhMCREswHhcNMjExMDMwMTMzNjU1WhcNMjMxMDMxMTMzNjU1WjAvMS0wKwYDVQQuEyQ5NGQ2OWYwZS04NDQzLTRjYjgtODM5MS1hMTM4MzU5MWFlYjgwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQCtIA79JcAtybzs54lUOp1XivRhHz0B8oQ0xHSPQMwNgCGcWmK5zDNCAF5Y1ua+sA9J6gcyupBeWHVD4LPK3TvX/H+IHKJFszgTWCU1NvnNalkI1eBsb7RKR4UMdnJiiRDiu+eFG4AjHT+UMDvdwzISwFUZ6kFXiiphQ9S+zbOQTqfWHB3L+HkP58uedLlkRbP+ySWdoAUfx9i5kiGUe8DdPHQoQcE9YcfS1GgZj7S5+6q4P2RSelpHClPm/iEOCXH02x9Ag+2qb5ZHUS2/f7JqswiChXt3rcdtcXAsKCu/GoBMKr5yiD1I3PrpYKvOqb7qM799/KVZuDGetr0hhe/FAgMBAAEwDQYJKoZIhvcNAQELBQADggEBAJwG69D0teCfDrShILtFwXwaYn/Wf4aMJxDIx/PyGXuXUwnOmw2NcTGnYQOoGClbj3/yKf970rguvY3euUwHUIK1bzhvsjkJyYpSadsi22inHP4q4FKR3Lvrf7OV2oTsUEEjLMLWeu5UzbUZP+4ao/XYEleHHxUetNDwJaDL2bwgzQu4cbKf73TUWbI+f1hBzWUPC+KrLR054re1AWgan4EgoOlhCX7fra3S7zTWCfsKcYbBH+O1MOfwb0TyJxWhOHFPwayIMdy5+XRlY9o0Eu7slKks7ENTvke1hbUS7EB8q3RWuPFneFMFVNKk8nfd08FjP490b1d97jtSLZ2ySiY="
-								}
-							]
-						}
-					]
-				},
-				{
 					"name": "Signing Process",
 					"item": [
 						{
@@ -2025,6 +709,1322 @@
 					]
 				},
 				{
+					"name": "Authentication Controller",
+					"item": [
+						{
+							"name": "Login",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const {userId, token} = pm.response.json();",
+											"",
+											"pm.environment.set(\"currentUserId\", userId);",
+											"pm.environment.set(\"bearerToken\", token);",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"username\": \"admin\",\n    \"password\" : \"admin\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{businessServiceURL}}/api/auth/login",
+									"host": [
+										"{{businessServiceURL}}"
+									],
+									"path": [
+										"api",
+										"auth",
+										"login"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Login",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"username\": \"david\",\n    \"password\" : \"123456\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{bpmServiceURL}}/api/auth/login",
+											"host": [
+												"{{bpmServiceURL}}"
+											],
+											"path": [
+												"api",
+												"auth",
+												"login"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "X-Content-Type-Options",
+											"value": "nosniff"
+										},
+										{
+											"key": "X-XSS-Protection",
+											"value": "1; mode=block"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, no-store, max-age=0, must-revalidate"
+										},
+										{
+											"key": "Pragma",
+											"value": "no-cache"
+										},
+										{
+											"key": "Expires",
+											"value": "0"
+										},
+										{
+											"key": "X-Frame-Options",
+											"value": "DENY"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Transfer-Encoding",
+											"value": "chunked"
+										},
+										{
+											"key": "Date",
+											"value": "Mon, 25 Oct 2021 16:12:03 GMT"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=60"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"expiresIn\": 60,\n    \"idToken\": null,\n    \"notBeforePolicy\": 0,\n    \"refreshExpiresIn\": 1800,\n    \"refreshToken\": \"eyJhbGciOiJIUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICI4MjI1YTkyNy1kM2M3LTQzNTUtOTA5ZS1kYzBjZGRjNGVhZmUifQ.eyJleHAiOjE2MzUxODAxMjMsImlhdCI6MTYzNTE3ODMyMywianRpIjoiOWFmMDUwN2EtNzg2Zi00NmZiLTljYWEtZmM0OWNiMWUxN2M5IiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo4MDgwL2F1dGgvcmVhbG1zL21hc3RlciIsImF1ZCI6Imh0dHA6Ly9sb2NhbGhvc3Q6ODA4MC9hdXRoL3JlYWxtcy9tYXN0ZXIiLCJzdWIiOiI0NWI5MTI2OC02M2MyLTRlNmMtOTRmZi0xODlkOTkxNzEyMDIiLCJ0eXAiOiJSZWZyZXNoIiwiYXpwIjoidXNlci1zZXJ2aWNlIiwic2Vzc2lvbl9zdGF0ZSI6IjZmMWRmMmEyLTY2YTYtNDJkNC05OTgwLTI3YTExZTExMDljYiIsInNjb3BlIjoicHJvZmlsZSBlbWFpbCIsInNpZCI6IjZmMWRmMmEyLTY2YTYtNDJkNC05OTgwLTI3YTExZTExMDljYiJ9.hSiwdD_3DB7_sFYy9rIHYTjJX8yzLE0mECFUX5FYLhE\",\n    \"token\": \"eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJ2UlBuaXBKQUVqS1Y0RUk3SEd4RldUVUM2bTNJZ0w3LU9DeTQ0aFZhcVU0In0.eyJleHAiOjE2MzUxNzgzODMsImlhdCI6MTYzNTE3ODMyMywianRpIjoiYmVmMTMwZjQtZDQ5My00Nzg3LTkwYzktMmYyYTEwMDU0MTA2IiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo4MDgwL2F1dGgvcmVhbG1zL21hc3RlciIsImF1ZCI6ImFjY291bnQiLCJzdWIiOiI0NWI5MTI2OC02M2MyLTRlNmMtOTRmZi0xODlkOTkxNzEyMDIiLCJ0eXAiOiJCZWFyZXIiLCJhenAiOiJ1c2VyLXNlcnZpY2UiLCJzZXNzaW9uX3N0YXRlIjoiNmYxZGYyYTItNjZhNi00MmQ0LTk5ODAtMjdhMTFlMTEwOWNiIiwiYWNyIjoiMSIsImFsbG93ZWQtb3JpZ2lucyI6WyJodHRwOi8vbG9jYWxob3N0OjgwMDMiXSwicmVhbG1fYWNjZXNzIjp7InJvbGVzIjpbImFkbWluaXN0cmF0b3IiLCJkZWZhdWx0LXJvbGVzLW1hc3RlciIsIm9mZmxpbmVfYWNjZXNzIiwidW1hX2F1dGhvcml6YXRpb24iXX0sInJlc291cmNlX2FjY2VzcyI6eyJ1c2VyLXNlcnZpY2UiOnsicm9sZXMiOlsiYWRtaW5pc3RyYXRvciJdfSwiYWNjb3VudCI6eyJyb2xlcyI6WyJtYW5hZ2UtYWNjb3VudCIsIm1hbmFnZS1hY2NvdW50LWxpbmtzIiwidmlldy1wcm9maWxlIl19fSwic2NvcGUiOiJwcm9maWxlIGVtYWlsIiwic2lkIjoiNmYxZGYyYTItNjZhNi00MmQ0LTk5ODAtMjdhMTFlMTEwOWNiIiwiZW1haWxfdmVyaWZpZWQiOmZhbHNlLCJuYW1lIjoiRGF2aWQgRnJhbmtvIiwicHJlZmVycmVkX3VzZXJuYW1lIjoiZGF2aWQiLCJnaXZlbl9uYW1lIjoiRGF2aWQiLCJmYW1pbHlfbmFtZSI6IkZyYW5rbyIsImVtYWlsIjoiZGF2aWRAc2lnbmZsdWVudC5jb20ifQ.BGm7SzhpT4oVW9UAC973mRxbZJQeJmm8ciIlpvmyyYNz77Emh9AQeaegTihz_vREbHrjydN60D164grdwAz85eJl67YvvxA_h_hhMaUos_M_RM5yUmDHbduIUPMWv0dId29PTi8EKxe-HNvNp7qjXAHvWv1AbT4GmHImcxELt3NXLeVHMinsml_ExogKPN7ZHowwcrbfV75k-TK49AOd22mXScFY7kPGfbK54XS3k5lfc0jHvvIHpGf6sdmip0j14WNFqe7eWYWbqbEoB_sDoHrvd0HaCS_ET-PCz7utDJ0WncEtnXGCGevgtSz33npESdPveIQP4V6TvNaAjTn7fg\",\n    \"tokenType\": \"Bearer\",\n    \"userId\": \"45b91268-63c2-4e6c-94ff-189d99171202\"\n}"
+								}
+							]
+						},
+						{
+							"name": "Refresh Token",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const {userId, token} = pm.response.json();",
+											"",
+											"pm.environment.set(\"currentUserId\", userId);",
+											"pm.environment.set(\"bearerToken\", token);",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"refreshToken\": \"eyJhbGciOiJIUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICI5MDVmZjgzNy1lMmVkLTQxYWUtYjM0ZS0yNWM4YmFlNzJhNWUifQ.eyJleHAiOjE2MzU1MjMxNDcsImlhdCI6MTYzNTUyMTM0NywianRpIjoiOWUzNjk3ZTAtMmE0My00Mjk1LWJjMTctZDE0ZmE4NGE2ZGQ4IiwiaXNzIjoiaHR0cDovLzEwLjEwNC44MS4yNTU6ODA4MC9hdXRoL3JlYWxtcy9tYXN0ZXIiLCJhdWQiOiJodHRwOi8vMTAuMTA0LjgxLjI1NTo4MDgwL2F1dGgvcmVhbG1zL21hc3RlciIsInN1YiI6ImYyMWIwZmIxLWQ0ODMtNGIwNS1hMjkzLTQwNDA2NmZkNzY3YiIsInR5cCI6IlJlZnJlc2giLCJhenAiOiJzaWduZmx1ZW50Iiwic2Vzc2lvbl9zdGF0ZSI6IjU0ZGU3NzNhLTYwOGEtNGZmNS1hMWJiLTljM2ZmODllY2IwNCIsInNjb3BlIjoiZW1haWwgcHJvZmlsZSIsInNpZCI6IjU0ZGU3NzNhLTYwOGEtNGZmNS1hMWJiLTljM2ZmODllY2IwNCJ9.QBk3DtK9ZPDVuEAE2yT2MjcTBad59dew9B8sEdiN4XI\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{businessServiceURL}}/api/auth/refreshToken",
+									"host": [
+										"{{businessServiceURL}}"
+									],
+									"path": [
+										"api",
+										"auth",
+										"refreshToken"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Refresh Token",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"refreshToken\": \"eyJhbGciOiJIUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICI5MDVmZjgzNy1lMmVkLTQxYWUtYjM0ZS0yNWM4YmFlNzJhNWUifQ.eyJleHAiOjE2MzUzMzM4MjcsImlhdCI6MTYzNTMzMjAyNywianRpIjoiMDQzNDgxNTktMTM0Ny00NWMxLWE0YWQtMjNhNTVkZmZlOWQzIiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo4MDgwL2F1dGgvcmVhbG1zL21hc3RlciIsImF1ZCI6Imh0dHA6Ly9sb2NhbGhvc3Q6ODA4MC9hdXRoL3JlYWxtcy9tYXN0ZXIiLCJzdWIiOiI5ZjgzOTI3NS02MjYwLTQ3NDgtYmVmMy05MjA2ZDgyY2M3ZTYiLCJ0eXAiOiJSZWZyZXNoIiwiYXpwIjoic2lnbmZsdWVudCIsInNlc3Npb25fc3RhdGUiOiJjZjRjZWJmZS04MzFlLTRhNjEtOTBlOC1iZGViYTY3MjRjODUiLCJzY29wZSI6ImVtYWlsIHByb2ZpbGUiLCJzaWQiOiJjZjRjZWJmZS04MzFlLTRhNjEtOTBlOC1iZGViYTY3MjRjODUifQ.N880EA4MSO5BJv29K_7i0rNqbLG_A8vG3BfkSfCF-XA\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{bpmServiceURL}}/api/auth/refreshToken",
+											"host": [
+												"{{bpmServiceURL}}"
+											],
+											"path": [
+												"api",
+												"auth",
+												"refreshToken"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "X-Content-Type-Options",
+											"value": "nosniff"
+										},
+										{
+											"key": "X-XSS-Protection",
+											"value": "1; mode=block"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, no-store, max-age=0, must-revalidate"
+										},
+										{
+											"key": "Pragma",
+											"value": "no-cache"
+										},
+										{
+											"key": "Expires",
+											"value": "0"
+										},
+										{
+											"key": "X-Frame-Options",
+											"value": "DENY"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Transfer-Encoding",
+											"value": "chunked"
+										},
+										{
+											"key": "Date",
+											"value": "Wed, 27 Oct 2021 10:54:24 GMT"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=60"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"expiresIn\": 35963,\n    \"refreshExpiresIn\": 1800,\n    \"refreshToken\": \"eyJhbGciOiJIUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICI5MDVmZjgzNy1lMmVkLTQxYWUtYjM0ZS0yNWM4YmFlNzJhNWUifQ.eyJleHAiOjE2MzUzMzM4NjQsImlhdCI6MTYzNTMzMjA2NCwianRpIjoiYzc1ODFiYTItOWE0MS00MDFiLTg3ZjAtNzA0OGI0ZjUxNWY1IiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo4MDgwL2F1dGgvcmVhbG1zL21hc3RlciIsImF1ZCI6Imh0dHA6Ly9sb2NhbGhvc3Q6ODA4MC9hdXRoL3JlYWxtcy9tYXN0ZXIiLCJzdWIiOiI5ZjgzOTI3NS02MjYwLTQ3NDgtYmVmMy05MjA2ZDgyY2M3ZTYiLCJ0eXAiOiJSZWZyZXNoIiwiYXpwIjoic2lnbmZsdWVudCIsInNlc3Npb25fc3RhdGUiOiJjZjRjZWJmZS04MzFlLTRhNjEtOTBlOC1iZGViYTY3MjRjODUiLCJzY29wZSI6ImVtYWlsIHByb2ZpbGUiLCJzaWQiOiJjZjRjZWJmZS04MzFlLTRhNjEtOTBlOC1iZGViYTY3MjRjODUifQ.Ed0mrUEH5rAler4ETxlrq1WUWUOo1bPH0dUxiitFX0c\",\n    \"token\": \"eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICI1eFNrUGdQYlZDVm5fUWNxTGd4STNfMDV3Q1NfVHNBV0lJRFdIUWhOM1U0In0.eyJleHAiOjE2MzUzNjgwMjcsImlhdCI6MTYzNTMzMjA2NCwianRpIjoiODY5ZDZmODktYzQzNi00NzZjLTlmMTgtN2VlZmFhNGYxNGZhIiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo4MDgwL2F1dGgvcmVhbG1zL21hc3RlciIsImF1ZCI6ImFjY291bnQiLCJzdWIiOiI5ZjgzOTI3NS02MjYwLTQ3NDgtYmVmMy05MjA2ZDgyY2M3ZTYiLCJ0eXAiOiJCZWFyZXIiLCJhenAiOiJzaWduZmx1ZW50Iiwic2Vzc2lvbl9zdGF0ZSI6ImNmNGNlYmZlLTgzMWUtNGE2MS05MGU4LWJkZWJhNjcyNGM4NSIsImFjciI6IjEiLCJhbGxvd2VkLW9yaWdpbnMiOlsiaHR0cDovL2xvY2FsaG9zdDo4MDAwIl0sInJlYWxtX2FjY2VzcyI6eyJyb2xlcyI6WyJhZG1pbmlzdHJhdG9yIiwiZGVmYXVsdC1yb2xlcy1tYXN0ZXIiLCJvZmZsaW5lX2FjY2VzcyIsInVtYV9hdXRob3JpemF0aW9uIl19LCJyZXNvdXJjZV9hY2Nlc3MiOnsic2lnbmZsdWVudCI6eyJyb2xlcyI6WyJhZG1pbmlzdHJhdG9yIl19LCJhY2NvdW50Ijp7InJvbGVzIjpbIm1hbmFnZS1hY2NvdW50IiwibWFuYWdlLWFjY291bnQtbGlua3MiLCJ2aWV3LXByb2ZpbGUiXX19LCJzY29wZSI6ImVtYWlsIHByb2ZpbGUiLCJzaWQiOiJjZjRjZWJmZS04MzFlLTRhNjEtOTBlOC1iZGViYTY3MjRjODUiLCJlbWFpbF92ZXJpZmllZCI6dHJ1ZSwibmFtZSI6IlNpZ25mbHVlbnQgQWRtaW4iLCJwcmVmZXJyZWRfdXNlcm5hbWUiOiJhZG1pbmlzdHJhdG9yIiwiZ2l2ZW5fbmFtZSI6IlNpZ25mbHVlbnQiLCJmYW1pbHlfbmFtZSI6IkFkbWluIiwiZW1haWwiOiJpbmZvQHNpZ25mbHVlbnQuY29tIn0.VFRqcQOYaLj99M2FRhpgDurpLrzBtEYtl6qpYq1bqyLSwXQS-tydfgepE6jNSFd4ahka8hhZDFh41Pvm-2hW2x6a-b0fdlhnPHuXse2M_3F5vDhcP3ooKk0d8PY0Cxvepyq5VxuaXQ7hFHWg8EJ6r2q9IrSZTkYLF7DkldHxrpyMRlsF_6iQTsbmGbNsuzvrn904NOEEx2Krr6wKPer3SvDWwM3ALARPqZNmfukLfDyBD1HaPpTcrLod2nfE7FkGV4bEnurN9L7rS2ODYD4FRFQ3i5S5uL_vHpmdCoGOxzT0ac-fTCR2UhsWgE2vMZr7uWqLBxEPlFHXG0ilV1jvnw\",\n    \"userId\": \"9f839275-6260-4748-bef3-9206d82cc7e6\"\n}"
+								}
+							]
+						},
+						{
+							"name": "Ping",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{businessServiceURL}}/api/auth/ping",
+									"host": [
+										"{{businessServiceURL}}"
+									],
+									"path": [
+										"api",
+										"auth",
+										"ping"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "New Request",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{bpmServiceURL}}/api/auth/ping",
+											"host": [
+												"{{bpmServiceURL}}"
+											],
+											"path": [
+												"api",
+												"auth",
+												"ping"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "plain",
+									"header": [
+										{
+											"key": "X-Content-Type-Options",
+											"value": "nosniff"
+										},
+										{
+											"key": "X-XSS-Protection",
+											"value": "1; mode=block"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, no-store, max-age=0, must-revalidate"
+										},
+										{
+											"key": "Pragma",
+											"value": "no-cache"
+										},
+										{
+											"key": "Expires",
+											"value": "0"
+										},
+										{
+											"key": "X-Frame-Options",
+											"value": "DENY"
+										},
+										{
+											"key": "Content-Type",
+											"value": "text/plain;charset=UTF-8"
+										},
+										{
+											"key": "Content-Length",
+											"value": "4"
+										},
+										{
+											"key": "Date",
+											"value": "Sun, 31 Oct 2021 13:20:48 GMT"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=60"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										}
+									],
+									"cookie": [],
+									"body": "pong"
+								}
+							]
+						}
+					],
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						}
+					]
+				},
+				{
+					"name": "Role Management Controller",
+					"item": [
+						{
+							"name": "Assign Role",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"userId\": \"{{currentUserId}}\",\n    \"role\": \"approver\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{bpmServiceURL}}/api/role/assign",
+									"host": [
+										"{{bpmServiceURL}}"
+									],
+									"path": [
+										"api",
+										"role",
+										"assign"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Assign Role",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"userId\": \"45b91268-63c2-4e6c-94ff-189d99171202\",\n    \"role\": \"administrator\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{bpmServiceURL}}/api/role/assign",
+											"host": [
+												"{{bpmServiceURL}}"
+											],
+											"path": [
+												"api",
+												"role",
+												"assign"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "X-Content-Type-Options",
+											"value": "nosniff"
+										},
+										{
+											"key": "X-XSS-Protection",
+											"value": "1; mode=block"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, no-store, max-age=0, must-revalidate"
+										},
+										{
+											"key": "Pragma",
+											"value": "no-cache"
+										},
+										{
+											"key": "Expires",
+											"value": "0"
+										},
+										{
+											"key": "X-Frame-Options",
+											"value": "DENY"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Transfer-Encoding",
+											"value": "chunked"
+										},
+										{
+											"key": "Date",
+											"value": "Mon, 25 Oct 2021 16:11:51 GMT"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=60"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"message\": \"Success\",\n    \"successful\": true\n}"
+								}
+							]
+						},
+						{
+							"name": "Revoke Role",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"userId\": \"{{currentUserId}}\",\n    \"role\": \"approver\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{businessServiceURL}}/api/role/revoke",
+									"host": [
+										"{{businessServiceURL}}"
+									],
+									"path": [
+										"api",
+										"role",
+										"revoke"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Revoke Role",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"userId\": \"{{currentUserId}}\",\n    \"role\": \"approver\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{bpmServiceURL}}/api/role/revoke",
+											"host": [
+												"{{bpmServiceURL}}"
+											],
+											"path": [
+												"api",
+												"role",
+												"revoke"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "X-Content-Type-Options",
+											"value": "nosniff"
+										},
+										{
+											"key": "X-XSS-Protection",
+											"value": "1; mode=block"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, no-store, max-age=0, must-revalidate"
+										},
+										{
+											"key": "Pragma",
+											"value": "no-cache"
+										},
+										{
+											"key": "Expires",
+											"value": "0"
+										},
+										{
+											"key": "X-Frame-Options",
+											"value": "DENY"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Transfer-Encoding",
+											"value": "chunked"
+										},
+										{
+											"key": "Date",
+											"value": "Mon, 25 Oct 2021 16:11:46 GMT"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=60"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"message\": \"Success\",\n    \"successful\": true\n}"
+								}
+							]
+						},
+						{
+							"name": "Get All",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{businessServiceURL}}/api/role/getAll",
+									"host": [
+										"{{businessServiceURL}}"
+									],
+									"path": [
+										"api",
+										"role",
+										"getAll"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Get All",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{bpmServiceURL}}/api/role/getAll",
+											"host": [
+												"{{bpmServiceURL}}"
+											],
+											"path": [
+												"api",
+												"role",
+												"getAll"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "X-Content-Type-Options",
+											"value": "nosniff"
+										},
+										{
+											"key": "X-XSS-Protection",
+											"value": "1; mode=block"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, no-store, max-age=0, must-revalidate"
+										},
+										{
+											"key": "Pragma",
+											"value": "no-cache"
+										},
+										{
+											"key": "Expires",
+											"value": "0"
+										},
+										{
+											"key": "X-Frame-Options",
+											"value": "DENY"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Transfer-Encoding",
+											"value": "chunked"
+										},
+										{
+											"key": "Date",
+											"value": "Mon, 25 Oct 2021 16:11:25 GMT"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=60"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										}
+									],
+									"cookie": [],
+									"body": "[\n    {\n        \"key\": \"approver\",\n        \"name\": \"Approver\"\n    },\n    {\n        \"key\": \"delegator\",\n        \"name\": \"Delegator\"\n    },\n    {\n        \"key\": \"administrator\",\n        \"name\": \"Administrator\"\n    }\n]"
+								}
+							]
+						},
+						{
+							"name": "Get For User",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"userId\": \"{{currentUserId}}\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{businessServiceURL}}/api/role/getForUser",
+									"host": [
+										"{{businessServiceURL}}"
+									],
+									"path": [
+										"api",
+										"role",
+										"getForUser"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Get For User",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"userId\": \"45b91268-63c2-4e6c-94ff-189d99171202\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{bpmServiceURL}}/api/role/getForUser",
+											"host": [
+												"{{bpmServiceURL}}"
+											],
+											"path": [
+												"api",
+												"role",
+												"getForUser"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "X-Content-Type-Options",
+											"value": "nosniff"
+										},
+										{
+											"key": "X-XSS-Protection",
+											"value": "1; mode=block"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, no-store, max-age=0, must-revalidate"
+										},
+										{
+											"key": "Pragma",
+											"value": "no-cache"
+										},
+										{
+											"key": "Expires",
+											"value": "0"
+										},
+										{
+											"key": "X-Frame-Options",
+											"value": "DENY"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Transfer-Encoding",
+											"value": "chunked"
+										},
+										{
+											"key": "Date",
+											"value": "Mon, 25 Oct 2021 16:11:33 GMT"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=60"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										}
+									],
+									"cookie": [],
+									"body": "[\n    {\n        \"key\": \"administrator\",\n        \"name\": \"Administrator\"\n    }\n]"
+								}
+							]
+						},
+						{
+							"name": "Get For Current User",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"userId\": \"45b91268-63c2-4e6c-94ff-189d99171202\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{businessServiceURL}}/api/role/getForCurrentUser",
+									"host": [
+										"{{businessServiceURL}}"
+									],
+									"path": [
+										"api",
+										"role",
+										"getForCurrentUser"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Get For Current User",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"userId\": \"45b91268-63c2-4e6c-94ff-189d99171202\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{bpmServiceURL}}/api/role/getForCurrentUser",
+											"host": [
+												"{{bpmServiceURL}}"
+											],
+											"path": [
+												"api",
+												"role",
+												"getForCurrentUser"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "X-Content-Type-Options",
+											"value": "nosniff"
+										},
+										{
+											"key": "X-XSS-Protection",
+											"value": "1; mode=block"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, no-store, max-age=0, must-revalidate"
+										},
+										{
+											"key": "Pragma",
+											"value": "no-cache"
+										},
+										{
+											"key": "Expires",
+											"value": "0"
+										},
+										{
+											"key": "X-Frame-Options",
+											"value": "DENY"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Transfer-Encoding",
+											"value": "chunked"
+										},
+										{
+											"key": "Date",
+											"value": "Mon, 25 Oct 2021 16:11:36 GMT"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=60"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										}
+									],
+									"cookie": [],
+									"body": "[\n    {\n        \"key\": \"administrator\",\n        \"name\": \"Administrator\"\n    }\n]"
+								}
+							]
+						}
+					],
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						}
+					]
+				},
+				{
+					"name": "Device Controller",
+					"item": [
+						{
+							"name": "Register Device",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"if (pm.response.code === 200) {",
+											"    const {deviceEntity} = pm.response.json();",
+											"",
+											"    pm.environment.set(\"registeredDevice\", deviceEntity.id);",
+											"}",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"deviceHardwareId\": \"123\",\n    \"userId\": \"{{currentUserId}}\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{businessServiceURL}}/api/device/register",
+									"host": [
+										"{{businessServiceURL}}"
+									],
+									"path": [
+										"api",
+										"device",
+										"register"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Register Device",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"deviceHardwareId\": \"1234\",\n    \"userId\": \"63c2f7ed-7b4e-4a5a-a847-4466fc6dcfe6\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{bpmServiceURL}}/api/device/register",
+											"host": [
+												"{{bpmServiceURL}}"
+											],
+											"path": [
+												"api",
+												"device",
+												"register"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "X-Content-Type-Options",
+											"value": "nosniff"
+										},
+										{
+											"key": "X-XSS-Protection",
+											"value": "1; mode=block"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, no-store, max-age=0, must-revalidate"
+										},
+										{
+											"key": "Pragma",
+											"value": "no-cache"
+										},
+										{
+											"key": "Expires",
+											"value": "0"
+										},
+										{
+											"key": "X-Frame-Options",
+											"value": "DENY"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Transfer-Encoding",
+											"value": "chunked"
+										},
+										{
+											"key": "Date",
+											"value": "Sun, 31 Oct 2021 13:24:58 GMT"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=60"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"deviceEntity\": {\n        \"deviceHardwareId\": \"1234\",\n        \"fcmtoken\": null,\n        \"id\": \"a57bd58b-a30c-4ab9-b2ff-e533e55bac11\",\n        \"userId\": \"63c2f7ed-7b4e-4a5a-a847-4466fc6dcfe6\"\n    },\n    \"message\": \"Success\",\n    \"successful\": true\n}"
+								}
+							]
+						},
+						{
+							"name": "Update FCM Token",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"userId\": \"{{currentUserId}}\",\n    \"fcmToken\": \"{{$randomUUID}}\",\n    \"deviceHardwareId\": \"123\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{businessServiceURL}}/api/device/updateFCMToken",
+									"host": [
+										"{{businessServiceURL}}"
+									],
+									"path": [
+										"api",
+										"device",
+										"updateFCMToken"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Update FCM Token",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"userId\": \"{{currentUserId}}\",\n    \"fcmToken\": \"{{$randomUUID}}\",\n    \"deviceHardwareId\": \"123\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{bpmServiceURL}}/api/device/updateFCMToken",
+											"host": [
+												"{{bpmServiceURL}}"
+											],
+											"path": [
+												"api",
+												"device",
+												"updateFCMToken"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "X-Content-Type-Options",
+											"value": "nosniff"
+										},
+										{
+											"key": "X-XSS-Protection",
+											"value": "1; mode=block"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, no-store, max-age=0, must-revalidate"
+										},
+										{
+											"key": "Pragma",
+											"value": "no-cache"
+										},
+										{
+											"key": "Expires",
+											"value": "0"
+										},
+										{
+											"key": "X-Frame-Options",
+											"value": "DENY"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Transfer-Encoding",
+											"value": "chunked"
+										},
+										{
+											"key": "Date",
+											"value": "Sun, 31 Oct 2021 13:30:44 GMT"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=60"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"deviceEntity\": {\n        \"deviceHardwareId\": \"123\",\n        \"fcmtoken\": \"56a415b2-e21e-4773-9c74-da7ba82af7b2\",\n        \"id\": \"a0837e9f-d9b2-4045-9f52-9b9c5d5dd62e\",\n        \"userId\": \"94d69f0e-8443-4cb8-8391-a1383591aeb8\"\n    },\n    \"message\": \"Success\",\n    \"successful\": true\n}"
+								}
+							]
+						}
+					],
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						}
+					]
+				},
+				{
+					"name": "Certificate Authority Controller",
+					"item": [
+						{
+							"name": "Issue X509 Certificate",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"publicKeyPem\": \"-----BEGIN RSA PUBLIC KEY-----MIIBCgKCAQEArSAO/SXALcm87OeJVDqdV4r0YR89AfKENMR0j0DMDYAhnFpiucwzQgBeWNbmvrAPSeoHMrqQXlh1Q+Czyt071/x/iByiRbM4E1glNTb5zWpZCNXgbG+0SkeFDHZyYokQ4rvnhRuAIx0/lDA73cMyEsBVGepBV4oqYUPUvs2zkE6n1hwdy/h5D+fLnnS5ZEWz/sklnaAFH8fYuZIhlHvA3Tx0KEHBPWHH0tRoGY+0ufuquD9kUnpaRwpT5v4hDglx9NsfQIPtqm+WR1Etv3+yarMIgoV7d63HbXFwLCgrvxqATCq+cog9SNz66WCrzqm+6jO/ffylWbgxnra9IYXvxQIDAQAB-----END RSA PUBLIC KEY-----\",\n    \"userId\": \"{{currentUserId}}\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{businessServiceURL}}/api/certificates/issue",
+									"host": [
+										"{{businessServiceURL}}"
+									],
+									"path": [
+										"api",
+										"certificates",
+										"issue"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Issue X509 Certificate",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"publicKeyPem\": \"-----BEGIN RSA PUBLIC KEY-----MIIBCgKCAQEArSAO/SXALcm87OeJVDqdV4r0YR89AfKENMR0j0DMDYAhnFpiucwzQgBeWNbmvrAPSeoHMrqQXlh1Q+Czyt071/x/iByiRbM4E1glNTb5zWpZCNXgbG+0SkeFDHZyYokQ4rvnhRuAIx0/lDA73cMyEsBVGepBV4oqYUPUvs2zkE6n1hwdy/h5D+fLnnS5ZEWz/sklnaAFH8fYuZIhlHvA3Tx0KEHBPWHH0tRoGY+0ufuquD9kUnpaRwpT5v4hDglx9NsfQIPtqm+WR1Etv3+yarMIgoV7d63HbXFwLCgrvxqATCq+cog9SNz66WCrzqm+6jO/ffylWbgxnra9IYXvxQIDAQAB-----END RSA PUBLIC KEY-----\",\n    \"userId\": \"{{currentUserId}}\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{bpmServiceURL}}/api/certificateAuthority/issueX509Certificate",
+											"host": [
+												"{{bpmServiceURL}}"
+											],
+											"path": [
+												"api",
+												"certificateAuthority",
+												"issueX509Certificate"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "plain",
+									"header": [
+										{
+											"key": "X-Content-Type-Options",
+											"value": "nosniff"
+										},
+										{
+											"key": "X-XSS-Protection",
+											"value": "1; mode=block"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, no-store, max-age=0, must-revalidate"
+										},
+										{
+											"key": "Pragma",
+											"value": "no-cache"
+										},
+										{
+											"key": "Expires",
+											"value": "0"
+										},
+										{
+											"key": "X-Frame-Options",
+											"value": "DENY"
+										},
+										{
+											"key": "Content-Type",
+											"value": "text/plain;charset=UTF-8"
+										},
+										{
+											"key": "Content-Length",
+											"value": "1120"
+										},
+										{
+											"key": "Date",
+											"value": "Sun, 31 Oct 2021 13:36:55 GMT"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=60"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										}
+									],
+									"cookie": [],
+									"body": "MIIDQzCCAiugAwIBAgIGAXzWkT/MMA0GCSqGSIb3DQEBCwUAMIGVMSIwIAYJKoZIhvcNAQkBFhNpbmZvQHNpZ25mbHVlbnQuY29tMRMwEQYDVQQDDApTaWduZmx1ZW50MREwDwYDVQQLDAhTb2Z0d2FyZTETMBEGA1UECgwKU2lnbmZsdWVudDEQMA4GA1UEBwwHSG9yc2VuczETMBEGA1UECAwKTWlkanlsbGFuZDELMAkGA1UEBhMCREswHhcNMjExMDMwMTMzNjU1WhcNMjMxMDMxMTMzNjU1WjAvMS0wKwYDVQQuEyQ5NGQ2OWYwZS04NDQzLTRjYjgtODM5MS1hMTM4MzU5MWFlYjgwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQCtIA79JcAtybzs54lUOp1XivRhHz0B8oQ0xHSPQMwNgCGcWmK5zDNCAF5Y1ua+sA9J6gcyupBeWHVD4LPK3TvX/H+IHKJFszgTWCU1NvnNalkI1eBsb7RKR4UMdnJiiRDiu+eFG4AjHT+UMDvdwzISwFUZ6kFXiiphQ9S+zbOQTqfWHB3L+HkP58uedLlkRbP+ySWdoAUfx9i5kiGUe8DdPHQoQcE9YcfS1GgZj7S5+6q4P2RSelpHClPm/iEOCXH02x9Ag+2qb5ZHUS2/f7JqswiChXt3rcdtcXAsKCu/GoBMKr5yiD1I3PrpYKvOqb7qM799/KVZuDGetr0hhe/FAgMBAAEwDQYJKoZIhvcNAQELBQADggEBAJwG69D0teCfDrShILtFwXwaYn/Wf4aMJxDIx/PyGXuXUwnOmw2NcTGnYQOoGClbj3/yKf970rguvY3euUwHUIK1bzhvsjkJyYpSadsi22inHP4q4FKR3Lvrf7OV2oTsUEEjLMLWeu5UzbUZP+4ao/XYEleHHxUetNDwJaDL2bwgzQu4cbKf73TUWbI+f1hBzWUPC+KrLR054re1AWgan4EgoOlhCX7fra3S7zTWCfsKcYbBH+O1MOfwb0TyJxWhOHFPwayIMdy5+XRlY9o0Eu7slKks7ENTvke1hbUS7EB8q3RWuPFneFMFVNKk8nfd08FjP490b1d97jtSLZ2ySiY="
+								}
+							]
+						}
+					]
+				},
+				{
 					"name": "User Controller",
 					"item": [
 						{
@@ -2169,7 +2169,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"username\": \"david\",\n    \"email\": \"david@signfluent.com\",\n    \"lastName\": \"Franko\",\n    \"firstName\": \"David\",\n    \"password\": \"123456\"\n}",
+									"raw": "",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -2192,13 +2192,13 @@
 							"response": []
 						},
 						{
-							"name": "Get Current User Details Copy",
+							"name": "Get Current User Details",
 							"request": {
 								"method": "POST",
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"username\": \"david\",\n    \"email\": \"david@signfluent.com\",\n    \"lastName\": \"Franko\",\n    \"firstName\": \"David\",\n    \"password\": \"123456\"\n}",
+									"raw": "",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -2218,6 +2218,380 @@
 								}
 							},
 							"response": []
+						}
+					]
+				},
+				{
+					"name": "Notification Controller",
+					"item": [
+						{
+							"name": "Get Notification Time",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{businessServiceURL}}/api/notification/getNotificationTime",
+									"host": [
+										"{{businessServiceURL}}"
+									],
+									"path": [
+										"api",
+										"notification",
+										"getNotificationTime"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Modify Notification Time",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"notificationTime\": 31100000\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{notificationServiceURL}}/api/notification/modifyNotificationTime",
+									"host": [
+										"{{notificationServiceURL}}"
+									],
+									"path": [
+										"api",
+										"notification",
+										"modifyNotificationTime"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Document Controller",
+					"item": [
+						{
+							"name": "Get All Documents",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "{{businessServiceURL}}/api/document/getAll",
+									"host": [
+										"{{businessServiceURL}}"
+									],
+									"path": [
+										"api",
+										"document",
+										"getAll"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Get All Documents",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"url": {
+											"raw": "{{businessServiceURL}}/api/document/getAll",
+											"host": [
+												"{{businessServiceURL}}"
+											],
+											"path": [
+												"api",
+												"document",
+												"getAll"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Vary",
+											"value": "Origin"
+										},
+										{
+											"key": "Vary",
+											"value": "Access-Control-Request-Method"
+										},
+										{
+											"key": "Vary",
+											"value": "Access-Control-Request-Headers"
+										},
+										{
+											"key": "X-Content-Type-Options",
+											"value": "nosniff"
+										},
+										{
+											"key": "X-XSS-Protection",
+											"value": "1; mode=block"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, no-store, max-age=0, must-revalidate"
+										},
+										{
+											"key": "Pragma",
+											"value": "no-cache"
+										},
+										{
+											"key": "Expires",
+											"value": "0"
+										},
+										{
+											"key": "X-Frame-Options",
+											"value": "DENY"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Transfer-Encoding",
+											"value": "chunked"
+										},
+										{
+											"key": "Date",
+											"value": "Mon, 22 Nov 2021 20:55:15 GMT"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=60"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										}
+									],
+									"cookie": [],
+									"body": "[\n    {\n        \"description\": \"This is some dummy description\",\n        \"documentId\": \"8e653ac6-5da3-4a2f-ab28-de9296a1da65\",\n        \"status\": \"RECEIVED\",\n        \"uploadDate\": \"2021-11-22T20:55:11.282Z\",\n        \"uploaderId\": \"a68e70d1-7d18-4c6c-9be1-4fd4d62a8753\"\n    },\n    {\n        \"description\": \"This is some dummy description\",\n        \"documentId\": \"b1e11d2c-1114-4438-b54e-d23da92b103f\",\n        \"status\": \"RECEIVED\",\n        \"uploadDate\": \"2021-11-22T20:55:11.783Z\",\n        \"uploaderId\": \"a68e70d1-7d18-4c6c-9be1-4fd4d62a8753\"\n    },\n    {\n        \"description\": \"This is some dummy description\",\n        \"documentId\": \"b2f63643-1e82-4948-b585-8c6f771d2490\",\n        \"status\": \"RECEIVED\",\n        \"uploadDate\": \"2021-11-22T20:55:12.628Z\",\n        \"uploaderId\": \"a68e70d1-7d18-4c6c-9be1-4fd4d62a8753\"\n    },\n    {\n        \"description\": \"This is some dummy description\",\n        \"documentId\": \"ba1ee7f1-534c-48ba-a083-926e7ef4e46e\",\n        \"status\": \"RECEIVED\",\n        \"uploadDate\": \"2021-11-22T20:55:12.953Z\",\n        \"uploaderId\": \"a68e70d1-7d18-4c6c-9be1-4fd4d62a8753\"\n    },\n    {\n        \"description\": \"This is some dummy description\",\n        \"documentId\": \"cc7c5f9c-47f9-4d58-b1a6-db33f347fb8a\",\n        \"status\": \"RECEIVED\",\n        \"uploadDate\": \"2021-11-22T20:55:12.208Z\",\n        \"uploaderId\": \"a68e70d1-7d18-4c6c-9be1-4fd4d62a8753\"\n    }\n]"
+								}
+							]
+						},
+						{
+							"name": "Get Document Details",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "{{businessServiceURL}}/api/document/get/8e653ac6-5da3-4a2f-ab28-de9296a1da65",
+									"host": [
+										"{{businessServiceURL}}"
+									],
+									"path": [
+										"api",
+										"document",
+										"get",
+										"8e653ac6-5da3-4a2f-ab28-de9296a1da65"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Get Document Details",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"url": {
+											"raw": "{{businessServiceURL}}/api/document/get/8e653ac6-5da3-4a2f-ab28-de9296a1da65",
+											"host": [
+												"{{businessServiceURL}}"
+											],
+											"path": [
+												"api",
+												"document",
+												"get",
+												"8e653ac6-5da3-4a2f-ab28-de9296a1da65"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Vary",
+											"value": "Origin"
+										},
+										{
+											"key": "Vary",
+											"value": "Access-Control-Request-Method"
+										},
+										{
+											"key": "Vary",
+											"value": "Access-Control-Request-Headers"
+										},
+										{
+											"key": "X-Content-Type-Options",
+											"value": "nosniff"
+										},
+										{
+											"key": "X-XSS-Protection",
+											"value": "1; mode=block"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, no-store, max-age=0, must-revalidate"
+										},
+										{
+											"key": "Pragma",
+											"value": "no-cache"
+										},
+										{
+											"key": "Expires",
+											"value": "0"
+										},
+										{
+											"key": "X-Frame-Options",
+											"value": "DENY"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Transfer-Encoding",
+											"value": "chunked"
+										},
+										{
+											"key": "Date",
+											"value": "Mon, 22 Nov 2021 20:55:37 GMT"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=60"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"approvalOrder\": [],\n    \"content\": \"ZG9jdW1lbnQ=\",\n    \"delegator\": null,\n    \"description\": \"This is some dummy description\",\n    \"hash\": \"Q8wj+lK4e0zB0CtbEUFUFR1q3dsXyf3cBrAn+pniQAg=\",\n    \"id\": \"8e653ac6-5da3-4a2f-ab28-de9296a1da65\",\n    \"rejector\": null,\n    \"signatures\": [],\n    \"status\": \"RECEIVED\",\n    \"uploader\": {\n        \"id\": \"5f96801e-5b6b-41f2-acce-fb855d7b968e\",\n        \"uploadDate\": \"2021-11-22T20:55:11.282Z\",\n        \"uploaderId\": \"a68e70d1-7d18-4c6c-9be1-4fd4d62a8753\"\n    }\n}"
+								}
+							]
+						},
+						{
+							"name": "Get Documents For Current User",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "{{businessServiceURL}}/api/document/getOwn",
+									"host": [
+										"{{businessServiceURL}}"
+									],
+									"path": [
+										"api",
+										"document",
+										"getOwn"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Get Documents For Current User",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"url": {
+											"raw": "{{businessServiceURL}}/api/document/getOwn",
+											"host": [
+												"{{businessServiceURL}}"
+											],
+											"path": [
+												"api",
+												"document",
+												"getOwn"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Vary",
+											"value": "Origin"
+										},
+										{
+											"key": "Vary",
+											"value": "Access-Control-Request-Method"
+										},
+										{
+											"key": "Vary",
+											"value": "Access-Control-Request-Headers"
+										},
+										{
+											"key": "X-Content-Type-Options",
+											"value": "nosniff"
+										},
+										{
+											"key": "X-XSS-Protection",
+											"value": "1; mode=block"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, no-store, max-age=0, must-revalidate"
+										},
+										{
+											"key": "Pragma",
+											"value": "no-cache"
+										},
+										{
+											"key": "Expires",
+											"value": "0"
+										},
+										{
+											"key": "X-Frame-Options",
+											"value": "DENY"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Transfer-Encoding",
+											"value": "chunked"
+										},
+										{
+											"key": "Date",
+											"value": "Mon, 22 Nov 2021 20:55:20 GMT"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=60"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										}
+									],
+									"cookie": [],
+									"body": "[\n    {\n        \"description\": \"This is some dummy description\",\n        \"documentId\": \"8e653ac6-5da3-4a2f-ab28-de9296a1da65\",\n        \"status\": \"RECEIVED\",\n        \"uploadDate\": \"2021-11-22T20:55:11.282Z\",\n        \"uploaderId\": \"a68e70d1-7d18-4c6c-9be1-4fd4d62a8753\"\n    },\n    {\n        \"description\": \"This is some dummy description\",\n        \"documentId\": \"b1e11d2c-1114-4438-b54e-d23da92b103f\",\n        \"status\": \"RECEIVED\",\n        \"uploadDate\": \"2021-11-22T20:55:11.783Z\",\n        \"uploaderId\": \"a68e70d1-7d18-4c6c-9be1-4fd4d62a8753\"\n    },\n    {\n        \"description\": \"This is some dummy description\",\n        \"documentId\": \"b2f63643-1e82-4948-b585-8c6f771d2490\",\n        \"status\": \"RECEIVED\",\n        \"uploadDate\": \"2021-11-22T20:55:12.628Z\",\n        \"uploaderId\": \"a68e70d1-7d18-4c6c-9be1-4fd4d62a8753\"\n    },\n    {\n        \"description\": \"This is some dummy description\",\n        \"documentId\": \"ba1ee7f1-534c-48ba-a083-926e7ef4e46e\",\n        \"status\": \"RECEIVED\",\n        \"uploadDate\": \"2021-11-22T20:55:12.953Z\",\n        \"uploaderId\": \"a68e70d1-7d18-4c6c-9be1-4fd4d62a8753\"\n    },\n    {\n        \"description\": \"This is some dummy description\",\n        \"documentId\": \"cc7c5f9c-47f9-4d58-b1a6-db33f347fb8a\",\n        \"status\": \"RECEIVED\",\n        \"uploadDate\": \"2021-11-22T20:55:12.208Z\",\n        \"uploaderId\": \"a68e70d1-7d18-4c6c-9be1-4fd4d62a8753\"\n    }\n]"
+								}
+							]
 						}
 					]
 				}
@@ -3669,13 +4043,13 @@
 			"name": "Notification Service",
 			"item": [
 				{
-					"name": "Send Notification",
+					"name": "Send Phone Notification",
 					"request": {
 						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"messageText\": \"Testing k8s\",\n    \"tokens\": [\n        \"dv93G1xVTUykxvxRKQdfys:APA91bFRiyyzHAbNX61KbpQf84wJLl8_3uTBzDwvi9DPhU0goda0Q_hTQyNrXashxpYgrZLE9r0bedkBm9v88118FQ_Jks7KudrGym9wgZ_KhbnWbm-RSl86-y-UFO7oW42AWwAt4ctv\"\n    ]\n}",
+							"raw": "{\n    \"messageText\": \"Testing k8s\",\n    \"receivers\": [\n        \"dv93G1xVTUykxvxRKQdfys:APA91bFRiyyzHAbNX61KbpQf84wJLl8_3uTBzDwvi9DPhU0goda0Q_hTQyNrXashxpYgrZLE9r0bedkBm9v88118FQ_Jks7KudrGym9wgZ_KhbnWbm-RSl86-y-UFO7oW42AWwAt4ctv\"\n    ]\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -3683,14 +4057,107 @@
 							}
 						},
 						"url": {
-							"raw": "{{notificationServiceURL}}/api/notification/send",
+							"raw": "{{notificationServiceURL}}/api/notification/sendPhoneNotification",
 							"host": [
 								"{{notificationServiceURL}}"
 							],
 							"path": [
 								"api",
 								"notification",
-								"send"
+								"sendPhoneNotification"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Send Email Notification",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"messageText\": \"Hi, how are you doing? Hope you're well. I am testing k8s email notificaiton\",\n    \"receivers\": [\n        \"fiona.dorci@gmail.com\",\n        \"david.franko1998@gmail.com\"\n    ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{notificationServiceURL}}/api/notification/sendEmailNotification",
+							"host": [
+								"{{notificationServiceURL}}"
+							],
+							"path": [
+								"api",
+								"notification",
+								"sendEmailNotification"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Notification Time",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{notificationServiceURL}}/api/notification/getNotificationTime",
+							"host": [
+								"{{notificationServiceURL}}"
+							],
+							"path": [
+								"api",
+								"notification",
+								"getNotificationTime"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Modify Notification Time",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{notificationServiceURL}}/api/notification/modifyNotificationTime?time=31100000",
+							"host": [
+								"{{notificationServiceURL}}"
+							],
+							"path": [
+								"api",
+								"notification",
+								"modifyNotificationTime"
+							],
+							"query": [
+								{
+									"key": "time",
+									"value": "31100000"
+								}
 							]
 						}
 					},

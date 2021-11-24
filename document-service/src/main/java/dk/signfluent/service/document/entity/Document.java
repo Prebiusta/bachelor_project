@@ -2,7 +2,10 @@ package dk.signfluent.service.document.entity;
 
 import com.sun.istack.NotNull;
 import dk.signfluent.service.document.utils.Enums.DocumentStatus;
-import lombok.*;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 import org.hibernate.Hibernate;
 import org.hibernate.annotations.Type;
 
@@ -20,7 +23,7 @@ import java.util.UUID;
 public class Document {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Type(type="uuid-char")
+    @Type(type = "uuid-char")
     private UUID id;
     private String description;
     @NotNull
@@ -48,7 +51,7 @@ public class Document {
     @OneToOne(cascade = {CascadeType.ALL})
     private Uploader uploader;
 
-    public Document(UUID uploaderId, String description, byte[] content, byte[] hash, DocumentStatus status){
+    public Document(UUID uploaderId, String description, byte[] content, byte[] hash, DocumentStatus status) {
         this.description = description;
         this.uploader = new Uploader(uploaderId, new Date());
         this.content = content;

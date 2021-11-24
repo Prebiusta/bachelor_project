@@ -1,5 +1,6 @@
 package dk.signfluent.service.document.controller;
 
+import dk.signfluent.service.document.entity.Document;
 import dk.signfluent.service.document.model.*;
 import dk.signfluent.service.document.service.DocumentService;
 import io.swagger.annotations.ApiOperation;
@@ -19,8 +20,26 @@ public class DocumentController {
 
     @PostMapping("/uploadDocument")
     @ApiOperation(value = "Upload a document", nickname = "uploadDocument")
-    public UUID uploadDocument(@RequestBody UploadDocument document ) {
+    public UUID uploadDocument(@RequestBody UploadDocument document) {
         return documentService.uploadDocument(document);
+    }
+
+    @PostMapping("/getAllDocuments")
+    @ApiOperation(value = "Returns all available documents", nickname = "getAllDocuments")
+    public List<DocumentRow> getAllDocuments() throws Exception {
+        return documentService.getAllDocuments();
+    }
+
+    @PostMapping("/getDocumentsForUploader/{userId}")
+    @ApiOperation(value = "Returns all available documents", nickname = "getDocumentsForUploader")
+    public List<DocumentRow> getDocumentsForUploader(@PathVariable String userId) throws Exception {
+        return documentService.getAllDocumentsForUploader(userId);
+    }
+
+    @PostMapping("/getDocumentDetails/{documentId}")
+    @ApiOperation(value = "Returns all available documents", nickname = "getDocumentDetails")
+    public Document getDocumentDetails(@PathVariable String documentId) throws Exception {
+        return documentService.getDocumentDetails(documentId);
     }
 
     @PostMapping("/getDocumentList")
@@ -49,7 +68,7 @@ public class DocumentController {
 
     @PostMapping("/signDocument")
     @ApiOperation(value = "Sign document", nickname = "signDocument")
-    public UUID signDocument(@RequestBody SignDocument document ) throws Exception {
+    public UUID signDocument(@RequestBody SignDocument document) throws Exception {
         return documentService.signDocument(document);
     }
 

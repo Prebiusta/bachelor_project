@@ -1,10 +1,16 @@
 package dk.signfluent.service.document.entity;
 
-import lombok.*;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 import org.hibernate.Hibernate;
 import org.hibernate.annotations.Type;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import java.util.Date;
 import java.util.Objects;
 import java.util.UUID;
@@ -17,14 +23,13 @@ import java.util.UUID;
 public class Signature {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Type(type="uuid-char")
+    @Type(type = "uuid-char")
     private UUID id;
     private String certificate;
     private String signedHash;
     private Date signatureDate;
 
-    public Signature(String certificate, String signedHash, Date signatureDate)
-    {
+    public Signature(String certificate, String signedHash, Date signatureDate) {
         this.certificate = certificate;
         this.signedHash = signedHash;
         this.signatureDate = signatureDate;

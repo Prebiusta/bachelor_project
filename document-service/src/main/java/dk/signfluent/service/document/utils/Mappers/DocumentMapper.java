@@ -25,7 +25,7 @@ public interface DocumentMapper {
         documentContent.setContent(new String(Base64.encodeBase64(document.getContent())));
     }
 
-    default DocumentRow map(Document source) {
+    default DocumentRow mapDocumentToDocumentRow(Document source) {
         DocumentRow document = new DocumentRow();
         document.setDocumentId(source.getId());
         document.setDescription(source.getDescription());

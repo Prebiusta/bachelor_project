@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: business-service-config-map
+data:
+  keycloak.realm: "master"
+  keycloak.auth-server-url: "http://localhost:8080/auth"
+  keycloak.ssl-required: "external"
+  keycloak.resource: "signfluent"
+  keycloak.use-resource-role-mappings: "true"
+  keycloak.public-client: "true"

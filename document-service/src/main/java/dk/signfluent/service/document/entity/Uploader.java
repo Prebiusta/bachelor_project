@@ -1,6 +1,9 @@
 package dk.signfluent.service.document.entity;
 
-import lombok.*;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 import org.hibernate.Hibernate;
 import org.hibernate.annotations.Type;
 
@@ -20,15 +23,14 @@ import java.util.UUID;
 public class Uploader {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Type(type="uuid-char")
+    @Type(type = "uuid-char")
     private UUID id;
 
     private UUID uploaderId;
 
     private Date uploadDate;
 
-    public Uploader(UUID uploaderId, Date uploadDate)
-    {
+    public Uploader(UUID uploaderId, Date uploadDate) {
         this.uploaderId = uploaderId;
         this.uploadDate = uploadDate;
     }

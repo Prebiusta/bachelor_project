@@ -1,0 +1,55 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: business-service-deployment
+  labels:
+    app: business-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: business-service
+  template:
+    metadata:
+      labels:
+        app: business-service
+    spec:
+      containers:
+        - name: business-service
+          imagePullPolicy: Never
+          image: signfluent/business-service:latest
+          ports:
+            - containerPort: 8006
+          env:
+            - name: "keycloak.realm"
+              valueFrom:
+                configMapKeyRef:
+                  name: business-service-config-map
+                  key: keycloak.realm
+            - name: "keycloak.auth-server-url"
+              valueFrom:
+                configMapKeyRef:
+                  name: business-service-config-map
+                  key: keycloak.auth-server-url
+            - name: "keycloak.ssl-required"
+              valueFrom:
+                configMapKeyRef:
+                  name: business-service-config-map
+                  key: keycloak.ssl-required
+            - name: "keycloak.resource"
+              valueFrom:
+                configMapKeyRef:
+                  name: business-service-config-map
+                  key: keycloak.resource
+            - name: "keycloak.use-resource-role-mappings"
+              valueFrom:
+                configMapKeyRef:
+                  name: business-service-config-map
+                  key: keycloak.use-resource-role-mappings
+            - name: "keycloak.public-client"
+              valueFrom:
+                configMapKeyRef:
+                  name: business-service-config-map
+                  key: keycloak.public-client
+      imagePullSecrets:
+        - name: gcp-sa-key

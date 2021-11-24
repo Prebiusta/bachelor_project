@@ -1,6 +1,9 @@
 package dk.signfluent.service.document.entity;
 
-import lombok.*;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 import org.hibernate.Hibernate;
 import org.hibernate.annotations.Type;
 
@@ -20,14 +23,14 @@ import java.util.UUID;
 public class Rejector {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Type(type="uuid-char")
+    @Type(type = "uuid-char")
     private UUID id;
 
     private UUID rejectorId;
 
     private Date rejectDate;
 
-    public Rejector(UUID rejectorId, Date rejectDate){
+    public Rejector(UUID rejectorId, Date rejectDate) {
         this.rejectorId = rejectorId;
         this.rejectDate = rejectDate;
     }
