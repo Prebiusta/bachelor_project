@@ -26,6 +26,7 @@ public class Rejector {
     @Type(type = "uuid-char")
     private UUID id;
 
+    @Type(type = "uuid-char")
     private UUID rejectorId;
 
     private Date rejectDate;

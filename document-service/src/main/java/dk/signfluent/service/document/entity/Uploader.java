@@ -26,6 +26,7 @@ public class Uploader {
     @Type(type = "uuid-char")
     private UUID id;
 
+    @Type(type = "uuid-char")
     private UUID uploaderId;
 
     private Date uploadDate;

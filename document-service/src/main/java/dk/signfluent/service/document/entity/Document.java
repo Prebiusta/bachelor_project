@@ -30,7 +30,7 @@ public class Document {
     @Lob
     private byte[] content;
     @NotNull
-    private byte[] hash;
+    private String hash;
     @NotNull
     private DocumentStatus status;
 
@@ -51,7 +51,7 @@ public class Document {
     @OneToOne(cascade = {CascadeType.ALL})
     private Uploader uploader;
 
-    public Document(UUID uploaderId, String description, byte[] content, byte[] hash, DocumentStatus status) {
+    public Document(UUID uploaderId, String description, byte[] content, String hash, DocumentStatus status) {
         this.description = description;
         this.uploader = new Uploader(uploaderId, new Date());
         this.content = content;

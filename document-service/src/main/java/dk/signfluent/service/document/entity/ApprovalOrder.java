@@ -24,6 +24,7 @@ public class ApprovalOrder {
     @Type(type = "uuid-char")
     private UUID id;
 
+    @Type(type = "uuid-char")
     private UUID approverId;
 
     private int approvingOrder;

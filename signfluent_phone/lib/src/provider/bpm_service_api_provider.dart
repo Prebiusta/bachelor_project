@@ -73,7 +73,7 @@ class BpmServiceApiProvider {
   }
 
   Future<String> submitSignatureRequest(SignfluentSignature signfluentSignature) async {
-    return (await getSigningProcessControllerApi()).submitSignature(signfluentSignature: signfluentSignature).then((value) => value.data!);
+    return (await getSigningProcessControllerApi()).submitSignature(signfluentSignature: signfluentSignature).then((value) => value.data!.message!);
   }
 
   Future<Dio> _dioClient(bool withToken) async {

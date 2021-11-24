@@ -2,7 +2,7 @@
 // AUTO-GENERATED FILE, DO NOT MODIFY!
 //
 
-import 'package:business_service_api/src/model/user.dart';
+import 'package:business_service_api/src/model/user0.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 
@@ -30,7 +30,7 @@ abstract class DocumentWithContent implements Built<DocumentWithContent, Documen
     DateTime? get uploadedAt;
 
     @BuiltValueField(wireName: r'uploadedBy')
-    User? get uploadedBy;
+    User0? get uploadedBy;
 
     DocumentWithContent._();
 
@@ -82,7 +82,7 @@ class _$DocumentWithContentSerializer implements StructuredSerializer<DocumentWi
             result
                 ..add(r'uploadedBy')
                 ..add(serializers.serialize(object.uploadedBy,
-                    specifiedType: const FullType(User)));
+                    specifiedType: const FullType(User0)));
         }
         return result;
     }
@@ -116,7 +116,7 @@ class _$DocumentWithContentSerializer implements StructuredSerializer<DocumentWi
                     break;
                 case r'uploadedBy':
                     result.uploadedBy.replace(serializers.deserialize(value,
-                        specifiedType: const FullType(User)) as User);
+                        specifiedType: const FullType(User0)) as User0);
                     break;
             }
         }

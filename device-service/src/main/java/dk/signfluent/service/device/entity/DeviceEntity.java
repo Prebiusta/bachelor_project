@@ -20,6 +20,7 @@ public class DeviceEntity {
     @Type(type = "uuid-char")
     private UUID id;
 
+    @Type(type = "uuid-char")
     private UUID userId;
 
     private String deviceHardwareId;

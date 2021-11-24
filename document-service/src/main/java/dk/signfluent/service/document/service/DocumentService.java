@@ -9,12 +9,11 @@ import dk.signfluent.service.document.repository.DocumentRepository;
 import dk.signfluent.service.document.utils.Enums.DocumentStatus;
 import dk.signfluent.service.document.utils.Mappers.ApprovalOrderMapper;
 import dk.signfluent.service.document.utils.Mappers.DocumentMapper;
+import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
@@ -112,15 +111,9 @@ public class DocumentService {
 
     public UUID uploadDocument(UploadDocument document) {
         byte[] content = Base64.decodeBase64(document.getEncodedContent());
-        try {
-            MessageDigest digest = MessageDigest.getInstance("SHA-256");
-            byte[] hash = digest.digest(content);
-            var doc = new Document(document.getUploaderId(), document.getDescription(), content, hash, DocumentStatus.RECEIVED);
-            return repository.save(doc).getId();
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-            return null;
-        }
+        String hash = getContentHash(content);
+        Document createdDocument = new Document(document.getUploaderId(), document.getDescription(), content, hash, DocumentStatus.RECEIVED);
+        return repository.save(createdDocument).getId();
     }
 
     public UUID signDocument(SignDocument signDocument) throws Exception {
@@ -144,18 +137,15 @@ public class DocumentService {
 
     public boolean validateDocument(String encodedContent) {
         byte[] content = Base64.decodeBase64(encodedContent);
-        try {
-            MessageDigest digest = MessageDigest.getInstance("SHA-256");
-            byte[] hash = digest.digest(content);
-
-            return repository.existsDocumentByHashAndStatus(hash, DocumentStatus.APPROVED);
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-            return false;
-        }
+        String hash = getContentHash(content);
+        return repository.existsDocumentByHashAndStatus(hash, DocumentStatus.APPROVED);
     }
 
     private boolean checkLock(DocumentStatus status) {
         return status == DocumentStatus.REJECTED || status == DocumentStatus.APPROVED;
+    }
+
+    private String getContentHash(byte[] content) {
+        return DigestUtils.sha256Hex(content);
     }
 }

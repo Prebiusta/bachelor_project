@@ -8,15 +8,27 @@ part of 'document_response.dart';
 
 class _$DocumentResponse extends DocumentResponse {
   @override
-  final Document? document;
+  final String? description;
   @override
-  final String? processId;
+  final String? documentId;
+  @override
+  final String? status;
+  @override
+  final DateTime? uploadedAt;
+  @override
+  final User? uploadedBy;
 
   factory _$DocumentResponse(
           [void Function(DocumentResponseBuilder)? updates]) =>
       (new DocumentResponseBuilder()..update(updates)).build();
 
-  _$DocumentResponse._({this.document, this.processId}) : super._();
+  _$DocumentResponse._(
+      {this.description,
+      this.documentId,
+      this.status,
+      this.uploadedAt,
+      this.uploadedBy})
+      : super._();
 
   @override
   DocumentResponse rebuild(void Function(DocumentResponseBuilder) updates) =>
@@ -30,20 +42,31 @@ class _$DocumentResponse extends DocumentResponse {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is DocumentResponse &&
-        document == other.document &&
-        processId == other.processId;
+        description == other.description &&
+        documentId == other.documentId &&
+        status == other.status &&
+        uploadedAt == other.uploadedAt &&
+        uploadedBy == other.uploadedBy;
   }
 
   @override
   int get hashCode {
-    return $jf($jc($jc(0, document.hashCode), processId.hashCode));
+    return $jf($jc(
+        $jc(
+            $jc($jc($jc(0, description.hashCode), documentId.hashCode),
+                status.hashCode),
+            uploadedAt.hashCode),
+        uploadedBy.hashCode));
   }
 
   @override
   String toString() {
     return (newBuiltValueToStringHelper('DocumentResponse')
-          ..add('document', document)
-          ..add('processId', processId))
+          ..add('description', description)
+          ..add('documentId', documentId)
+          ..add('status', status)
+          ..add('uploadedAt', uploadedAt)
+          ..add('uploadedBy', uploadedBy))
         .toString();
   }
 }
@@ -52,13 +75,25 @@ class DocumentResponseBuilder
     implements Builder<DocumentResponse, DocumentResponseBuilder> {
   _$DocumentResponse? _$v;
 
-  DocumentBuilder? _document;
-  DocumentBuilder get document => _$this._document ??= new DocumentBuilder();
-  set document(DocumentBuilder? document) => _$this._document = document;
+  String? _description;
+  String? get description => _$this._description;
+  set description(String? description) => _$this._description = description;
 
-  String? _processId;
-  String? get processId => _$this._processId;
-  set processId(String? processId) => _$this._processId = processId;
+  String? _documentId;
+  String? get documentId => _$this._documentId;
+  set documentId(String? documentId) => _$this._documentId = documentId;
+
+  String? _status;
+  String? get status => _$this._status;
+  set status(String? status) => _$this._status = status;
+
+  DateTime? _uploadedAt;
+  DateTime? get uploadedAt => _$this._uploadedAt;
+  set uploadedAt(DateTime? uploadedAt) => _$this._uploadedAt = uploadedAt;
+
+  UserBuilder? _uploadedBy;
+  UserBuilder get uploadedBy => _$this._uploadedBy ??= new UserBuilder();
+  set uploadedBy(UserBuilder? uploadedBy) => _$this._uploadedBy = uploadedBy;
 
   DocumentResponseBuilder() {
     DocumentResponse._defaults(this);
@@ -67,8 +102,11 @@ class DocumentResponseBuilder
   DocumentResponseBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _document = $v.document?.toBuilder();
-      _processId = $v.processId;
+      _description = $v.description;
+      _documentId = $v.documentId;
+      _status = $v.status;
+      _uploadedAt = $v.uploadedAt;
+      _uploadedBy = $v.uploadedBy?.toBuilder();
       _$v = null;
     }
     return this;
@@ -91,12 +129,16 @@ class DocumentResponseBuilder
     try {
       _$result = _$v ??
           new _$DocumentResponse._(
-              document: _document?.build(), processId: processId);
+              description: description,
+              documentId: documentId,
+              status: status,
+              uploadedAt: uploadedAt,
+              uploadedBy: _uploadedBy?.build());
     } catch (_) {
       late String _$failedField;
       try {
-        _$failedField = 'document';
-        _document?.build();
+        _$failedField = 'uploadedBy';
+        _uploadedBy?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
             'DocumentResponse', _$failedField, e.toString());

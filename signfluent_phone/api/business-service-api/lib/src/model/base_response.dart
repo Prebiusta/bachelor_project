@@ -11,13 +11,9 @@ part 'base_response.g.dart';
 ///
 /// Properties:
 /// * [message] 
-/// * [successful] 
 abstract class BaseResponse implements Built<BaseResponse, BaseResponseBuilder> {
     @BuiltValueField(wireName: r'message')
     String? get message;
-
-    @BuiltValueField(wireName: r'successful')
-    bool? get successful;
 
     BaseResponse._();
 
@@ -47,12 +43,6 @@ class _$BaseResponseSerializer implements StructuredSerializer<BaseResponse> {
                 ..add(serializers.serialize(object.message,
                     specifiedType: const FullType(String)));
         }
-        if (object.successful != null) {
-            result
-                ..add(r'successful')
-                ..add(serializers.serialize(object.successful,
-                    specifiedType: const FullType(bool)));
-        }
         return result;
     }
 
@@ -70,10 +60,6 @@ class _$BaseResponseSerializer implements StructuredSerializer<BaseResponse> {
                 case r'message':
                     result.message = serializers.deserialize(value,
                         specifiedType: const FullType(String)) as String;
-                    break;
-                case r'successful':
-                    result.successful = serializers.deserialize(value,
-                        specifiedType: const FullType(bool)) as bool;
                     break;
             }
         }

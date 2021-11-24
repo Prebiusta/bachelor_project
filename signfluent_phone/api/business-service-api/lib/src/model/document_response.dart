@@ -2,7 +2,7 @@
 // AUTO-GENERATED FILE, DO NOT MODIFY!
 //
 
-import 'package:business_service_api/src/model/document.dart';
+import 'package:business_service_api/src/model/user.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 
@@ -11,14 +11,26 @@ part 'document_response.g.dart';
 /// DocumentResponse
 ///
 /// Properties:
-/// * [document] 
-/// * [processId] 
+/// * [description] 
+/// * [documentId] 
+/// * [status] 
+/// * [uploadedAt] 
+/// * [uploadedBy] 
 abstract class DocumentResponse implements Built<DocumentResponse, DocumentResponseBuilder> {
-    @BuiltValueField(wireName: r'document')
-    Document? get document;
+    @BuiltValueField(wireName: r'description')
+    String? get description;
 
-    @BuiltValueField(wireName: r'processId')
-    String? get processId;
+    @BuiltValueField(wireName: r'documentId')
+    String? get documentId;
+
+    @BuiltValueField(wireName: r'status')
+    String? get status;
+
+    @BuiltValueField(wireName: r'uploadedAt')
+    DateTime? get uploadedAt;
+
+    @BuiltValueField(wireName: r'uploadedBy')
+    User? get uploadedBy;
 
     DocumentResponse._();
 
@@ -42,17 +54,35 @@ class _$DocumentResponseSerializer implements StructuredSerializer<DocumentRespo
     Iterable<Object?> serialize(Serializers serializers, DocumentResponse object,
         {FullType specifiedType = FullType.unspecified}) {
         final result = <Object?>[];
-        if (object.document != null) {
+        if (object.description != null) {
             result
-                ..add(r'document')
-                ..add(serializers.serialize(object.document,
-                    specifiedType: const FullType(Document)));
-        }
-        if (object.processId != null) {
-            result
-                ..add(r'processId')
-                ..add(serializers.serialize(object.processId,
+                ..add(r'description')
+                ..add(serializers.serialize(object.description,
                     specifiedType: const FullType(String)));
+        }
+        if (object.documentId != null) {
+            result
+                ..add(r'documentId')
+                ..add(serializers.serialize(object.documentId,
+                    specifiedType: const FullType(String)));
+        }
+        if (object.status != null) {
+            result
+                ..add(r'status')
+                ..add(serializers.serialize(object.status,
+                    specifiedType: const FullType(String)));
+        }
+        if (object.uploadedAt != null) {
+            result
+                ..add(r'uploadedAt')
+                ..add(serializers.serialize(object.uploadedAt,
+                    specifiedType: const FullType(DateTime)));
+        }
+        if (object.uploadedBy != null) {
+            result
+                ..add(r'uploadedBy')
+                ..add(serializers.serialize(object.uploadedBy,
+                    specifiedType: const FullType(User)));
         }
         return result;
     }
@@ -68,13 +98,25 @@ class _$DocumentResponseSerializer implements StructuredSerializer<DocumentRespo
             iterator.moveNext();
             final Object? value = iterator.current;
             switch (key) {
-                case r'document':
-                    result.document.replace(serializers.deserialize(value,
-                        specifiedType: const FullType(Document)) as Document);
-                    break;
-                case r'processId':
-                    result.processId = serializers.deserialize(value,
+                case r'description':
+                    result.description = serializers.deserialize(value,
                         specifiedType: const FullType(String)) as String;
+                    break;
+                case r'documentId':
+                    result.documentId = serializers.deserialize(value,
+                        specifiedType: const FullType(String)) as String;
+                    break;
+                case r'status':
+                    result.status = serializers.deserialize(value,
+                        specifiedType: const FullType(String)) as String;
+                    break;
+                case r'uploadedAt':
+                    result.uploadedAt = serializers.deserialize(value,
+                        specifiedType: const FullType(DateTime)) as DateTime;
+                    break;
+                case r'uploadedBy':
+                    result.uploadedBy.replace(serializers.deserialize(value,
+                        specifiedType: const FullType(User)) as User);
                     break;
             }
         }

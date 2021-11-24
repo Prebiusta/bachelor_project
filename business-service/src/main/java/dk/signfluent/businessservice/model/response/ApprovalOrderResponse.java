@@ -1,4 +1,4 @@
-package dk.signfluent.businessservice.model;
+package dk.signfluent.businessservice.model.response;
 
 import dk.signfluent.user.service.model.User;
 import lombok.Data;

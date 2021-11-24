@@ -7,13 +7,28 @@ void main() {
   // TODO add properties to the builder and call build()
 
   group(DocumentResponse, () {
-    // Document document
-    test('to test the property `document`', () async {
+    // String description
+    test('to test the property `description`', () async {
       // TODO
     });
 
-    // String processId
-    test('to test the property `processId`', () async {
+    // String documentId
+    test('to test the property `documentId`', () async {
+      // TODO
+    });
+
+    // String status
+    test('to test the property `status`', () async {
+      // TODO
+    });
+
+    // DateTime uploadedAt
+    test('to test the property `uploadedAt`', () async {
+      // TODO
+    });
+
+    // User uploadedBy
+    test('to test the property `uploadedBy`', () async {
       // TODO
     });
 

@@ -14,5 +14,5 @@ public interface DocumentRepository extends JpaRepository<Document, UUID> {
 
     Document getDocumentById(UUID id);
 
-    boolean existsDocumentByHashAndStatus(byte[] hash, DocumentStatus status);
+    boolean existsDocumentByHashAndStatus(String hash, DocumentStatus status);
 }

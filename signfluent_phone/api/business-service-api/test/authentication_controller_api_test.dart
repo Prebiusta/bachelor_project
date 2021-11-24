@@ -7,13 +7,6 @@ void main() {
   final instance = BusinessServiceApi().getAuthenticationControllerApi();
 
   group(AuthenticationControllerApi, () {
-    // Creates a new user
-    //
-    //Future<UserCreateResponse> createUser(UserCreateRequest userCreateRequest) async
-    test('test createUser', () async {
-      // TODO
-    });
-
     // Authenticates user
     //
     //Future<AuthenticationResponse> login(AuthenticationRequest authenticationRequest) async

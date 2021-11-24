@@ -12,7 +12,7 @@ Method | HTTP request | Description
 [**approveDocument**](SigningProcessControllerApi.md#approvedocument) | **POST** /api/signingProcess/approveDocument | Submit approve document decision
 [**assignApprovers**](SigningProcessControllerApi.md#assignapprovers) | **POST** /api/signingProcess/assignApprovers | Assign approvers to a document
 [**getActiveApprovers**](SigningProcessControllerApi.md#getactiveapprovers) | **POST** /api/signingProcess/getActiveApprovers | Get active approvers
-[**getDocumentDetails**](SigningProcessControllerApi.md#getdocumentdetails) | **POST** /api/signingProcess/getDocumentDetails | Returns document details for specified task
+[**getDocumentDetails1**](SigningProcessControllerApi.md#getdocumentdetails1) | **POST** /api/signingProcess/getDocumentDetails | Returns document details for specified task
 [**getDocumentsForApproval**](SigningProcessControllerApi.md#getdocumentsforapproval) | **POST** /api/signingProcess/getDocumentsForApproval | Returns documents needed User&#39;s approval
 [**getDocumentsForInspection**](SigningProcessControllerApi.md#getdocumentsforinspection) | **POST** /api/signingProcess/getDocumentsForInspection | Returns documents needed inspection
 [**getSignatureRequest**](SigningProcessControllerApi.md#getsignaturerequest) | **POST** /api/signingProcess/getSignatureRequest | Returns signature request for authenticated user
@@ -22,7 +22,7 @@ Method | HTTP request | Description
 
 
 # **approveDocument**
-> String approveDocument(approveDocumentRequest)
+> BaseResponse approveDocument(approveDocumentRequest)
 
 Submit approve document decision
 
@@ -49,7 +49,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**String**
+[**BaseResponse**](BaseResponse.md)
 
 ### Authorization
 
@@ -63,7 +63,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **assignApprovers**
-> String assignApprovers(assignApproversRequest)
+> BaseResponse assignApprovers(assignApproversRequest)
 
 Assign approvers to a document
 
@@ -90,7 +90,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**String**
+[**BaseResponse**](BaseResponse.md)
 
 ### Authorization
 
@@ -104,7 +104,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **getActiveApprovers**
-> BuiltList<User> getActiveApprovers()
+> BuiltList<User0> getActiveApprovers()
 
 Get active approvers
 
@@ -127,7 +127,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-[**BuiltList&lt;User&gt;**](User.md)
+[**BuiltList&lt;User0&gt;**](User0.md)
 
 ### Authorization
 
@@ -140,8 +140,8 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **getDocumentDetails**
-> DocumentWithContent getDocumentDetails(processIdRequest)
+# **getDocumentDetails1**
+> DocumentWithContent getDocumentDetails1(processIdRequest)
 
 Returns document details for specified task
 
@@ -153,10 +153,10 @@ final api = BusinessServiceApi().getSigningProcessControllerApi();
 final ProcessIdRequest processIdRequest = ; // ProcessIdRequest | processIdRequest
 
 try { 
-    final response = api.getDocumentDetails(processIdRequest);
+    final response = api.getDocumentDetails1(processIdRequest);
     print(response);
 } catch on DioError (e) {
-    print('Exception when calling SigningProcessControllerApi->getDocumentDetails: $e\n');
+    print('Exception when calling SigningProcessControllerApi->getDocumentDetails1: $e\n');
 }
 ```
 
@@ -182,7 +182,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **getDocumentsForApproval**
-> BuiltList<DocumentResponse> getDocumentsForApproval()
+> BuiltList<DocumentWithProcessResponse> getDocumentsForApproval()
 
 Returns documents needed User's approval
 
@@ -205,7 +205,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-[**BuiltList&lt;DocumentResponse&gt;**](DocumentResponse.md)
+[**BuiltList&lt;DocumentWithProcessResponse&gt;**](DocumentWithProcessResponse.md)
 
 ### Authorization
 
@@ -219,7 +219,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **getDocumentsForInspection**
-> BuiltList<DocumentResponse> getDocumentsForInspection()
+> BuiltList<DocumentWithProcessResponse> getDocumentsForInspection()
 
 Returns documents needed inspection
 
@@ -242,7 +242,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-[**BuiltList&lt;DocumentResponse&gt;**](DocumentResponse.md)
+[**BuiltList&lt;DocumentWithProcessResponse&gt;**](DocumentWithProcessResponse.md)
 
 ### Authorization
 
@@ -293,7 +293,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **inspectDocument**
-> String inspectDocument(inspectDocumentRequest)
+> BaseResponse inspectDocument(inspectDocumentRequest)
 
 Inspect document and assign approvers
 
@@ -320,7 +320,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**String**
+[**BaseResponse**](BaseResponse.md)
 
 ### Authorization
 
@@ -334,7 +334,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **submitSignature**
-> String submitSignature(signfluentSignature)
+> BaseResponse submitSignature(signfluentSignature)
 
 Submits document signature
 
@@ -361,7 +361,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**String**
+[**BaseResponse**](BaseResponse.md)
 
 ### Authorization
 

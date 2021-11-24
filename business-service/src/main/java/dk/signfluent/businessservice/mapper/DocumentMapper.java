@@ -1,7 +1,7 @@
 package dk.signfluent.businessservice.mapper;
 
 import dk.signfluent.bpm.service.model.DocumentWithContent;
-import dk.signfluent.businessservice.model.ApprovalOrderResponse;
+import dk.signfluent.businessservice.model.response.ApprovalOrderResponse;
 import dk.signfluent.businessservice.model.response.DocumentDetailsResponse;
 import dk.signfluent.businessservice.model.response.DocumentResponse;
 import dk.signfluent.businessservice.model.response.UserActionResponse;

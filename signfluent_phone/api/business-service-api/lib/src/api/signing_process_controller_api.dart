@@ -10,14 +10,15 @@ import 'package:dio/dio.dart';
 import 'package:built_collection/built_collection.dart';
 import 'package:business_service_api/src/model/approve_document_request.dart';
 import 'package:business_service_api/src/model/assign_approvers_request.dart';
-import 'package:business_service_api/src/model/document_response.dart';
+import 'package:business_service_api/src/model/base_response.dart';
 import 'package:business_service_api/src/model/document_with_content.dart';
+import 'package:business_service_api/src/model/document_with_process_response.dart';
 import 'package:business_service_api/src/model/inspect_document_request.dart';
 import 'package:business_service_api/src/model/process_id_request.dart';
 import 'package:business_service_api/src/model/signfluent_signature.dart';
 import 'package:business_service_api/src/model/signfluent_signature_request.dart';
 import 'package:business_service_api/src/model/upload_document_request.dart';
-import 'package:business_service_api/src/model/user.dart';
+import 'package:business_service_api/src/model/user0.dart';
 
 class SigningProcessControllerApi {
 
@@ -39,9 +40,9 @@ class SigningProcessControllerApi {
   /// * [onSendProgress] - A [ProgressCallback] that can be used to get the send progress
   /// * [onReceiveProgress] - A [ProgressCallback] that can be used to get the receive progress
   ///
-  /// Returns a [Future] containing a [Response] with a [String] as data
+  /// Returns a [Future] containing a [Response] with a [BaseResponse] as data
   /// Throws [DioError] if API call or serialization fails
-  Future<Response<String>> approveDocument({ 
+  Future<Response<BaseResponse>> approveDocument({ 
     required ApproveDocumentRequest approveDocumentRequest,
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
@@ -90,10 +91,14 @@ class SigningProcessControllerApi {
       onReceiveProgress: onReceiveProgress,
     );
 
-    String _responseData;
+    BaseResponse _responseData;
 
     try {
-      _responseData = _response.data as String;
+      const _responseType = FullType(BaseResponse);
+      _responseData = _serializers.deserialize(
+        _response.data!,
+        specifiedType: _responseType,
+      ) as BaseResponse;
 
     } catch (error, stackTrace) {
       throw DioError(
@@ -104,7 +109,7 @@ class SigningProcessControllerApi {
       )..stackTrace = stackTrace;
     }
 
-    return Response<String>(
+    return Response<BaseResponse>(
       data: _responseData,
       headers: _response.headers,
       isRedirect: _response.isRedirect,
@@ -128,9 +133,9 @@ class SigningProcessControllerApi {
   /// * [onSendProgress] - A [ProgressCallback] that can be used to get the send progress
   /// * [onReceiveProgress] - A [ProgressCallback] that can be used to get the receive progress
   ///
-  /// Returns a [Future] containing a [Response] with a [String] as data
+  /// Returns a [Future] containing a [Response] with a [BaseResponse] as data
   /// Throws [DioError] if API call or serialization fails
-  Future<Response<String>> assignApprovers({ 
+  Future<Response<BaseResponse>> assignApprovers({ 
     required AssignApproversRequest assignApproversRequest,
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
@@ -179,10 +184,14 @@ class SigningProcessControllerApi {
       onReceiveProgress: onReceiveProgress,
     );
 
-    String _responseData;
+    BaseResponse _responseData;
 
     try {
-      _responseData = _response.data as String;
+      const _responseType = FullType(BaseResponse);
+      _responseData = _serializers.deserialize(
+        _response.data!,
+        specifiedType: _responseType,
+      ) as BaseResponse;
 
     } catch (error, stackTrace) {
       throw DioError(
@@ -193,7 +202,7 @@ class SigningProcessControllerApi {
       )..stackTrace = stackTrace;
     }
 
-    return Response<String>(
+    return Response<BaseResponse>(
       data: _responseData,
       headers: _response.headers,
       isRedirect: _response.isRedirect,
@@ -216,9 +225,9 @@ class SigningProcessControllerApi {
   /// * [onSendProgress] - A [ProgressCallback] that can be used to get the send progress
   /// * [onReceiveProgress] - A [ProgressCallback] that can be used to get the receive progress
   ///
-  /// Returns a [Future] containing a [Response] with a [BuiltList<User>] as data
+  /// Returns a [Future] containing a [Response] with a [BuiltList<User0>] as data
   /// Throws [DioError] if API call or serialization fails
-  Future<Response<BuiltList<User>>> getActiveApprovers({ 
+  Future<Response<BuiltList<User0>>> getActiveApprovers({ 
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
     Map<String, dynamic>? extra,
@@ -247,14 +256,14 @@ class SigningProcessControllerApi {
       onReceiveProgress: onReceiveProgress,
     );
 
-    BuiltList<User> _responseData;
+    BuiltList<User0> _responseData;
 
     try {
-      const _responseType = FullType(BuiltList, [FullType(User)]);
+      const _responseType = FullType(BuiltList, [FullType(User0)]);
       _responseData = _serializers.deserialize(
         _response.data!,
         specifiedType: _responseType,
-      ) as BuiltList<User>;
+      ) as BuiltList<User0>;
 
     } catch (error, stackTrace) {
       throw DioError(
@@ -265,7 +274,7 @@ class SigningProcessControllerApi {
       )..stackTrace = stackTrace;
     }
 
-    return Response<BuiltList<User>>(
+    return Response<BuiltList<User0>>(
       data: _responseData,
       headers: _response.headers,
       isRedirect: _response.isRedirect,
@@ -291,7 +300,7 @@ class SigningProcessControllerApi {
   ///
   /// Returns a [Future] containing a [Response] with a [DocumentWithContent] as data
   /// Throws [DioError] if API call or serialization fails
-  Future<Response<DocumentWithContent>> getDocumentDetails({ 
+  Future<Response<DocumentWithContent>> getDocumentDetails1({ 
     required ProcessIdRequest processIdRequest,
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
@@ -381,9 +390,9 @@ class SigningProcessControllerApi {
   /// * [onSendProgress] - A [ProgressCallback] that can be used to get the send progress
   /// * [onReceiveProgress] - A [ProgressCallback] that can be used to get the receive progress
   ///
-  /// Returns a [Future] containing a [Response] with a [BuiltList<DocumentResponse>] as data
+  /// Returns a [Future] containing a [Response] with a [BuiltList<DocumentWithProcessResponse>] as data
   /// Throws [DioError] if API call or serialization fails
-  Future<Response<BuiltList<DocumentResponse>>> getDocumentsForApproval({ 
+  Future<Response<BuiltList<DocumentWithProcessResponse>>> getDocumentsForApproval({ 
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
     Map<String, dynamic>? extra,
@@ -412,14 +421,14 @@ class SigningProcessControllerApi {
       onReceiveProgress: onReceiveProgress,
     );
 
-    BuiltList<DocumentResponse> _responseData;
+    BuiltList<DocumentWithProcessResponse> _responseData;
 
     try {
-      const _responseType = FullType(BuiltList, [FullType(DocumentResponse)]);
+      const _responseType = FullType(BuiltList, [FullType(DocumentWithProcessResponse)]);
       _responseData = _serializers.deserialize(
         _response.data!,
         specifiedType: _responseType,
-      ) as BuiltList<DocumentResponse>;
+      ) as BuiltList<DocumentWithProcessResponse>;
 
     } catch (error, stackTrace) {
       throw DioError(
@@ -430,7 +439,7 @@ class SigningProcessControllerApi {
       )..stackTrace = stackTrace;
     }
 
-    return Response<BuiltList<DocumentResponse>>(
+    return Response<BuiltList<DocumentWithProcessResponse>>(
       data: _responseData,
       headers: _response.headers,
       isRedirect: _response.isRedirect,
@@ -453,9 +462,9 @@ class SigningProcessControllerApi {
   /// * [onSendProgress] - A [ProgressCallback] that can be used to get the send progress
   /// * [onReceiveProgress] - A [ProgressCallback] that can be used to get the receive progress
   ///
-  /// Returns a [Future] containing a [Response] with a [BuiltList<DocumentResponse>] as data
+  /// Returns a [Future] containing a [Response] with a [BuiltList<DocumentWithProcessResponse>] as data
   /// Throws [DioError] if API call or serialization fails
-  Future<Response<BuiltList<DocumentResponse>>> getDocumentsForInspection({ 
+  Future<Response<BuiltList<DocumentWithProcessResponse>>> getDocumentsForInspection({ 
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
     Map<String, dynamic>? extra,
@@ -484,14 +493,14 @@ class SigningProcessControllerApi {
       onReceiveProgress: onReceiveProgress,
     );
 
-    BuiltList<DocumentResponse> _responseData;
+    BuiltList<DocumentWithProcessResponse> _responseData;
 
     try {
-      const _responseType = FullType(BuiltList, [FullType(DocumentResponse)]);
+      const _responseType = FullType(BuiltList, [FullType(DocumentWithProcessResponse)]);
       _responseData = _serializers.deserialize(
         _response.data!,
         specifiedType: _responseType,
-      ) as BuiltList<DocumentResponse>;
+      ) as BuiltList<DocumentWithProcessResponse>;
 
     } catch (error, stackTrace) {
       throw DioError(
@@ -502,7 +511,7 @@ class SigningProcessControllerApi {
       )..stackTrace = stackTrace;
     }
 
-    return Response<BuiltList<DocumentResponse>>(
+    return Response<BuiltList<DocumentWithProcessResponse>>(
       data: _responseData,
       headers: _response.headers,
       isRedirect: _response.isRedirect,
@@ -598,9 +607,9 @@ class SigningProcessControllerApi {
   /// * [onSendProgress] - A [ProgressCallback] that can be used to get the send progress
   /// * [onReceiveProgress] - A [ProgressCallback] that can be used to get the receive progress
   ///
-  /// Returns a [Future] containing a [Response] with a [String] as data
+  /// Returns a [Future] containing a [Response] with a [BaseResponse] as data
   /// Throws [DioError] if API call or serialization fails
-  Future<Response<String>> inspectDocument({ 
+  Future<Response<BaseResponse>> inspectDocument({ 
     required InspectDocumentRequest inspectDocumentRequest,
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
@@ -649,10 +658,14 @@ class SigningProcessControllerApi {
       onReceiveProgress: onReceiveProgress,
     );
 
-    String _responseData;
+    BaseResponse _responseData;
 
     try {
-      _responseData = _response.data as String;
+      const _responseType = FullType(BaseResponse);
+      _responseData = _serializers.deserialize(
+        _response.data!,
+        specifiedType: _responseType,
+      ) as BaseResponse;
 
     } catch (error, stackTrace) {
       throw DioError(
@@ -663,7 +676,7 @@ class SigningProcessControllerApi {
       )..stackTrace = stackTrace;
     }
 
-    return Response<String>(
+    return Response<BaseResponse>(
       data: _responseData,
       headers: _response.headers,
       isRedirect: _response.isRedirect,
@@ -687,9 +700,9 @@ class SigningProcessControllerApi {
   /// * [onSendProgress] - A [ProgressCallback] that can be used to get the send progress
   /// * [onReceiveProgress] - A [ProgressCallback] that can be used to get the receive progress
   ///
-  /// Returns a [Future] containing a [Response] with a [String] as data
+  /// Returns a [Future] containing a [Response] with a [BaseResponse] as data
   /// Throws [DioError] if API call or serialization fails
-  Future<Response<String>> submitSignature({ 
+  Future<Response<BaseResponse>> submitSignature({ 
     required SignfluentSignature signfluentSignature,
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
@@ -738,10 +751,14 @@ class SigningProcessControllerApi {
       onReceiveProgress: onReceiveProgress,
     );
 
-    String _responseData;
+    BaseResponse _responseData;
 
     try {
-      _responseData = _response.data as String;
+      const _responseType = FullType(BaseResponse);
+      _responseData = _serializers.deserialize(
+        _response.data!,
+        specifiedType: _responseType,
+      ) as BaseResponse;
 
     } catch (error, stackTrace) {
       throw DioError(
@@ -752,7 +769,7 @@ class SigningProcessControllerApi {
       )..stackTrace = stackTrace;
     }
 
-    return Response<String>(
+    return Response<BaseResponse>(
       data: _responseData,
       headers: _response.headers,
       isRedirect: _response.isRedirect,

@@ -12,8 +12,11 @@ import 'package:business_service_api/src/auth/oauth.dart';
 import 'package:business_service_api/src/api/authentication_controller_api.dart';
 import 'package:business_service_api/src/api/certificate_authority_controller_api.dart';
 import 'package:business_service_api/src/api/device_controller_api.dart';
+import 'package:business_service_api/src/api/document_controller_api.dart';
+import 'package:business_service_api/src/api/notification_controller_api.dart';
 import 'package:business_service_api/src/api/role_management_controller_api.dart';
 import 'package:business_service_api/src/api/signing_process_controller_api.dart';
+import 'package:business_service_api/src/api/user_controller_api.dart';
 
 class BusinessServiceApi {
   static const String basePath = r'http://localhost:8006';
@@ -87,6 +90,18 @@ class BusinessServiceApi {
     return DeviceControllerApi(dio, serializers);
   }
 
+  /// Get DocumentControllerApi instance, base route and serializer can be overridden by a given but be careful,
+  /// by doing that all interceptors will not be executed
+  DocumentControllerApi getDocumentControllerApi() {
+    return DocumentControllerApi(dio, serializers);
+  }
+
+  /// Get NotificationControllerApi instance, base route and serializer can be overridden by a given but be careful,
+  /// by doing that all interceptors will not be executed
+  NotificationControllerApi getNotificationControllerApi() {
+    return NotificationControllerApi(dio, serializers);
+  }
+
   /// Get RoleManagementControllerApi instance, base route and serializer can be overridden by a given but be careful,
   /// by doing that all interceptors will not be executed
   RoleManagementControllerApi getRoleManagementControllerApi() {
@@ -97,5 +112,11 @@ class BusinessServiceApi {
   /// by doing that all interceptors will not be executed
   SigningProcessControllerApi getSigningProcessControllerApi() {
     return SigningProcessControllerApi(dio, serializers);
+  }
+
+  /// Get UserControllerApi instance, base route and serializer can be overridden by a given but be careful,
+  /// by doing that all interceptors will not be executed
+  UserControllerApi getUserControllerApi() {
+    return UserControllerApi(dio, serializers);
   }
 }

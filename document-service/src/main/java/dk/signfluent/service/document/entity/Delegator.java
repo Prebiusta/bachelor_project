@@ -26,6 +26,7 @@ public class Delegator {
     @Type(type = "uuid-char")
     private UUID id;
 
+    @Type(type = "uuid-char")
     private UUID delegatorId;
 
     private Date delegateDate;

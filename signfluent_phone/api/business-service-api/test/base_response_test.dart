@@ -12,10 +12,5 @@ void main() {
       // TODO
     });
 
-    // bool successful
-    test('to test the property `successful`', () async {
-      // TODO
-    });
-
   });
 }

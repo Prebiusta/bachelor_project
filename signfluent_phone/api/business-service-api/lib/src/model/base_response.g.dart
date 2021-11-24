@@ -9,13 +9,11 @@ part of 'base_response.dart';
 class _$BaseResponse extends BaseResponse {
   @override
   final String? message;
-  @override
-  final bool? successful;
 
   factory _$BaseResponse([void Function(BaseResponseBuilder)? updates]) =>
       (new BaseResponseBuilder()..update(updates)).build();
 
-  _$BaseResponse._({this.message, this.successful}) : super._();
+  _$BaseResponse._({this.message}) : super._();
 
   @override
   BaseResponse rebuild(void Function(BaseResponseBuilder) updates) =>
@@ -27,21 +25,18 @@ class _$BaseResponse extends BaseResponse {
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
-    return other is BaseResponse &&
-        message == other.message &&
-        successful == other.successful;
+    return other is BaseResponse && message == other.message;
   }
 
   @override
   int get hashCode {
-    return $jf($jc($jc(0, message.hashCode), successful.hashCode));
+    return $jf($jc(0, message.hashCode));
   }
 
   @override
   String toString() {
     return (newBuiltValueToStringHelper('BaseResponse')
-          ..add('message', message)
-          ..add('successful', successful))
+          ..add('message', message))
         .toString();
   }
 }
@@ -54,10 +49,6 @@ class BaseResponseBuilder
   String? get message => _$this._message;
   set message(String? message) => _$this._message = message;
 
-  bool? _successful;
-  bool? get successful => _$this._successful;
-  set successful(bool? successful) => _$this._successful = successful;
-
   BaseResponseBuilder() {
     BaseResponse._defaults(this);
   }
@@ -66,7 +57,6 @@ class BaseResponseBuilder
     final $v = _$v;
     if ($v != null) {
       _message = $v.message;
-      _successful = $v.successful;
       _$v = null;
     }
     return this;
@@ -85,8 +75,7 @@ class BaseResponseBuilder
 
   @override
   _$BaseResponse build() {
-    final _$result =
-        _$v ?? new _$BaseResponse._(message: message, successful: successful);
+    final _$result = _$v ?? new _$BaseResponse._(message: message);
     replace(_$result);
     return _$result;
   }

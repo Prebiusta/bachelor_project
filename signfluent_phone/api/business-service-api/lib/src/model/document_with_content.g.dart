@@ -16,7 +16,7 @@ class _$DocumentWithContent extends DocumentWithContent {
   @override
   final DateTime? uploadedAt;
   @override
-  final User? uploadedBy;
+  final User0? uploadedBy;
 
   factory _$DocumentWithContent(
           [void Function(DocumentWithContentBuilder)? updates]) =>
@@ -92,9 +92,9 @@ class DocumentWithContentBuilder
   DateTime? get uploadedAt => _$this._uploadedAt;
   set uploadedAt(DateTime? uploadedAt) => _$this._uploadedAt = uploadedAt;
 
-  UserBuilder? _uploadedBy;
-  UserBuilder get uploadedBy => _$this._uploadedBy ??= new UserBuilder();
-  set uploadedBy(UserBuilder? uploadedBy) => _$this._uploadedBy = uploadedBy;
+  User0Builder? _uploadedBy;
+  User0Builder get uploadedBy => _$this._uploadedBy ??= new User0Builder();
+  set uploadedBy(User0Builder? uploadedBy) => _$this._uploadedBy = uploadedBy;
 
   DocumentWithContentBuilder() {
     DocumentWithContent._defaults(this);
