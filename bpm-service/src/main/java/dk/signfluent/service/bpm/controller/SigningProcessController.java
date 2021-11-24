@@ -5,6 +5,7 @@ import dk.signfluent.service.bpm.model.DocumentWithContent;
 import dk.signfluent.service.bpm.model.request.*;
 import dk.signfluent.service.bpm.model.response.BaseResponse;
 import dk.signfluent.service.bpm.model.response.DocumentResponse;
+import dk.signfluent.service.bpm.model.response.DocumentResponseOld;
 import dk.signfluent.service.bpm.service.DocumentService;
 import dk.signfluent.service.bpm.service.UserService;
 import dk.signfluent.service.bpm.utility.FormKey;

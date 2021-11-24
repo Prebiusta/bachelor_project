@@ -260,7 +260,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"processId\": \"d971007f-3c7e-11ec-b111-0242ac110006\"\n}",
+									"raw": "{\n    \"processId\": \"cbeff9a2-4d35-11ec-b0b2-0aa1df6998b5\"\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -367,7 +367,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"processId\": \"25142a7d-3c88-11ec-8671-e20e170cda19\",\n    \"isValid\": true\n}",
+									"raw": "{\n    \"processId\": \"cbeff9a2-4d35-11ec-b0b2-0aa1df6998b5\",\n    \"isValid\": true\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -395,7 +395,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"processId\": \"25142a7d-3c88-11ec-8671-e20e170cda19\",\n    \"approvers\": [\n        {\n            \"approverId\": \"94d69f0e-8443-4cb8-8391-a1383591aeb8\",\n            \"order\": 1\n        },\n        {\n            \"approverId\": \"{{$randomUUID}}\",\n            \"order\": 2\n        }\n    ]\n}",
+									"raw": "{\n    \"processId\": \"ca0d1421-4d36-11ec-bb37-0aa1df6998b5\",\n    \"approvers\": [\n        {\n            \"approverId\": \"{{currentUserId}}\",\n            \"order\": 1\n        }\n    ]\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -530,7 +530,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"taskId\": \"cba00e70-29e2-4dc3-a0ae-6d9c983358ed\",\n    \"approve\": true\n}",
+									"raw": "{\n    \"processId\": \"ca0d1421-4d36-11ec-bb37-0aa1df6998b5\",\n    \"approve\": true\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -2373,7 +2373,7 @@
 										},
 										{
 											"key": "Date",
-											"value": "Mon, 22 Nov 2021 20:55:15 GMT"
+											"value": "Wed, 24 Nov 2021 15:08:59 GMT"
 										},
 										{
 											"key": "Keep-Alive",
@@ -2385,7 +2385,7 @@
 										}
 									],
 									"cookie": [],
-									"body": "[\n    {\n        \"description\": \"This is some dummy description\",\n        \"documentId\": \"8e653ac6-5da3-4a2f-ab28-de9296a1da65\",\n        \"status\": \"RECEIVED\",\n        \"uploadDate\": \"2021-11-22T20:55:11.282Z\",\n        \"uploaderId\": \"a68e70d1-7d18-4c6c-9be1-4fd4d62a8753\"\n    },\n    {\n        \"description\": \"This is some dummy description\",\n        \"documentId\": \"b1e11d2c-1114-4438-b54e-d23da92b103f\",\n        \"status\": \"RECEIVED\",\n        \"uploadDate\": \"2021-11-22T20:55:11.783Z\",\n        \"uploaderId\": \"a68e70d1-7d18-4c6c-9be1-4fd4d62a8753\"\n    },\n    {\n        \"description\": \"This is some dummy description\",\n        \"documentId\": \"b2f63643-1e82-4948-b585-8c6f771d2490\",\n        \"status\": \"RECEIVED\",\n        \"uploadDate\": \"2021-11-22T20:55:12.628Z\",\n        \"uploaderId\": \"a68e70d1-7d18-4c6c-9be1-4fd4d62a8753\"\n    },\n    {\n        \"description\": \"This is some dummy description\",\n        \"documentId\": \"ba1ee7f1-534c-48ba-a083-926e7ef4e46e\",\n        \"status\": \"RECEIVED\",\n        \"uploadDate\": \"2021-11-22T20:55:12.953Z\",\n        \"uploaderId\": \"a68e70d1-7d18-4c6c-9be1-4fd4d62a8753\"\n    },\n    {\n        \"description\": \"This is some dummy description\",\n        \"documentId\": \"cc7c5f9c-47f9-4d58-b1a6-db33f347fb8a\",\n        \"status\": \"RECEIVED\",\n        \"uploadDate\": \"2021-11-22T20:55:12.208Z\",\n        \"uploaderId\": \"a68e70d1-7d18-4c6c-9be1-4fd4d62a8753\"\n    }\n]"
+									"body": "[\n    {\n        \"documentId\": \"5d354324-bc3a-4460-bd7a-473817669b9c\",\n        \"description\": \"This is some dummy description\",\n        \"uploadedBy\": {\n            \"email\": null,\n            \"firstName\": null,\n            \"id\": \"a68e70d1-7d18-4c6c-9be1-4fd4d62a8753\",\n            \"lastName\": null,\n            \"username\": \"admin\"\n        },\n        \"status\": \"FOR_APPROVAL\",\n        \"uploadedAt\": \"2021-11-24T14:57:05.456Z\"\n    }\n]"
 								}
 							]
 						},
@@ -2395,7 +2395,7 @@
 								"method": "POST",
 								"header": [],
 								"url": {
-									"raw": "{{businessServiceURL}}/api/document/get/8e653ac6-5da3-4a2f-ab28-de9296a1da65",
+									"raw": "{{businessServiceURL}}/api/document/get/ebf6cfd8-c274-4d65-8cea-32343c0f04ff",
 									"host": [
 										"{{businessServiceURL}}"
 									],
@@ -2403,7 +2403,7 @@
 										"api",
 										"document",
 										"get",
-										"8e653ac6-5da3-4a2f-ab28-de9296a1da65"
+										"ebf6cfd8-c274-4d65-8cea-32343c0f04ff"
 									]
 								}
 							},
@@ -2414,7 +2414,7 @@
 										"method": "POST",
 										"header": [],
 										"url": {
-											"raw": "{{businessServiceURL}}/api/document/get/8e653ac6-5da3-4a2f-ab28-de9296a1da65",
+											"raw": "{{businessServiceURL}}/api/document/get/5d354324-bc3a-4460-bd7a-473817669b9c",
 											"host": [
 												"{{businessServiceURL}}"
 											],
@@ -2422,7 +2422,7 @@
 												"api",
 												"document",
 												"get",
-												"8e653ac6-5da3-4a2f-ab28-de9296a1da65"
+												"5d354324-bc3a-4460-bd7a-473817669b9c"
 											]
 										}
 									},
@@ -2476,7 +2476,7 @@
 										},
 										{
 											"key": "Date",
-											"value": "Mon, 22 Nov 2021 20:55:37 GMT"
+											"value": "Wed, 24 Nov 2021 15:08:48 GMT"
 										},
 										{
 											"key": "Keep-Alive",
@@ -2488,7 +2488,7 @@
 										}
 									],
 									"cookie": [],
-									"body": "{\n    \"approvalOrder\": [],\n    \"content\": \"ZG9jdW1lbnQ=\",\n    \"delegator\": null,\n    \"description\": \"This is some dummy description\",\n    \"hash\": \"Q8wj+lK4e0zB0CtbEUFUFR1q3dsXyf3cBrAn+pniQAg=\",\n    \"id\": \"8e653ac6-5da3-4a2f-ab28-de9296a1da65\",\n    \"rejector\": null,\n    \"signatures\": [],\n    \"status\": \"RECEIVED\",\n    \"uploader\": {\n        \"id\": \"5f96801e-5b6b-41f2-acce-fb855d7b968e\",\n        \"uploadDate\": \"2021-11-22T20:55:11.282Z\",\n        \"uploaderId\": \"a68e70d1-7d18-4c6c-9be1-4fd4d62a8753\"\n    }\n}"
+									"body": "{\n    \"documentId\": \"5d354324-bc3a-4460-bd7a-473817669b9c\",\n    \"description\": \"This is some dummy description\",\n    \"status\": \"FOR_APPROVAL\",\n    \"content\": \"ZG9jdW1lbnQ=\",\n    \"hash\": \"Q8wj+lK4e0zB0CtbEUFUFR1q3dsXyf3cBrAn+pniQAg=\",\n    \"approvalOrder\": [\n        {\n            \"user\": {\n                \"email\": null,\n                \"firstName\": null,\n                \"id\": \"a68e70d1-7d18-4c6c-9be1-4fd4d62a8753\",\n                \"lastName\": null,\n                \"username\": \"admin\"\n            },\n            \"approvingOrder\": 1,\n            \"id\": \"c9ae62fe-d32b-4bf6-aecb-d9edb694d465\"\n        }\n    ],\n    \"signatures\": [],\n    \"uploadedBy\": {\n        \"date\": \"2021-11-24T14:57:05.456Z\",\n        \"user\": {\n            \"email\": null,\n            \"firstName\": null,\n            \"id\": \"a68e70d1-7d18-4c6c-9be1-4fd4d62a8753\",\n            \"lastName\": null,\n            \"username\": \"admin\"\n        }\n    },\n    \"delegatedBy\": {\n        \"date\": \"2021-11-24T14:57:59.481Z\",\n        \"user\": {\n            \"email\": null,\n            \"firstName\": null,\n            \"id\": \"a68e70d1-7d18-4c6c-9be1-4fd4d62a8753\",\n            \"lastName\": null,\n            \"username\": \"admin\"\n        }\n    },\n    \"rejectedBy\": null\n}"
 								}
 							]
 						},
@@ -2577,7 +2577,7 @@
 										},
 										{
 											"key": "Date",
-											"value": "Mon, 22 Nov 2021 20:55:20 GMT"
+											"value": "Wed, 24 Nov 2021 15:09:16 GMT"
 										},
 										{
 											"key": "Keep-Alive",
@@ -2589,7 +2589,7 @@
 										}
 									],
 									"cookie": [],
-									"body": "[\n    {\n        \"description\": \"This is some dummy description\",\n        \"documentId\": \"8e653ac6-5da3-4a2f-ab28-de9296a1da65\",\n        \"status\": \"RECEIVED\",\n        \"uploadDate\": \"2021-11-22T20:55:11.282Z\",\n        \"uploaderId\": \"a68e70d1-7d18-4c6c-9be1-4fd4d62a8753\"\n    },\n    {\n        \"description\": \"This is some dummy description\",\n        \"documentId\": \"b1e11d2c-1114-4438-b54e-d23da92b103f\",\n        \"status\": \"RECEIVED\",\n        \"uploadDate\": \"2021-11-22T20:55:11.783Z\",\n        \"uploaderId\": \"a68e70d1-7d18-4c6c-9be1-4fd4d62a8753\"\n    },\n    {\n        \"description\": \"This is some dummy description\",\n        \"documentId\": \"b2f63643-1e82-4948-b585-8c6f771d2490\",\n        \"status\": \"RECEIVED\",\n        \"uploadDate\": \"2021-11-22T20:55:12.628Z\",\n        \"uploaderId\": \"a68e70d1-7d18-4c6c-9be1-4fd4d62a8753\"\n    },\n    {\n        \"description\": \"This is some dummy description\",\n        \"documentId\": \"ba1ee7f1-534c-48ba-a083-926e7ef4e46e\",\n        \"status\": \"RECEIVED\",\n        \"uploadDate\": \"2021-11-22T20:55:12.953Z\",\n        \"uploaderId\": \"a68e70d1-7d18-4c6c-9be1-4fd4d62a8753\"\n    },\n    {\n        \"description\": \"This is some dummy description\",\n        \"documentId\": \"cc7c5f9c-47f9-4d58-b1a6-db33f347fb8a\",\n        \"status\": \"RECEIVED\",\n        \"uploadDate\": \"2021-11-22T20:55:12.208Z\",\n        \"uploaderId\": \"a68e70d1-7d18-4c6c-9be1-4fd4d62a8753\"\n    }\n]"
+									"body": "[\n    {\n        \"documentId\": \"5d354324-bc3a-4460-bd7a-473817669b9c\",\n        \"description\": \"This is some dummy description\",\n        \"uploadedBy\": {\n            \"email\": null,\n            \"firstName\": null,\n            \"id\": \"a68e70d1-7d18-4c6c-9be1-4fd4d62a8753\",\n            \"lastName\": null,\n            \"username\": \"admin\"\n        },\n        \"status\": \"FOR_APPROVAL\",\n        \"uploadedAt\": \"2021-11-24T14:57:05.456Z\"\n    }\n]"
 								}
 							]
 						}

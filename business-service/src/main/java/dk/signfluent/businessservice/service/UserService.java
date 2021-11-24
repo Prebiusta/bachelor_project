@@ -37,6 +37,9 @@ public class UserService {
     }
 
     private User getUser(String userId) throws ApiException {
-        return userServiceApiProvider.getUsersByIds(List.of(userId)).get(0);
+        return userServiceApiProvider.getUsersByIds(List.of(userId))
+                .stream()
+                .findFirst()
+                .orElseThrow(() -> new RuntimeException("User with id " + userId + " was not found"));
     }
 }

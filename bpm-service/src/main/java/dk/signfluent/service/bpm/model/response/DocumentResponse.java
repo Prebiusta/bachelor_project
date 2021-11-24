@@ -8,5 +8,6 @@ import lombok.EqualsAndHashCode;
 @Data
 @EqualsAndHashCode(callSuper = true)
 public class DocumentResponse extends ProcessIdRequest {
-    private Document document;
+    private String documentId;
 }
+

@@ -10,4 +10,8 @@ import lombok.NoArgsConstructor;
 public class NotificationResponse {
     private int successCount;
     private int failureCount;
+
+    public static NotificationResponse failedNotificationResponse() {
+        return new NotificationResponse(0, 0);
+    }
 }

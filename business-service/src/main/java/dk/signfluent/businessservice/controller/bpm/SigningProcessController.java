@@ -2,6 +2,8 @@ package dk.signfluent.businessservice.controller.bpm;
 
 import dk.signfluent.bpm.service.invoker.ApiException;
 import dk.signfluent.bpm.service.model.*;
+import dk.signfluent.businessservice.model.response.DocumentWithProcessResponse;
+import dk.signfluent.businessservice.provider.DocumentProvider;
 import dk.signfluent.businessservice.provider.RequestProvider;
 import dk.signfluent.service.bpm.provider.BpmServiceApiProvider;
 import io.swagger.annotations.ApiOperation;
@@ -20,10 +22,12 @@ import static dk.signfluent.businessservice.utility.AuthorizationTypes.*;
 public class SigningProcessController {
     private final BpmServiceApiProvider bpmServiceApiProvider;
     private final RequestProvider requestProvider;
+    private final DocumentProvider documentProvider;
 
-    public SigningProcessController(BpmServiceApiProvider bpmServiceApiProvider, RequestProvider requestProvider) {
+    public SigningProcessController(BpmServiceApiProvider bpmServiceApiProvider, RequestProvider requestProvider, DocumentProvider documentProvider) {
         this.bpmServiceApiProvider = bpmServiceApiProvider;
         this.requestProvider = requestProvider;
+        this.documentProvider = documentProvider;
     }
 
     @PostMapping(value = "/uploadDocument")
@@ -43,8 +47,9 @@ public class SigningProcessController {
     @PostMapping("/getDocumentsForInspection")
     @ApiOperation(value = "Returns documents needed inspection", nickname = "getDocumentsForInspection")
     @PreAuthorize(DELEGATOR)
-    public List<DocumentResponse> getDocumentsForInspection() throws Exception {
-        return bpmServiceApiProvider.getDocumentsForInspection();
+    public List<DocumentWithProcessResponse> getDocumentsForInspection() throws Exception {
+        List<DocumentResponse> documentsForInspection = bpmServiceApiProvider.getDocumentsForInspection();
+        return documentProvider.appendDocumentData(documentsForInspection);
     }
 
     @PostMapping("/getDocumentDetails")
@@ -71,8 +76,9 @@ public class SigningProcessController {
     @PostMapping("/getDocumentsForApproval")
     @ApiOperation(value = "Returns documents needed User's approval", nickname = "getDocumentsForApproval")
     @PreAuthorize(APPROVER)
-    public List<DocumentResponse> getDocumentsForApproval() throws Exception {
-        return bpmServiceApiProvider.getDocumentsForApproval(requestProvider.generateUserBasedRequest());
+    public List<DocumentWithProcessResponse> getDocumentsForApproval() throws Exception {
+        List<DocumentResponse> documentsForApproval = bpmServiceApiProvider.getDocumentsForApproval(requestProvider.generateUserBasedRequest());
+        return documentProvider.appendDocumentData(documentsForApproval);
     }
 
     @PostMapping("/approveDocument")

@@ -1,6 +1,9 @@
 package dk.signfluent.businessservice.controller.api;
 
+import dk.signfluent.businessservice.model.response.DocumentDetailsResponse;
+import dk.signfluent.businessservice.model.response.DocumentResponse;
 import dk.signfluent.businessservice.provider.DocumentProvider;
+import dk.signfluent.businessservice.service.DocumentService;
 import dk.signfluent.document.service.invoker.ApiException;
 import dk.signfluent.document.service.model.Document;
 import dk.signfluent.document.service.model.DocumentRow;
@@ -19,30 +22,30 @@ import static dk.signfluent.businessservice.utility.AuthorizationTypes.AUTHENTIC
 @RestController
 @RequestMapping("/api/document")
 public class DocumentController {
-    private final DocumentProvider documentProvider;
+    private final DocumentService documentService;
 
-    public DocumentController(DocumentProvider documentProvider) {
-        this.documentProvider = documentProvider;
+    public DocumentController(DocumentService documentService) {
+        this.documentService = documentService;
     }
 
     @PostMapping("/getAll")
     @ApiOperation(value = "Returns all available documents", nickname = "getAllDocuments")
     @PreAuthorize(ADMINISTRATOR)
-    public List<DocumentRow> getAllDocuments() throws ApiException {
-        return documentProvider.getAllDocuments();
+    public List<DocumentResponse> getAllDocuments() throws Exception {
+        return documentService.getAllDocuments();
     }
 
     @PostMapping("/get/{documentId}")
     @ApiOperation(value = "Returns details for selected documents", nickname = "getDocumentDetails")
     @PreAuthorize(ADMINISTRATOR)
-    public Document getDocumentDetails(@PathVariable String documentId) throws ApiException {
-        return documentProvider.getDocumentDetails(documentId);
+    public DocumentDetailsResponse getDocumentDetails(@PathVariable String documentId) throws ApiException {
+        return documentService.getDocumentDetails(documentId);
     }
 
     @PostMapping("/getOwn")
     @ApiOperation(value = "Returns documents own by authenticated user", nickname = "getOwnDocuments")
     @PreAuthorize(AUTHENTICATED)
-    public List<DocumentRow> getOwnDocuments() throws ApiException {
-        return documentProvider.getAllDocumentsForApprover();
+    public List<DocumentResponse> getOwnDocuments() throws Exception {
+        return documentService.getAllDocumentsForApprover();
     }
 }

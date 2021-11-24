@@ -8,6 +8,7 @@ import dk.signfluent.service.bpm.mapper.DocumentMapper;
 import dk.signfluent.service.bpm.model.DocumentWithContent;
 import dk.signfluent.service.bpm.model.request.*;
 import dk.signfluent.service.bpm.model.response.DocumentResponse;
+import dk.signfluent.service.bpm.model.response.DocumentResponseOld;
 import dk.signfluent.service.bpm.provider.ProcessDetailsProvider;
 import dk.signfluent.service.bpm.provider.TaskDetailsProvider;
 import dk.signfluent.service.bpm.utility.ProcessFormKey;
