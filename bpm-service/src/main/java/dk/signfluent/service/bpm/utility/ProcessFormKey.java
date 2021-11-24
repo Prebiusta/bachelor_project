@@ -8,6 +8,8 @@ public enum ProcessFormKey {
     ASSIGN_APPROVERS("assignApprovers"),
     APPROVE_DOCUMENT("approveDocument"),
     SIGN_DOCUMENT("signDocument"),
+    VERIFY_SIGNATURE("verifysignature"),
+
     ;
 
     private final String formKey;

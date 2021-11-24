@@ -6,10 +6,7 @@ import dk.signfluent.document.service.model.AssignApprovers;
 import dk.signfluent.document.service.model.DocumentContent;
 import dk.signfluent.service.bpm.mapper.DocumentMapper;
 import dk.signfluent.service.bpm.model.DocumentWithContent;
-import dk.signfluent.service.bpm.model.request.AssignApproversRequest;
-import dk.signfluent.service.bpm.model.request.InspectDocumentRequest;
-import dk.signfluent.service.bpm.model.request.UploadDocumentRequest;
-import dk.signfluent.service.bpm.model.request.UserBasedRequest;
+import dk.signfluent.service.bpm.model.request.*;
 import dk.signfluent.service.bpm.model.response.DocumentResponse;
 import dk.signfluent.service.bpm.provider.ProcessDetailsProvider;
 import dk.signfluent.service.bpm.provider.TaskDetailsProvider;
@@ -57,6 +54,11 @@ public class DocumentService {
         taskService.complete(inspectDocumentTask.getId(), getProcessVariablesForInspectDocument(inspectDocumentRequest));
     }
 
+    public void approveDocument(ApproveDocumentRequest approveDocumentRequest) {
+        Task approveDocumentTask = processDetailsProvider.getFirstTaskForProcessInstanceFormKeyAndAssignee(approveDocumentRequest.getProcessId(), ProcessFormKey.APPROVE_DOCUMENT, approveDocumentRequest.getApproverId());
+        taskService.complete(approveDocumentTask.getId(), getProcessVariablesForApproveDocument(approveDocumentRequest));
+    }
+
 
     public void assignApprovers(AssignApproversRequest assignApproversRequest) {
         Task assignApproversTask = processDetailsProvider.getFirstTaskForProcessInstanceAndFormKey(assignApproversRequest.getProcessId(), ProcessFormKey.ASSIGN_APPROVERS);
@@ -80,6 +82,11 @@ public class DocumentService {
 
     public List<DocumentResponse> getDocumentsForApproval(UserBasedRequest userBasedRequest) throws Exception {
         List<ProcessInstance> processInstancesWithFormKey = processDetailsProvider.getProcessInstancesWithFormKeyAndAssignee(ProcessFormKey.APPROVE_DOCUMENT, userBasedRequest.getUserId());
+        return taskDetailsProvider.appendDocumentsInformationToTask(processInstancesWithFormKey);
+    }
+    public List<DocumentResponse> getSignDocumentsTasks(UserBasedRequest userBasedRequest) throws Exception {
+        List<ProcessInstance> processInstancesWithFormKey = processDetailsProvider.getProcessInstancesWithFormKeyAndAssignee(ProcessFormKey.SIGN_DOCUMENT, userBasedRequest.getUserId());
+
         return taskDetailsProvider.appendDocumentsInformationToTask(processInstancesWithFormKey);
     }
 
@@ -111,6 +118,13 @@ public class DocumentService {
         Map<String, Object> variables = new HashMap<>();
         variables.put(IS_DOCUMENT_VALID, inspectDocumentRequest.getIsValid());
         variables.put(DELEGATOR_ID, inspectDocumentRequest.getDelegatorId());
+        return variables;
+    }
+
+    @NotNull
+    private Map<String, Object> getProcessVariablesForApproveDocument(ApproveDocumentRequest approveDocumentRequest) {
+        Map<String, Object> variables = new HashMap<>();
+        variables.put(IS_APPROVED, approveDocumentRequest.isApprove());
         return variables;
     }
 

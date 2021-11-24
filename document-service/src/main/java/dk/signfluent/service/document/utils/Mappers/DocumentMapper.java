@@ -4,7 +4,10 @@ import dk.signfluent.service.document.entity.Document;
 import dk.signfluent.service.document.model.DocumentContent;
 import dk.signfluent.service.document.model.DocumentRow;
 import org.apache.tomcat.util.codec.binary.Base64;
-import org.mapstruct.*;
+import org.mapstruct.BeforeMapping;
+import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
+import org.mapstruct.MappingTarget;
 
 import java.util.List;
 

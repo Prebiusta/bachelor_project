@@ -14,6 +14,9 @@ camunda:
     admin-user:
       id: proof
       password: proof
+    jpa:
+      enabled: true
+
 
 spring:
   datasource:

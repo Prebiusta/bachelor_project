@@ -3,6 +3,7 @@ package dk.signfluent.service.bpm.controller;
 import dk.signfluent.document.service.invoker.ApiException;
 import dk.signfluent.service.bpm.model.DocumentWithContent;
 import dk.signfluent.service.bpm.model.request.*;
+import dk.signfluent.service.bpm.model.response.BaseResponse;
 import dk.signfluent.service.bpm.model.response.DocumentResponse;
 import dk.signfluent.service.bpm.service.DocumentService;
 import dk.signfluent.service.bpm.service.UserService;
@@ -30,16 +31,17 @@ public class SigningProcessController {
 
     @PostMapping(value = "/uploadDocument")
     @ApiOperation(value = "Uploads a document", nickname = "uploadDocument")
-    public void uploadDocument(@RequestBody UploadDocumentRequest uploadDocumentRequest) throws ApiException {
+    public BaseResponse uploadDocument(@RequestBody UploadDocumentRequest uploadDocumentRequest) throws ApiException {
         documentService.uploadDocument(uploadDocumentRequest);
+        return new BaseResponse("Done");
     }
 
     @PostMapping("/inspectDocument")
     @ApiOperation(value = "Inspect document and assign approvers", nickname = "inspectDocument")
     @FormKey(ProcessFormKey.INSPECT_DOCUMENT)
-    public String inspectDocument(@RequestBody InspectDocumentRequest inspectDocumentRequest) {
+    public BaseResponse inspectDocument(@RequestBody InspectDocumentRequest inspectDocumentRequest) {
         documentService.inspectDocument(inspectDocumentRequest);
-        return "Done";
+        return new BaseResponse("Done");
     }
 
     @PostMapping("/getDocumentsForInspection")
@@ -66,9 +68,9 @@ public class SigningProcessController {
     @PostMapping("/assignApprovers")
     @ApiOperation(value = "Assign approvers to a document", nickname = "assignApprovers")
     @FormKey(ProcessFormKey.ASSIGN_APPROVERS)
-    public String assignApprovers(@RequestBody AssignApproversRequest assignApproversRequest) {
+    public BaseResponse assignApprovers(@RequestBody AssignApproversRequest assignApproversRequest) {
         documentService.assignApprovers(assignApproversRequest);
-        return "Done";
+        return new BaseResponse("Done");
     }
 
     @PostMapping("/getDocumentsForApproval")
@@ -81,25 +83,22 @@ public class SigningProcessController {
     @PostMapping("/approveDocument")
     @ApiOperation(value = "Submit approve document decision", nickname = "approveDocument")
     @FormKey(ProcessFormKey.APPROVE_DOCUMENT)
-    public String approveDocument(@RequestBody ApproveDocumentRequest approveDocumentRequest) {
-        // TODO: Process approval handling
-        return "Done";
-    }
+    public BaseResponse approveDocument(@RequestBody ApproveDocumentRequest approveDocumentRequest) {
+        documentService.approveDocument(approveDocumentRequest);
+        return new BaseResponse("Done");    }
 
     @PostMapping("/getSignatureRequest")
     @ApiOperation(value = "Returns signature request for authenticated user", nickname = "getSignatureRequest")
     @FormKey(ProcessFormKey.SIGN_DOCUMENT)
     public SignfluentSignatureRequest getSignatureRequest(@RequestBody UserBasedRequest userBasedRequest) {
-        // TODO: Get all tasks waiting in signDocument task, get authenticated user ID from provider bearer token
-        //  using UserProvider class. Map the response to required model.
+//        documentService.getSignDocumentsTasks(userBasedRequest);
         return new SignfluentSignatureRequest("123456", "signMe");
     }
 
     @PostMapping("/submitSignature")
     @ApiOperation(value = "Submits document signature", nickname = "submitSignature")
     @FormKey(ProcessFormKey.SIGN_DOCUMENT)
-    public String submitSignature(@RequestBody SignfluentSignature signfluentSignature) {
+    public BaseResponse submitSignature(@RequestBody SignfluentSignature signfluentSignature) {
         // TODO: Handle the logic to process signature received from the device
-        return "Done";
-    }
+        return new BaseResponse("Done");    }
 }

@@ -44,7 +44,6 @@ public class DocumentService {
         {
             throw new Exception("Documents not found");
         }
-
         return documentMapper.documentToDocumentRow(documents);
     }
 
