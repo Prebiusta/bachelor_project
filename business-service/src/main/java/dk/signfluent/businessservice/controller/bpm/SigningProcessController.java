@@ -36,7 +36,7 @@ public class SigningProcessController {
     @PostMapping("/inspectDocument")
     @ApiOperation(value = "Inspect document and assign approvers", nickname = "inspectDocument")
     @PreAuthorize(DELEGATOR)
-    public String inspectDocument(@RequestBody InspectDocumentRequest inspectDocumentRequest) throws ApiException {
+    public BaseResponse inspectDocument(@RequestBody InspectDocumentRequest inspectDocumentRequest) throws ApiException {
         return bpmServiceApiProvider.inspectDocument(requestProvider.appendApproverIdToInspectDocumentRequest(inspectDocumentRequest));
     }
 
@@ -64,7 +64,7 @@ public class SigningProcessController {
     @PostMapping("/assignApprovers")
     @ApiOperation(value = "Assign approvers to a document", nickname = "assignApprovers")
     @PreAuthorize(DELEGATOR)
-    public String assignApprovers(@RequestBody AssignApproversRequest assignApproversRequest) throws ApiException {
+    public BaseResponse assignApprovers(@RequestBody AssignApproversRequest assignApproversRequest) throws ApiException {
         return bpmServiceApiProvider.assignApprovers(requestProvider.appendDelegatorIdToAssignApproversRequest(assignApproversRequest));
     }
 
@@ -78,7 +78,7 @@ public class SigningProcessController {
     @PostMapping("/approveDocument")
     @ApiOperation(value = "Submit approve document decision", nickname = "approveDocument")
     @PreAuthorize(APPROVER)
-    public String approveDocument(@RequestBody ApproveDocumentRequest approveDocumentRequest) throws ApiException {
+    public BaseResponse approveDocument(@RequestBody ApproveDocumentRequest approveDocumentRequest) throws ApiException {
         return bpmServiceApiProvider.approveDocument(requestProvider.appendApproverIdToApproveDocumentRequest(approveDocumentRequest));
     }
 
@@ -92,7 +92,7 @@ public class SigningProcessController {
     @PostMapping("/submitSignature")
     @ApiOperation(value = "Submits document signature", nickname = "submitSignature")
     @PreAuthorize(APPROVER)
-    public String submitSignature(@RequestBody SignfluentSignature signfluentSignature) throws ApiException {
+    public BaseResponse submitSignature(@RequestBody SignfluentSignature signfluentSignature) throws ApiException {
         return bpmServiceApiProvider.submitSignature(requestProvider.appendApproverIdToSignfluentSignature(signfluentSignature));
     }
 }

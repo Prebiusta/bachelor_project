@@ -10,4 +10,7 @@ import lombok.NoArgsConstructor;
 public class BaseResponse {
     private String message;
 
+    public static BaseResponse successfulResponse() {
+        return new BaseResponse("Done");
+    }
 }

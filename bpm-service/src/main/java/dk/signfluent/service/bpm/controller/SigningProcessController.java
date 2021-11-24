@@ -33,7 +33,7 @@ public class SigningProcessController {
     @ApiOperation(value = "Uploads a document", nickname = "uploadDocument")
     public BaseResponse uploadDocument(@RequestBody UploadDocumentRequest uploadDocumentRequest) throws ApiException {
         documentService.uploadDocument(uploadDocumentRequest);
-        return new BaseResponse("Done");
+        return BaseResponse.successfulResponse();
     }
 
     @PostMapping("/inspectDocument")
@@ -41,7 +41,7 @@ public class SigningProcessController {
     @FormKey(ProcessFormKey.INSPECT_DOCUMENT)
     public BaseResponse inspectDocument(@RequestBody InspectDocumentRequest inspectDocumentRequest) {
         documentService.inspectDocument(inspectDocumentRequest);
-        return new BaseResponse("Done");
+        return BaseResponse.successfulResponse();
     }
 
     @PostMapping("/getDocumentsForInspection")
@@ -70,7 +70,7 @@ public class SigningProcessController {
     @FormKey(ProcessFormKey.ASSIGN_APPROVERS)
     public BaseResponse assignApprovers(@RequestBody AssignApproversRequest assignApproversRequest) {
         documentService.assignApprovers(assignApproversRequest);
-        return new BaseResponse("Done");
+        return BaseResponse.successfulResponse();
     }
 
     @PostMapping("/getDocumentsForApproval")
@@ -85,7 +85,7 @@ public class SigningProcessController {
     @FormKey(ProcessFormKey.APPROVE_DOCUMENT)
     public BaseResponse approveDocument(@RequestBody ApproveDocumentRequest approveDocumentRequest) {
         documentService.approveDocument(approveDocumentRequest);
-        return new BaseResponse("Done");    }
+        return BaseResponse.successfulResponse();    }
 
     @PostMapping("/getSignatureRequest")
     @ApiOperation(value = "Returns signature request for authenticated user", nickname = "getSignatureRequest")
@@ -100,5 +100,5 @@ public class SigningProcessController {
     @FormKey(ProcessFormKey.SIGN_DOCUMENT)
     public BaseResponse submitSignature(@RequestBody SignfluentSignature signfluentSignature) {
         // TODO: Handle the logic to process signature received from the device
-        return new BaseResponse("Done");    }
+        return BaseResponse.successfulResponse();    }
 }

@@ -8,7 +8,7 @@ import java.util.List;
 public interface BpmServiceApiProvider {
     void uploadDocument(UploadDocumentRequest uploadDocumentRequest) throws ApiException;
 
-    String inspectDocument(InspectDocumentRequest inspectDocumentRequest) throws ApiException;
+    BaseResponse inspectDocument(InspectDocumentRequest inspectDocumentRequest) throws ApiException;
 
     List<DocumentResponse> getDocumentsForInspection() throws ApiException;
 
@@ -16,13 +16,13 @@ public interface BpmServiceApiProvider {
 
     List<User> getActiveApprovers() throws ApiException;
 
-    String assignApprovers(AssignApproversRequest assignApproversRequest) throws ApiException;
+    BaseResponse assignApprovers(AssignApproversRequest assignApproversRequest) throws ApiException;
 
     List<DocumentResponse> getDocumentsForApproval(UserBasedRequest userBasedRequest) throws ApiException;
 
-    String approveDocument(ApproveDocumentRequest approveDocumentRequest) throws ApiException;
+    BaseResponse approveDocument(ApproveDocumentRequest approveDocumentRequest) throws ApiException;
 
     SignfluentSignatureRequest getSignatureRequest(UserBasedRequest userBasedRequest) throws ApiException;
 
-    String submitSignature(SignfluentSignature signfluentSignature) throws ApiException;
+    BaseResponse submitSignature(SignfluentSignature signfluentSignature) throws ApiException;
 }

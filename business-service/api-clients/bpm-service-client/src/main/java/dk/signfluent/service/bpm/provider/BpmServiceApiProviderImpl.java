@@ -22,7 +22,7 @@ public class BpmServiceApiProviderImpl implements BpmServiceApiProvider {
     }
 
     @Override
-    public String inspectDocument(InspectDocumentRequest inspectDocumentRequest) throws ApiException {
+    public BaseResponse inspectDocument(InspectDocumentRequest inspectDocumentRequest) throws ApiException {
         return signingProcessControllerApi.inspectDocument(inspectDocumentRequest);
     }
 
@@ -42,7 +42,7 @@ public class BpmServiceApiProviderImpl implements BpmServiceApiProvider {
     }
 
     @Override
-    public String assignApprovers(AssignApproversRequest assignApproversRequest) throws ApiException {
+    public BaseResponse assignApprovers(AssignApproversRequest assignApproversRequest) throws ApiException {
         return signingProcessControllerApi.assignApprovers(assignApproversRequest);
     }
 
@@ -52,7 +52,7 @@ public class BpmServiceApiProviderImpl implements BpmServiceApiProvider {
     }
 
     @Override
-    public String approveDocument(ApproveDocumentRequest approveDocumentRequest) throws ApiException {
+    public BaseResponse approveDocument(ApproveDocumentRequest approveDocumentRequest) throws ApiException {
         return signingProcessControllerApi.approveDocument(approveDocumentRequest);
     }
 
@@ -62,7 +62,7 @@ public class BpmServiceApiProviderImpl implements BpmServiceApiProvider {
     }
 
     @Override
-    public String submitSignature(SignfluentSignature signfluentSignature) throws ApiException {
+    public BaseResponse submitSignature(SignfluentSignature signfluentSignature) throws ApiException {
         return signingProcessControllerApi.submitSignature(signfluentSignature);
     }
 }

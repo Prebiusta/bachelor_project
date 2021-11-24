@@ -41,36 +41,6 @@ spec:
                 configMapKeyRef:
                   name: bpm-config-map
                   key: ddl-auto
-            - name: "keycloak.realm"
-              valueFrom:
-                configMapKeyRef:
-                  name: bpm-config-map
-                  key: keycloak.realm
-            - name: "keycloak.auth-server-url"
-              valueFrom:
-                configMapKeyRef:
-                  name: bpm-config-map
-                  key: keycloak.auth-server-url
-            - name: "keycloak.ssl-required"
-              valueFrom:
-                configMapKeyRef:
-                  name: bpm-config-map
-                  key: keycloak.ssl-required
-            - name: "keycloak.resource"
-              valueFrom:
-                configMapKeyRef:
-                  name: bpm-config-map
-                  key: keycloak.resource
-            - name: "keycloak.use-resource-role-mappings"
-              valueFrom:
-                configMapKeyRef:
-                  name: bpm-config-map
-                  key: keycloak.use-resource-role-mappings
-            - name: "keycloak.public-client"
-              valueFrom:
-                configMapKeyRef:
-                  name: bpm-config-map
-                  key: keycloak.public-client
             - name: "camunda.bpm.database.schema-update"
               valueFrom:
                 configMapKeyRef:
