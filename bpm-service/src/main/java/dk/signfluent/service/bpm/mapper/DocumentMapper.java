@@ -9,7 +9,6 @@ import org.mapstruct.Mapping;
 import org.mapstruct.Named;
 
 import java.util.Base64;
-import java.util.List;
 import java.util.UUID;
 
 @Mapper(componentModel = "spring")
@@ -17,7 +16,6 @@ public interface DocumentMapper {
     @Mapping(source = "uploadDate", target = "uploadedAt")
     Document mapDocumentRowToDocument(DocumentRow documentRow);
 
-    @Mapping(source = "content", target = "content", qualifiedByName = "bytesToString")
     @Mapping(source = "uploadDate", target = "uploadedAt")
     DocumentWithContent mapDocumentWithContent(DocumentContent documentContent);
 

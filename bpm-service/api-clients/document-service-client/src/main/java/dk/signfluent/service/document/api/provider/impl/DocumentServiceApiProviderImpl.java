@@ -2,9 +2,7 @@ package dk.signfluent.service.document.api.provider.impl;
 
 import dk.signfluent.document.service.api.DocumentControllerApi;
 import dk.signfluent.document.service.invoker.ApiException;
-import dk.signfluent.document.service.model.AssignApprovers;
-import dk.signfluent.document.service.model.DocumentContent;
-import dk.signfluent.document.service.model.DocumentRow;
+import dk.signfluent.document.service.model.*;
 import dk.signfluent.service.document.api.provider.DocumentServiceApiProvider;
 import dk.signfluent.service.document.api.service.DocumentRequestService;
 import org.springframework.stereotype.Service;
@@ -24,8 +22,13 @@ public class DocumentServiceApiProviderImpl implements DocumentServiceApiProvide
     }
 
     @Override
-    public DocumentContent getDocumentDetails(String documentId) throws ApiException {
+    public DocumentContent getDocumentContent(String documentId) throws ApiException {
         return documentControllerApi.getDocumentContent(UUID.fromString(documentId));
+    }
+
+    @Override
+    public Document getDocumentDetails(String documentId) throws ApiException {
+        return documentControllerApi.getDocumentDetails(documentId);
     }
 
     @Override
@@ -42,6 +45,11 @@ public class DocumentServiceApiProviderImpl implements DocumentServiceApiProvide
     @Override
     public String rejectDocument(String documentId, String userId) throws ApiException {
         return documentControllerApi.rejectDocument(UUID.fromString(documentId), UUID.fromString(userId)).toString();
+    }
+
+    @Override
+    public UUID signDocument(SignDocument signDocument) throws ApiException {
+        return documentControllerApi.signDocument(signDocument);
     }
 
     @Override

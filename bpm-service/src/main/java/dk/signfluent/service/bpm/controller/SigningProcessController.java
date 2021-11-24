@@ -5,7 +5,6 @@ import dk.signfluent.service.bpm.model.DocumentWithContent;
 import dk.signfluent.service.bpm.model.request.*;
 import dk.signfluent.service.bpm.model.response.BaseResponse;
 import dk.signfluent.service.bpm.model.response.DocumentResponse;
-import dk.signfluent.service.bpm.model.response.DocumentResponseOld;
 import dk.signfluent.service.bpm.service.DocumentService;
 import dk.signfluent.service.bpm.service.UserService;
 import dk.signfluent.service.bpm.utility.FormKey;
@@ -86,20 +85,21 @@ public class SigningProcessController {
     @FormKey(ProcessFormKey.APPROVE_DOCUMENT)
     public BaseResponse approveDocument(@RequestBody ApproveDocumentRequest approveDocumentRequest) {
         documentService.approveDocument(approveDocumentRequest);
-        return BaseResponse.successfulResponse();    }
+        return BaseResponse.successfulResponse();
+    }
 
     @PostMapping("/getSignatureRequest")
     @ApiOperation(value = "Returns signature request for authenticated user", nickname = "getSignatureRequest")
     @FormKey(ProcessFormKey.SIGN_DOCUMENT)
-    public SignfluentSignatureRequest getSignatureRequest(@RequestBody UserBasedRequest userBasedRequest) {
-//        documentService.getSignDocumentsTasks(userBasedRequest);
-        return new SignfluentSignatureRequest("123456", "signMe");
+    public SignfluentSignatureRequest getSignatureRequest(@RequestBody UserBasedRequest userBasedRequest) throws Exception {
+        return documentService.getFirstDocumentToBeSigned(userBasedRequest);
     }
 
     @PostMapping("/submitSignature")
     @ApiOperation(value = "Submits document signature", nickname = "submitSignature")
     @FormKey(ProcessFormKey.SIGN_DOCUMENT)
     public BaseResponse submitSignature(@RequestBody SignfluentSignature signfluentSignature) {
-        // TODO: Handle the logic to process signature received from the device
-        return BaseResponse.successfulResponse();    }
+        documentService.completeSignDocumentTask(signfluentSignature);
+        return BaseResponse.successfulResponse();
+    }
 }

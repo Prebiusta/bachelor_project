@@ -8,7 +8,6 @@ import dk.signfluent.service.bpm.mapper.DocumentMapper;
 import dk.signfluent.service.bpm.model.DocumentWithContent;
 import dk.signfluent.service.bpm.model.request.*;
 import dk.signfluent.service.bpm.model.response.DocumentResponse;
-import dk.signfluent.service.bpm.model.response.DocumentResponseOld;
 import dk.signfluent.service.bpm.provider.ProcessDetailsProvider;
 import dk.signfluent.service.bpm.provider.TaskDetailsProvider;
 import dk.signfluent.service.bpm.utility.ProcessFormKey;
@@ -60,6 +59,11 @@ public class DocumentService {
         taskService.complete(approveDocumentTask.getId(), getProcessVariablesForApproveDocument(approveDocumentRequest));
     }
 
+    public void completeSignDocumentTask(SignfluentSignature signfluentSignature) {
+        Task approveDocumentTask = processDetailsProvider.getFirstTaskForProcessInstanceFormKeyAndAssignee(signfluentSignature.getProcessId(), ProcessFormKey.SIGN_DOCUMENT, signfluentSignature.getApproverId());
+        taskService.complete(approveDocumentTask.getId(), getProcessVariablesForSignDocument(signfluentSignature));
+    }
+
 
     public void assignApprovers(AssignApproversRequest assignApproversRequest) {
         Task assignApproversTask = processDetailsProvider.getFirstTaskForProcessInstanceAndFormKey(assignApproversRequest.getProcessId(), ProcessFormKey.ASSIGN_APPROVERS);
@@ -85,16 +89,25 @@ public class DocumentService {
         List<ProcessInstance> processInstancesWithFormKey = processDetailsProvider.getProcessInstancesWithFormKeyAndAssignee(ProcessFormKey.APPROVE_DOCUMENT, userBasedRequest.getUserId());
         return taskDetailsProvider.appendDocumentsInformationToTask(processInstancesWithFormKey);
     }
-    public List<DocumentResponse> getSignDocumentsTasks(UserBasedRequest userBasedRequest) throws Exception {
-        List<ProcessInstance> processInstancesWithFormKey = processDetailsProvider.getProcessInstancesWithFormKeyAndAssignee(ProcessFormKey.SIGN_DOCUMENT, userBasedRequest.getUserId());
 
-        return taskDetailsProvider.appendDocumentsInformationToTask(processInstancesWithFormKey);
+    public SignfluentSignatureRequest getFirstDocumentToBeSigned(UserBasedRequest userBasedRequest) throws Exception {
+        List<ProcessInstance> processInstancesWithFormKey = processDetailsProvider.getProcessInstancesWithFormKeyAndAssignee(ProcessFormKey.SIGN_DOCUMENT, userBasedRequest.getUserId());
+        ProcessInstance processInstance = processInstancesWithFormKey.stream().findFirst().orElseThrow(() -> new RuntimeException("First document to be signed not found"));
+
+        String processId = processInstance.getId();
+        String documentId = processInstance.getBusinessKey();
+        String hash = getDocumentHash(documentId);
+        return new SignfluentSignatureRequest(processId, hash);
+    }
+
+    public String getDocumentHash(String documentId) throws ApiException {
+        return documentServiceApiProvider.getDocumentDetails(documentId).getHash();
     }
 
     public DocumentWithContent getDocumentDetails(String processId) {
         String documentId = extractDocumentIdFromProcessId(processId);
         try {
-            DocumentContent documentDetails = documentServiceApiProvider.getDocumentDetails(documentId);
+            DocumentContent documentDetails = documentServiceApiProvider.getDocumentContent(documentId);
             Assert.notNull(documentDetails.getUploaderId(), "Uploader ID is not present");
             DocumentWithContent documentWithContent = documentMapper.mapDocumentWithContent(documentDetails);
             documentWithContent.setUploadedBy(getUploaderDetails(documentDetails.getUploaderId().toString()));
@@ -126,6 +139,13 @@ public class DocumentService {
     private Map<String, Object> getProcessVariablesForApproveDocument(ApproveDocumentRequest approveDocumentRequest) {
         Map<String, Object> variables = new HashMap<>();
         variables.put(IS_APPROVED, approveDocumentRequest.isApprove());
+        return variables;
+    }
+
+    private Map<String, Object> getProcessVariablesForSignDocument(SignfluentSignature signfluentSignature) {
+        Map<String, Object> variables = new HashMap<>();
+        variables.put(SIGNED_CONTENT, signfluentSignature.getSignedContent());
+        variables.put(X509PEM, signfluentSignature.getX509Pem());
         return variables;
     }
 
