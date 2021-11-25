@@ -30,7 +30,7 @@ public class UpdateDocumentDelegate implements JavaDelegate {
     public SignDocument getSignDocument(DelegateExecution delegateExecution) {
         SignDocument signDocument = new SignDocument();
         signDocument.setSignature(getSignature(delegateExecution));
-        signDocument.setDocumentId((UUID) delegateExecution.getVariable(DOCUMENT_ID));
+        signDocument.setDocumentId(UUID.fromString((String) delegateExecution.getVariable(DOCUMENT_ID)));
         return signDocument;
     }
 

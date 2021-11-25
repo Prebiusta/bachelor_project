@@ -7,10 +7,7 @@ import lombok.ToString;
 import org.hibernate.Hibernate;
 import org.hibernate.annotations.Type;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.Date;
 import java.util.Objects;
 import java.util.UUID;
@@ -25,6 +22,7 @@ public class Signature {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Type(type = "uuid-char")
     private UUID id;
+    @Lob
     private String certificate;
     private String signedHash;
     private Date signatureDate;
