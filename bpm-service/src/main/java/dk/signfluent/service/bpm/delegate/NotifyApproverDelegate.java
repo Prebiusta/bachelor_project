@@ -25,7 +25,7 @@ public class NotifyApproverDelegate implements JavaDelegate {
 
     @Override
     public void execute(DelegateExecution delegateExecution) throws Exception {
-        List<String> fcmTokensForUser = this.deviceServiceApiProvider.getFCMTokensForUser((String) delegateExecution.getVariable(APPROVER));
+        List<String> fcmTokensForUser = deviceServiceApiProvider.getFCMTokensForUser((String) delegateExecution.getVariable(APPROVER));
         NotificationRequest notificationRequest = new NotificationRequest();
         notificationRequest.setReceivers(fcmTokensForUser);
         notificationRequest.setMessageText("Please sign this");

@@ -164,4 +164,9 @@ public class DocumentService {
     private String extractDocumentIdFromProcessId(String processId) {
         return processDetailsProvider.getProcessInstanceById(processId).getBusinessKey();
     }
+
+    public void rejectDocument(ApproveDocumentRequest approveDocumentRequest) {
+        Task approveDocumentTask = processDetailsProvider.getFirstTaskForProcessInstanceFormKeyAndAssignee(approveDocumentRequest.getProcessId(), ProcessFormKey.APPROVE_DOCUMENT, approveDocumentRequest.getApproverId());
+        taskService.complete(approveDocumentTask.getId(), getProcessVariablesForApproveDocument(approveDocumentRequest));
+    }
 }

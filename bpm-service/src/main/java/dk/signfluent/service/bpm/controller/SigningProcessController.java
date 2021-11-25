@@ -84,7 +84,7 @@ public class SigningProcessController {
     @ApiOperation(value = "Submit approve document decision", nickname = "approveDocument")
     @FormKey(ProcessFormKey.APPROVE_DOCUMENT)
     public BaseResponse approveDocument(@RequestBody ApproveDocumentRequest approveDocumentRequest) {
-        documentService.approveDocument(approveDocumentRequest);
+            documentService.approveDocument(approveDocumentRequest);
         return BaseResponse.successfulResponse();
     }
 
