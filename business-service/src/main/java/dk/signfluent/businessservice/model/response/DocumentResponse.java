@@ -16,4 +16,5 @@ public class DocumentResponse {
    private User uploadedBy;
    private String status;
    private OffsetDateTime uploadedAt;
+   private boolean isLocked;
 }

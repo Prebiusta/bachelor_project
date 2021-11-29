@@ -23,4 +23,6 @@ public class DocumentDetailsResponse {
    private UserActionResponse uploadedBy;
    private UserActionResponse delegatedBy;
    private UserActionResponse rejectedBy;
+
+   private boolean locked;
 }
