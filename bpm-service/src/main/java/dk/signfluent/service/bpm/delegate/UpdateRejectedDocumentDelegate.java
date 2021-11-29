@@ -3,7 +3,6 @@ package dk.signfluent.service.bpm.delegate;
 import dk.signfluent.document.service.invoker.ApiException;
 import dk.signfluent.service.document.api.provider.DocumentServiceApiProvider;
 import lombok.extern.slf4j.Slf4j;
-import org.camunda.bpm.engine.delegate.BpmnError;
 import org.camunda.bpm.engine.delegate.DelegateExecution;
 import org.camunda.bpm.engine.delegate.JavaDelegate;
 import org.springframework.stereotype.Component;
@@ -23,6 +22,5 @@ public class UpdateRejectedDocumentDelegate implements JavaDelegate {
     @Override
     public void execute(DelegateExecution delegateExecution) throws ApiException {
         documentServiceApiProvider.rejectDocument( (String)delegateExecution.getVariable(DOCUMENT_ID), (String)delegateExecution.getVariable(APPROVER));
-        throw new BpmnError("-2");
     }
 }
