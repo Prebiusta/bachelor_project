@@ -25,15 +25,8 @@ public interface DocumentMapper {
         documentContent.setContent(new String(Base64.encodeBase64(document.getContent())));
     }
 
-    default DocumentRow mapDocumentToDocumentRow(Document source) {
-        DocumentRow document = new DocumentRow();
-        document.setDocumentId(source.getId());
-        document.setDescription(source.getDescription());
-        document.setUploaderId(source.getUploader().getUploaderId());
-        document.setUploadDate(source.getUploader().getUploadDate());
-        document.setStatus(source.getStatus());
-
-        return document;
-    }
-
+    @Mapping(source = "id", target = "documentId")
+    @Mapping(source = "uploader.uploaderId", target = "uploaderId")
+    @Mapping(source = "uploader.uploadDate", target = "uploadDate")
+    DocumentRow mapDocumentToDocumentRow(Document source);
 }

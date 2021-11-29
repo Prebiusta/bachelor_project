@@ -74,7 +74,7 @@ public class DocumentService {
         if (document == null) {
             throw new Exception("Document not found");
         }
-        if (checkLock(document.getStatus())) {
+        if (isLocked(document.getStatus())) {
             throw new Exception("Document is locked");
         }
 
@@ -89,7 +89,7 @@ public class DocumentService {
         if (document == null) {
             throw new Exception("Document not found");
         }
-        if (checkLock(document.getStatus())) {
+        if (isLocked(document.getStatus())) {
             throw new Exception("Document is locked");
         }
         if (document.getDelegator() != null) {
@@ -117,11 +117,11 @@ public class DocumentService {
     }
 
     public UUID signDocument(SignDocument signDocument) throws Exception {
-        var document = repository.getDocumentById(signDocument.getDocumentId());
+        Document document = repository.getDocumentById(signDocument.getDocumentId());
         if (document == null) {
             throw new Exception("Document not found");
         }
-        if (checkLock(document.getStatus())) {
+        if (isLocked(document.getStatus())) {
             throw new Exception("Document is locked");
         }
         if (document.getStatus() == DocumentStatus.RECEIVED) {
@@ -135,13 +135,19 @@ public class DocumentService {
         return repository.save(document).getId();
     }
 
+    public UUID lockDocument(UUID documentId) {
+        Document documentById = repository.getDocumentById(documentId);
+        documentById.setLocked(true);
+        return repository.save(documentById).getId();
+    }
+
     public boolean validateDocument(String encodedContent) {
         byte[] content = Base64.decodeBase64(encodedContent);
         String hash = getContentHash(content);
         return repository.existsDocumentByHashAndStatus(hash, DocumentStatus.APPROVED);
     }
 
-    private boolean checkLock(DocumentStatus status) {
+    private boolean isLocked(DocumentStatus status) {
         return status == DocumentStatus.REJECTED || status == DocumentStatus.APPROVED;
     }
 

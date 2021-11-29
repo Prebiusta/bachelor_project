@@ -72,9 +72,15 @@ public class DocumentController {
         return documentService.signDocument(document);
     }
 
-    @GetMapping("/validateDocument")
+    @PostMapping("/validateDocument")
     @ApiOperation(value = "Validate document", nickname = "validateDocument")
     public boolean validateDocument(@RequestBody String content) {
         return documentService.validateDocument(content);
+    }
+
+    @PostMapping("/lockDocument/{documentId}")
+    @ApiOperation(value = "Lock document", nickname = "lockDocument")
+    public UUID lockDocument(@PathVariable UUID documentId) {
+        return documentService.lockDocument(documentId);
     }
 }

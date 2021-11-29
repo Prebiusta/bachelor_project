@@ -5,7 +5,7 @@ services:
   ui:
     container_name: signfluent-web
     build: ../signfluent-web
-    image: signfluent/ui:latest
+    image: signfluent/webapp:latest
 
   document_service:
     container_name: document-service

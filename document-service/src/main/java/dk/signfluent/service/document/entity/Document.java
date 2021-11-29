@@ -34,6 +34,8 @@ public class Document {
     @NotNull
     private DocumentStatus status;
 
+    private boolean isLocked;
+
     @OneToMany(cascade = {CascadeType.ALL})
     @ToString.Exclude
     private List<ApprovalOrder> approvalOrder;

@@ -4,7 +4,7 @@ metadata:
   name: notification-service-config-map
 data:
   dbConnectionString: "jdbc:mariadb://mysql:3306/notification-service?createDatabaseIfNotExist=true"
-  ddl-auto: "create"
+  ddl-auto: "update"
   smtpHost: "smtp.gmail.com"
   smtpPort: "587"
   smtpUsername: "signfluent@gmail.com"

@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:business_service_api/business_service_api.dart';
 import 'package:flutter_redux_navigation/flutter_redux_navigation.dart';
 import 'package:pointycastle/api.dart';
@@ -31,16 +33,24 @@ ThunkAction initiateSetup(String userId) {
         await _rsaService.getCertificateStorage(userId);
         store.dispatch(NavigateToAction.replace(signBasePath));
       } catch (e) {
-        var asymmetricKeyPair = await _rsaService.generateKeyPair();
-
-        String x509Pem = await issueX509Certificate(userId, asymmetricKeyPair);
-        await registerDevice(userId);
-
-        await storeCertificate(userId, asymmetricKeyPair, x509Pem);
-        store.dispatch(SetSetupLoadingAction(false));
+        await initializeDevice(userId, store);
       }
     });
   };
+}
+
+Future<void> initializeDevice(String userId, Store<dynamic> store) async {
+  try {
+    var asymmetricKeyPair = await _rsaService.generateKeyPair();
+
+    String x509Pem = await issueX509Certificate(userId, asymmetricKeyPair);
+    await registerDevice(userId);
+
+    await storeCertificate(userId, asymmetricKeyPair, x509Pem);
+    store.dispatch(SetSetupLoadingAction(false));
+  } catch (e1) {
+    log('error when initializing: $e1');
+  }
 }
 
 Future<void> storeCertificate(

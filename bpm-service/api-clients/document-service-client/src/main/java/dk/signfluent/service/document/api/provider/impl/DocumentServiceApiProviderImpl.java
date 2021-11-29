@@ -56,4 +56,9 @@ public class DocumentServiceApiProviderImpl implements DocumentServiceApiProvide
     public String uploadDocument(String userId, String description, String base64Content) throws ApiException {
         return documentControllerApi.uploadDocument(documentRequestService.generateUploadDocumentRequest(userId, description, base64Content)).toString();
     }
+
+    @Override
+    public String lockDocument(String documentId) throws ApiException {
+        return documentControllerApi.lockDocument(UUID.fromString(documentId)).toString();
+    }
 }

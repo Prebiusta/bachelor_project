@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: webapp
+spec:
+  selector:
+    matchLabels:
+      app: webapp
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: webapp
+    spec:
+      containers:
+        - name: webapp
+          imagePullPolicy: Never
+          image: signfluent/webapp:latest
+          ports:
+            - containerPort: 4200

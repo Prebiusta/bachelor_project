@@ -4,4 +4,4 @@ metadata:
   name: document-service-config-map
 data:
   dbConnectionString: "jdbc:mariadb://mysql:3306/document-service?createDatabaseIfNotExist=true"
-  ddl-auto: "create"
+  ddl-auto: "update"

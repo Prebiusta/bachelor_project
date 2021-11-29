@@ -4,4 +4,4 @@ metadata:
   name: device-service-config-map
 data:
   dbConnectionString: "jdbc:mariadb://mysql:3306/device-service?createDatabaseIfNotExist=true"
-  ddl-auto: "create"
+  ddl-auto: "update"

@@ -4,7 +4,7 @@ metadata:
   name: bpm-config-map
 data:
   dbConnectionString: "jdbc:mariadb://mysql:3306/bpm-service?createDatabaseIfNotExist=true"
-  ddl-auto: "create"
+  ddl-auto: "update"
   camunda.schema-update: "true"
   camunda.jdbc-batch-processing: "false"
   camunda.admin-name: "proof"

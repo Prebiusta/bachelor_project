@@ -24,6 +24,7 @@ public class Signature {
     private UUID id;
     @Lob
     private String certificate;
+    @Lob
     private String signedHash;
     private Date signatureDate;
 

@@ -11,9 +11,11 @@ server:
 
 bpm:
   service:
-    host: localhost
-    port: 8000
-    
+    svc:
+      service:
+        host: localhost
+        port: 8000
+
 idp-keycloak:
   service:
     host: localhost

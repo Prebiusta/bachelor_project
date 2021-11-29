@@ -22,4 +22,6 @@ public interface DocumentServiceApiProvider {
 
     String uploadDocument(String userId, String description, String base64Content) throws ApiException;
 
+    String lockDocument(String documentId) throws ApiException;
+
 }

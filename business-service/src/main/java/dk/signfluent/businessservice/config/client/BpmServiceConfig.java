@@ -7,10 +7,10 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class BpmServiceConfig {
-    @Value("${bpm.service.host}")
+    @Value("${bpm.service.svc.service.host}")
     private String host;
 
-    @Value("${bpm.service.port}")
+    @Value("${bpm.service.svc.service.port}")
     private String port;
 
     @Bean

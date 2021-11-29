@@ -14,4 +14,5 @@ public class DocumentContent {
     private String description;
     private UUID uploaderId;
     private Date uploadDate;
+    private boolean isLocked;
 }
