@@ -1,22 +1,22 @@
 <mat-tab-group mat-align-tabs="center">
     <mat-tab label="OWN DOCUMENTS">
         <ng-template matTabContent>
-            <sf-documents-list [type]="'OWN'"></sf-documents-list>
+            <sf-documents-list [type]="listType.Own"></sf-documents-list>
         </ng-template>
     </mat-tab>
-    <mat-tab label="FOR APPROVAL">
+    <mat-tab *ngIf="isApprover()" label="FOR APPROVAL">
         <ng-template matTabContent>
-            <sf-documents-list [type]="'APPROVAL'"></sf-documents-list>
+            <sf-documents-list [type]="listType.Approver"></sf-documents-list>
         </ng-template>
     </mat-tab>
-    <mat-tab label="FOR DELEGATION">
+    <mat-tab *ngIf="isDelegator()" label="FOR DELEGATION">
         <ng-template matTabContent>
-            <sf-documents-list [type]="'DELEGATE'"></sf-documents-list>
+            <sf-documents-list [type]="listType.Delegator"></sf-documents-list>
         </ng-template>
     </mat-tab>
-    <mat-tab label="ALL DOCUMENTS">
+    <mat-tab *ngIf="isAdministrator()" label="ALL DOCUMENTS">
         <ng-template matTabContent>
-            <sf-documents-list [type]="'ALL'"></sf-documents-list>
+            <sf-documents-list [type]="listType.Administrator"></sf-documents-list>
         </ng-template>
     </mat-tab>
     <mat-tab label="UPLOAD">

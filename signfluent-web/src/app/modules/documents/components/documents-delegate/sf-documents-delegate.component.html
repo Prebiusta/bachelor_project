@@ -8,7 +8,8 @@
                 <mat-checkbox formControlName="valid" class="mt-5" required>Is document valid?</mat-checkbox>
                 <div class="mt-5">
                     <button mat-raised-button color="warn" (click)="openRejectDialog()">Reject</button>
-                    <button mat-raised-button matStepperNext class="ml-2" color="primary" [disabled]="!validForm.valid">Next</button>
+                    <button mat-raised-button matStepperNext class="ml-2" color="primary"
+                        [disabled]="!validForm.valid" (click)="inspectDocument()">Next</button>
                 </div>
             </section>
         </div>
@@ -23,7 +24,8 @@
 
                         <div cdkDropList [cdkDropListData]="approvers" class="drag-list"
                             style="height:400px; overflow-y:scroll" (cdkDropListDropped)="drop($event)">
-                            <div class="draggable-item" *ngFor="let approver of approvers" cdkDrag>{{approver.name}}</div>
+                            <div class="draggable-item" *ngFor="let approver of approvers" cdkDrag>
+                                {{approver.firstName}} {{approver.lastName}}</div>
                         </div>
                     </div>
 
@@ -32,14 +34,14 @@
 
                         <div cdkDropList [cdkDropListData]="assigned" class="drag-list"
                             style="height:400px; overflow-y:scroll" (cdkDropListDropped)="drop($event)">
-                            <div class="draggable-item" *ngFor="let assigne of assigned" cdkDrag>{{assigne.name}}</div>
+                            <div class="draggable-item" *ngFor="let assigne of assigned" cdkDrag>{{assigne.firstName}}
+                                {{assigne.lastName}}</div>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="row justify-content-center">
                 <div class="mt-5">
-                    <button mat-raised-button color="warn" (click)="openRejectDialog()">Reject</button>
                     <button mat-raised-button matStepperNext class="ml-2" color="primary"
                         [disabled]="assigned.length == 0">Next</button>
                 </div>
@@ -52,14 +54,14 @@
             <div class="mt-5">
                 <p>The document will be delegated to the following approvers:</p>
                 <ol>
-                    <li *ngFor="let assigne of assigned">{{assigne.name}}</li>
+                    <li *ngFor="let assigne of assigned">{{assigne.firstName}} {{assigne.lastName}}</li>
                 </ol>
             </div>
             <section [formGroup]="validOrderForm">
                 <mat-checkbox formControlName="validOrder" class="mt-5" required>Is order right?</mat-checkbox>
                 <div class="mt-5">
-                    <button mat-raised-button color="warn" (click)="openRejectDialog()">Reject</button>
-                    <button mat-raised-button class="ml-2" color="primary" [disabled]="!validOrderForm.valid" (click)="delegateDocument()">Delegate</button>
+                    <button mat-raised-button class="ml-2" color="primary" [disabled]="!validOrderForm.valid"
+                        (click)="delegateDocument()">Delegate</button>
                 </div>
             </section>
         </div>

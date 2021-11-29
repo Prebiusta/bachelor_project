@@ -11,11 +11,11 @@ const routes: Routes = [
         pathMatch: 'full',
     },
     {
-        path: 'delegate/:taskId',
+        path: 'delegate/:processId',
         component: SfDocumentsDelegateComponent,
     },
     {
-        path: 'approve',
+        path: 'approve/:processId',
         component: SfDocumentsApproveComponent,
     }
 ]

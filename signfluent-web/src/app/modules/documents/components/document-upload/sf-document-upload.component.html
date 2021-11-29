@@ -31,6 +31,10 @@
             <div class="row mt-5 mx-5 justify-content-center">
                 <button type="submit" mat-raised-button color="primary" [disabled]="!descriptionFormControl.valid">Upload</button>
             </div>
+
+            <div class="row justify-content-center mt-3" *ngIf="isLoadingResults">
+                <mat-spinner [diameter]="50"></mat-spinner>
+            </div>
         </form>
     </div>
 </div>

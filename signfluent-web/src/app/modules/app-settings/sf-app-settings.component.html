@@ -1,0 +1,19 @@
+<h1>Process management</h1>
+
+<div class="mt-5">
+    <p>Current settings for signing process:</p>
+
+    <form [formGroup]="settingsForm" class="col">
+
+        <div class="row">
+            <mat-form-field>
+                <mat-label>Notification reminder</mat-label>
+                <input formControlName="notificationReminder" matInput type="time">
+            </mat-form-field>
+        </div>
+
+        <div class="row mt-5">
+            <button mat-raised-button color="primary" [disabled]="!settingsForm.valid">Submit</button>
+        </div>
+    </form>
+</div>

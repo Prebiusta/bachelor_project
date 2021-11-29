@@ -1,0 +1,64 @@
+<div class="col mt-5">
+    <form [formGroup]="createUserForm">
+        <div class="row justify-content-center">
+            <mat-form-field appearance="outline">
+                <mat-label>Username</mat-label>
+                <input formControlName="username" matInput>
+                <mat-error>
+                    <span
+                        *ngIf="!createUserForm.get('username')?.valid && createUserForm.get('username')?.touched">Missing
+                        username</span>
+                </mat-error>
+            </mat-form-field>
+        </div>
+        <div class="row justify-content-center">
+            <mat-form-field appearance="outline">
+                <mat-label>E-mail</mat-label>
+                <input formControlName="email" matInput>
+                <mat-error>
+                    <span *ngIf="!createUserForm.get('email')?.valid && createUserForm.get('email')?.touched">Missing
+                        e-mail</span>
+                </mat-error>
+            </mat-form-field>
+        </div>
+        <div class="row justify-content-center">
+            <mat-form-field appearance="outline">
+                <mat-label>First name</mat-label>
+                <input formControlName="firstName" matInput>
+                <mat-error>
+                    <span
+                        *ngIf="!createUserForm.get('firstName')?.valid && createUserForm.get('firstName')?.touched">Missing
+                        first name</span>
+                </mat-error>
+            </mat-form-field>
+        </div>
+        <div class="row justify-content-center">
+            <mat-form-field appearance="outline">
+                <mat-label>Last name</mat-label>
+                <input formControlName="lastName" matInput>
+                <mat-error>
+                    <span
+                        *ngIf="!createUserForm.get('lastName')?.valid && createUserForm.get('lastName')?.touched">Missing
+                        last name</span>
+                </mat-error>
+            </mat-form-field>
+        </div>
+        <div class="row justify-content-center">
+            <mat-form-field appearance="outline">
+                <mat-label>Password</mat-label>
+                <input formControlName="password" matInput>
+                <mat-error>
+                    <span
+                        *ngIf="!createUserForm.get('password')?.valid && createUserForm.get('password')?.touched">Missing
+                        password</span>
+                </mat-error>
+            </mat-form-field>
+        </div>
+        <div class="row justify-content-center mt-5">
+            <button mat-raised-button color="primary" [disabled]="!createUserForm.valid" (click)="createUser()">Create user</button>
+        </div>
+        <div class="row justify-content-center mt-2" *ngIf="isLoadingResults">
+            <mat-spinner [diameter]="50"></mat-spinner>
+        </div>
+    </form>
+</div>

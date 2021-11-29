@@ -21,7 +21,6 @@ export class AuthorizationService {
 
     const body = {password: password, username: username};
 
-    // TODO: Be careful and do not execute "/api/..." but just "api/..."
     return this.http.postType<any>('api/auth/login', body).pipe(
         tap(res => {
           this.tokenService.saveToken(res.token);
@@ -36,7 +35,7 @@ export class AuthorizationService {
 
       const body = {refreshToken: refreshData.refresh_token}
 
-      return this.http.postType<any>('/refreshToken', body).pipe(
+      return this.http.postType<any>('refreshToken', body).pipe(
           tap(res => {
               this.tokenService.saveToken(res.token);
               this.tokenService.saveRefreshToken(res.refreshToken);

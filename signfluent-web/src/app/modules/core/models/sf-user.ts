@@ -1,5 +1,8 @@
 export interface SfUser {
-    userId: string,
+    id: string,
     email: string,
-    name: string
+    username: string,
+    firstName: string,
+    lastName: string,
+    password?: string
 }

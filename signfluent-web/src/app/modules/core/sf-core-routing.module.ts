@@ -15,6 +15,14 @@ const routes: Routes = [
             {
                 path: 'documents',
                 loadChildren: () => import('../documents/sf-documents.module').then(m => m.SignfluentDocumentsModule),
+            },
+            {
+                path: 'accounts',
+                loadChildren: () => import('../users/sf-users.module').then(m => m.SignfluentUsersModule),
+            },
+            {
+                path: 'settings',
+                loadChildren: () => import('../app-settings/sf-app-settings.module').then(m => m.SignfluentAppSettingsModule)
             }
         ]
     }
