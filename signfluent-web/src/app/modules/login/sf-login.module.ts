@@ -7,6 +7,8 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatCardModule } from "@angular/material/card";
 import { MatInputModule } from "@angular/material/input";
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+
 
 // Signfluent components
 import { SfLoginComponent } from "./components/login/sf-login.component";
@@ -19,8 +21,9 @@ import { MatButtonModule } from "@angular/material/button";
 
 
 
+
 @NgModule({
     declarations: [SfLoginComponent],
-    imports: [CommonModule, FormsModule, ReactiveFormsModule, SignfluentLoginRoutingModule, RouterModule, MatCardModule, MatFormFieldModule, MatInputModule, MatButtonModule],
+    imports: [CommonModule, FormsModule, ReactiveFormsModule, SignfluentLoginRoutingModule, RouterModule, MatCardModule, MatFormFieldModule, MatInputModule, MatButtonModule, MatProgressSpinnerModule],
 })
 export class SignfluentLoginModule { }

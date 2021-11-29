@@ -1,4 +1,8 @@
 <div class="d-flex">
+    <div class="d-flex ml-3 mt-2" *ngIf="isLoadingResults">
+        <mat-spinner [diameter]="30"></mat-spinner>
+    </div>
+
     <mat-form-field appearance="outline" class="ml-auto pt-2">
         <mat-label>Search</mat-label>
         <input matInput (keyup)="applyFilter($event)" placeholder="Search" #input>
@@ -9,53 +13,86 @@
 
     <ng-container matColumnDef="description">
         <th mat-header-cell *matHeaderCellDef> Description </th>
-        <td mat-cell *matCellDef="let documentTask">{{documentTask.document.description}}</td>
+        <div *ngIf="type == documentListType.Approver || type == documentListType.Delegator">
+            <td mat-cell *matCellDef="let documentProcess">{{documentProcess.document.description}}</td>
+        </div>
+        <div *ngIf="type == documentListType.Own || type == documentListType.Administrator">
+            <td mat-cell *matCellDef="let document">{{document.description}}</td>
+        </div>
     </ng-container>
 
-    <div *ngIf="type == 'OWN' || type =='ALL'">
+    <div *ngIf="type == documentListType.Own || type == documentListType.Administrator">
         <ng-container matColumnDef="status">
             <th mat-header-cell *matHeaderCellDef> Status </th>>
-            <td mat-cell *matCellDef="let documentTask" [ngClass]="{'sf-status-blue': documentTask.document.status == 'For Approval',
-                'sf-status-yellow': documentTask.document.status == 'Received',
-                'sf-status-red': documentTask.document.status == 'Rejected',
-                'sf-status-green': documentTask.document.status == 'Approved'}">
-                {{documentTask.document.status}}</td>
+            <td mat-cell *matCellDef="let document" [ngClass]="{'sf-status-blue': document.status == documentStatusTypes.FOR_APPROVAL,
+                'sf-status-yellow': document.status == documentStatusTypes.RECEIVED,
+                'sf-status-red': document.status == documentStatusTypes.REJECTED,
+                'sf-status-green': document.status == documentStatusTypes.APPROVED}">
+                {{translateDocumentStatus(document.status)}}</td>
         </ng-container>
     </div>
 
-    <div *ngIf="type == 'APPROVAL' || type =='ALL' || type == 'DELEGATE'">
+    <div
+        *ngIf="type == documentListType.Approver || type == documentListType.Administrator || type == documentListType.Delegator">
         <ng-container matColumnDef="uploadedBy">
             <th mat-header-cell *matHeaderCellDef> Uploaded By </th>
-            <td mat-cell *matCellDef="let documentTask">{{documentTask.document.uploadedBy}}</td>
+            <div *ngIf="type == documentListType.Approver || type == documentListType.Delegator">
+                <td mat-cell *matCellDef="let documentProcess">{{documentProcess.document.uploadedBy.firstName}}
+                    {{documentProcess.document.uploadedBy.lastName}}</td>
+            </div>
+            <div *ngIf="type == documentListType.Administrator">
+                <td mat-cell *matCellDef="let document">{{document.uploadedBy.firstName}} {{document.uploadedBy.lastName}}</td>
+            </div>
         </ng-container>
     </div>
 
     <ng-container matColumnDef="date">
         <th mat-header-cell *matHeaderCellDef> Date </th>
-        <td mat-cell *matCellDef="let documentTask">{{documentTask.document.uploadedAt | date}}</td>
+        <div *ngIf="type == documentListType.Approver || type == documentListType.Delegator">
+            <td mat-cell *matCellDef="let documentProcess">{{documentProcess.document.uploadedAt | date}}</td>
+        </div>
+        <div *ngIf="type == documentListType.Own || type == documentListType.Administrator">
+            <td mat-cell *matCellDef="let document">{{document.uploadedAt | date}}</td>
+        </div>
     </ng-container>
 
-    <div *ngIf="type == 'APPROVAL' || type=='DELEGATE'">
+    <div
+        *ngIf="type == documentListType.Approver || type==documentListType.Delegator || type == documentListType.Administrator">
         <ng-container matColumnDef="action">
             <th mat-header-cell *matHeaderCellDef></th>
-            <td mat-cell *matCellDef="let documentTask">
-                <button mat-icon-button [matMenuTriggerFor]="menu">
-                    <mat-icon>more_vert</mat-icon>
-                </button>
+            <div *ngIf="type == documentListType.Approver || type == documentListType.Delegator">
+                <td mat-cell *matCellDef="let documentProcess">
+                    <button mat-icon-button [matMenuTriggerFor]="menu">
+                        <mat-icon>more_vert</mat-icon>
+                    </button>
 
-                <mat-menu #menu="matMenu">
-                    <div *ngIf="type == 'DELEGATE'">
-                        <button [routerLink]="['delegate', documentTask.taskId ]" mat-menu-item>
-                            <span>Delegate</span>
+                    <mat-menu #menu="matMenu">
+                        <div *ngIf="type == documentListType.Delegator">
+                            <button [routerLink]="['delegate', documentProcess.processId ]" mat-menu-item>
+                                <span>Delegate</span>
+                            </button>
+                        </div>
+                        <div *ngIf="type == documentListType.Approver">
+                            <button [routerLink]="['approve', documentProcess.processId ]" mat-menu-item>
+                                <span>Approve</span>
+                            </button>
+                        </div>
+                    </mat-menu>
+                </td>
+            </div>
+            <div *ngIf="type == documentListType.Administrator">
+                <td mat-cell *matCellDef="let document">
+                    <button mat-icon-button [matMenuTriggerFor]="menu">
+                        <mat-icon>more_vert</mat-icon>
+                    </button>
+
+                    <mat-menu #menu="matMenu">
+                        <button [routerLink]="['details', document.documentId ]" mat-menu-item>
+                            <span>Details</span>
                         </button>
-                    </div>
-                    <div *ngIf="type == 'APPROVAL'">
-                        <button [routerLink]="['/approve']" mat-menu-item>
-                            <span>Approve</span>
-                        </button>
-                    </div>
-                </mat-menu>
-            </td>
+                    </mat-menu>
+                </td>
+            </div>
         </ng-container>
     </div>
 

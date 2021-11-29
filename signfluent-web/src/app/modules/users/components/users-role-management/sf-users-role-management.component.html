@@ -1,0 +1,43 @@
+<h1>Role management</h1>
+
+<div class="mt-2">
+    <p>Modifying roles for <b>{{user?.firstName}} {{user?.lastName}}</b>:</p>
+</div>
+
+<div class="col mt-3">
+    <div class="row justify-content-center">
+        <div cdkDropListGroup>
+            <div class="drag-container">
+                <h2>Available roles</h2>
+
+                <div cdkDropList cdkDropListSortingDisabled [id]="availableListId" [cdkDropListData]="availableRoles" class="drag-list"
+                    style="height:400px; overflow-y:scroll" (cdkDropListDropped)="drop($event)">
+                    <div class="draggable-item" *ngFor="let role of availableRoles" cdkDrag>
+                        {{role.name}}</div>
+                </div>
+            </div>
+
+            <div class="drag-container">
+                <h2>Assigned roles</h2>
+
+                <div cdkDropList cdkDropListSortingDisabled [id]="assignedListId" [cdkDropListData]="assignedRoles" class="drag-list"
+                    style="height:400px; overflow-y:scroll" (cdkDropListDropped)="drop($event)">
+                    <div class="draggable-item" *ngFor="let role of assignedRoles" cdkDrag>{{role.name}}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row justify-content-center">
+        <div class="mt-5">
+            <button mat-raised-button class="ml-2" color="primary" (click)="goToParent()">Done</button>
+        </div>
+    </div>
+
+    <div class="row justify-content-center mt-3">
+        <p><i>Note**: Changes will take efect only after the user is logged out.</i></p>
+    </div>
+
+    <div class="row justify-content-center mt-2" *ngIf="isLoadingResults">
+        <mat-spinner [diameter]="50"></mat-spinner>
+    </div>
+</div>

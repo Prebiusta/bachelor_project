@@ -32,10 +32,13 @@
                                     </mat-error>
                                 </mat-form-field>
                             </div>
+                            <div class="row justify-content-center" *ngIf="isLoadingResults">
+                                <mat-spinner [diameter]="30"></mat-spinner>
+                            </div>
                         </div>
                     </mat-card-content>
                     <mat-card-actions>
-                        <button type="submit" mat-button [disabled]="!loginForm.valid">Login</button>
+                        <button type="submit" mat-raised-button color="primary" [disabled]="!loginForm.valid">Login</button>
                     </mat-card-actions>
                     <mat-card-footer class="my-2">
                         ⓒ Signfluent 2021 | 1.0.0

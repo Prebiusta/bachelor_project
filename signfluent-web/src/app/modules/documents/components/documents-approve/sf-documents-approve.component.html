@@ -1,8 +1,8 @@
 <div class="col">
     <h1>Approve document</h1>
-    <sf-document-details></sf-document-details>
+    <sf-document-details [document]="document"></sf-document-details>
     <div class="mt-5">
-        <button mat-raised-button>Cancel</button>
-        <button mat-raised-button class="ml-2" color="primary">Sign</button>
+        <button mat-raised-button color="warn" (click)="openRejectDialog()">Reject</button>
+        <button mat-raised-button class="ml-2" color="primary" (click)="approveDocument()">Start approval process</button>
     </div>
 </div>

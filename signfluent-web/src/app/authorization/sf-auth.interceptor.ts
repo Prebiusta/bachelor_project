@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest, HttpResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { throwError } from 'rxjs';
+import { EMPTY, throwError } from 'rxjs';
 import { TokenService } from './sf-token.service';
 import { catchError, map } from 'rxjs/operators';
 import { AuthorizationService } from './sf-authorization.service';
@@ -14,7 +14,6 @@ export class AuthInterceptor implements HttpInterceptor {
 
     intercept(request: HttpRequest<any>, next: HttpHandler): any {
         const token = this.tokenService.getToken();
-        const refreshToken = this.tokenService.getRefreshToken();
 
         if (token) {
             request = request.clone({
@@ -32,7 +31,6 @@ export class AuthInterceptor implements HttpInterceptor {
             });
         }
 
-
         request = request.clone({
             headers: request.headers.set('Accept', 'application/json')
         });
@@ -43,14 +41,9 @@ export class AuthInterceptor implements HttpInterceptor {
             }),
             catchError((error: HttpErrorResponse) => {
                 if (error.status === 401) {
-                    if (error.error.error === 'invalid_token') {
-                        this.authService.refreshToken({ refresh_token: refreshToken })
-                            .subscribe(() => {
-                                location.reload();
-                            });
-                    } else {
+                        this.authService.logout();
                         this.router.navigate(['login']);
-                    }
+                        return EMPTY;
                 }
                 return throwError(error);
             }));

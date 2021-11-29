@@ -1,21 +1,29 @@
-import { AfterViewInit, Component, Input, ViewChild } from '@angular/core';
+import { Component, Input, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { DocumentSigningProcessService } from '../../services/document-signing-process.service';
+import { SfDocumentProcess } from "../../model/sf-document-process";
+import { DocumentListType } from '../../constants/document-list-type';
 import { DocumentService } from '../../services/document.service';
-import {SfDocumentTask} from "../../model/sf-document-task";
+import { SfDocument } from '../../model/sf-document';
+import { DocumentStatus } from '../../constants/document-status';
+import { DocumentTranslations } from '../../constants/document-translations';
 
 @Component({
     selector: 'sf-documents-list',
     styleUrls: ['sf-documents-list.component.scss'],
     templateUrl: './sf-documents-list.component.html'
 })
-export class SfDocumentsListComponent implements AfterViewInit {
-    dataSource!: MatTableDataSource<SfDocumentTask>;
+export class SfDocumentsListComponent {
+    dataSource!: MatTableDataSource<SfDocumentProcess | SfDocument>;
 
     @Input() type: string = '';
+    documentListType = DocumentListType;
+    documentStatusTypes = DocumentStatus;
     displayedColumns: string[] = [];
-    private ALL = ['description', 'status', 'uploadedBy', 'date'];
+    isLoadingResults = false;
+    private ALL = ['description', 'status', 'uploadedBy', 'date', 'action'];
     private OWN = ['description', 'status', 'date'];
     private DELEGATE = ['description', 'uploadedBy', 'date', 'action'];
     private APPROVAL = ['description', 'uploadedBy', 'date', 'action'];
@@ -23,29 +31,47 @@ export class SfDocumentsListComponent implements AfterViewInit {
     @ViewChild(MatPaginator) paginator!: MatPaginator;
     @ViewChild(MatSort) sort!: MatSort;
 
-    constructor(private documentService: DocumentService) {
-      this.dataSource = new MatTableDataSource<SfDocumentTask>();
+    constructor(private signingProcessService: DocumentSigningProcessService, private documentService: DocumentService) {
+        this.dataSource = new MatTableDataSource<SfDocumentProcess | SfDocument>();
     }
 
     public ngOnInit() {
-        if (this.type == 'OWN') {
-            this.displayedColumns = this.OWN;
-        } else if (this.type == 'ALL') {
-            this.displayedColumns = this.ALL;
-        } else if (this.type == 'DELEGATE') {
-            this.documentService.getDocuments('DELEGATE').subscribe(documentTasks => {
-              console.log(documentTasks);
-              this.dataSource = new MatTableDataSource<SfDocumentTask>(documentTasks);
+        this.isLoadingResults = true;
+        if (this.type == DocumentListType.Delegator) {
+            this.signingProcessService.getDocumentsForInspection().subscribe(documentTasks => {
+                this.isLoadingResults = false;
+                this.dataSource = new MatTableDataSource<SfDocumentProcess | SfDocument>(documentTasks);
+                this.displayedColumns = this.DELEGATE;
+                this.dataSource.paginator = this.paginator;
+                this.dataSource.sort = this.sort;
             });
-            this.displayedColumns = this.DELEGATE;
-        } else if (this.type == 'APPROVAL') {
-            this.displayedColumns = this.APPROVAL;
+        } else if (this.type == DocumentListType.Approver) {
+            this.signingProcessService.getDocumentsForApproval().subscribe(documentTasks => {
+                this.isLoadingResults = false;
+                this.dataSource = new MatTableDataSource<SfDocumentProcess | SfDocument>(documentTasks);
+                this.displayedColumns = this.APPROVAL;
+                this.dataSource.paginator = this.paginator;
+                this.dataSource.sort = this.sort;
+            });
         }
-    }
-
-    public ngAfterViewInit() {
-        this.dataSource.paginator = this.paginator;
-        this.dataSource.sort = this.sort;
+        else if (this.type == DocumentListType.Administrator) {
+            this.documentService.getAllDocuments().subscribe(documents => {
+                this.isLoadingResults = false;
+                this.dataSource = new MatTableDataSource<SfDocumentProcess | SfDocument>(documents);
+                this.displayedColumns = this.ALL;
+                this.dataSource.paginator = this.paginator;
+                this.dataSource.sort = this.sort;
+            });
+        }
+        else if (this.type == DocumentListType.Own) {
+            this.documentService.getOwnDocuments().subscribe(documents => {
+                this.isLoadingResults = false;
+                this.dataSource = new MatTableDataSource<SfDocumentProcess | SfDocument>(documents);
+                this.displayedColumns = this.OWN;
+                this.dataSource.paginator = this.paginator;
+                this.dataSource.sort = this.sort;
+            })
+        }
     }
 
     public applyFilter(event: Event) {
@@ -56,4 +82,19 @@ export class SfDocumentsListComponent implements AfterViewInit {
             this.dataSource.paginator.firstPage();
         }
     }
+
+    public translateDocumentStatus(status: string): string {
+        if (status == DocumentStatus.APPROVED) {
+            return DocumentTranslations.STATUS_APPROVED;
+        } else if (status == DocumentStatus.FOR_APPROVAL) {
+            return DocumentTranslations.STATUS_FOR_APPROVAL;
+        } else if (status == DocumentStatus.RECEIVED) {
+            return DocumentTranslations.STATUS_RECEIVED;
+        } else if (status == DocumentStatus.REJECTED) {
+            return DocumentTranslations.STATUS_REJECTED;
+        } else {
+            return 'UNKNOWN'
+        }
+    }
+
 }

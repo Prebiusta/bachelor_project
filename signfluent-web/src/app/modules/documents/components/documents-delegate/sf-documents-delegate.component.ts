@@ -1,16 +1,17 @@
 import { Component } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
-import { SfDelegateRejectComponent } from "./dialogs/sf-delegate-reject.component";
+import { SfDialogRejectDocument } from "../dialogs/sf-dialog-reject-document.component";
 import { MatDialog } from "@angular/material/dialog";
-import { UserService } from "src/app/modules/core/services/user.service";
 import { SfUser } from "src/app/modules/core/models/sf-user";
-import { DocumentService } from "../../services/document.service";
-import { ActivatedRoute } from "@angular/router";
+import { DocumentSigningProcessService } from "../../services/document-signing-process.service";
+import { ActivatedRoute, Router } from "@angular/router";
 import { SfDocument } from "../../model/sf-document";
 import { SfApproverOrder } from "../../model/sf-approver-order";
+import { SfDocumentDelegation } from "../../model/sf-document-delegation";
 import { SfDocumentInspection } from "../../model/sf-document-inspection";
 import { MatSnackBar } from "@angular/material/snack-bar";
+import { DocumentProcessUtil } from "../../constants/document-process-util";
 
 @Component({
     selector: 'sf-documents-delegate',
@@ -26,9 +27,11 @@ export class SfDocumentsDelegateComponent {
     public approvers!: SfUser[];
     public assigned: SfUser[] = [];
 
-    private taskId!: string;
+    private processId!: string;
 
-    constructor(private route: ActivatedRoute, private formBuilder: FormBuilder, public dialog: MatDialog, private userService: UserService, private documentService: DocumentService, private snackbar: MatSnackBar) { }
+    constructor(private route: ActivatedRoute, private formBuilder: FormBuilder, public dialog: MatDialog, private signingProcessService: DocumentSigningProcessService, private snackbar: MatSnackBar, private router: Router) {
+
+    }
 
     public ngOnInit() {
         this.validForm = this.formBuilder.group({
@@ -38,12 +41,13 @@ export class SfDocumentsDelegateComponent {
             validOrder: [false, Validators.requiredTrue]
         })
 
+
         this.getDocumentDetails();
         this.getActiveApprovers();
     }
 
     public getActiveApprovers() {
-        this.userService.getActiveApprovers().subscribe(activeApprovers => this.approvers = activeApprovers);
+        this.signingProcessService.getActiveApprovers().subscribe(activeApprovers => this.approvers = activeApprovers);
     }
 
     public drop(event: CdkDragDrop<SfUser[]>) {
@@ -58,29 +62,49 @@ export class SfDocumentsDelegateComponent {
     }
 
     private getDocumentDetails() {
-        const taskId = String(this.route.snapshot.paramMap.get('taskId'))
-        this.taskId = taskId;
-        this.documentService.get(taskId).subscribe(document => {
+        const processId = String(this.route.snapshot.paramMap.get('processId'))
+        this.processId = processId;
+        this.signingProcessService.get(processId).subscribe(document => {
             this.document = document;
+        });
+    }
+
+    public inspectDocument() {
+        const inspection: SfDocumentInspection = { processId: this.processId, isValid: this.validForm.valid };
+
+        this.signingProcessService.inspect(inspection).subscribe();
+    }
+
+    public rejectDocument() {
+        const rejection: SfDocumentInspection = { processId: this.processId, isValid: false };
+
+        this.signingProcessService.inspect(rejection).subscribe({
+            next: data => {
+                this.snackbar.open("Document rejected", undefined, {
+                    duration: 5 * 1000
+                });
+                this.router.navigate(['/signfluent/documents']);
+            },
+            error: error => {
+                this.snackbar.open("Unable to reject document", undefined, {
+                    duration: 5 * 1000
+                });
+            }
         });
     }
 
 
     public delegateDocument() {
-        const orderedApprovers = this.orderApprovers();
-        const isValid = this.validForm.valid;
-        const delegatorId = "cba00e70-29e2-4dc3-a0ae-6d9c983358ed"
+        const delegation: SfDocumentDelegation = { processId: this.processId, approvers: this.orderApprovers() };
 
-        const documentInspection: SfDocumentInspection = { taskId: this.taskId, isValid: isValid, delegatorId: delegatorId, approvers: orderedApprovers };
-
-        this.documentService.delegate(documentInspection).subscribe({
+        this.signingProcessService.delegate(delegation).subscribe({
             next: data => {
                 this.snackbar.open("Document sucessfully delegated", undefined, {
                     duration: 5 * 1000
                 });
+                this.router.navigate(['/signfluent/documents']);
             },
             error: error => {
-                console.error(error);
                 this.snackbar.open("Unable to delegate document", undefined, {
                     duration: 5 * 1000
                 });
@@ -89,12 +113,17 @@ export class SfDocumentsDelegateComponent {
     }
 
     public openRejectDialog(): void {
-        this.dialog.open(SfDelegateRejectComponent)
+        const dialogRef = this.dialog.open(SfDialogRejectDocument);
+        dialogRef.afterClosed().subscribe(result => {
+            if (result.event == DocumentProcessUtil.REJECT) {
+                this.rejectDocument();
+            }
+        })
     }
 
     private orderApprovers() {
         return this.assigned.map((assigne, index) => {
-            const approverId = assigne.userId;
+            const approverId = assigne.id;
             const approver: SfApproverOrder = { approverId: approverId, order: index }
             return approver;
         })

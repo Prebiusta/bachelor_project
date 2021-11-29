@@ -2,7 +2,7 @@
     <div class="row justify-content-between my-4 w-100 mx-0 align-items-center">
         <div>
             <button mat-button [matMenuTriggerFor]="menu">
-                Documents
+                {{navigatedModule}}
                 <mat-icon aria-hidden="false" aria-label="route">
                     keyboard_arrow_down
                 </mat-icon>
@@ -14,17 +14,25 @@
                         <span>Documents</span>
                     </div>
                 </button>
-                <button mat-menu-item>
-                    <div class="row mx-0 align-items-center">
-                        <mat-icon aria-hidden="false" aria-label="documents">manage_accounts</mat-icon>
-                        <span>Process management</span>
-                    </div>
-                </button>
+                <div *ngIf="isAdministrator()">
+                    <button [routerLink]="['accounts']" mat-menu-item>
+                        <div class="row mx-0 align-items-center">
+                            <mat-icon aria-hidden="false" aria-label="accounts">manage_accounts</mat-icon>
+                            <span>Accounts management</span>
+                        </div>
+                    </button>
+                    <button [routerLink]="['settings']" mat-menu-item>
+                        <div class="row mx-0 align-items-center">
+                            <mat-icon aria-hidden="false" aria-label="processes">settings</mat-icon>
+                            <span>Process management</span>
+                        </div>
+                    </button>
+                </div>
             </mat-menu>
         </div>
         <img class="logo" src="../../../../assets/logo.png">
         <div class="row justify-content-end mx-0">
-            <button mat-button>Username</button>
+            <button mat-button>{{name}}</button>
             <button mat-button (click)="openLogoutDialog()">
                 <mat-icon aria-hidden="false" aria-label="logout">
                     logout
