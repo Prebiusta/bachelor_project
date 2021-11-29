@@ -6,6 +6,5 @@ spec:
   selector:
     app: webapp
   ports:
-    - name: http
-      port: 4200
-      targetPort: 4200
+    - port: 80
+  type: LoadBalancer

@@ -18,4 +18,4 @@ spec:
           imagePullPolicy: Never
           image: signfluent/webapp:latest
           ports:
-            - containerPort: 4200
+            - containerPort: 80

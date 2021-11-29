@@ -5,6 +5,7 @@ keycloak:
   resource: signfluent
   use-resource-role-mappings: true
   public-client: true
+  cors: off
 
 server:
   port: 8006

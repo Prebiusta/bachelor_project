@@ -1,8 +1,9 @@
-import { Injectable } from "@angular/core";
+import {Injectable} from "@angular/core";
+import {environment} from "../../../../environments/environment";
 
 @Injectable({
-    providedIn: 'root'
+  providedIn: 'root'
 })
 export class EnvironmentUrlService {
-    public url: string = 'http://localhost:8006'
+  public url: string = `http://${environment.apiHost}:${environment.apiPort}`
 }
