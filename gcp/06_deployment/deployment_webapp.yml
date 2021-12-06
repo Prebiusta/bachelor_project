@@ -15,8 +15,7 @@ spec:
     spec:
       containers:
         - name: webapp
-          imagePullPolicy: Never
-          image: signfluent/webapp:latest
+          image: europe-west3-docker.pkg.dev/bachelor-2021-333810/signfluent-images/webapp:V0.1
           ports:
             - containerPort: 80
           env:

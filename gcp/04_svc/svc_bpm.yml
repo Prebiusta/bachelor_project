@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: bpm-service-svc
+spec:
+  selector:
+    app: bpm-service
+  ports:
+    - name: http
+      port: 8000
+      targetPort: 8000
+

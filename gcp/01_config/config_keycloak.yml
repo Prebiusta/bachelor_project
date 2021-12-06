@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: keycloak-config-map
+data:
+  dbVendor: "mariadb"
+  dbDatabase: "keycloak"
+  frontEndURL: "http://localhost:8080/auth"
+  username: "admin"
+  password: "B4ch3l0r202!"
+  jdbcParams: "createDatabaseIfNotExist=true"

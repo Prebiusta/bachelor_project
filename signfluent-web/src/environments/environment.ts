@@ -5,9 +5,7 @@
 export const environment = {
   production: false,
   // @ts-ignore
-  apiHost: "localhost",
-  // @ts-ignore
-  apiPort: "8006",
+  businessServiceHost: "http://localhost:8006",
 };
 
 /*

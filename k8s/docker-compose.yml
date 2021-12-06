@@ -5,39 +5,39 @@ services:
   ui:
     container_name: signfluent-web
     build: ../signfluent-web
-    image: signfluent/webapp:latest
+    image: europe-west3-docker.pkg.dev/bachelor-2021-333810/signfluent-images/webapp:V0.1
 
   document_service:
     container_name: document-service
     build: ../document-service
-    image: signfluent/document-service:latest
+    image: europe-west3-docker.pkg.dev/bachelor-2021-333810/signfluent-images/document-service:V0.1
 
   bpm_service:
     container_name: bpm-service
     build: ../bpm-service
-    image: signfluent/bpm-service:latest
+    image: europe-west3-docker.pkg.dev/bachelor-2021-333810/signfluent-images/bpm-service:V0.1
 
   notification_service:
     container_name: notification-service
     build: ../notification-service
-    image: signfluent/notification-service:latest
+    image: europe-west3-docker.pkg.dev/bachelor-2021-333810/signfluent-images/notification-service:V0.1
 
   user_service:
     container_name: user-service
     build: ../user-service
-    image: signfluent/user-service:latest
+    image: europe-west3-docker.pkg.dev/bachelor-2021-333810/signfluent-images/user-service:V0.1
 
   certificate_authority:
     container_name: certificate-authority
     build: ../certificate-authority
-    image: signfluent/certificate-authority:latest
+    image: europe-west3-docker.pkg.dev/bachelor-2021-333810/signfluent-images/certificate-authority:V0.1
 
   device_service:
     container_name: device-service
     build: ../device-service
-    image: signfluent/device-service:latest
+    image: europe-west3-docker.pkg.dev/bachelor-2021-333810/signfluent-images/device-service:V0.1
 
   business_service:
     container_name: business-service
     build: ../business-service
-    image: signfluent/business-service:latest
+    image: europe-west3-docker.pkg.dev/bachelor-2021-333810/signfluent-images/business-service:V0.1

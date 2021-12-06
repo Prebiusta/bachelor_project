@@ -1,0 +1,24 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: signfluent-ingress
+  annotations:
+    kubernetes.io/ingress.global-static-ip-name: signfluent-webapp-ip
+    networking.gke.io/managed-certificates: "signfluent"
+spec:
+  defaultBackend:
+    service:
+      name: webapp
+      port:
+        number: 80
+  rules:
+    - host: "signfluent.com"
+      http:
+        paths:
+          - path: /api/*
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: business-service-svc
+                port:
+                  number: 8006

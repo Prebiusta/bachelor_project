@@ -2,6 +2,5 @@
   window["env"] = window["env"] || {};
 
   // Environment variables
-  window["env"]["apiHost"] = "default";
-  window["env"]["apiPort"] = 8080;
+  window["env"]["businessServiceHost"] = "default"
 })(this);

@@ -1,0 +1,73 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: notification-service-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: notification-service
+  template:
+    metadata:
+      labels:
+        app: notification-service
+    spec:
+      containers:
+        - name: notification-service
+          image: europe-west3-docker.pkg.dev/bachelor-2021-333810/signfluent-images/notification-service:V0.1
+          ports:
+            - containerPort: 8002
+          env:
+            - name: "spring.datasource.url"
+              valueFrom:
+                configMapKeyRef:
+                  name: notification-service-config-map
+                  key: dbConnectionString
+            - name: "jpa.hibernate.ddl-auto"
+              valueFrom:
+                configMapKeyRef:
+                  name: notification-service-config-map
+                  key: ddl-auto
+            - name: "spring.datasource.username"
+              valueFrom:
+                configMapKeyRef:
+                  name: db-config-map
+                  key: dbUsername
+            - name: "spring.datasource.password"
+              valueFrom:
+                configMapKeyRef:
+                  name: db-config-map
+                  key: dbPassword
+            - name: "spring.mail.host"
+              valueFrom:
+                configMapKeyRef:
+                  name: notification-service-config-map
+                  key: smtpHost
+            - name: "spring.mail.port"
+              valueFrom:
+                configMapKeyRef:
+                  name: notification-service-config-map
+                  key: smtpPort
+            - name: "spring.mail.username"
+              valueFrom:
+                configMapKeyRef:
+                  name: notification-service-config-map
+                  key: smtpUsername
+            - name: "spring.mail.password"
+              valueFrom:
+                configMapKeyRef:
+                  name: notification-service-config-map
+                  key: smtpPassword
+            - name: GOOGLE_APPLICATION_CREDENTIALS
+              value: /etc/gcp/sa_credentials.json
+          volumeMounts:
+            - name: firebase-sa-account-credentials-volume
+              mountPath: /etc/gcp
+              readOnly: true
+      volumes:
+        - name: firebase-sa-account-credentials-volume
+          secret:
+            secretName: firebase-sa-account-credentials
+            items:
+              - key: key.json
+                path: sa_credentials.json

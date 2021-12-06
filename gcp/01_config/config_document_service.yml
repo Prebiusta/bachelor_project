@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: document-service-config-map
+data:
+  dbConnectionString: "jdbc:mariadb://mysql:3306/document-service?createDatabaseIfNotExist=true"
+  ddl-auto: "update"

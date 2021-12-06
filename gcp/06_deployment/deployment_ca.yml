@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ca-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ca
+  template:
+    metadata:
+      labels:
+        app: ca
+    spec:
+      containers:
+        - name: ca
+          image: europe-west3-docker.pkg.dev/bachelor-2021-333810/signfluent-images/certificate-authority:V0.1
+          ports:
+            - containerPort: 8004
+          env:
+            - name: "certificate.keystore.type"
+              valueFrom:
+                configMapKeyRef:
+                  name: ca-config-map
+                  key: keystore.type
+            - name: "certificate.keystore.password"
+              valueFrom:
+                configMapKeyRef:
+                  name: ca-config-map
+                  key: keystore.password
+            - name: "certificate.pem"
+              valueFrom:
+                configMapKeyRef:
+                  name: ca-config-map
+                  key: p12pem

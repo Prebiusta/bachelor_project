@@ -5,5 +5,5 @@ import {environment} from "../../../../environments/environment";
   providedIn: 'root'
 })
 export class EnvironmentUrlService {
-  public url: string = `http://${environment.apiHost}:${environment.apiPort}`
+  public url: string = environment.businessServiceHost
 }

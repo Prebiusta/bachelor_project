@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: device-service-svc
+spec:
+  selector:
+    app: device-service
+  ports:
+    - name: http
+      port: 8005
+      targetPort: 8005

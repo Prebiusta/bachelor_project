@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: user-service-config-map
+data:
+  keycloak.realm: "master"
+  keycloak.ssl-required: "external"
+  keycloak.resource: "signfluent"
+  keycloak.use-resource-role-mappings: "true"
+  keycloak.public-client: "true"

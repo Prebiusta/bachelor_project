@@ -1,0 +1,54 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: user-service-deployment
+spec:
+  selector:
+    matchLabels:
+      app: user-service
+  template:
+    metadata:
+      labels:
+        app: user-service
+    spec:
+      containers:
+        - name: user-service
+          image: europe-west3-docker.pkg.dev/bachelor-2021-333810/signfluent-images/user-service:V0.1
+          ports:
+            - containerPort: 8003
+          env:
+            - name: "keycloak.realm"
+              valueFrom:
+                configMapKeyRef:
+                  name: user-service-config-map
+                  key: keycloak.realm
+            - name: "keycloak.ssl-required"
+              valueFrom:
+                configMapKeyRef:
+                  name: user-service-config-map
+                  key: keycloak.ssl-required
+            - name: "keycloak.resource"
+              valueFrom:
+                configMapKeyRef:
+                  name: user-service-config-map
+                  key: keycloak.resource
+            - name: "keycloak.use-resource-role-mappings"
+              valueFrom:
+                configMapKeyRef:
+                  name: user-service-config-map
+                  key: keycloak.use-resource-role-mappings
+            - name: "keycloak.public-client"
+              valueFrom:
+                configMapKeyRef:
+                  name: user-service-config-map
+                  key: keycloak.public-client
+            - name: "service-account.username"
+              valueFrom:
+                configMapKeyRef:
+                  name: keycloak-config-map
+                  key: username
+            - name: "service-account.password"
+              valueFrom:
+                configMapKeyRef:
+                  name: keycloak-config-map
+                  key: password

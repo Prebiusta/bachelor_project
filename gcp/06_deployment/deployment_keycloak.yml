@@ -1,0 +1,67 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: keycloak
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: keycloak
+  template:
+    metadata:
+      labels:
+        app: keycloak
+    spec:
+      containers:
+        - name: keycloak
+          image: jboss/keycloak
+          ports:
+            - containerPort: 8080
+          env:
+            - name: DB_ADDR
+              value: mysql
+            - name: DB_PORT
+              valueFrom:
+                configMapKeyRef:
+                  name: db-config-map
+                  key: dbPort
+            - name: DB_VENDOR
+              valueFrom:
+                configMapKeyRef:
+                  name: keycloak-config-map
+                  key: dbVendor
+            - name: DB_DATABASE
+              valueFrom:
+                configMapKeyRef:
+                  name: keycloak-config-map
+                  key: dbDatabase
+            - name: DB_USER
+              valueFrom:
+                configMapKeyRef:
+                  name: db-config-map
+                  key: dbUsername
+            - name: DB_PASSWORD
+              valueFrom:
+                configMapKeyRef:
+                  name: db-config-map
+                  key: dbPassword
+            - name: JDBC_PARAMS
+              valueFrom:
+                configMapKeyRef:
+                  name: keycloak-config-map
+                  key: jdbcParams
+            - name: KEYCLOAK_FRONTEND_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: keycloak-config-map
+                  key: frontEndURL
+            - name: KEYCLOAK_USER
+              valueFrom:
+                configMapKeyRef:
+                  name: keycloak-config-map
+                  key: username
+            - name: KEYCLOAK_PASSWORD
+              valueFrom:
+                configMapKeyRef:
+                  name: keycloak-config-map
+                  key: password

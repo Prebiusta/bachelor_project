@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: db-config-map
+data:
+  dbUsername: "root"
+  dbPassword: "Wh5FBp!3M"
+  dbPort: "3306"
