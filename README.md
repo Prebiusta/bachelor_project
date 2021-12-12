@@ -25,4 +25,4 @@ Swagger was used in order to reduce effort to manually maintain the endpoints an
 #### Swagger API Documentation
 
 Is used for generating the client. Make sure that every Controller has `@RestController` annotation and
-`@RequestMapping("/dk.signfluent.service.document.api/<name-of-controller>")`. Swagger is configured to detect endpoints starting with `/dk.signfluent.service.document.api`.
+`@RequestMapping("/api/<name-of-controller>")`. Swagger is configured to detect endpoints starting with `/api`.
