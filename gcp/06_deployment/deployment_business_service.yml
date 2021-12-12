@@ -50,9 +50,9 @@ spec:
                   key: keycloak.public-client
           livenessProbe:
             httpGet:
-              path: /actuator/health/liveness
+              path: /api/auth/ping
               port: 8006
           readinessProbe:
             httpGet:
-              path: /actuator/health/readiness
+              path: /api/auth/ping
               port: 8006
