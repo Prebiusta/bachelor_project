@@ -5,6 +5,7 @@ metadata:
   annotations:
     kubernetes.io/ingress.global-static-ip-name: signfluent-webapp-ip
     networking.gke.io/managed-certificates: "signfluent"
+    ngnix.ingress.kubernetes.io/rewrite-target: /$2
 spec:
   defaultBackend:
     service:
@@ -15,6 +16,13 @@ spec:
     - host: "signfluent.com"
       http:
         paths:
+          - path: /
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: webapp
+                port:
+                  number: 80
           - path: /api/*
             pathType: ImplementationSpecific
             backend:

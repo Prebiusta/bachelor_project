@@ -5,7 +5,7 @@ metadata:
 data:
   keycloak.realm: "master"
   keycloak.auth-server-url: "http://idp-keycloak:8080/auth"
-  keycloak.ssl-required: "external"
+  keycloak.ssl-required: "none"
   keycloak.resource: "signfluent"
   keycloak.use-resource-role-mappings: "true"
   keycloak.public-client: "true"

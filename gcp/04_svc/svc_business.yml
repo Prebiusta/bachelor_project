@@ -6,7 +6,7 @@ spec:
   selector:
     app: business-service
   ports:
-    - name: http
+    - protocol: TCP
       port: 8006
       targetPort: 8006
   type: NodePort
