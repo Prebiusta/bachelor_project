@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="dk.signfluent.signfluent_phone">
    <application
-        android:label="signfluent_phone"
+        android:label="Signfluent"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"

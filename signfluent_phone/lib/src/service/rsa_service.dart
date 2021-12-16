@@ -50,14 +50,14 @@ class RSAService {
     return CertificateStorage.fromJson(jsonDecode(certStorageJSON));
   }
 
+  Future<String> sign(String content, String currentUserId) async {
+    var privKey = await getPrivateKeyForUser(currentUserId);
+    return RsaKeyHelper().sign(content, privKey);
+  }
+
   Future<RSAPrivateKey> getPrivateKeyForUser(String userId) async {
     CertificateStorage certificateStorage = await getCertificateStorage(userId);
     return RsaKeyHelper()
         .parsePrivateKeyFromPem(certificateStorage.privateKeyPEM);
-  }
-
-  Future<String> sign(String content, String currentUserId) async {
-    var privKey = await getPrivateKeyForUser(currentUserId);
-    return RsaKeyHelper().sign(content, privKey);
   }
 }
