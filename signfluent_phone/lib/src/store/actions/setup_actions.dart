@@ -81,6 +81,7 @@ Future<String> issueX509Certificate(String userId,
   x509certificateRequestBuilder.userId = userId;
   x509certificateRequestBuilder.publicKeyPem =
       _rsaService.getPublicKeyPEM(asymmetricKeyPair);
+
   String x509Pem = await _bpmServiceApiProvider
       .issueX509Certificate(x509certificateRequestBuilder.build());
   return x509Pem;

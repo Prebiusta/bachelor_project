@@ -41,7 +41,7 @@ class _AppState extends State<App> {
         if (snapshot.hasError) {
           return const Center(
             child: Text(
-              "No firebase config config found",
+              "No firebase config found",
               textDirection: TextDirection.ltr,
             ),
           );
